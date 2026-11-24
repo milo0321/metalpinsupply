@@ -1,0 +1,34 @@
+{
+  "name": "medalpinsupply",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "MedalPinSupply.com - Factory-Direct Custom Enamel Pins, Race Medals, Challenge Coins, Trolley Coins & Metal Keychains Wholesale Platform (150+ SKUs)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "format": "prettier --write \"src/**/*.{astro,ts,tsx,css,json}\" \"dist/**/*.{html,xml}\"",
+    "astro": "astro",
+    "catalog:sync": "node scripts/build_catalog_150.cjs && node scripts/build_insights_40.cjs && node scripts/generate_llms_txt.cjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "^6.0.4",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.9",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "cheerio": "^1.2.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.7.3",
+    "wrangler": "^4.158.0"
+  },
+  "overrides": {
+    "esbuild": "0.28.2"
+  }
+}

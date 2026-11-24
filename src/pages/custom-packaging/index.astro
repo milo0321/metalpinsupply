@@ -1,0 +1,442 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../../i18n/utils';
+import { getPackagingBullets, getLocalizedPageFaqs } from '../../i18n/pageContentLocalization';
+
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const pkgBullets = getPackagingBullets(currentLang);
+
+const packagingFaqs = [
+  {
+    question: 'What standard individual packaging is included free with custom pins, medals, and coins?',
+    answer: 'Every custom pin, challenge coin, keychain, and medal ships individually packed in a sealed virgin OPP polybag (or protective translucent sleeve for collector finishes) at $0.00 extra charge, preventing metal-on-metal friction scratches during air or ocean transit.'
+  },
+  {
+    question: 'What is the Minimum Order Quantity (MOQ) for custom CMYK printed paper backing cards?',
+    answer: 'Custom double-sided 350gsm–400gsm matte or gloss backing cards (+$0.12–$0.22/pc) start at just 100 pieces per artwork, with complimentary butterfly-clutch mounting and optional gold hot-foil logo stamping.'
+  },
+  {
+    question: 'Do you supply rigid optical acrylic capsules for challenge coins and trolley tokens?',
+    answer: 'Yes. Our virgin optical polystyrene coin capsules (+$0.15–$0.35/pc) cover 38mm–60mm collector diameters ($35 sizing-ring setup waived at 500+ pcs) paired with high-density black EVA foam sizing rings to protect 24K gold finishes from fingerprints and tarnishing.'
+  },
+  {
+    question: 'What presentation box options are available for corporate awards, cufflinks, and VIP medallions?',
+    answer: 'We manufacture hinged flocked Velvet Clamshell Boxes, stitched PU Leatherette & Wooden Deluxe Cases (+$0.85–$1.85/pc, MOQ 100), and CNC die-cut EVA foam cradles with custom lid hot-foil stamping or printed paper sleeves.'
+  },
+  {
+    question: 'Can you apply Amazon FBA FNSKU barcode stickers, retail barcode labels, and CPSIA warnings?',
+    answer: 'Yes. We print and affix thermal-transfer Amazon FNSKU barcodes, event wave color-coding labels, "Made in China" origin stickers, and CPSIA / EN71-3 safety notices directly onto retail OPP bags or display boxes free of charge.'
+  },
+  {
+    question: 'Can you mount marathon neck ribbons, blister cards, or header hang-bags for retail racks?',
+    answer: 'Yes. Marathon medals come pre-looped and polybagged to prevent ribbon creasing, while pins, keychains, golf divot tools, and bookmarks can be mounted onto Euro-slot die-cut hang cards ready for brick-and-mortar pegboard retail.'
+  },
+  {
+    question: 'What is the cost and MOQ difference between Backing Cards, Acrylic Capsules, and Velvet Boxes?',
+    answer: 'Individual OPP polybagging is included free from 50 pcs. Custom 400gsm Retail Backing Cards add +$0.12–$0.22/pc (MOQ 100), Optical Coin Capsules with custom EVA rings add +$0.15–$0.35/pc (MOQ 100), and hinged Velvet / Leatherette Foil-Stamped Gift Boxes add +$0.85–$1.85/pc (MOQ 100).'
+  },
+  {
+    question: 'Can you kit multiple metal items together into one executive welcome gift box?',
+    answer: 'Absolutely. We routinely engineer custom 2-cavity and 3-cavity EVA foam inserts pairing 1 lapel pin + 1 challenge coin + 1 cufflink set (or neck tie bar + pocket square clip) inside a single bespoke leatherette presentation case.'
+  },
+  {
+    question: 'How do you protect heavy medal and buckle shipments from corner damage in ocean or air cargo?',
+    answer: 'All export cartons use heavy 5-ply K=K double-wall corrugated boxes with moisture-barrier inner poly liners, silica gel desiccants, and foam dividers—capping carton gross weight around 15–18 kg for safe parcel handling.'
+  },
+  {
+    question: 'Do you provide 1:1 dieline templates (.AI / .PDF) before we design our retail card artwork?',
+    answer: 'Yes. Contact our Zhongshan export team on WhatsApp (+86 187 5012 6315) or sales@medalpinsupply.com with your pin or coin dimensions, and we will return a print-ready dieline template within 12 hours.'
+  }
+];
+
+const localizedPackagingFaqs = getLocalizedPageFaqs('packaging', packagingFaqs, currentLang);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: localizedPackagingFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const packagingServiceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: currentLang === 'en' ? 'Custom Pin Backing Cards, Velvet Gift Boxes & Coin Capsules | MedalPinSupply' : `${t('pkg.heroTitle')} | MedalPinSupply`,
+  provider: {
+    '@type': 'Organization',
+    name: 'MedalPinSupply.com',
+    url: 'https://medalpinsupply.com'
+  },
+  serviceType: '400gsm Backing Cards, Flocked Velvet Gift Boxes, Optical Acrylic Coin Capsules & FBA Assembly',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Wholesale Metal Craft Retail Packaging Tiers',
+    itemListElement: [
+      { '@type': 'Offer', name: 'Individual Sealed OPP Polybag Protection (Included, MOQ 50 pcs)', price: '0.00', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Custom 400gsm CMYK Backing Card + Mounting (MOQ 100 pcs)', price: '0.12', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Optical Acrylic Coin Capsule + Black EVA Ring (MOQ 100 pcs)', price: '0.15', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Hinged Velvet / Leatherette Foil-Stamped Box (MOQ 100 pcs)', price: '0.85', priceCurrency: 'USD' }
+    ]
+  }
+};
+
+const PACKAGING_META_DESC_MAP: Record<string, string> = {
+  en: 'Custom metal craft packaging: free polybags, 400gsm CMYK backing cards (+$0.12+, MOQ 100), optical coin capsules (+$0.15+) & velvet foil boxes (+$0.85+).',
+  es: 'Empaque para pines y medallas: bolsas OPP gratis, tarjetas de cartón 400g (+$0.12+, MOQ 100), cápsulas acrílicas (+$0.15+) y estuches de terciopelo.',
+  de: 'Verkaufsverpackung für Pins & Coins: OPP-Beutel inkl., 400g Trägerkarten (+$0.12+, MOQ 100), Acryl-Münzkapseln (+$0.15+) & Samt-Präsentboxen (+$0.85+).',
+  fr: 'Packaging pins & médailles : sachets inclus, cartons imprimés 400g (+$0.12+, MOQ 100), capsules acryliques (+$0.15+) et écrins velours dorure (+$0.85+).',
+  ja: 'ピン・メダル・コイン梱包：個別OPP袋無料、400g台紙印刷（+$0.12〜・MOQ 100）、透明アクリルカプセル（+$0.15〜）、箔押しベルベット化粧箱（+$0.85〜）。',
+  ko: '핀·메달·코인 맞춤 패키징: 개별 OPP 포장 무료, 400g 백킹 카드(+$0.12+, MOQ 100), 아크릴 캡슐(+$0.15+), 금박 벨벳 선물 케이스(+$0.85+).',
+  ar: 'تغليف الدبابيس والعملات: أكياس فردية مجانية، بطاقات عرض 400 جم (+0.12$+، MOQ 100)، كبسولات أكريليك (+0.15$+) وعلب مخملية فاخرة (+0.85$+).',
+  pt: 'Embalagem para pins e moedas: saquinhos grátis, cartões 400g CMYK (+$0.12+, MOQ 100), cápsulas acrílicas (+$0.15+) e estojos de veludo (+$0.85+).',
+  ru: 'Упаковка значков и монет: OPP-пакеты бесплатно, картонная подложка 400г (+$0.12+, MOQ 100), капсулы для монет (+$0.15+) и бархатные футляры (+$0.85+).',
+  it: 'Packaging spille e monete: buste gratis, cartoncini 400g (+$0.12+, MOQ 100), capsule acriliche (+$0.15+) e cofanetti in velluto con stampa a caldo.',
+  nl: 'Verpakking voor pins & munten: gratis OPP-zakjes, 400g backing cards (+$0.12+, MOQ 100), acryl muntcapsules (+$0.15+) en fluwelen doosjes (+$0.85+).',
+  pl: 'Opakowania do pinów i monet: woreczki OPP gratis, kartoniki 400g (+$0.12+, MOQ 100), kapsuły akrylowe (+$0.15+) i pudełka welurowe (+$0.85+).',
+  id: 'Kemasan pin & koin: kantong OPP gratis, kartu backing 400gsm (+$0,12+, MOQ 100), kapsul akrilik (+$0,15+) & kotak beludru cetak foil (+$0,85+).',
+  sv: 'Förpackning för pins & mynt: gratis OPP-påsar, 400g tryckta bakkort (+$0.12+, MOQ 100), akrylkapslar (+$0.15+) och sammetsaskar med folietryck.',
+  no: 'Emballasje for pins & mynter: gratis OPP-poser, 400g bakkort (+$0.12+, MOQ 100), akrylkapsler (+$0.15+) og fløyelsesker med folietrykk (+$0.85+).',
+  da: 'Emballage til pins & mønter: gratis OPP-poser, 400g trykte bagkort (+$0.12+, MOQ 100), akrylkapsler (+$0.15+) og fløjlsæsker med folietryk.',
+  fi: 'Pinssi- & kolikkopakkaukset: ilmaiset OPP-pussit, 400g taustakortit (+$0.12+, MOQ 100), akryylikapselit (+$0.15+) ja samettirasiat (+$0.85+).',
+  cs: 'Balení odznaků a mincí: OPP sáčky zdarma, podkladové karty 400g (+$0.12+, MOQ 100), akrylové kapsle (+$0.15+) a sametové krabičky (+$0.85+).'
+};
+const pageDescription = PACKAGING_META_DESC_MAP[currentLang] || PACKAGING_META_DESC_MAP.en;
+---
+
+<Layout
+  title={currentLang === 'en' ? 'Pin Backing Cards, Velvet Boxes & Coin Capsules | MedalPinSupply' : `${t('pkg.heroTitle')} | MedalPinSupply`}
+  description={pageDescription}
+  activePage="custom-packaging"
+  jsonLd={[packagingServiceSchema, faqSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-grid">
+      <div class="grand-hero-info">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">{t('nav.customPackaging')}</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-gold">{t('pkg.heroBadge')}</span>
+          <span class="badge badge-emerald">{t('pkg.card1Badge')}</span>
+        </div>
+
+        <h1 class="grand-hero-title">{t('pkg.heroTitle')}</h1>
+        <p class="grand-hero-lead">
+          {t('pkg.heroDesc')}
+        </p>
+
+        <div class="hero-glass-grid">
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">OPP Polybag</span>
+            <strong class="glass-kpi-val">$0.00 Included</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">400gsm Backing Card</span>
+            <strong class="glass-kpi-val">+$0.12+ / {t('unit.pc')}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Acrylic Coin Capsule</span>
+            <strong class="glass-kpi-val">+$0.15+ / {t('unit.pc')}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Velvet Award Box</span>
+            <strong class="glass-kpi-val">+$0.85+ / {t('unit.pc')}</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a
+            href={getLocalizedPath('/contact', currentLang)}
+            data-rfq-sku="Custom Packaging (Backing Cards / Coin Capsules / Velvet Gift Boxes)"
+            data-rfq-mode="Custom Printed Retail Backing Card + Velvet Box"
+            data-rfq-qty="100"
+            class="btn btn-accent btn-hero"
+          >
+            ⚡ {t('pkg.ctaBtn')}
+          </a>
+          <a href={getLocalizedPath('/insights/custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging', currentLang)} class="btn btn-secondary-dark btn-hero">
+            {t('guides.readCta')}
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase-card">
+        <div class="hero-showcase-top">
+          <span class="sku-pill">BACKING CARD · CAPSULE · VELVET BOX</span>
+          <span class="hero-showcase-price">MOQ 100 {t('unit.pcs')}</span>
+        </div>
+        <div class="hero-showcase-img-wrap">
+          <img
+            src="/images/insights/custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging-hero.webp"
+            alt={t('pkg.heroTitle')}
+            width="480"
+            height="360"
+            loading="eager"
+          />
+        </div>
+        <div class="hero-showcase-meta">
+          <span>400gsm CMYK + Foil</span>
+          <span>Optical Coin Capsules</span>
+          <span>FNSKU &amp; CPSIA Labels</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <GeoDirectAnswer
+      title={t('pkg.geoTitle')}
+      answer={t('pkg.geoAnswer')}
+    />
+
+    <form class="inline-quick-sheet-form" data-inline-sku="Custom Retail Packaging (400gsm Backing Cards / Coin Capsules / Velvet Boxes)" novalidate>
+      <div class="inline-qrfq-text">
+        <strong>{microHooks.getFullSheetPdf}</strong>
+        <span>{microHooks.mixMoqBadge}</span>
+      </div>
+      <div class="inline-qrfq-controls">
+        <input
+          type="email"
+          class="inline-qrfq-input"
+          placeholder={`${t('contact.workEmail')} (name@company.com)`}
+          aria-label={t('contact.workEmail')}
+          required
+        />
+        <button type="submit" class="inline-qrfq-btn">
+          ⚡ {microHooks.sheet140} →
+        </button>
+      </div>
+      <div class="inline-qrfq-status" hidden></div>
+    </form>
+
+    <section class="section">
+      <div class="section-header-center">
+        <span class="badge badge-emerald">FACTORY RETAIL &amp; PRESENTATION PACKING</span>
+        <h2 class="section-title">Custom Pin Card Mounting, Coin Capsules &amp; Velvet Presentation Cases</h2>
+      </div>
+      <div class="packing-proof-grid">
+        <figure class="packing-proof-card">
+          <img
+            src="/images/insights/custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging-fig1.webp"
+            alt="Custom CMYK printed 400gsm lapel pin backing cards with hot-foil stamped branding and sealed retail polybags"
+            width="800"
+            height="600"
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Step 1 — 400gsm Retail Backing Cards &amp; Polybagging (+$0.12+/pc, MOQ 100):</strong> Double-sided CMYK print with optional metallic foil logos, mounted and heat-sealed in Euro-slot retail bags.
+          </figcaption>
+        </figure>
+        <figure class="packing-proof-card">
+          <img
+            src="/images/insights/custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging-fig2.webp"
+            alt="Optical clear acrylic challenge coin capsules and velvet-lined hinged award boxes with hot-foil lid stamping"
+            width="800"
+            height="600"
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Step 2 — Optical Coin Capsules &amp; Velvet Clamshell Cases (+$0.15–$1.85/pc):</strong> Scratch-proof virgin acrylic coin capsules with precision EVA rings and custom-foam hinged velvet boxes for medals, coins, and cufflinks.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid-3">
+        <div class="pkg-card">
+          <span class="badge badge-emerald">{t('pkg.card1Badge')}</span>
+          <h3>{t('pkg.card1Title')}</h3>
+          <p class="pkg-price">{pkgBullets.price1}</p>
+          <p>
+            {t('pkg.card1Desc')}
+          </p>
+          <ul>
+            {pkgBullets.bullets1.map((b) => <li>{b}</li>)}
+          </ul>
+        </div>
+
+        <div class="pkg-card">
+          <span class="badge">{t('pkg.card2Badge')}</span>
+          <h3>{t('pkg.card2Title')}</h3>
+          <p class="pkg-price">{pkgBullets.price2}</p>
+          <p>
+            {t('pkg.card2Desc')}
+          </p>
+          <ul>
+            {pkgBullets.bullets2.map((b) => <li>{b}</li>)}
+          </ul>
+        </div>
+
+        <div class="pkg-card">
+          <span class="badge badge-gold">{t('pkg.card3Badge')}</span>
+          <h3>{t('pkg.card3Title')}</h3>
+          <p class="pkg-price">{pkgBullets.price3}</p>
+          <p>
+            {t('pkg.card3Desc')}
+          </p>
+          <ul>
+            {pkgBullets.bullets3.map((b) => <li>{b}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href={getLocalizedPath('/contact', currentLang)} data-rfq-mode="Custom EVA Case" class="btn btn-primary">{t('pkg.ctaBtn')}</a>
+      </div>
+    </section>
+
+    <!-- Custom Packaging FAQ Section -->
+    <section class="section section-light pkg-faq-box">
+      <div class="section-header-center">
+        <span class="badge">{t('pkg.faqBadge')}</span>
+        <h2 class="section-title">{t('pkg.faqTitle')}</h2>
+      </div>
+      <div class="faq-list">
+        {localizedPackagingFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .packing-proof-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .packing-proof-card {
+    margin: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .packing-proof-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background: #0f172a;
+  }
+  .packing-proof-card figcaption {
+    padding: 1.1rem 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #334155;
+  }
+  .packing-proof-card figcaption strong {
+    color: #0f172a;
+  }
+  @media (max-width: 768px) {
+    .packing-proof-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .page-hero {
+    background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 3.5rem 0;
+  }
+  .page-hero h1 {
+    color: #ffffff;
+    font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+    margin: 0.85rem 0;
+  }
+  .page-hero p {
+    color: #cbd5e1;
+    max-width: 820px;
+    font-size: 1.05rem;
+  }
+  .pkg-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-top: 4px solid #0284c7;
+    border-radius: 0.9rem;
+    padding: 2rem 1.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .pkg-card:nth-child(1) {
+    border-top-color: #059669;
+  }
+  .pkg-card:nth-child(3) {
+    border-top-color: #f59e0b;
+  }
+  .pkg-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .pkg-card h3 {
+    font-size: 1.28rem;
+    line-height: 1.3;
+    color: #0f172a;
+  }
+  .pkg-price {
+    font-size: 1.12rem;
+    font-weight: 800;
+    color: #059669;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    padding: 0.25rem 0.7rem;
+    border-radius: 0.4rem;
+  }
+  .pkg-card p:not(.pkg-price) {
+    font-size: 0.94rem;
+    color: #475569;
+    line-height: 1.68;
+  }
+  .pkg-card ul {
+    width: 100%;
+    list-style: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1e293b;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .pkg-faq-box {
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    margin-bottom: 3.5rem;
+  }
+  @media (max-width: 640px) {
+    .pkg-card {
+      padding: 1.25rem;
+    }
+    .pkg-faq-box {
+      padding: 1.75rem 1.15rem;
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>

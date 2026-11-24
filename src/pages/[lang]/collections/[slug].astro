@@ -1,0 +1,120 @@
+---
+import { getCollection } from 'astro:content';
+import { nonDefaultLanguages } from '../../../i18n/config';
+import { COLLECTIONS } from '../../../data/collections';
+import CollectionDetailPage from '../../collections/[slug].astro';
+
+export async function getStaticPaths() {
+  const allProducts = await getCollection('products');
+  const allGuides = await getCollection('insights');
+  const sortedProducts = allProducts.sort((a, b) => a.data.rowId - b.data.rowId);
+
+  const COLLECTION_INSIGHT_MAP: Record<string, string[]> = {
+    'custom-enamel-pins': [
+      'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide',
+      'photo-etched-brass-vs-offset-printed-silk-screen-lapel-pins',
+      'epoxy-dome-coating-on-soft-enamel-pins-keychains-pros-and-cons',
+      'lapel-pin-backs-and-attachments-butterfly-clutch-rubber-magnet-locking',
+      'specialty-enamel-effects-glitter-glow-in-the-dark-stained-glass-translucent',
+      'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms',
+      'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale',
+      'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping'
+    ],
+    'custom-medals': [
+      'custom-marathon-and-5k-10k-finisher-medals-race-director-sourcing-guide',
+      'spinner-bottle-opener-and-magnetic-interlocking-race-medal-trends',
+      'dye-sublimated-vs-woven-neck-ribbons-for-custom-sports-medals',
+      'virtual-race-finisher-medals-lightweight-mailer-packaging-and-fulfillment',
+      'cut-out-hollow-design-and-inner-cut-mold-fees-for-medals-and-coins',
+      'academic-graduation-medallions-and-military-drape-ribbon-medals-guide',
+      'custom-championship-rings-vs-trophy-medals-for-sports-tournaments',
+      'youth-sports-tournament-medals-and-baseball-trading-pins-bulk-guide'
+    ],
+    'custom-challenge-coins': [
+      'custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide',
+      'dual-plated-two-tone-gold-silver-challenge-coins-masking-process',
+      'sequential-laser-numbering-and-acrylic-capsule-packaging-for-coins',
+      '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering',
+      'corporate-years-of-service-award-pins-and-anniversary-commemorative-coins',
+      'zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost',
+      'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd'
+    ],
+    'custom-metal-keychains': [
+      'custom-3d-zinc-alloy-vs-soft-enamel-and-spinning-metal-keychains',
+      'genuine-leather-metal-emblem-keychains-for-auto-dealerships-real-estate',
+      'anodized-aluminum-carabiner-climb-loops-vs-laser-stainless-keyrings',
+      'boutique-hotel-vintage-stamped-brass-room-key-tags-and-fobs-guide',
+      'epoxy-dome-coating-on-soft-enamel-pins-keychains-pros-and-cons',
+      'craft-brewery-heavy-zinc-bottle-openers-and-3d-souvenir-fridge-magnets'
+    ],
+    'trolley-coin-keyrings': [
+      'european-trolley-coin-keyrings-1-euro-vs-12-sided-uk-pound-specs',
+      'magnetic-detachable-vs-lobster-clasp-and-pull-out-trolley-coin-holders',
+      'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd',
+      'zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost',
+      'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale',
+      'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance'
+    ],
+    'police-badges-insignia': [
+      'custom-3d-curved-police-security-and-fire-department-badges-guide',
+      'magnetic-vs-pin-back-metal-employee-name-plates-for-hotels-airlines',
+      'military-stainless-steel-dog-tags-vs-3d-zinc-alloy-pendant-tags',
+      'custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide',
+      'dual-plated-two-tone-gold-silver-challenge-coins-masking-process',
+      'corporate-years-of-service-award-pins-and-anniversary-commemorative-coins'
+    ],
+    'executive-cufflinks-tie-bars': [
+      'custom-enamel-and-3d-cufflinks-tie-bars-executive-menswear-gift-sets',
+      'custom-3d-western-rodeo-and-motorcycle-club-heavy-zinc-belt-buckles',
+      'corporate-years-of-service-award-pins-and-anniversary-commemorative-coins',
+      'custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging',
+      'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance'
+    ],
+    'custom-golf-accessories': [
+      'custom-golf-divot-repair-tools-and-magnetic-hat-clip-ball-markers-guide',
+      '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering',
+      'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd',
+      'custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging',
+      'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping'
+    ],
+    'metal-bookmarks-openers-souvenirs': [
+      'photo-etched-hollow-brass-bookmarks-for-museums-universities-publishers',
+      'craft-brewery-heavy-zinc-bottle-openers-and-3d-souvenir-fridge-magnets',
+      'boutique-hotel-vintage-stamped-brass-room-key-tags-and-fobs-guide',
+      'anodized-aluminum-carabiner-climb-loops-vs-laser-stainless-keyrings',
+      'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms'
+    ],
+    'patches-pvc-packaging': [
+      'custom-embroidered-patches-vs-woven-and-3d-soft-pvc-morale-patches',
+      'custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging',
+      'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance',
+      'lapel-pin-backs-and-attachments-butterfly-clutch-rubber-magnet-locking',
+      'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping'
+    ]
+  };
+
+  return nonDefaultLanguages.flatMap((lang) =>
+    COLLECTIONS.map((col) => {
+      const matched = sortedProducts.filter(
+        (p) => p.data.primaryCollection === col.slug || (p.data.crossCollections || []).includes(col.slug)
+      );
+
+      const guideSlugs = COLLECTION_INSIGHT_MAP[col.slug] || [
+        'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide',
+        'custom-marathon-and-5k-10k-finisher-medals-race-director-sourcing-guide',
+        'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale'
+      ];
+      const relatedGuides = guideSlugs
+        .map((s) => allGuides.find((g) => g.data.slug === s))
+        .filter(Boolean);
+
+      return {
+        params: { lang, slug: col.slug },
+        props: { collection: col, products: matched, relatedGuides }
+      };
+    })
+  );
+}
+---
+
+<CollectionDetailPage {...Astro.props} />

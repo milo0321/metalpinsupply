@@ -1,0 +1,358 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../../i18n/utils';
+import { getAboutTableData, getLocalizedPageFaqs } from '../../i18n/pageContentLocalization';
+
+const currentLang = getLanguageFromURL(Astro.url.pathname);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const aboutTable = getAboutTableData(currentLang);
+const waUrl =
+  'https://wa.me/8618750126315?text=Hello%20MedalPinSupply%2C%20I%20would%20like%20to%20inquire%20about%20custom%20enamel%20pins%2C%20medals%2C%20coins%20and%20wholesale%20pricing.';
+
+const supplyChainFaqs = [
+  {
+    question: 'Where is MedalPinSupply.com manufactured and how does direct factory production work?',
+    answer: 'MedalPinSupply.com operates out of Zhongshan Xiaolan, Guangdong, China—China’s dedicated hardware electroplating and metal badge manufacturing cluster. Our facilities integrate 3D CNC steel die carving, 300T–800T stamping presses, hot-chamber Zamak #3 zinc die-casting, kiln-fired enamel lines, and 12 in-house electroplating baths under one roof.'
+  },
+  {
+    question: 'What are the main advantages of sourcing pins, medals, and coins from Zhongshan Xiaolan?',
+    answer: 'By operating directly within Zhongshan Xiaolan’s specialized metal craft cluster, you skip layers of domestic and overseas promotional resellers—getting transparent 100 / 500 / 2,000+ pc EXW factory tiers, stricter Pantone enamel delta-E matching, and 7–10 day physical custom sampling.'
+  },
+  {
+    question: 'How do 2D and 3D custom mold fee waivers reduce upfront tooling cost?',
+    answer: 'Custom 2D stamping dies ($45–$85 pins, coins, keychains) waive 100% automatically at 500+ pcs per design, and intricate 3D sculpted zinc molds ($95–$150 medals, challenge coins, buckles) waive 100% at 1,000+ pcs. Paid custom dies are archived free for 3 years for zero-fee reorders.'
+  },
+  {
+    question: 'What is the Minimum Order Quantity (MOQ) for custom metal crafts?',
+    answer: 'Custom Hard Enamel, Soft Enamel pins, Marathon Medals, Challenge Coins, and Executive Cufflinks start at just 50–100 pcs per artwork. Free 1:1 2D/3D vector proofs are returned within 12 hours before production begins.'
+  },
+  {
+    question: 'How is quality verified before mass shipments leave the Zhongshan facility?',
+    answer: 'Every finished batch passes multi-stage in-process and pre-shipment QC: 100% visual sorting for enamel voids, stone-ground leveling on cloisonne pins, solder pull-force verification (> 4.5 kg on pin spurs), plating brightness & sweat checks, and moisture-barrier export carton sealing.'
+  },
+  {
+    question: 'Can we consolidate pins, marathon ribbons, medals, challenge coins, and packaging boxes together?',
+    answer: 'Yes. Multi-craft export consolidation is standard at our Zhongshan warehouse. We mount custom enamel pins onto 400gsm CMYK backing cards, pair custom challenge coins with acrylic capsules or velvet boxes, loop dye-sublimated ribbons onto race medals, and pack all custom items into one tracked export consignment.'
+  },
+  {
+    question: 'How long are custom 2D steel stamping dies and 3D zinc molds stored for repeat reorders?',
+    answer: 'Whether you paid for a custom die or qualified for a 500+/1,000+ pc fee waiver, your master steel die is cataloged and stored free of charge for 3 years—meaning all repeat seasonal runs or marathon annual editions pay $0.00 tooling cost.'
+  },
+  {
+    question: 'Are MedalPinSupply.com, Ruixing Gifts, EcoPack Sourcing, CarrySourcing, and FidgetSupply part of the same alliance?',
+    answer: 'Yes. MedalPinSupply.com is part of an integrated specialized manufacturing alliance alongside Ruixing Gifts (ruixinggifts.com — Custom Promotional Merchandise), EcoPack Sourcing (ecopacksourcing.com — Sustainable Retail Packaging & Mailers), CarrySourcing (carrysourcing.com — Running Belts & Technical Softgoods), and FidgetSupply (fidgetsupply.com — CNC Metal Fidget Sliders & EDC Toys).'
+  },
+  {
+    question: 'What international shipping terms (DDP Air Express, Ocean Freight, FOB, EXW) do you support?',
+    answer: 'We coordinate door-to-door duty-paid DDP Air Express (4–7 days via DHL, FedEx, or UPS for urgent tournament dates), cost-optimized Ocean DDP / CIF container freight for bulk custom distributor orders, as well as FOB Shenzhen/Zhongshan and EXW terms.'
+  },
+  {
+    question: 'How can we contact your Zhongshan tooling desk for a quote or sample request?',
+    answer: 'Message our bilingual sourcing team directly on WhatsApp at +86 187 5012 6315 (Mon – Sat: 8:00 AM – 10:00 PM GMT+8), email sales@medalpinsupply.com, or submit your vector file via the Contact page.'
+  }
+];
+
+const localizedSupplyChainFaqs = getLocalizedPageFaqs('about', supplyChainFaqs, currentLang);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: localizedSupplyChainFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: currentLang === 'en' ? 'About MedalPinSupply | Zhongshan Metal Craft Factory' : `${t('about.heroTitle')} | MedalPinSupply.com`,
+  url: `https://medalpinsupply.com${getLocalizedPath('/about', currentLang)}`,
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'MedalPinSupply.com',
+    url: 'https://medalpinsupply.com',
+    location: {
+      '@type': 'Place',
+      name: 'Zhongshan Xiaolan Industrial Zone, Guangdong, China'
+    }
+  }
+};
+
+const ABOUT_META_DESC_MAP: Record<string, string> = {
+  en: 'Direct Zhongshan Xiaolan metal craft factory: 158 pin, medal, coin & keychain specs ($0.11–$4.20 EXW, MOQ 50 pcs), 3D CNC dies & 12 plating finishes.',
+  de: 'Direktfabrik in Zhongshan Xiaolan: 158 Pin-, Medaillen-, Coin- & Schlüsselanhänger-Spezifikationen ($0.11–$4.20 ab Werk, MOQ 50 Stk.) & 12 Galvaniken.',
+  fr: 'Usine directe à Zhongshan Xiaolan : 158 styles de pins, médailles, pièces et porte-clés ($0.11–$4.20 EXW, MOQ 50 pcs), gravure 3D et 12 bains.',
+  nl: 'Eigen fabriek in Zhongshan Xiaolan: 158 pin-, medaille-, munt- & sleutelhangerspecificaties ($0.11–$4.20 EXW, MOQ 50 st.), 3D-matrijzen & 12 finishes.',
+  es: 'Fábrica directa en Zhongshan Xiaolan: 158 especificaciones de pines, medallas, monedas y llaveros ($0.11–$4.20 EXW, MOQ 50 uds.) y 12 baños metálicos.',
+  it: 'Fabbrica diretta a Zhongshan Xiaolan: 158 specifiche di spille, medaglie, monete e portachiavi ($0.11–$4.20 EXW, MOQ 50 pz.) e 12 bagni galvanici.',
+  pt: 'Fábrica direta em Zhongshan Xiaolan: 158 especificações de pins, medalhas, moedas e chaveiros ($0.11–$4.20 EXW, MOQ 50 un.) e 12 acabamentos.',
+  sv: 'Direktfabrik i Zhongshan Xiaolan: 158 pin-, medalj-, coin- & nyckelringsspecar ($0.11–$4.20 EXW, MOQ 50 st), 3D-gjutning & 12 ytbehandlingar.',
+  da: 'Direkte fabrik i Zhongshan Xiaolan: 158 pins-, medalje-, mønt- & nøgleringsspecs ($0.11–$4.20 EXW, MOQ 50 stk.), 3D-støbning & 12 overflader.',
+  no: 'Direktefabrikk i Zhongshan Xiaolan: 158 pins-, medalje-, mynt- & nøkkelringspesifikasjoner ($0.11–$4.20 EXW, MOQ 50 stk.) & 12 galvaniske belegg.',
+  fi: 'Tehtaalta suoraan Zhongshan Xiaolanista: 158 pinssi-, mitali-, kolikko- & avaimenperätyyliä ($0.11–$4.20 EXW, MOQ 50 kpl) & 12 pinnoitetta.',
+  pl: 'Bezpośrednia fabryka w Zhongshan Xiaolan: 158 specyfikacji pinów, medali, monet i breloków ($0.11–$4.20 EXW, MOQ 50 szt.) oraz 12 powłok galwanicznych.',
+  cs: 'Přímá továrna v Zhongshan Xiaolanu: 158 specifikací odznaků, medailí, mincí a klíčenek ($0.11–$4.20 EXW, MOQ 50 ks), 3D lití a 12 galvanických úprav.',
+  ru: 'Прямой завод в Чжуншань Сяолань: 158 форматов значков, медалей, монет и брелоков ($0.11–$4.20 EXW, от 50 шт.), 3D-штампы и 12 видов гальваники.',
+  ja: '広東省中山市小欖鎮の自社金属工芸工場：バッジ・メダル・コイン等158仕様（工場価格$0.11〜$4.20・MOQ 50個）、3D金型彫刻＆12種の電気メッキ設備。',
+  ko: '광둥성 중산 샤오란 직영 금속 공예 공장: 핀·메달·코인·키링 158종 사양($0.11–$4.20 EXW, MOQ 50개), 3D 금형 조각 및 12종 전기 도금 설비.',
+  id: 'Pabrik kerajinan logam langsung Zhongshan Xiaolan: 158 spesifikasi pin, medali, koin & gantungan kunci ($0.11–$4.20 EXW, MOQ 50 pcs) & 12 pelapisan.',
+  ar: 'مصنع مباشر في تشونغشان شياولان: 158 مواصفة دبابيس وميداليات وعملات ($0.11–$4.20، MOQ 50 قطعة)، قوالب ثلاثية الأبعاد و12 تشطيب طلاء كهربائي.'
+};
+---
+
+<Layout
+  title={currentLang === 'en' ? 'About MedalPinSupply | Zhongshan Pin & Medal Factory' : `${t('about.heroTitle')} | MedalPinSupply.com`}
+  description={ABOUT_META_DESC_MAP[currentLang] || ABOUT_META_DESC_MAP.en}
+  activePage="about"
+  jsonLd={[aboutPageSchema, faqSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-grid">
+      <div class="grand-hero-info">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">{t('nav.about')}</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-dark">{t('about.heroBadge')}</span>
+          <span class="badge badge-gold">{t('home.hero.badge2')}</span>
+        </div>
+
+        <h1 class="grand-hero-title">{t('about.heroTitle')}</h1>
+        <p class="grand-hero-lead">
+          {t('about.heroDesc')}
+        </p>
+
+        <div class="hero-glass-grid">
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">{t('col.stat1Label')}</span>
+            <strong class="glass-kpi-val">158 Specs</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">{t('home.hero.kpi2Sub')}</span>
+            <strong class="glass-kpi-val">500+ Waived</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">{t('col.stat3Label')}</span>
+            <strong class="glass-kpi-val">50 / 100 {t('unit.pcs')}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Factory Cluster</span>
+            <strong class="glass-kpi-val">Zhongshan, CN</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href={getLocalizedPath('/contact', currentLang)} class="btn btn-accent btn-hero">
+            {t('nav.requestQuote')}
+          </a>
+          <a href={getLocalizedPath('/products', currentLang)} class="btn btn-secondary-dark btn-hero">
+            {t('nav.allCatalog')} &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase-card">
+        <div class="hero-showcase-top">
+          <span class="sku-pill">DIE CARVING · STAMPING · ENAMEL · PLATING</span>
+          <span class="hero-showcase-price">100% Pre-Shipment QC</span>
+        </div>
+        <div class="hero-showcase-img-wrap">
+          <img
+            src="/images/factory/showcase-4.webp"
+            alt={t('about.heroTitle')}
+            width="480"
+            height="360"
+            loading="eager"
+          />
+        </div>
+        <div class="hero-showcase-meta">
+          <span>Zamak #3 Die-Casting</span>
+          <span>Die-Struck Brass &amp; Iron</span>
+          <span>Zhongshan Xiaolan</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <GeoDirectAnswer
+      title={t('about.geoTitle')}
+      answer={t('about.geoAnswer')}
+    />
+
+    <form class="inline-quick-sheet-form" data-inline-sku="MedalPinSupply Custom Craft Capabilities · Wholesale Price Guide & Sample Kit" novalidate>
+      <div class="inline-qrfq-text">
+        <strong>{microHooks.getFullSheetPdf}</strong>
+        <span>{microHooks.mixMoqBadge}</span>
+      </div>
+      <div class="inline-qrfq-controls">
+        <input
+          type="email"
+          class="inline-qrfq-input"
+          placeholder={`${t('contact.workEmail')} (name@company.com)`}
+          aria-label={t('contact.workEmail')}
+          required
+        />
+        <button type="submit" class="inline-qrfq-btn">
+          ⚡ {microHooks.sheet140} →
+        </button>
+      </div>
+      <div class="inline-qrfq-status" hidden></div>
+    </form>
+
+    <section class="section">
+      <div class="grid-3">
+        <div class="workshop-card">
+          <img src="/images/factory/showcase-1.webp" alt="CNC Mold Engraving & 300T-800T Stamping Line" width="450" height="338" />
+          <h3>{t('about.card1Title')}</h3>
+          <p>
+            {t('about.card1Desc')}
+          </p>
+        </div>
+
+        <div class="workshop-card">
+          <img src="/images/factory/showcase-2.webp" alt="Pantone Enamel Color-Fill & Diamond Polishing" width="450" height="338" />
+          <h3>{t('about.card2Title')}</h3>
+          <p>
+            {t('about.card2Desc')}
+          </p>
+        </div>
+
+        <div class="workshop-card">
+          <img src="/images/factory/showcase-3.webp" alt="Electroplating, Card Mounting & Export Consolidation" width="450" height="338" />
+          <h3>{t('about.card3Title')}</h3>
+          <p>
+            {t('about.card3Desc')}
+          </p>
+        </div>
+      </div>
+
+      <div class="geo-table-wrap" style="margin-top: 3rem;">
+        <table class="geo-table">
+          <thead>
+            <tr>
+              <th style="width: 32%;">{aboutTable.col1}</th>
+              <th>{aboutTable.col2}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>{aboutTable.row1Label}</strong></td>
+              <td>{aboutTable.row1Val}</td>
+            </tr>
+            <tr>
+              <td><strong>{aboutTable.row2Label}</strong></td>
+              <td>{aboutTable.row2Val}</td>
+            </tr>
+            <tr>
+              <td><strong>🏢 {t('contact.hubLabel')}</strong></td>
+              <td><strong>{t('contact.hubVal')}</strong></td>
+            </tr>
+            <tr>
+              <td><strong>💬 {t('contact.waLabel')}</strong></td>
+              <td>
+                <a href={waUrl} target="_blank" rel="noopener noreferrer" style="font-weight: 800; color: #0284c7;">
+                  +86 187 5012 6315 <span class="badge badge-emerald" style="margin-left: 0.35rem;">{t('top.chatOnline')}</span>
+                </a>
+                <div style="font-size: 0.82rem; color: #475569; margin-top: 0.2rem;">
+                  {t('contact.waSub')}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>📧 {t('contact.emailLabel')}</strong></td>
+              <td><a href="mailto:sales@medalpinsupply.com" style="font-weight: 700; color: #0284c7;">sales@medalpinsupply.com</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Supply Chain FAQ Section -->
+    <section class="section section-light about-faq-box">
+      <div class="section-header-center">
+        <span class="badge">{t('about.faqBadge')}</span>
+        <h2 class="section-title">{t('about.faqTitle')}</h2>
+      </div>
+      <div class="faq-list">
+        {localizedSupplyChainFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href={getLocalizedPath('/contact', currentLang)} class="btn btn-primary">
+          {t('about.ctaBtn')}
+        </a>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 3.5rem 0;
+  }
+  .page-hero h1 {
+    color: #ffffff;
+    font-size: clamp(1.85rem, 3vw, 2.55rem);
+    margin: 0.85rem 0;
+  }
+  .page-hero p {
+    color: #cbd5e1;
+    max-width: 820px;
+    font-size: 1.05rem;
+  }
+  .workshop-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .workshop-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background: #0f172a;
+  }
+  .workshop-card h3 {
+    padding: 1.25rem 1.25rem 0.5rem;
+    font-size: 1.15rem;
+  }
+  .workshop-card p {
+    padding: 0 1.25rem 1.35rem;
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.65;
+  }
+  .about-faq-box {
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    margin-bottom: 3.5rem;
+  }
+  @media (max-width: 640px) {
+    .about-faq-box {
+      padding: 1.75rem 1.15rem;
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>

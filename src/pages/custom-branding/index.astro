@@ -1,0 +1,479 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../../i18n/utils';
+import { getBrandingTableData, getLocalizedPageFaqs } from '../../i18n/pageContentLocalization';
+
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const brandingTable = getBrandingTableData(currentLang);
+const allProducts = await getCollection('products');
+const craftModels = allProducts
+  .filter((p) => p.data.enamelCraft || p.data.primaryCollection === 'custom-enamel-pins')
+  .sort((a, b) => a.data.rowId - b.data.rowId)
+  .slice(0, 8);
+
+const brandingFaqs = [
+  {
+    question: 'What is the difference between Hard Enamel (Imitation Cloisonne) and Soft Enamel lapel pins?',
+    answer: 'Hard Enamel pins are filled multiple times with synthetic enamel paste and fired at high temperatures, then stoning-polished completely flat so the enamel sits flush with the metal borders—giving a smooth jewelry-like finish. Soft Enamel pins fill recessed wells once and cure at lower heat, leaving tactile raised metal outlines that also cost 15–20% less per piece.'
+  },
+  {
+    question: 'When should we choose 3D Sculpted Zinc Die-Casting instead of 2D Die-Struck stamping?',
+    answer: 'Choose hot-chamber Zamak #3 Zinc Die-Casting whenever your design features contoured multi-level 3D human faces, mascots, topography mountains, internal cut-out windows, or thickness over 3.0mm—ideal for marathon finisher medals, challenge coins, police shields, and belt buckles.'
+  },
+  {
+    question: 'How do mold and die setup fees work and how do we qualify for waived mold fees?',
+    answer: 'Custom 2D stamping dies ($45–$85 pins, trolley coins, cufflinks, and badges) are waived 100% at 500+ pcs per design, while 3D sculpted molds ($95–$150 race medals, challenge coins, and buckles) are waived 100% at 1,000+ pcs. Paid dies are archived free for 3 years for zero-fee reorders.'
+  },
+  {
+    question: 'Why does MedalPinSupply recommend Photo-Etched or CMYK Offset Printed pins for photorealistic artwork?',
+    answer: 'Cloisonne and soft enamel require 0.15–0.20mm raised metal borders separating every adjacent color. When corporate logos use continuous color gradients, glowing drop shadows, or microscopic typography, CMYK Offset Litho Printing (with optional clear protective epoxy dome) or 0.8mm Photo-Etched Brass reproduces artwork faithfully.'
+  },
+  {
+    question: 'What electroplating finishes are available in-house at our Zhongshan Xiaolan factory?',
+    answer: 'We operate dedicated barrel and rack electroplating lines for Shiny Gold, Nickel, Chrome, Rose Gold, Satin Gold, Black Nickel, Gunmetal Black Dye, Matte Copper, plus antique hand-relieved Bronze, Brass, Silver, and Pewter, as well as dual two-tone masking plating for luxury challenge coins.'
+  },
+  {
+    question: 'Can we add specialty textures like Glitter, Glow-in-the-Dark, Stained Glass, or Pearl enamel?',
+    answer: 'Yes. We offer sparkling cosmetic glitter fills, strontium aluminate phosphor glow-in-the-dark fills, light-transmitting stained-glass translucent enamel (ideal for hollow cut-out medals), pearlescent swirl fills, and recessed matte sandblasted backgrounds.'
+  },
+  {
+    question: 'What vector artwork file formats do you need to generate a free 12-hour production proof?',
+    answer: 'Send Adobe Illustrator (.AI), Encapsulated PostScript (.EPS), layered vector .PDF, or .SVG files with outlined fonts and solid coated Pantone (PMS C) numbers. Our pre-press engineers can also vectorize clean high-resolution PNG/JPG sketches within 12 hours.'
+  },
+  {
+    question: 'What attachment clasps and backings can we pair with custom enamel pins and badges?',
+    answer: 'Standard choices include Brass Butterfly Clutch, soft Black/Color PVC Rubber Clutches, Deluxe Spring Locking Tie-Tack Clutches, twin Neodymium Garment Magnets, Heavy Safety Bar Pins, Cufflink Swivel Posts, and Neck Ribbon Jump Rings.'
+  },
+  {
+    question: 'Can you laser engrave sequential numbers or QR codes onto medal and coin rims?',
+    answer: 'Yes. Our MOPA fiber laser stations support automated CSV sequential numbering (e.g., 001/500 to 500/500), unit crest dates, or dynamic scannable QR codes across coin edges, pin reverse stamps, or marathon medal backplates.'
+  },
+  {
+    question: 'What is the pre-production sample cost and turnaround time for custom metal crafts?',
+    answer: 'Before bulk run approval, physical pre-production samples require tool cutting and take 7–10 days ($55–$95 for 2D dies, $95–$150 for 3D molds). Once bulk volume hits our 500+ or 1,000+ pcs waiver threshold, mold fees drop to $0 automatically.'
+  }
+];
+
+const localizedBrandingFaqs = getLocalizedPageFaqs('branding', brandingFaqs, currentLang);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: localizedBrandingFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: currentLang === 'en' ? 'Hard Enamel, Soft Enamel & 3D Zinc Die-Cast Custom Craft Service' : `${t('brand.heroTitle')} | MedalPinSupply`,
+  provider: {
+    '@type': 'Organization',
+    name: 'MedalPinSupply.com',
+    url: 'https://medalpinsupply.com'
+  },
+  serviceType: 'Cloisonne Hard Enamel, Soft Enamel, 3D Zinc Die-Casting, Photo-Etched Brass & CMYK Offset Printing',
+  description: 'Factory-direct metal craft production across 158 specs. Hard enamel, soft enamel, 3D zinc medals, and custom challenge coins with $55–$150 tooling fees waived at 500–1,000+ pcs.',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Custom Metal Craft Engineering Tiers',
+    itemListElement: [
+      { '@type': 'Offer', name: 'Die-Struck Soft Enamel Lapel Pins (MOQ 50 pcs)', price: '0.28', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: '3D Sculpted Zinc Marathon Medals & Challenge Coins (MOQ 50 pcs)', price: '0.78', priceCurrency: 'USD' }
+    ]
+  }
+};
+
+const BRANDING_META_DESC_MAP: Record<string, string> = {
+  en: 'Hard enamel, soft enamel, 3D zinc die-casting & offset printing on 158 pin, medal & coin specs. 500+ 2D die waivers, 3-yr mold hold & 12h proof.',
+  es: 'Esmalte duro cloisonné, esmalte blando, fundición 3D en zinc e impresión offset CMYK en 158 especificaciones de pines, medallas y monedas. Exención 500+ uds.',
+  de: 'Hart-Emaille, Weich-Emaille, 3D-Zinkdruckguss & Offsetdruck für 158 Pin-, Medaillen- & Coin-Specs. Werkzeugbefreiung ab 500/1.000 Stk. & 12h-Entwurf.',
+  fr: 'Émail dur cloisonné, émail doux, fonderie 3D zinc et impression offset sur 158 styles de pins, médailles et jetons. Moules offerts dès 500/1000 pièces.',
+  ja: 'ハードエナメル（七宝）、ソフトエナメル、3D亜鉛合金ダイカスト、オフセット印刷を158種のバッジ・メダル・コインで工場直販。500個以上で金型代免除。',
+  ko: '하드 에나멜(칠보), 소프트 에나멜, 3D 아연합금 다이캐스팅, 오프셋 인쇄 158종 핀·메달·코인 맞춤 제작. 500/1,000개 이상 주문 시 금형비 무료.',
+  ar: 'طلاء المينا الصلب والناعم، الصب ثلاثي الأبعاد بالزنك، وطباعة أوفست عبر 158 مواصفة دبابيس وميداليات وعملات تذكارية مع إعفاء القالب عند 500+ قطعة.',
+  pt: 'Esmalte duro cloisonné, esmalte macio, fundição 3D em zinco e impressão offset para 158 especificações de pins, medalhas e moedas. Isenção de molde 500+ un.',
+  ru: 'Твёрдая и мягкая эмаль, 3D-литьё из цинка и офсетная печать на 158 видах значков, медалей и монет. Отмена штампа от 500 шт. и 12-ч макет.',
+  it: 'Smalto duro cloisonné, smalto morbido, pressofusione 3D in zinco e stampa offset su 158 stili di spille, medaglie e monete. Esenzione stampo 500+ pz.',
+  nl: 'Hard emaille, zacht emaille, 3D zinkspuitgieten en CMYK-offsetdruk voor 158 pins, medailles en munten. Matrijsvrijstelling vanaf 500/1.000 stuks.',
+  pl: 'Twarda emalia, miękka emalia, odlewanie 3D ze stopu cynku i druk offsetowy dla 158 wzorów pinów, medali i monet. Darmowa wizualizacja w 12 godz.',
+  id: 'Enamel keras, enamel lunak, die-casting seng 3D & cetak offset untuk 158 spesifikasi pin, medali, dan koin. Pembebasan biaya cetakan mulai 500 pcs.',
+  sv: 'Hård emalj, mjuk emalj, 3D-zinkgjutning & offsettryck på 158 pin-, medalj- & coin-specar. Avgiftsbefrielse från 500 st, 3 års lagring & 12h korrektur.',
+  no: 'Hard emalje, myk emalje, 3D-sinkstøping og offsettrykk på 158 pins, medaljer og mynter. Verktøyfritak fra 500/1000 stk. og 3 års fri lagring.',
+  da: 'Hård emalje, blød emalje, 3D-zinkstøbning og offsettryk på 158 pins, medaljer og mønter. Værktøjsfritagelse ved 500/1.000 stk. og 3 års gratis lagring.',
+  fi: 'Kova emali, pehmeä emali, 3D-sinkkivalu ja offset-painatus 158 pinssi-, mitali- & kolikkotyyliin. Ilmainen muotti 500–1 000 kpl erissä.',
+  cs: 'Tvrdý smalt, měkký smalt, 3D tlakové lití zinku a ofsetový tisk pro 158 stylů pinů, medailí a mincí. Odpuštění formy od 500 ks a uložení zdarma.'
+};
+const pageDescription = BRANDING_META_DESC_MAP[currentLang] || BRANDING_META_DESC_MAP.en;
+---
+
+<Layout
+  title={currentLang === 'en' ? 'Enamel Pin & 3D Medal Craft Process | MedalPinSupply' : `${t('brand.heroTitle')} | MedalPinSupply`}
+  description={pageDescription}
+  activePage="custom-branding"
+  jsonLd={[serviceSchema, faqSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-grid">
+      <div class="grand-hero-info">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">{t('nav.customLogo')}</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-gold">{t('brand.heroBadge')}</span>
+          <span class="badge badge-dark">{t('home.hero.badge2')}</span>
+        </div>
+
+        <h1 class="grand-hero-title">{t('brand.heroTitle')}</h1>
+        <p class="grand-hero-lead">
+          {t('brand.heroDesc')}
+        </p>
+
+        <div class="hero-glass-grid">
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Hard &amp; Soft Enamel</span>
+            <strong class="glass-kpi-val">$0.22–$1.45/{t('unit.pc')}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">3D Zinc Medals &amp; Coins</span>
+            <strong class="glass-kpi-val">$0.78–$3.85/{t('unit.pc')}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">2D Die Waiver</span>
+            <strong class="glass-kpi-val">Waived @ 500+ {t('unit.pcs')}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">3D Mold Waiver</span>
+            <strong class="glass-kpi-val">Waived @ 1,000+ {t('unit.pcs')}</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a
+            href={getLocalizedPath('/contact', currentLang)}
+            data-rfq-sku="Custom Craft Specification (Hard Enamel / Soft Enamel / 3D Zinc)"
+            data-rfq-mode="Custom Enamel & 3D Die-Casting (Free 12h Proof)"
+            data-rfq-qty="500"
+            class="btn btn-accent btn-hero"
+          >
+            {t('nav.requestQuote')}
+          </a>
+          <a href={getLocalizedPath('/collections/custom-enamel-pins', currentLang)} class="btn btn-secondary-dark btn-hero">
+            {currentLang === 'en' ? 'Explore Custom Enamel Pins Collection →' : t('home.hero.ctaLogo')}
+          </a>
+        </div>
+
+        <div class="hero-badges-row" style="margin-top: 1rem;">
+          <a
+            href={getLocalizedPath('/contact', currentLang)}
+            data-rfq-sku="Custom Hard Enamel Pins, Stained-Glass Medals & 3D Zinc Keychains"
+            data-rfq-mode="Free 12h Vector Production Proof + Tooling Waiver Check"
+            data-rfq-qty="100"
+            class="badge badge-gold"
+            style="text-decoration: none;"
+          >
+            📦 Free 12h Vector Proof &amp; Mold Waiver Check →
+          </a>
+          <a
+            href={getLocalizedPath('/corporate-gifts', currentLang)}
+            class="badge badge-dark"
+            style="text-decoration: none;"
+          >
+            🎁 Corporate Awards &amp; Gifts ($0.28+) →
+          </a>
+          <a
+            href={getLocalizedPath('/insights/hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide', currentLang)}
+            class="badge badge-dark"
+            style="text-decoration: none;"
+          >
+            📖 Hard vs. Soft Enamel Engineering Guide →
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase-card">
+        <div class="hero-showcase-top">
+          <span class="sku-pill">CLOISONNE · SOFT ENAMEL · 3D ZINC</span>
+          <span class="hero-showcase-price">158 Custom Metal Specs</span>
+        </div>
+        <div class="hero-showcase-img-wrap">
+          <img
+            src="/images/insights/hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide-hero.webp"
+            alt={t('brand.heroTitle')}
+            width="480"
+            height="360"
+            loading="eager"
+          />
+        </div>
+        <div class="hero-showcase-meta">
+          <span>2D Die ($55–$85, Waived @ 500+)</span>
+          <span>3D Mold ($95–$150, Waived @ 1,000+)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <GeoDirectAnswer
+      title={t('brand.geoTitle')}
+      answer={t('brand.geoAnswer')}
+    />
+
+    <form class="inline-quick-sheet-form" data-inline-sku="Custom Enamel & 3D Die-Casting Craft Matrix (158 Factory Specs)" novalidate>
+      <div class="inline-qrfq-text">
+        <strong>{microHooks.getFullSheetPdf}</strong>
+        <span>{microHooks.mixMoqBadge}</span>
+      </div>
+      <div class="inline-qrfq-controls">
+        <input
+          type="email"
+          class="inline-qrfq-input"
+          placeholder={`${t('contact.workEmail')} (name@company.com)`}
+          aria-label={t('contact.workEmail')}
+          required
+        />
+        <button type="submit" class="inline-qrfq-btn">
+          ⚡ {microHooks.sheet140} →
+        </button>
+      </div>
+      <div class="inline-qrfq-status" hidden></div>
+    </form>
+
+    <section class="section">
+      <div class="section-header-center">
+        <span class="badge">{t('brand.compBadge')}</span>
+        <h2 class="section-title">{t('brand.compTitle')}</h2>
+      </div>
+
+      <!-- 3-Tier Metal Craft Manufacturing Comparison Cards -->
+      <div class="brand-tier-grid">
+        <div class="brand-tier-card">
+          <div class="brand-tier-badge badge-slate">TIER 1 · {t('pdp.blankMoq')}</div>
+          <h3>{t('pdp.opt1Title')}</h3>
+          <div class="brand-tier-price">$0.22–$0.68 <span>/ {t('unit.pc')} · MOQ 50–100 {t('unit.pcs')}</span></div>
+          <p class="brand-tier-desc">{t('pdp.opt1Desc')}</p>
+          <ul class="brand-tier-list">
+            <li>✓ Raised Metal Borders + Tactile Recessed Enamel</li>
+            <li>✓ 2D Stamping Die ($55–$85) Waived @ 500+ {t('unit.pcs')}</li>
+            <li>✓ Optional Clear Epoxy Protective Dome &amp; Backstamp</li>
+          </ul>
+          <a href={getLocalizedPath('/contact', currentLang)} data-rfq-mode="Die-Struck Soft Enamel" data-rfq-qty="500" class="btn btn-outline brand-tier-btn">
+            {t('nav.requestQuote')} →
+          </a>
+        </div>
+
+        <div class="brand-tier-card brand-tier-featured">
+          <div class="brand-tier-badge badge-emerald">★ TIER 2 · JEWELRY HARD ENAMEL</div>
+          <h3>{t('pdp.opt2Title')}</h3>
+          <div class="brand-tier-price">$0.42–$1.25 <span>/ {t('unit.pc')} · MOQ 50 {t('unit.pcs')}</span></div>
+          <p class="brand-tier-desc">{t('pdp.opt2Desc')}</p>
+          <ul class="brand-tier-list">
+            <li>✓ Diamond-Stone Ground Glass-Smooth Flush Surface</li>
+            <li>✓ Real Gold, Rose Gold, Nickel &amp; Black Nickel Plating</li>
+            <li>✓ 2D Stamping Die Waived @ 500+ {t('unit.pcs')} · 3-Yr Archive</li>
+          </ul>
+          <a href={getLocalizedPath('/contact', currentLang)} data-rfq-mode="Imitation Cloisonne Hard Enamel" data-rfq-qty="500" class="btn btn-primary brand-tier-btn">
+            {t('nav.requestQuote')} →
+          </a>
+        </div>
+
+        <div class="brand-tier-card">
+          <div class="brand-tier-badge badge-amber">★ TIER 3 · 3D ZINC DIE-CAST &amp; DUAL PLATING</div>
+          <h3>{t('pdp.opt3Title')}</h3>
+          <div class="brand-tier-price">$0.78–$3.85 <span>/ {t('unit.pc')} · MOQ 50–100 {t('unit.pcs')}</span></div>
+          <p class="brand-tier-desc">{t('pdp.opt3Desc')}</p>
+          <ul class="brand-tier-list">
+            <li>✓ Zamak #3 High-Pressure 3D Sculpted Contour Relief</li>
+            <li>✓ 3D Mold ($95–$150) Waived @ 1,000+ {t('unit.pcs')}</li>
+            <li>✓ Antique Gold/Silver/Bronze + Inner Cut-Outs &amp; Spinners</li>
+          </ul>
+          <a href={getLocalizedPath('/contact', currentLang)} data-rfq-mode="3D Sculpted Zinc Die-Casting" data-rfq-qty="1000" class="btn btn-outline brand-tier-btn">
+            {t('nav.requestQuote')} →
+          </a>
+        </div>
+      </div>
+
+      <div class="geo-table-wrap">
+        <table class="geo-table">
+          <thead>
+            <tr>
+              {brandingTable.headers.map((h) => (
+                <th>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {brandingTable.rows.map((row) => (
+              <tr>
+                {row.map((cell, ci) => (
+                  ci === 0 ? <td><strong>{cell}</strong></td> : <td>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section section-light brand-picks-box">
+      <div class="section-header-center">
+        <span class="badge badge-emerald">{t('brand.topPicksBadge')}</span>
+        <h2 class="section-title">{t('brand.topPicksTitle')}</h2>
+      </div>
+      <div class="grid-4">
+        {craftModels.map((p) => (
+          <ProductCard product={p} />
+        ))}
+      </div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href={getLocalizedPath('/collections/custom-enamel-pins', currentLang)} class="btn btn-primary">{t('brand.topPicksCta')}</a>
+      </div>
+    </section>
+
+    <!-- Custom Branding FAQ Section -->
+    <section class="section" style="margin-bottom: 3rem;">
+      <div class="section-header-center">
+        <span class="badge">{t('brand.faqBadge')}</span>
+        <h2 class="section-title">{t('brand.faqTitle')}</h2>
+      </div>
+      <div class="faq-list">
+        {localizedBrandingFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 3.5rem 0;
+  }
+  .page-hero h1 {
+    color: #ffffff;
+    font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+    margin: 0.85rem 0;
+  }
+  .page-hero p {
+    color: #cbd5e1;
+    max-width: 820px;
+    font-size: 1.05rem;
+  }
+  .brand-picks-box {
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    margin-bottom: 3.5rem;
+  }
+  .brand-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.35rem;
+    margin: 2rem 0 2.5rem;
+  }
+  .brand-tier-card {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 0.9rem;
+    padding: 1.6rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    transform: translateZ(0);
+  }
+  .brand-tier-featured {
+    border-color: #0284c7;
+    background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+    box-shadow: 0 10px 28px rgba(2, 132, 199, 0.12);
+  }
+  .brand-tier-badge {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.28rem 0.65rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+  .badge-slate {
+    background: #f1f5f9;
+    color: #334155;
+  }
+  .badge-emerald {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  .badge-amber {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .brand-tier-card h3 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin: 0 0 0.45rem;
+  }
+  .brand-tier-price {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #0284c7;
+    margin-bottom: 0.65rem;
+  }
+  .brand-tier-price span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+  .brand-tier-desc {
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .brand-tier-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #1e293b;
+    flex: 1;
+  }
+  .brand-tier-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  @media (max-width: 960px) {
+    .brand-tier-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .brand-picks-box {
+      padding: 1.75rem 1.15rem;
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>

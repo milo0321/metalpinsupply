@@ -1,0 +1,12 @@
+---
+import { nonDefaultLanguages } from '../../../i18n/config';
+import InsightsHubPage from '../../insights/index.astro';
+
+export function getStaticPaths() {
+  return nonDefaultLanguages.map((lang) => ({
+    params: { lang }
+  }));
+}
+---
+
+<InsightsHubPage />

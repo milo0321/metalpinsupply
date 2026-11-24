@@ -1,0 +1,372 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations } from '../../i18n/utils';
+import { localizeInsightMeta } from '../../i18n/insightAndCollectionLocalization';
+import { getLocalizedPageFaqs } from '../../i18n/pageContentLocalization';
+
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+
+const guides = (await getCollection('insights')).sort(
+  (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
+
+const guidesHubFaqs = [
+  {
+    question: 'What topics are covered in the MedalPinSupply Manufacturing & Sourcing Insights?',
+    answer: 'Our 43 technical and wholesale sourcing insights cover: (1) Hard Enamel Cloisonne vs. Soft Enamel Pins, (2) 2D Die-Struck vs. 3D Zinc Die-Cast Medallions, (3) Tooling & Mold Fee Waiver Thresholds ($55–$150 waived at 500–1,000+ pcs), (4) Real Gold, Antique Brass, Black Nickel & Dual Electroplating, (5) Marathon Finisher Medal Ribbons, and (6) CPSIA, EN71-3 & REACH Compliance.'
+  },
+  {
+    question: 'How do I choose between Hard Enamel (Imitation Cloisonne) and Soft Enamel lapel pins?',
+    answer: 'Choose Hard Enamel when you need a flush, glass-smooth jewelry surface polished level with the metal borders—ideal for corporate awards, university crests, and luxury retail pins. Choose Soft Enamel when you want dimensional recessed enamel fills with tactile raised metal outlines, sharper recessed borders, and 15–20% lower unit costs.'
+  },
+  {
+    question: 'When should a wholesale buyer select Zamak #3 Zinc Alloy vs. Die-Struck Brass or Iron?',
+    answer: 'Choose Zamak #3 Zinc Alloy Die-Casting for 3D multi-level relief medals, heavy challenge coins, belt buckles, and intricate cut-out silhouettes. Choose Die-Struck Brass/Copper for flat jewelry-grade Hard Enamel pins and military insignia, or Die-Struck Iron for high-volume budget promotional soft enamel pins.'
+  },
+  {
+    question: 'How do mold and die fee waivers work on custom pins, medals, and challenge coins?',
+    answer: 'Standard 2D stamping dies or die-casting molds ($45–$85) are waived 100% at 500+ pcs per design for pins, trolley coins, and cufflinks (or 1,000+ pcs for 3D keychains). Intricate 3D sculpted molds ($95–$150) are waived 100% at 1,000+ pcs, and all paid dies store free for 3 years.'
+  },
+  {
+    question: 'What attachments and backings work best for different garment weights and uses?',
+    answer: 'Standard Brass Butterfly Clutches fit light corporate shirts; PVC Rubber Clutches suit retail and youth sports pins; Deluxe Locking Clutches secure heavy duty bags and police badges; and Neodymium Twin-Magnet Backs protect silk blazers and hotel uniforms from pinholes.'
+  },
+  {
+    question: 'Why are CMYK Offset Printed or Photo-Etched Brass pins used for certain designs?',
+    answer: 'When artwork features photographic gradients, halftones, or hairlines thinner than 0.15mm metal lines, CMYK Offset Printing + Crystal Epoxy Dome or Photo-Etched Brass preserves microscopic detail without requiring metal walls between adjacent colors.'
+  },
+  {
+    question: 'Do custom medals and lapel pins comply with US CPSIA and EU EN71-3 / REACH lead-free rules?',
+    answer: 'Yes. All export electroplating baths use lead-free (<90 ppm), phthalate-free, and nickel-free compliant alloys tested to US CPSIA, California Prop 65, EU REACH, and EN71-3 heavy-metal migration standards.'
+  },
+  {
+    question: 'Do your sourcing guides reference real custom production specs and volume tiers?',
+    answer: 'Yes. Every guide links directly to MedalPinSupply custom craft styles across 11 categories with typical millimeter diameters, gram weights, craft processes, and 100 / 500 / 2,000+ pcs USD factory pricing.'
+  },
+  {
+    question: 'Can your Zhongshan Xiaolan tooling engineers evaluate our vector artwork before sampling?',
+    answer: 'Yes. Send your AI, EPS, PDF, or SVG logo via WhatsApp (+86 187 5012 6315) or sales@medalpinsupply.com to receive a 1:1 2D/3D production proof, Pantone separation, and plating recommendation within 12 hours.'
+  },
+  {
+    question: 'How fast can pre-production samples and bulk production orders ship internationally?',
+    answer: 'Physical pre-production samples ship in 7–10 days (12–15 days for dual-plated or multi-level 3D coins). Bulk orders complete in 12–18 days plus 4–7 days DDP express air freight directly to your race venue or warehouse.'
+  }
+];
+
+const localizedGuidesHubFaqs = getLocalizedPageFaqs('insights', guidesHubFaqs, currentLang);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: localizedGuidesHubFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const insightsCollectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: currentLang === 'en' ? 'Custom Pin, Medal & Coin Engineering Insights | MedalPinSupply' : `${t('guides.heroTitle')} | MedalPinSupply`,
+  url: `https://medalpinsupply.com${getLocalizedPath('/insights', currentLang)}`,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: guides.length,
+    itemListElement: guides.map((g, idx) => {
+      const locMeta = localizeInsightMeta(g.data, currentLang);
+      return {
+        '@type': 'ListItem',
+        position: idx + 1,
+        url: `https://medalpinsupply.com${getLocalizedPath(`/insights/${g.data.slug}`, currentLang)}`,
+        name: locMeta.title
+      };
+    })
+  }
+};
+
+const INSIGHTS_META_DESC_MAP: Record<string, string> = {
+  en: '43 wholesale metal craft sourcing guides ($0.14+): hard vs soft enamel pins, 3D zinc medals, challenge coins, tooling waivers, plating & CPSIA safety.',
+  es: '43 guías técnicas mayoristas: pines de esmalte duro vs blando, medallas 3D de zinc, monedas militares, exención de moldes, baños metálicos y CPSIA.',
+  de: '43 Fachleitfäden für Einkäufer: Hart- vs. Weichemaille-Pins, 3D-Zinkmedaillen, Challenge Coins, Werkzeugbefreiung, Galvanik & EN71-3/CPSIA-Normen.',
+  fr: '43 guides techniques grossistes : pins émail dur vs doux, médailles 3D zinc, pièces commémoratives, moules offerts, galvanoplastie et normes CPSIA.',
+  ja: 'ハード・ソフトエナメルピン、3D亜鉛合金メダル、チャレンジコイン、金型代免除条件、メッキ仕上、CPSIA/EN71-3安全基準を解説する43本の工場技術ガイド。',
+  ko: '하드 대 소프트 에나멜 핀, 3D 아연합금 메달, 챌린지 코인, 금형비 면제 기준, 도금 공정 및 CPSIA 안전 규격을 다루는 43편의 제조 가이드.',
+  ar: '43 دليلاً هندسياً بالجملة: دبابيس المينا الصلبة والناعمة، ميداليات الزنك ثلاثية الأبعاد، العملات التذكارية، إعفاء القوالب، الطلاء ومعايير CPSIA.',
+  pt: '43 guias técnicos grossistas: pins esmalte duro vs macio, medalhas 3D em zinco, moedas comemorativas, isenção de molde, banhos e normas CPSIA/EN71.',
+  ru: '43 инженерных руководств: значки твёрдая и мягкая эмаль, 3D-медали из цинка, памятные монеты, отмена цены штампа, гальваника и CPSIA/EN71-3.',
+  it: '43 guide tecniche ingrosso: spilla smalto duro vs morbido, medaglie 3D zinco, challenge coin, esenzione stampo, galvanica e sicurezza CPSIA/EN71.',
+  nl: '43 inkoopgidsen voor fabrikanten: hard vs zacht emaille pins, 3D zinken medailles, challenge coins, matrijsvrijstelling, plating en CPSIA/REACH.',
+  pl: '43 poradników produkcyjnych: piny twarda vs miękka emalia, medale 3D ze stopu cynku, monety pamiątkowe, zwolnienie z kosztu matrycy oraz CPSIA/EN71.',
+  id: '43 panduan manufaktur grosir: pin enamel keras vs lunak, medali 3D seng, koin tantangan, pembebasan biaya cetakan, elektroplating & keamanan CPSIA.',
+  sv: '43 tillverkningsguider: hård vs mjuk emaljpin, 3D-zinkmedaljer, challenge coins, slopad verktygskostnad, plätering samt CPSIA/EN71-3 efterlevnad.',
+  no: '43 innkjøpsguider: hard vs myk emalje-pins, 3D-sinkmedaljer, challenge coins, fritak for verktøyavgift, plettering og CPSIA/EN71-3 sikkerhet.',
+  da: '43 indkøbsguides: hård vs blød emalje-pins, 3D-zinkmedaljer, challenge coins, fritagelse for værktøjsgebyr, galvanisering og CPSIA/EN71-3 sikkerhed.',
+  fi: '43 valmistusopasta: kova vs pehmeä emalipinssi, 3D-sinkkimitalit, haastekolikot, muottimaksun vapautus, pintakäsittely ja CPSIA/EN71-3-turvallisuus.',
+  cs: '43 výrobních průvodců: tvrdý vs měkký smalt, 3D zinkové medaile, pamětní mince, odpuštění ceny formy, galvanizace a normy CPSIA/EN71-3.'
+};
+const pageDescription = INSIGHTS_META_DESC_MAP[currentLang] || INSIGHTS_META_DESC_MAP.en;
+---
+
+<Layout
+  title={currentLang === 'en' ? '43 Pin, Medal & Coin Engineering Guides | MedalPinSupply' : `${t('guides.heroTitle')} | MedalPinSupply`}
+  description={pageDescription}
+  activePage="insights"
+  jsonLd={[insightsCollectionSchema, faqSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-centered">
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+        <span class="bc-sep">/</span>
+        <span class="bc-current">{t('breadcrumb.guides')}</span>
+      </nav>
+
+      <div class="hero-badges-row">
+        <span class="badge badge-dark">{t('guides.heroBadge')}</span>
+        <span class="badge badge-gold">{guides.length} {t('breadcrumb.guides')}</span>
+      </div>
+
+      <h1 class="grand-hero-title">{t('guides.heroTitle')}</h1>
+      <p class="grand-hero-lead">
+        {t('guides.heroDesc')}
+      </p>
+
+      <!-- Live Search Bar -->
+      <div class="insights-search-wrap">
+        <svg class="insights-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input
+          type="search"
+          id="insightsSearchInput"
+          placeholder={t('catalog.searchPlaceholder')}
+          autocomplete="off"
+        />
+      </div>
+
+      <!-- 3 Frosted Glass Data Stats Cards -->
+      <div class="hero-glass-grid cols-3">
+        <div class="glass-kpi-card">
+          <span class="glass-kpi-label">{t('breadcrumb.guides')}</span>
+          <strong class="glass-kpi-val">{guides.length}</strong>
+        </div>
+        <div class="glass-kpi-card">
+          <span class="glass-kpi-label">{t('col.stat1Label')}</span>
+          <strong class="glass-kpi-val">158 Styles</strong>
+        </div>
+        <div class="glass-kpi-card">
+          <span class="glass-kpi-label">{t('nav.complianceSafety')}</span>
+          <strong class="glass-kpi-val">CPSIA · EN71-3 · REACH</strong>
+        </div>
+      </div>
+
+      <div class="hero-badges-row" style="margin-top: 1.25rem; margin-bottom: 0;">
+        <a
+          href={getLocalizedPath('/contact', currentLang)}
+          data-rfq-sku="All 158 Custom Craft Styles (Price Matrix)"
+          data-rfq-mode="OEM / Custom Design Inquiry"
+          data-rfq-qty="100"
+          class="badge badge-gold"
+          style="text-decoration: none;"
+        >
+          📊 Get Custom Price Guide (PDF/Excel) →
+        </a>
+        <a
+          href={getLocalizedPath('/contact', currentLang)}
+          data-rfq-sku="Hard Enamel Pins, 3D Race Medals & Challenge Coins"
+          data-rfq-mode="Pre-Production Sample / Physical Spec Kit"
+          data-rfq-qty="10"
+          class="badge badge-dark"
+          style="text-decoration: none;"
+        >
+          📦 Order Craft Finish Sample Kit →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <GeoDirectAnswer
+      title={t('guides.geoTitle')}
+      answer={t('guides.geoAnswer')}
+    />
+
+    <section class="section">
+      <div class="grid-3" id="insightsGrid">
+        {guides.map((g) => {
+          const lm = localizeInsightMeta(g.data, currentLang);
+          return (
+            <article class="guide-card" data-search={`${lm.title} ${lm.summary} ${lm.category} ${g.data.slug}`.toLowerCase()}>
+              <a href={getLocalizedPath(`/insights/${g.data.slug}`, currentLang)} class="guide-img-link">
+                <img src={g.data.featuredImage} alt={lm.title} width="400" height="300" />
+              </a>
+              <div class="guide-body">
+                <div class="guide-meta">
+                  <span class="guide-cat">{lm.category}</span>
+                  <span>10 {t('unit.minRead')}</span>
+                </div>
+                <h2>
+                  <a href={getLocalizedPath(`/insights/${g.data.slug}`, currentLang)}>{lm.title}</a>
+                </h2>
+                <p>{lm.summary}</p>
+                <a href={getLocalizedPath(`/insights/${g.data.slug}`, currentLang)} class="guide-cta">{t('guides.readCta')}</a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Guides Hub FAQ Section -->
+    <section class="section section-light guides-faq-box">
+      <div class="section-header-center">
+        <span class="badge">{t('guides.faqBadge')}</span>
+        <h2 class="section-title">{t('guides.faqTitle')}</h2>
+      </div>
+      <div class="faq-list">
+        {localizedGuidesHubFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script is:inline>
+  (function () {
+    var searchInput = document.getElementById('insightsSearchInput');
+    var cards = document.querySelectorAll('#insightsGrid .guide-card');
+    if (!searchInput || !cards.length) return;
+    searchInput.addEventListener('input', function () {
+      var q = searchInput.value.toLowerCase().trim();
+      cards.forEach(function (card) {
+        var text = card.getAttribute('data-search') || '';
+        card.style.display = !q || text.indexOf(q) !== -1 ? '' : 'none';
+      });
+    });
+  })();
+</script>
+
+<style>
+  .insights-search-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto 1.65rem auto;
+  }
+  .insights-search-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+  }
+  .insights-search-wrap input {
+    width: 100%;
+    padding: 0.95rem 1.25rem 0.95rem 3.1rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: rgba(15, 23, 42, 0.82);
+    color: #ffffff;
+    font-size: 0.96rem;
+    outline: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .insights-search-wrap input::placeholder {
+    color: #94a3b8;
+  }
+  .insights-search-wrap input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+  }
+  .guide-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+  }
+  .guide-img-link {
+    aspect-ratio: 4 / 3;
+    background: #0f172a;
+    border-bottom: 1px solid #f1f5f9;
+    overflow: hidden;
+  }
+  .guide-img-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .guide-body {
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .guide-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+  .guide-cat {
+    color: #0284c7;
+    font-weight: 700;
+  }
+  .guide-body h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.65rem;
+    line-height: 1.35;
+  }
+  .guide-body h2 a {
+    color: #0f172a;
+  }
+  .guide-body p {
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+  .guide-cta {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #0284c7;
+  }
+  .guides-faq-box {
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    margin-bottom: 3.5rem;
+  }
+  @media (max-width: 640px) {
+    .insights-search-wrap input {
+      padding: 0.8rem 1rem 0.8rem 2.75rem;
+      font-size: 0.88rem;
+    }
+    .guide-body {
+      padding: 1.1rem;
+    }
+    .guide-body h2 {
+      font-size: 1.04rem;
+    }
+    .guides-faq-box {
+      padding: 1.75rem 1.15rem;
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>

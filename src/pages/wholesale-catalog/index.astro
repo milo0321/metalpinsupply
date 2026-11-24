@@ -1,0 +1,317 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../../i18n/utils';
+
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const allProducts = (await getCollection('products')).sort((a, b) => a.data.rowId - b.data.rowId);
+
+const tierBudget = allProducts.filter((p) => parseFloat(p.data.tier500) <= 0.75);
+const tierMid = allProducts.filter((p) => parseFloat(p.data.tier500) > 0.75 && parseFloat(p.data.tier500) <= 1.50);
+const tierPremium = allProducts.filter((p) => parseFloat(p.data.tier500) > 1.50 && parseFloat(p.data.tier500) <= 3.00);
+const tierExotic = allProducts.filter((p) => parseFloat(p.data.tier500) > 3.00);
+
+const showcaseMatrix = [
+  ...tierBudget.slice(0, 2),
+  ...tierMid.slice(0, 2),
+  ...tierPremium.slice(0, 2),
+  ...tierExotic.slice(0, 2)
+];
+
+const PAGE_TITLES: Record<string, string> = {
+  en: 'Custom Pin, Medal & Coin Factory Wholesale Price Guide',
+  de: 'Großhandel Pins, Medaillen & Coins Werkspreisliste',
+  fr: 'Tarif Grossiste Pins, Médailles & Coins sur Mesure',
+  nl: 'Groothandel Maatwerk Pins, Medailles & Munten Prijslijst',
+  es: 'Lista Mayorista Pines, Medallas y Monedas a Medida',
+  it: 'Listino Ingrosso Spille, Medaglie e Monete su Misura',
+  pt: 'Tabela Atacado Pins, Medalhas e Moedas Sob Medida',
+  sv: 'Grossistprislista Specialgjorda Pins, Medaljer & Mynt',
+  da: 'Engros Prisliste Specialfremstillede Pins, Medaljer & Mønter',
+  no: 'Grossistprisliste Tilpassede Pins, Medaljer & Mynter',
+  fi: 'Mittatilaus Pinssi-, Mitali- & Kolikkotukun Tehdashinnasto',
+  pl: 'Cennik Hurtowy Pinów, Medali i Monet na Zamówienie',
+  cs: 'Velkoobchodní Ceník Zakázkových Odznaků, Medailí a Mincí',
+  ru: 'Оптовый прайс на значки, медали и монеты на заказ',
+  ja: 'カスタムピン・メダル・コイン工場直販価格ガイド',
+  ko: '주문 제작 핀·메달·코인 공장 직판 단가 가이드',
+  id: 'Daftar Harga Grosir Pin, Medali & Koin Kustom Pabrik',
+  ar: 'دليل أسعار الجملة للدبابيس والميداليات والعملات المخصصة'
+};
+
+const PAGE_DESCS: Record<string, string> = {
+  en: 'Factory-direct custom pin, medal & coin pricing across 158 craft specs ($0.11–$4.20 EXW at 2,000+), 100/500/2,000+ tiers & 500+ die waivers.',
+  de: 'Werkspreise für Pins, Medaillen & Challenge Coins: 158 Fertigungsarten ($0.11–$4.20 ab 2.000 Stk.), 100/500/2.000er Staffeln & Werkzeugbefreiung.',
+  fr: 'Tarifs usine pour pins, médailles & pièces sur mesure : 158 options ($0.11–$4.20 dès 2000 pcs), paliers 100/500/2000 et moules offerts dès 500 pcs.',
+  nl: 'Fabrieksprijzen voor maatwerk pins, medailles & munten: 158 specificaties ($0.11–$4.20 bij 2.000+ st.), staffels 100/500/2.000 & matrijsvrijstelling.',
+  es: 'Precios directos de fábrica para pines, medallas y monedas a medida: 158 opciones ($0.11–$4.20 a 2,000+), tramos 100/500/2,000 y exención de moldes.',
+  it: 'Prezzi di fabbrica per spille, medaglie e monete su misura: 158 opzioni ($0.11–$4.20 a 2.000+ pz), scaglioni 100/500/2.000 ed esenzione stampo.',
+  pt: 'Tabela de fábrica para pins, medalhas e moedas sob medida: 158 especificações ($0.11–$4.20 acima de 2.000 un.), faixas 100/500/2.000 e isenção.',
+  sv: 'Fabrikspriser för kundanpassade pins, medaljer & mynt: 158 specifikationer ($0.11–$4.20 vid 2 000+ st), 100/500/2 000 prisnivåer samt avgiftsfri form.',
+  da: 'Fabrikspriser på specialfremstillede pins, medaljer & mønter: 158 specifikationer ($0.11–$4.20 ved 2.000+ stk.), 100/500/2.000 prisniveauer.',
+  no: 'Fabrikkpriser for tilpassede pins, medaljer & mynter: 158 spesifikasjoner ($0.11–$4.20 ved 2 000+ stk.), 100/500/2 000 nivåer og formfritak.',
+  fi: 'Tehdashinnasto mittatilauspinsseille, -mitaleille & -kolikoille: 158 tyyliä ($0.11–$4.20 erässä 2 000+), 100/500/2 000 hintatasot ja muottivapautus.',
+  pl: 'Cennik fabryczny pinów, medali i monet na zamówienie: 158 opcji ($0.11–$4.20 przy 2000+ szt.), progi 100/500/2000 i darmowa matryca ≥ 500 szt.',
+  cs: 'Tovární ceník zakázkových odznaků, medailí a mincí: 158 možností ($0.11–$4.20 při 2 000+ ks), ceny pro 100/500/2 000 ks a odpuštění formy.',
+  ru: 'Заводские цены на значки, медали и монеты на заказ: 158 опций ($0.11–$4.20 от 2000 шт.), градации 100/500/2000 шт. и отмена цены штампа.',
+  ja: 'オーダーメイドピン・メダル・チャレンジコイン全158仕様の工場直販価格ガイド（2,000個時$0.11〜$4.20・階段価格・金型代免除条件）。',
+  ko: '주문 제작 핀·메달·챌린지 코인 158종 공장 직판 가격표: 2,000개 기준 $0.11–$4.20, 100/500/2,000개 단가 및 금형비 면제 기준.',
+  id: 'Daftar harga pabrik pin, medali & koin kustom grosir: 158 spesifikasi ($0.11–$4.20 pada 2.000+ pcs), tier 100/500/2.000 & bebas biaya cetakan.',
+  ar: 'قائمة أسعار المصنع المباشرة للدبابيس والميداليات والعملات المخصصة: 158 خياراً ($0.11–$4.20 لـ 2,000+ قطعة)، شرائح 100/500/2,000 وإعفاء القوالب.'
+};
+
+const catalogFaqs = [
+  {
+    question: 'What is the full EXW factory wholesale price range across MedalPinSupply’s 158 custom craft specs?',
+    answer: 'Every product is custom-molded to client artwork. Across 158 craft specs, 2,000-piece bulk EXW prices start at $0.11/pc for printed backing cards and $0.14/pc for tinplate button badges, running through $0.49–$1.85/pc for core enamel pins, ribbons, and trolley coins, up to $2.95–$4.20/pc for heavy police badges, trophy belt buckles, and deluxe boxed cufflink sets.'
+  },
+  {
+    question: 'How are volume price tiers structured (100 pcs vs. 500 pcs vs. 2,000+ pcs)?',
+    answer: 'Every custom craft spec displays transparent 3-tier factory pricing: Tier 1 (100 pcs), Tier 2 (500 pcs), and Tier 3 (2,000+ pcs). Moving from 100 pcs to 2,000+ pcs distributes stamping/die-cast machine setup and electroplating rack overhead, dropping unit cost by 45%–65%.'
+  },
+  {
+    question: 'How do 500+ and 1,000+ custom die waivers lower startup tooling costs?',
+    answer: 'Custom 2D stamping dies ($45–$85 for pins, trolley coins, cufflinks, and badges) are waived 100% at 500+ pcs per design, and 3D sculpted zinc molds ($95–$150 for race medals, challenge coins, and buckles) are waived 100% at 1,000+ pcs. Paid dies are archived free for 3 years for $0 reorders.'
+  },
+  {
+    question: 'What is the Minimum Order Quantity (MOQ) across lapel pins, medals, challenge coins, and packaging?',
+    answer: 'Standard minimum orders start at 50–100 pcs per artwork for custom enamel pins, marathon medals, challenge coins, keychains, and cufflinks, and 100 pcs for trolley coins, backing cards, and hinged velvet presentation boxes.'
+  },
+  {
+    question: 'What is the unit cost difference between Die-Struck Iron, Brass Cloisonne, and Zamak #3 Zinc Die-Casting?',
+    answer: 'Stamped iron soft enamel pins occupy the $0.22–$0.75 band at volume; jewelry-grade brass cloisonne hard enamel pins range $0.42–$1.25; and heavy 3mm–4mm 3D sculpted Zamak #3 marathon medals and coins span $0.78–$3.10 depending on diameter and dual-tone plating.'
+  },
+  {
+    question: 'Can we split multiple electroplating finishes (Bronze, Silver, Gold) on one shared die?',
+    answer: 'Yes! Once we cut your master die, we can split bronze, nickel silver, and 24K gold finishes across one batch (e.g., 1st/2nd/3rd place tournament medals or 1/5/10-year service pins) while counting the total batch toward mold fee waivers.'
+  },
+  {
+    question: 'What custom packaging upgrades are listed in the wholesale price matrix?',
+    answer: 'Individual OPP polybagging is included free on all metalwork. Optional upgrades include Custom 400gsm CMYK Backing Cards ($0.11–$0.35), Optical Coin Capsules ($0.16–$0.45), and Velvet / Leatherette Foil-Stamped Gift Boxes ($0.85–$4.20).'
+  },
+  {
+    question: 'Can I request the complete custom wholesale price spreadsheet in Excel or PDF format?',
+    answer: 'Yes. Submit your work email in the quick bar above or message +86 187 5012 6315 on WhatsApp and our Zhongshan export team will send the full craft specification & pricing guide covering sizes, alloys, mold waiver rules, and 100/500/2,000+ EXW tiers.'
+  },
+  {
+    question: 'Can we order craft finish reference boxes or custom pre-production prototypes first?',
+    answer: 'Yes. Archived craft finish evaluation boxes (every bulk order is 100% custom-tooled, never stock blanks) ship via DHL/FedEx within 48 hours, and custom tool-cut pre-production prototypes ship in 7–10 business days after digital vector proof sign-off.'
+  },
+  {
+    question: 'How do you handle bulk international air freight (DDP) and rush event deadlines?',
+    answer: 'For time-critical marathons, trade shows, or graduations, we pair 10–14 day priority factory runs with 4–7 day door-to-door DDP Air Express (DHL/FedEx/UPS), alongside cost-effective ocean freight for multi-thousand piece distributor restocks.'
+  }
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: catalogFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const catalogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: 'MedalPinSupply Custom Pins, Medals & Coins Wholesale Price Guide',
+  numberOfItems: allProducts.length,
+  url: `https://medalpinsupply.com${getLocalizedPath('/wholesale-catalog', currentLang)}`
+};
+---
+
+<Layout
+  title={PAGE_TITLES[currentLang] || PAGE_TITLES.en}
+  description={PAGE_DESCS[currentLang] || PAGE_DESCS.en}
+  ogImage="/images/factory/showcase-2.webp"
+  activePage="products"
+  jsonLd={[catalogSchema, faqSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-grid">
+      <div class="grand-hero-info">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <a href={getLocalizedPath('/products', currentLang)}>{t('breadcrumb.allCatalog')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">Wholesale Price Guide</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-gold">FACTORY-DIRECT EXW MATRIX</span>
+          <span class="badge badge-emerald">158 Custom Craft Specs · Mold Waivers</span>
+        </div>
+
+        <h1 class="grand-hero-title">{PAGE_TITLES[currentLang] || PAGE_TITLES.en}</h1>
+        <p class="grand-hero-lead">
+          {PAGE_DESCS[currentLang] || PAGE_DESCS.en}
+        </p>
+
+        <div class="hero-glass-grid">
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Entry Tier (&le;$0.75)</span>
+            <strong class="glass-kpi-val">{tierBudget.length} Specs</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Core Retail ($0.76–$1.50)</span>
+            <strong class="glass-kpi-val">{tierMid.length} Specs</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Medals &amp; Coins ($1.51–$3)</span>
+            <strong class="glass-kpi-val">{tierPremium.length} Specs</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Heavy Badges ($3+)</span>
+            <strong class="glass-kpi-val">{tierExotic.length} Specs</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href={getLocalizedPath('/products', currentLang)} class="btn btn-accent btn-hero">
+            Explore All {allProducts.length} Styles →
+          </a>
+          <a href={getLocalizedPath('/sample-kit', currentLang)} class="btn btn-secondary-dark btn-hero">
+            Sample Box Program →
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase-card">
+        <div class="hero-showcase-top">
+          <span class="sku-pill">3-TIER VOLUME PRICING</span>
+          <span class="hero-showcase-price">$0.11 – $4.20</span>
+        </div>
+        <div class="hero-showcase-img-wrap">
+          <img
+            src="/images/factory/showcase-2.webp"
+            alt="MedalPinSupply custom pin, medal, and challenge coin wholesale price matrix"
+            width="480"
+            height="360"
+            loading="eager"
+          />
+        </div>
+        <div class="hero-showcase-meta">
+          <span>100 / 500 / 2,000+ Tiers</span>
+          <span>500+ 2D Die Waiver</span>
+          <span>12h Free Vector Proof</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <GeoDirectAnswer
+      title="Direct Answer: Wholesale Custom Pin, Medal & Coin Price Tiers"
+      answer="MedalPinSupply's wholesale pricing matrix spans 158 custom metal craft specifications (all custom-molded to client artwork—never stock items), grouped into four EXW price bands at 2,000+ volume: Budget & Packaging ($0.11–$0.75), Core Enamel Pins & Keychains ($0.76–$1.50), 3D Medals, Coins & Golf Gear ($1.51–$3.00), and Heavy Badges & Velvet Gift Sets ($3.01–$4.20). Custom 2D dies ($45–$85) waive at 500+ pcs, 3D molds ($95–$150) waive at 1,000+ pcs, and paid dies store free for 3 years."
+    />
+
+    <form class="inline-quick-sheet-form" data-inline-sku="Full Wholesale Custom Price Guide (Excel/PDF · 100/500/2000 Tiers)" novalidate>
+      <div class="inline-qrfq-text">
+        <strong>{microHooks.getFullSheetPdf}</strong>
+        <span>{microHooks.mixMoqBadge}</span>
+      </div>
+      <div class="inline-qrfq-controls">
+        <input
+          type="email"
+          class="inline-qrfq-input"
+          placeholder={`${t('contact.workEmail')} (name@company.com)`}
+          aria-label={t('contact.workEmail')}
+          required
+        />
+        <button type="submit" class="inline-qrfq-btn">
+          ⚡ {microHooks.sheet140} →
+        </button>
+      </div>
+      <div class="inline-qrfq-status" hidden></div>
+    </form>
+
+    <section class="section">
+      <div class="section-header-center">
+        <span class="badge">FACTORY PRICE BAND ARCHITECTURE</span>
+        <h2 class="section-title">158 Craft Specifications Grouped by 500-Pc EXW Price Band</h2>
+      </div>
+      <div class="geo-table-wrap">
+        <table class="geo-table">
+          <thead>
+            <tr>
+              <th>Price Band (500-Pc EXW)</th>
+              <th>Active Specs</th>
+              <th>Primary Materials &amp; Process</th>
+              <th>Best-Fit Buyer Channels</th>
+              <th>2,000+ Tier Floor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>$0.18 – $0.75 / pc</strong></td>
+              <td>{tierBudget.length} Custom Styles</td>
+              <td>400gsm Cardstock, 0.25mm Tinplate, Stamped Iron, Aluminum Loops, Custom Die Trolley Coins</td>
+              <td>Mass event buttons, supermarket trolley coin promos, pin display cards, retail bag hardware</td>
+              <td>$0.11 – $0.49</td>
+            </tr>
+            <tr>
+              <td><strong>$0.76 – $1.50 / pc</strong></td>
+              <td>{tierMid.length} Custom Styles</td>
+              <td>Cloisonne Hard Enamel, Die-Struck Soft Enamel, Spin-Cast Keychains, Satin Medal Ribbons</td>
+              <td>Corporate service milestones, retail enamel pin lines, brewery openers, tourist fridge magnets</td>
+              <td>$0.45 – $1.08</td>
+            </tr>
+            <tr>
+              <td><strong>$1.51 – $3.00 / pc</strong></td>
+              <td>{tierPremium.length} Custom Styles</td>
+              <td>Hot-Chamber 3D Zamak #3 Zinc Alloy, Brass Divot Tools, Stamped Brass Coin Blanks</td>
+              <td>Marathon &amp; triathlon finisher medals, military &amp; fire department coins, country club golf events</td>
+              <td>$1.05 – $2.25</td>
+            </tr>
+            <tr>
+              <td><strong>$3.01 – $5.40 / pc</strong></td>
+              <td>{tierExotic.length} Custom Styles</td>
+              <td>Thick Dual-Plated Brass Coins, 3D Curved Shield Badges, Trophy Rings &amp; Bullion Patch Sets</td>
+              <td>Law enforcement uniform badges, championship rings, executive boxed cufflink &amp; tie-bar gifts</td>
+              <td>$2.35 – $4.20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section section-light" style="padding: 2.5rem 1.75rem; border-radius: 1rem;">
+      <div class="section-header-center">
+        <span class="badge badge-emerald">REPRESENTATIVE BENCHMARKS ACROSS ALL 4 TIERS</span>
+        <h2 class="section-title">Flagship Specifications From $0.14 Badges to Heavy 3D Shields</h2>
+      </div>
+      <div class="grid-4">
+        {showcaseMatrix.map((p) => (
+          <ProductCard product={p.data} lang={currentLang} />
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header-center">
+        <span class="badge">WHOLESALE CATALOG FAQ</span>
+        <h2 class="section-title">Pricing Tiers, MOQ &amp; Factory Sourcing Questions</h2>
+      </div>
+      <div class="faq-list">
+        {catalogFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

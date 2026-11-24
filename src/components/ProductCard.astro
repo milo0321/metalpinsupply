@@ -1,0 +1,314 @@
+---
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../i18n/utils';
+import type { SupportedLanguage } from '../i18n/config';
+import { localizeTitle, localizeMaterial } from '../i18n/productLocalization';
+
+interface Props {
+  product: any;
+  lang?: SupportedLanguage;
+}
+
+const { product, lang } = Astro.props;
+const currentLang = (lang || getLanguageFromURL(Astro.url.pathname) || 'en') as SupportedLanguage;
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const p = product.data || product;
+const locTitle = localizeTitle(p.title, currentLang);
+const locMaterial = localizeMaterial(p.material.split('/')[0].trim(), currentLang);
+const pdpUrl = getLocalizedPath(`/products/${p.slug}`, currentLang);
+const rfqUrl = getLocalizedPath('/contact', currentLang);
+const lowPrice = p.tier2000 || p.tier500;
+const highPrice = p.tier100;
+const isTwoD = Boolean(p.readyMold);
+---
+
+<article
+  class="product-card"
+  data-sku={p.sku.toLowerCase()}
+  data-title={p.title.toLowerCase()}
+  data-category={p.primaryCollection}
+  data-material={p.material.toLowerCase()}
+  data-logo={p.readyMold ? 'true' : 'false'}
+  data-tuning={p.enamelCraft ? 'true' : 'false'}
+  data-cnc={p.dieCast3d ? 'true' : 'false'}
+  data-price={parseFloat(lowPrice)}
+  data-weight={parseFloat(p.weight) || 25}
+>
+  <a href={pdpUrl} class="card-img-wrap">
+    <img
+      src={p.featuredImage}
+      alt={`${locTitle} - ${locMaterial}`}
+      loading="lazy"
+      decoding="async"
+      width="400"
+      height="300"
+      class="card-img"
+    />
+    <div class="card-badges-top">
+      {p.readyMold ? (
+        <span class="tag-pill tag-logo">{t('card.logoReady')}</span>
+      ) : p.enamelCraft ? (
+        <span class="tag-pill tag-tuning">{t('card.tuningFork')}</span>
+      ) : p.dieCast3d ? (
+        <span class="tag-pill tag-cnc">{t('card.cncExotic')}</span>
+      ) : null}
+    </div>
+  </a>
+
+  <div class="card-body">
+    <div class="card-cat-row">
+      <span class="card-cat">{t(`col.${p.primaryCollection}.short` as any)}</span>
+      <span class="card-weight">{p.size} · {isTwoD ? '500+ Die Free' : '3-Yr Mold'}</span>
+    </div>
+
+    <h3 class="card-title">
+      <a href={pdpUrl}>{locTitle}</a>
+    </h3>
+
+    <div class="card-specs-mini">
+      <div><strong>{t('card.material')}</strong> {locMaterial}</div>
+      <div><strong>{t('card.magnets')}</strong> {p.attachmentEn.slice(0, 44)}{p.attachmentEn.length > 44 ? '…' : ''}</div>
+    </div>
+
+    <div class="card-price-box">
+      <div class="price-col">
+        <span class="price-label">{t('card.wholesale500')}</span>
+        <strong class="price-val">${lowPrice}<span>/{t('unit.pc')}</span></strong>
+      </div>
+      <div class="price-col price-col-right">
+        <span class="price-label">MOQ {p.moqNum} {t('unit.pcs')}</span>
+        <span class="price-tier50">${highPrice}/{t('unit.pc')}</span>
+      </div>
+    </div>
+
+    <div class="card-actions">
+      <a href={pdpUrl} class="btn btn-outline card-btn">
+        {t('card.viewSpecs')}
+      </a>
+      <a href={rfqUrl} data-rfq-sku={locTitle} data-rfq-qty={String(p.moqNum || 100)} class="btn btn-primary card-btn-rfq">
+        {t('card.quote')}
+      </a>
+    </div>
+
+    <div class="card-micro-hooks">
+      <a
+        href={rfqUrl}
+        data-rfq-sku={locTitle}
+        data-rfq-mode="Free 1:1 Digital Proof (12h)"
+        data-rfq-qty={String(p.moqNum || 100)}
+        class="card-micro-link"
+      >
+        {microHooks.sample1Pc}
+      </a>
+      <a
+        href={`https://wa.me/8618750126315?text=${encodeURIComponent(`Hello MedalPinSupply, I would like wholesale pricing ($${lowPrice}–$${highPrice}/pc) & free 1:1 digital proof for custom ${locTitle}.`)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card-micro-link card-micro-wa"
+      >
+        💬 WhatsApp
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .product-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.22s ease;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    border-color: #0284c7;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.11);
+  }
+  .card-img-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: #ffffff;
+    overflow: hidden;
+    border-bottom: 1px solid #f1f5f9;
+    display: block;
+    transform: translateZ(0);
+  }
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #ffffff;
+    padding: 0.35rem;
+    display: block;
+    backface-visibility: hidden;
+    transition: transform 0.3s ease;
+  }
+  .product-card:hover .card-img {
+    transform: scale(1.04);
+  }
+  .card-badges-top {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.65rem;
+    right: 0.65rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.35rem;
+    pointer-events: none;
+  }
+  .tag-pill {
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .tag-logo {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+  }
+  .tag-tuning {
+    background: #ede9fe;
+    color: #6d28d9;
+    border: 1px solid #c4b5fd;
+  }
+  .tag-cnc {
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #7dd3fc;
+  }
+  .card-body {
+    padding: 1.25rem 1.25rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .card-cat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.73rem;
+    color: #64748b;
+    margin-bottom: 0.45rem;
+  }
+  .card-cat {
+    font-weight: 700;
+    color: #0369a1;
+  }
+  .card-weight {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+  .card-title {
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.38;
+    margin-bottom: 0.75rem;
+  }
+  .card-title a {
+    color: #0f172a;
+  }
+  .card-title a:hover {
+    color: #0284c7;
+  }
+  .card-specs-mini {
+    font-size: 0.78rem;
+    color: #475569;
+    line-height: 1.55;
+    margin-bottom: 0.95rem;
+    background: #f8fafc;
+    padding: 0.65rem 0.8rem;
+    border-radius: 0.5rem;
+    border: 1px solid #f1f5f9;
+  }
+  .card-price-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+    margin-top: auto;
+    border-top: 1px dashed #e2e8f0;
+    margin-bottom: 0.95rem;
+  }
+  .price-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .price-col-right {
+    text-align: right;
+  }
+  .price-label {
+    font-size: 0.68rem;
+    color: #64748b;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .price-val {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #059669;
+    font-family: var(--font-heading);
+    line-height: 1.15;
+  }
+  .price-val span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+  .price-tier50 {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #334155;
+  }
+  .card-actions {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 0.55rem;
+  }
+  .card-btn,
+  .card-btn-rfq {
+    padding: 0.52rem 0.5rem;
+    font-size: 0.78rem;
+    line-height: 1.25;
+    text-align: center;
+    border-radius: 0.45rem;
+    min-width: 0;
+  }
+  .card-micro-hooks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    padding-top: 0.55rem;
+    margin-top: 0.55rem;
+    border-top: 1px dashed #e2e8f0;
+  }
+  .card-micro-link {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #0369a1;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-micro-link:hover {
+    text-decoration: underline;
+    color: #0284c7;
+  }
+  .card-micro-wa {
+    color: #047857;
+  }
+  .card-micro-wa:hover {
+    color: #059669;
+  }
+</style>

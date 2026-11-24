@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "medalpinsupply",
+  "main": "src/worker.ts",
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": ["nodejs_compat"],
+  "build": {
+    "command": "npm run build"
+  },
+  "vars": {
+    "NOTIFICATION_EMAIL": "sales@medalpinsupply.com",
+    "RESEND_FROM_EMAIL": "MedalPinSupply Inquiries <quotes@send.medalpinsupply.com>",
+    "PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAF1GTaPVmYSNUcHS",
+    "PUBLIC_GA_MEASUREMENT_ID": "G-HHP8CN1M58"
+  },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,0 +1,789 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { COLLECTIONS, type CollectionMeta } from '../../data/collections';
+import { getLanguageFromURL, useTranslations, getLocalizedPath, getMicroHookLabels } from '../../i18n/utils';
+import { localizeTitle, localizeMaterial, localizeHardwareOrMagnets } from '../../i18n/productLocalization';
+import { localizeCollectionContent, localizeInsightMeta } from '../../i18n/insightAndCollectionLocalization';
+
+export async function getStaticPaths() {
+  const allProducts = await getCollection('products');
+  const allGuides = await getCollection('insights');
+  const sortedProducts = allProducts.sort((a, b) => a.data.rowId - b.data.rowId);
+
+  const COLLECTION_INSIGHT_MAP: Record<string, string[]> = {
+    'custom-enamel-pins': [
+      'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide',
+      'photo-etched-brass-vs-offset-printed-silk-screen-lapel-pins',
+      'epoxy-dome-coating-on-soft-enamel-pins-keychains-pros-and-cons',
+      'lapel-pin-backs-and-attachments-butterfly-clutch-rubber-magnet-locking',
+      'specialty-enamel-effects-glitter-glow-in-the-dark-stained-glass-translucent',
+      'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms',
+      'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale',
+      'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping'
+    ],
+    'custom-medals': [
+      'custom-marathon-and-5k-10k-finisher-medals-race-director-sourcing-guide',
+      'spinner-bottle-opener-and-magnetic-interlocking-race-medal-trends',
+      'dye-sublimated-vs-woven-neck-ribbons-for-custom-sports-medals',
+      'virtual-race-finisher-medals-lightweight-mailer-packaging-and-fulfillment',
+      'cut-out-hollow-design-and-inner-cut-mold-fees-for-medals-and-coins',
+      'academic-graduation-medallions-and-military-drape-ribbon-medals-guide',
+      'custom-championship-rings-vs-trophy-medals-for-sports-tournaments',
+      'youth-sports-tournament-medals-and-baseball-trading-pins-bulk-guide'
+    ],
+    'custom-challenge-coins': [
+      'custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide',
+      'dual-plated-two-tone-gold-silver-challenge-coins-masking-process',
+      'sequential-laser-numbering-and-acrylic-capsule-packaging-for-coins',
+      '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering',
+      'corporate-years-of-service-award-pins-and-anniversary-commemorative-coins',
+      'zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost',
+      'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd'
+    ],
+    'custom-metal-keychains': [
+      'custom-3d-zinc-alloy-vs-soft-enamel-and-spinning-metal-keychains',
+      'genuine-leather-metal-emblem-keychains-for-auto-dealerships-real-estate',
+      'anodized-aluminum-carabiner-climb-loops-vs-laser-stainless-keyrings',
+      'boutique-hotel-vintage-stamped-brass-room-key-tags-and-fobs-guide',
+      'epoxy-dome-coating-on-soft-enamel-pins-keychains-pros-and-cons',
+      'craft-brewery-heavy-zinc-bottle-openers-and-3d-souvenir-fridge-magnets'
+    ],
+    'trolley-coin-keyrings': [
+      'european-trolley-coin-keyrings-1-euro-vs-12-sided-uk-pound-specs',
+      'magnetic-detachable-vs-lobster-clasp-and-pull-out-trolley-coin-holders',
+      'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd',
+      'zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost',
+      'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale',
+      'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance'
+    ],
+    'police-badges-insignia': [
+      'custom-3d-curved-police-security-and-fire-department-badges-guide',
+      'magnetic-vs-pin-back-metal-employee-name-plates-for-hotels-airlines',
+      'military-stainless-steel-dog-tags-vs-3d-zinc-alloy-pendant-tags',
+      'custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide',
+      'dual-plated-two-tone-gold-silver-challenge-coins-masking-process',
+      'corporate-years-of-service-award-pins-and-anniversary-commemorative-coins'
+    ],
+    'executive-cufflinks-tie-bars': [
+      'custom-enamel-and-3d-cufflinks-tie-bars-executive-menswear-gift-sets',
+      'custom-3d-western-rodeo-and-motorcycle-club-heavy-zinc-belt-buckles',
+      'corporate-years-of-service-award-pins-and-anniversary-commemorative-coins',
+      'custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging',
+      'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance'
+    ],
+    'custom-golf-accessories': [
+      'custom-golf-divot-repair-tools-and-magnetic-hat-clip-ball-markers-guide',
+      '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering',
+      'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd',
+      'custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging',
+      'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping'
+    ],
+    'metal-bookmarks-openers-souvenirs': [
+      'photo-etched-hollow-brass-bookmarks-for-museums-universities-publishers',
+      'craft-brewery-heavy-zinc-bottle-openers-and-3d-souvenir-fridge-magnets',
+      'custom-metal-fridge-magnets-3d-zinc-vs-hard-soft-enamel-epoxy-guide',
+      'boutique-hotel-vintage-stamped-brass-room-key-tags-and-fobs-guide',
+      'anodized-aluminum-carabiner-climb-loops-vs-laser-stainless-keyrings',
+      'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms'
+    ],
+    'patches-pvc-packaging': [
+      'custom-embroidered-patches-vs-woven-and-3d-soft-pvc-morale-patches',
+      'custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging',
+      'fridge-magnet-pull-force-neodymium-vs-ferrite-rubber-backing-and-retail-cards',
+      'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance',
+      'lapel-pin-backs-and-attachments-butterfly-clutch-rubber-magnet-locking',
+      'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping'
+    ],
+    'custom-metal-fridge-magnets': [
+      'custom-metal-fridge-magnets-3d-zinc-vs-hard-soft-enamel-epoxy-guide',
+      'museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer',
+      'fridge-magnet-pull-force-neodymium-vs-ferrite-rubber-backing-and-retail-cards',
+      'craft-brewery-heavy-zinc-bottle-openers-and-3d-souvenir-fridge-magnets',
+      'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms'
+    ]
+  };
+
+  return COLLECTIONS.map((col) => {
+    const matched = sortedProducts.filter(
+      (p) => p.data.primaryCollection === col.slug || (p.data.crossCollections || []).includes(col.slug)
+    );
+
+    const guideSlugs = COLLECTION_INSIGHT_MAP[col.slug] || [
+      'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide',
+      'custom-marathon-and-5k-10k-finisher-medals-race-director-sourcing-guide',
+      'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale'
+    ];
+    const relatedGuides = guideSlugs
+      .map((s) => allGuides.find((g) => g.data.slug === s))
+      .filter(Boolean);
+
+    return {
+      params: { slug: col.slug },
+      props: { collection: col, products: matched, relatedGuides }
+    };
+  });
+}
+
+interface Props {
+  collection: CollectionMeta;
+  products: any[];
+  relatedGuides?: any[];
+}
+
+const { collection, products, relatedGuides = [] } = Astro.props;
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const locCol = localizeCollectionContent(collection, currentLang);
+
+const collectionPrices = products
+  .flatMap((p) => [
+    parseFloat(p.data.tier2000),
+    parseFloat(p.data.tier100),
+    ...(p.data.variants || []).flatMap((v: any) => [parseFloat(v.tier2000), parseFloat(v.tier100)])
+  ])
+  .filter((n) => !isNaN(n) && n > 0);
+const minColPrice = collectionPrices.length ? Math.min(...collectionPrices).toFixed(2) : '0.14';
+const maxColPrice = collectionPrices.length ? Math.max(...collectionPrices).toFixed(2) : '6.95';
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${t(`col.${collection.slug}.name` as any)} | MedalPinSupply.com`,
+  description: locCol.heroSubtitle,
+  keywords: collection.targetKeywords,
+  url: `https://medalpinsupply.com${getLocalizedPath(`/collections/${collection.slug}`, currentLang)}`,
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'USD',
+    lowPrice: minColPrice,
+    highPrice: maxColPrice,
+    offerCount: products.length
+  },
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: products.length,
+    itemListElement: products.map((p, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      url: `https://medalpinsupply.com${getLocalizedPath(`/products/${p.data.slug}`, currentLang)}`,
+      name: localizeTitle(p.data.title, currentLang),
+      image: `https://medalpinsupply.com${p.data.featuredImage}`
+    }))
+  }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: locCol.faqs.map((f: any) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: t('breadcrumb.home'), item: `https://medalpinsupply.com${getLocalizedPath('/', currentLang)}` },
+    { '@type': 'ListItem', position: 2, name: t('breadcrumb.allCatalog'), item: `https://medalpinsupply.com${getLocalizedPath('/products', currentLang)}` },
+    { '@type': 'ListItem', position: 3, name: t(`col.${collection.slug}.name` as any), item: `https://medalpinsupply.com${getLocalizedPath(`/collections/${collection.slug}`, currentLang)}` }
+  ]
+};
+
+const COLLECTION_SEO_TITLES: Record<string, string> = {
+  'custom-enamel-pins': `Custom Enamel Pins Factory ($${minColPrice}+ · 24 Styles)`,
+  'custom-medals': `Custom Race & Marathon Medals ($${minColPrice}+ · 20 Styles)`,
+  'custom-challenge-coins': `Custom Challenge Coins ($${minColPrice}+ · 16 Styles)`,
+  'custom-metal-keychains': `Custom Metal Keychains ($${minColPrice}+ · 16 Styles)`,
+  'trolley-coin-keyrings': `€1 & £1 Trolley Coin Keyrings ($${minColPrice}+ · 10 Styles)`,
+  'police-badges-insignia': `Custom Police & Fire Badges ($${minColPrice}+ · 14 Styles)`,
+  'executive-cufflinks-tie-bars': `Custom Cufflinks, Tie Bars & Buckles ($${minColPrice}+)`,
+  'custom-golf-accessories': `Custom Golf Divot Tools & Markers ($${minColPrice}+)`,
+  'metal-bookmarks-openers-souvenirs': `Metal Bookmarks, Openers & Souvenirs ($${minColPrice}+)`,
+  'patches-pvc-packaging': `Custom Patches, PVC & Velvet Boxes ($${minColPrice}+)`,
+  'custom-metal-fridge-magnets': `Custom Metal Fridge Magnets ($${minColPrice}+ · 10 Styles)`
+};
+const COLLECTION_SEO_DESCS: Record<string, string> = {
+  'custom-enamel-pins': `Custom-molded Cloisonne hard & soft enamel pins, photo-etched brass, 3D zinc & flag pins: ${products.length} styles ($${minColPrice}–$${maxColPrice}, MOQ 50).`,
+  'custom-medals': `Custom-tooled 3D marathon finisher medals, spinner medals, puzzle medals & sublimated neck ribbons: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}).`,
+  'custom-challenge-coins': `Custom die-struck military, corporate & commemorative challenge coins ($${minColPrice}–$${maxColPrice}): 1.75"–2.5", 6 edges & laser numbering.`,
+  'custom-metal-keychains': `Custom 3D zinc, soft enamel, leather, carabiner & spinning keychains: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}) with 12h free proof.`,
+  'trolley-coin-keyrings': `Custom-struck €1 Euro (23.25mm) & 12-sided UK £1 (23.43mm) supermarket trolley token keyrings: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}).`,
+  'police-badges-insignia': `3D curved police shields, sheriff stars, firefighter badges, security nameplates & military dog tags ($${minColPrice}–$${maxColPrice}).`,
+  'executive-cufflinks-tie-bars': `Custom enamel brass cufflinks, tie bars, money clips & 3D western rodeo/biker belt buckles: ${products.length} styles ($${minColPrice}–$${maxColPrice}).`,
+  'custom-golf-accessories': `Custom die-struck golf divot repair tools, magnetic hat-clip ball markers & tournament gift sets: ${products.length} styles ($${minColPrice}–$${maxColPrice}).`,
+  'metal-bookmarks-openers-souvenirs': `Photo-etched hollow brass museum bookmarks, heavy zinc bottle openers, hotel key tags & bag charms ($${minColPrice}–$${maxColPrice}).`,
+  'patches-pvc-packaging': `Custom embroidered, woven & 3D soft PVC morale patches, 400gsm pin backing cards & velvet gift boxes ($${minColPrice}–$${maxColPrice}).`,
+  'custom-metal-fridge-magnets': `Custom hard & soft enamel, 3D zinc, interactive spinner, stained-glass & bottle opener metal fridge magnets ($${minColPrice}–$${maxColPrice}).`
+};
+const cleanShortName = collection.shortName.replace(/^[^\w]+/, '').trim();
+const rawEnTitle = `${collection.name} (${products.length} Styles) | MedalPinSupply`;
+const medEnTitle = `${collection.name} | MedalPinSupply`;
+const shortEnTitle = `${cleanShortName} Factory | MedalPinSupply`;
+const enTitle = COLLECTION_SEO_TITLES[collection.slug] || (rawEnTitle.length <= 60 ? rawEnTitle : medEnTitle.length <= 60 ? medEnTitle : shortEnTitle);
+const enDesc = COLLECTION_SEO_DESCS[collection.slug] || `${cleanShortName}: ${products.length} custom craft styles (${collection.priceRangeUsd}). MOQ 50–200 pcs, free 12h vector proof, custom die waived at 500–1,000+ pcs.`;
+const locColName = t(`col.${collection.slug}.name` as any);
+const locColShort = t(`col.${collection.slug}.short` as any);
+const locFullTitle = `${locColName} (${products.length} ${t('nav.modelsCount')} · $${minColPrice}+) | MedalPinSupply`;
+const locShortTitle = `${locColShort} (${products.length} ${t('nav.modelsCount')} · $${minColPrice}+) | MedalPinSupply`;
+const localizedColTitle = locFullTitle.length <= 60 ? locFullTitle : locShortTitle;
+const COL_LOCALE_FOCUS: Record<string, Partial<Record<string, string>>> = {
+  'custom-enamel-pins': { de: ' (Hartemaille & Weichemaille)', fr: ' (Émail Dur & Doux)', ja: '（七宝・ソフトエナメル）', ko: ' (하드/소프트 에나멜)' },
+  'custom-medals': { de: ' (3D Marathon-Medaillen)', fr: ' (Médailles Marathon 3D)', ja: '（3Dマラソン完走メダル）', ko: ' (3D 마라톤 완주 메달)' },
+  'custom-challenge-coins': { de: ' (Militär- & Firmenmünzen)', fr: ' (Pièces Militaires & Entreprise)', ja: '（ミリタリー・記念コイン）', ko: ' (군/기업 챌린지 코인)' },
+  'trolley-coin-keyrings': { de: ' (€1 23,25mm & £1 Chips)', fr: ' (Jetons €1 & £1 exacts)', ja: '（€1・£1精密トロリーコイン）', ko: ' (€1·£1 규격 트롤리 코인)' }
+};
+const focusTag = (lang: string) => COL_LOCALE_FOCUS[collection.slug]?.[lang] || '';
+const COLLECTION_META_DESC_MAP: Record<string, string> = {
+  en: enDesc,
+  de: `${locColName}${focusTag('de')}: ${products.length} Fertigungsarten ($${minColPrice}–$${maxColPrice}, MOQ 50–200). 12h Gratis-Entwurf.`,
+  fr: `${locColName}${focusTag('fr')} : ${products.length} techniques sur mesure ($${minColPrice}–$${maxColPrice}, MOQ 50–200). BAT 12h gratuit.`,
+  nl: `${locColName}: ${products.length} maatwerkopties ($${minColPrice}–$${maxColPrice}, MOQ 50–200 st.). Gratis 12u proefdruk en stempelvrijstelling.`,
+  es: `${locColName}: ${products.length} estilos a medida ($${minColPrice}–$${maxColPrice}, MOQ 50–200). Boceto gratis en 12h.`,
+  it: `${locColName}: ${products.length} stili su misura ($${minColPrice}–$${maxColPrice}, MOQ 50–200). Bozza gratuita in 12h.`,
+  pt: `${locColName}: ${products.length} estilos sob medida ($${minColPrice}–$${maxColPrice}, MOQ 50–200). Arte digital grátis 12h.`,
+  sv: `${locColName}: ${products.length} specialutföranden ($${minColPrice}–$${maxColPrice}, MOQ 50–200 st). Fri skiss inom 12h.`,
+  da: `${locColName}: ${products.length} specialdesigns ($${minColPrice}–$${maxColPrice}, MOQ 50–200 stk.). Gratis 12t udkast.`,
+  no: `${locColName}: ${products.length} spesialstiler ($${minColPrice}–$${maxColPrice}, MOQ 50–200 stk.). Gratis 12t skisse.`,
+  fi: `${locColName}: ${products.length} räätälöityä tyyliä ($${minColPrice}–$${maxColPrice}, MOQ 50–200 kpl). Ilmainen 12h vedos.`,
+  pl: `${locColName}: ${products.length} stylów na zamówienie ($${minColPrice}–$${maxColPrice}, MOQ 50–200 szt.). Darmowy projekt 12h.`,
+  cs: `${locColName}: ${products.length} zakázkových stylů ($${minColPrice}–$${maxColPrice}, MOQ 50–200 ks). 12h náhled zdarma.`,
+  ru: `${locColName}: ${products.length} форматов изготовления ($${minColPrice}–$${maxColPrice}, MOQ 50–200 шт.). Макет 12 ч бесплатно.`,
+  ja: `${locColName}${focusTag('ja')}：${products.length}種類の特注仕様（$${minColPrice}〜$${maxColPrice}、MOQ 50〜200個）。12h無料校正。`,
+  ko: `${locColName}${focusTag('ko')}: ${products.length}종 맞춤 사양 ($${minColPrice}–$${maxColPrice}, MOQ 50–200개). 12시간 무료 시안.`,
+  id: `${locColName}: ${products.length} opsi kustom ($${minColPrice}–$${maxColPrice}, MOQ 50–200 pcs). Desain gratis 12 jam.`,
+  ar: `${locColName}: ${products.length} نمطاً مخصصاً ($${minColPrice}–$${maxColPrice}، الحد الأدنى 50–200 قطعة). تصميم مجاني خلال 12 ساعة.`
+};
+---
+
+<Layout
+  title={currentLang === 'en' ? enTitle : localizedColTitle}
+  description={COLLECTION_META_DESC_MAP[currentLang] || locCol.heroSubtitle}
+  keywords={collection.targetKeywords}
+  ogImage={products[0]?.data.featuredImage ? products[0].data.featuredImage : undefined}
+  jsonLd={[itemListSchema, faqSchema, breadcrumbSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-grid">
+      <div class="grand-hero-info">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <a href={getLocalizedPath('/products', currentLang)}>{t('breadcrumb.allCatalog')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">{t(`col.${collection.slug}.short` as any)}</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-dark">{t(`col.${collection.slug}.short` as any)} · {products.length} {t('nav.modelsCount')}</span>
+          <span class="badge badge-gold">{t('col.heroBadge')}</span>
+        </div>
+
+        <h1 class="grand-hero-title">{t(`col.${collection.slug}.name` as any)}</h1>
+        <p class="grand-hero-lead">{locCol.heroSubtitle}</p>
+
+        <div class="hero-glass-grid">
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">{t('col.stat1Label')}</span>
+            <strong class="glass-kpi-val">{products.length}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">{t('col.stat2Label')}</span>
+            <strong class="glass-kpi-val">{collection.priceRangeUsd}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">{t('col.stat3Label')}</span>
+            <strong class="glass-kpi-val">{locCol.moq}</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">{t('col.stat4Label')}</span>
+            <strong class="glass-kpi-val">{locCol.leadTime}</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a
+            href={getLocalizedPath('/contact', currentLang)}
+            data-rfq-sku={`Custom Order in ${cleanShortName} ($${minColPrice}–$${maxColPrice})`}
+            data-rfq-mode="Custom Die-Struck / 3D Cast (MOQ 50 pcs)"
+            data-rfq-qty="50"
+            class="btn btn-accent btn-hero"
+          >
+            ⚡ {t('nav.requestQuote')}
+          </a>
+          <a
+            href={`https://wa.me/8618750126315?text=${encodeURIComponent(`Hello MedalPinSupply, I am browsing ${cleanShortName} ($${minColPrice}–$${maxColPrice} USD) and would like custom wholesale pricing & a free 12h artwork proof.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary-dark btn-wa-hero btn-hero"
+          >
+            💬 WhatsApp {t('nav.requestQuote')}
+          </a>
+          <a href="#collection-catalog" class="btn btn-secondary-dark btn-hero">
+            {t('col.gridHeadingPrefix')} ({products.length}) &darr;
+          </a>
+        </div>
+
+        <div class="hero-fast-sku-strip">
+          {products.slice(0, 5).map((fp) => (
+            <a href={getLocalizedPath(`/products/${fp.data.slug}`, currentLang)} class="hero-sku-chip">
+              <strong>{localizeTitle(fp.data.title, currentLang).replace(/^Custom\s+/i, '').slice(0, 26)}</strong>
+              <span>${fp.data.tier2000}+</span>
+            </a>
+          ))}
+          <a
+            href={getLocalizedPath('/contact', currentLang)}
+            class="hero-sku-chip"
+            data-rfq-sku={products.slice(0, 3).map((fp) => localizeTitle(fp.data.title, currentLang)).join(', ')}
+            data-rfq-mode="Free 12h Digital Artwork Proof"
+            data-rfq-qty="100"
+          >
+            <strong>{microHooks.sample1Pc}</strong>
+            <span>{microHooks.freeLogoProof}</span>
+          </a>
+          <a
+            href={getLocalizedPath('/contact', currentLang)}
+            class="hero-sku-chip"
+            data-rfq-sku="Custom Pin, Medal & Coin Price Matrix (PDF / Excel)"
+            data-rfq-mode="Standard Enamel / Die-Cast"
+            data-rfq-qty="500"
+          >
+            <strong>{microHooks.sheet140}</strong>
+            <span>PDF / Excel</span>
+          </a>
+        </div>
+      </div>
+
+      {products[0] && (
+        <a href={getLocalizedPath(`/products/${products[0].data.slug}`, currentLang)} class="hero-showcase-card" style="text-decoration: none;">
+          <div class="hero-showcase-top">
+            <span class="sku-pill">{products[0].data.size} · {t('pdp.readyMold')}</span>
+            <span class="hero-showcase-price">${products[0].data.tier2000} – ${products[0].data.tier100}/{t('unit.pc')}</span>
+          </div>
+          <div class="hero-showcase-img-wrap">
+            <img
+              src={products[0].data.featuredImage}
+              alt={localizeTitle(products[0].data.title, currentLang)}
+              width="480"
+              height="360"
+              loading="eager"
+            />
+          </div>
+          <div class="hero-showcase-meta">
+            <span>{localizeTitle(products[0].data.title, currentLang)}</span>
+            <span>{localizeMaterial(products[0].data.material, currentLang).split('(')[0].trim()}</span>
+            <span>{products[0].data.weight}</span>
+          </div>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Product Grid (Above-the-Fold Immediate Catalog Access) -->
+    <section class="collection-products-section" id="collection-catalog">
+      <div class="grid-header">
+        <div>
+          <h2>{t('col.gridHeadingPrefix')} {t(`col.${collection.slug}.short` as any)} ({products.length})</h2>
+          <p class="grid-trust-strip">
+            <span>{microHooks.mixMoqBadge}</span>
+            <span>·</span>
+            <a href="#engineering-comparison-matrix">{t('col.matrixBadge')} ↓</a>
+          </p>
+        </div>
+        <a
+          href={getLocalizedPath('/contact', currentLang)}
+          data-rfq-sku={`Custom Order in ${cleanShortName} ($${minColPrice}–$${maxColPrice})`}
+          data-rfq-mode="Custom Enamel / Cast Production"
+          data-rfq-qty="100"
+          class="btn btn-primary"
+        >
+          ⚡ {t('nav.requestQuote')}
+        </a>
+      </div>
+
+      <form class="inline-quick-sheet-form" data-inline-sku={`${cleanShortName} (${products.length} Custom Styles · $${minColPrice}–$${maxColPrice})`} novalidate>
+        <div class="inline-qrfq-text">
+          <strong>{microHooks.getFullSheetPdf}</strong>
+          <span>{microHooks.mixMoqBadge}</span>
+        </div>
+        <div class="inline-qrfq-controls">
+          <input
+            type="email"
+            class="inline-qrfq-input"
+            placeholder={`${t('contact.workEmail')} (name@company.com)`}
+            aria-label={t('contact.workEmail')}
+            required
+          />
+          <button type="submit" class="inline-qrfq-btn">
+            ⚡ {microHooks.sheet140} →
+          </button>
+        </div>
+        <div class="inline-qrfq-status" hidden>✓ Sent! Check your inbox shortly.</div>
+      </form>
+
+      <div class="grid-4">
+        {products.map((p) => (
+          <ProductCard product={p} />
+        ))}
+      </div>
+    </section>
+
+    <GeoDirectAnswer
+      title={`${t(`col.${collection.slug}.short` as any)} — ${t('geo.defaultTitle')}`}
+      answer={locCol.geoDirectAnswer}
+    />
+
+    <!-- Engineering Highlights Bar -->
+    <div class="highlights-box">
+      {locCol.engineeringHighlights.map((h) => (
+        <div class="highlight-item">
+          <span class="check-icon">✓</span>
+          <p>{h}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Collection Engineering Comparison Table (Top 15 Models) -->
+    <section class="section" id="engineering-comparison-matrix">
+      <div class="section-header-center">
+        <span class="badge">{t('col.matrixBadge')}</span>
+        <h2 class="section-title">{t(`col.${collection.slug}.short` as any)} {t('col.matrixTitleSuffix')}</h2>
+        <p class="section-subtitle">
+          {t('col.matrixSub')}
+        </p>
+      </div>
+
+      <div class="geo-table-wrap">
+        <table class="geo-table">
+          <thead>
+            <tr>
+              <th>{t('col.thName')}</th>
+              <th>{t('col.thMaterial')}</th>
+              <th>{t('col.thSizeWeight')}</th>
+              <th>{t('col.thMagnet')}</th>
+              <th>{t('col.thLogo')}</th>
+              <th>{t('col.thPrice')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((p) => (
+              <tr>
+                <td><a href={getLocalizedPath(`/products/${p.data.slug}`, currentLang)}><strong>{localizeTitle(p.data.title, currentLang)}</strong></a></td>
+                <td>{localizeMaterial(p.data.material.split('/')[0].trim(), currentLang)}</td>
+                <td>{p.data.size} · {p.data.weight}</td>
+                <td>{localizeHardwareOrMagnets(p.data.attachmentEn, currentLang)}</td>
+                <td>{p.data.toolingFee.split('(')[0].trim()}</td>
+                <td><strong>${p.data.tier2000}</strong></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section-light col-faq-box">
+      <div class="section-header-center">
+        <span class="badge">{t('col.faqBadge')}</span>
+        <h2 class="section-title">{t('pdp.faqTitle')} — {t(`col.${collection.slug}.short` as any)}</h2>
+      </div>
+      <div class="faq-list">
+        {locCol.faqs.map((faq: any, idx: number) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Related Engineering & Sourcing Insights (Collection <-> Insight Mesh) -->
+    {relatedGuides.length > 0 && (
+      <section class="section" style="padding-top: 0; margin-bottom: 3.5rem;">
+        <div class="section-header-center">
+          <span class="badge">{t('guide.continueBadge')}</span>
+          <h2 class="section-title">{t('guide.relatedGuidesTitle')}</h2>
+        </div>
+        <div class="col-guides-grid">
+          {relatedGuides.map((rg: any) => {
+            const rgLoc = localizeInsightMeta(rg.data, currentLang);
+            return (
+              <a href={getLocalizedPath(`/insights/${rg.data.slug}`, currentLang)} class="col-guide-card">
+                <img src={rg.data.featuredImage} alt={rgLoc.title} width="400" height="300" loading="lazy" />
+                <div class="col-guide-body">
+                  <span class="col-guide-cat">{rgLoc.category}</span>
+                  <h3>{rgLoc.title}</h3>
+                  <p>{rgLoc.summary}</p>
+                  <span class="col-guide-cta">{t('guides.readCta')}</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .collection-hero {
+    background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 3.5rem 0;
+    border-bottom: 1px solid #334155;
+  }
+  .breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+  }
+  .breadcrumb a {
+    color: #38bdf8;
+  }
+  .hero-badges {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .collection-hero h1 {
+    color: #ffffff;
+    font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+    margin-bottom: 0.85rem;
+  }
+  .hero-sub {
+    color: #cbd5e1;
+    max-width: 860px;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+  }
+  .collection-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.85rem;
+  }
+  .stat-pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0.6rem;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .stat-pill span {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+  }
+  .stat-pill strong {
+    font-size: 1.05rem;
+    color: #fbbf24;
+    margin-top: 0.15rem;
+  }
+  .highlights-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .highlight-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.65rem;
+    padding: 1rem 1.15rem;
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: #334155;
+  }
+  .check-icon {
+    color: #059669;
+    font-weight: 900;
+    font-size: 1rem;
+  }
+  .collection-products-section {
+    padding: 2.5rem 0;
+  }
+  .hero-fast-sku-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.1rem;
+  }
+  .hero-sku-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #f8fafc;
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .hero-sku-chip strong {
+    color: #38bdf8;
+    font-weight: 800;
+  }
+  .hero-sku-chip span {
+    color: #fbbf24;
+    font-weight: 700;
+  }
+  .hero-sku-chip:hover {
+    background: rgba(2, 132, 199, 0.35);
+    border-color: #38bdf8;
+    transform: translateY(-1px);
+  }
+  .grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .grid-header h2 {
+    font-size: 1.45rem;
+    margin-bottom: 0.25rem;
+  }
+  .grid-trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.84rem;
+    color: #047857;
+    font-weight: 700;
+    margin: 0;
+  }
+  .grid-trust-strip a {
+    color: #0369a1;
+    text-decoration: underline;
+    font-weight: 800;
+  }
+  .col-guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .col-guide-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    transform: translateZ(0);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .col-guide-card:hover {
+    transform: translate3d(0, -3px, 0);
+    border-color: #38bdf8;
+  }
+  .col-guide-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #0f172a;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .btn-wa-hero {
+    background-color: rgba(16, 185, 129, 0.14);
+    border-color: #10b981;
+    color: #ecfdf5;
+  }
+  .btn-wa-hero:hover {
+    background-color: #047857;
+    border-color: #047857;
+    color: #ffffff;
+  }
+  .col-guide-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .col-guide-cat {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0369a1;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.45rem;
+  }
+  .col-guide-body h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  .col-guide-body p {
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .col-guide-cta {
+    margin-top: auto;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #0369a1;
+  }
+  @media (max-width: 900px) {
+    .col-guides-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .col-faq-box {
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+  }
+  @media (max-width: 640px) {
+    .highlights-box {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .highlight-item {
+      padding: 0.85rem 1rem;
+      font-size: 0.84rem;
+    }
+    .grid-header h2 {
+      font-size: 1.25rem;
+    }
+    .grid-header .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .col-faq-box {
+      padding: 1.75rem 1.15rem;
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>

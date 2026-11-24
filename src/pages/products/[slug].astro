@@ -1,0 +1,2056 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, useTranslations, getLocalizedPath, getMicroHookLabels } from '../../i18n/utils';
+import { localizeProduct, localizeTitle, getRelatedInsightSlugsForProduct } from '../../i18n/productLocalization';
+import { localizeInsightMeta } from '../../i18n/insightAndCollectionLocalization';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  const allGuides = await getCollection('insights');
+  const sorted = products.sort((a, b) => a.data.rowId - b.data.rowId);
+
+  return sorted.map((entry) => {
+    const p = entry.data;
+    const sameCol = sorted.filter((other) => other.data.primaryCollection === p.primaryCollection);
+    const selfIdx = sameCol.findIndex((other) => other.data.slug === p.slug);
+    const related: typeof sorted = [];
+    if (sameCol.length > 1) {
+      const count = Math.min(8, sameCol.length - 1);
+      for (let offset = 1; offset <= count; offset++) {
+        const step = offset <= 4 ? offset : offset * 2 - 3;
+        const candidate = sameCol[(selfIdx + step) % sameCol.length];
+        if (!related.some((r) => r.data.slug === candidate.data.slug) && candidate.data.slug !== p.slug) {
+          related.push(candidate);
+        } else {
+          const fallback = sameCol[(selfIdx + offset) % sameCol.length];
+          if (!related.some((r) => r.data.slug === fallback.data.slug) && fallback.data.slug !== p.slug) {
+            related.push(fallback);
+          }
+        }
+      }
+    }
+
+    const targetGuideSlugs = getRelatedInsightSlugsForProduct(p);
+    const relatedGuides = targetGuideSlugs
+      .map((s) => allGuides.find((g) => g.data.slug === s))
+      .filter(Boolean)
+      .slice(0, 6);
+
+    return {
+      params: { slug: p.slug },
+      props: { product: p, relatedProducts: related, relatedGuides }
+    };
+  });
+}
+
+const { product: p, relatedProducts, relatedGuides = [] } = Astro.props;
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const lp = localizeProduct(p, currentLang);
+const rfqBaseUrl = getLocalizedPath('/contact', currentLang);
+
+const allImages = p.galleryImages && p.galleryImages.length > 0 ? p.galleryImages : [p.featuredImage];
+
+const allVariantPrices = [
+  parseFloat(p.tier2000),
+  parseFloat(p.tier500),
+  parseFloat(p.tier100),
+  ...(p.variants || []).flatMap((v: any) => [parseFloat(v.tier2000), parseFloat(v.tier500), parseFloat(v.tier100)])
+].filter((n) => !isNaN(n) && n > 0);
+const minOfferPrice = allVariantPrices.length ? Math.min(...allVariantPrices).toFixed(2) : p.tier2000;
+const maxOfferPrice = allVariantPrices.length ? Math.max(...allVariantPrices).toFixed(2) : p.tier100;
+const canonicalProductUrl = `https://medalpinsupply.com${getLocalizedPath(`/products/${p.slug}`, currentLang)}`;
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: lp.title,
+  sku: p.sku,
+  mpn: p.sku,
+  image: allImages.map((img: string) => `https://medalpinsupply.com${img}`),
+  description: lp.overview,
+  brand: {
+    '@type': 'Brand',
+    name: 'MedalPinSupply.com'
+  },
+  material: lp.material,
+  category: t(`col.${p.primaryCollection}.name` as any) || p.primaryCollectionName,
+  weight: {
+    '@type': 'QuantitativeValue',
+    value: parseFloat(p.weight) || 25,
+    unitCode: 'GRM'
+  },
+  additionalProperty: (Array.isArray(lp.specs) ? lp.specs : Object.entries(lp.specs || {})).map(([name, value]: [string, any]) => ({
+    '@type': 'PropertyValue',
+    name: String(name),
+    value: String(value)
+  })),
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'USD',
+    lowPrice: minOfferPrice,
+    highPrice: maxOfferPrice,
+    offerCount: Math.max(1, (p.variants || []).length) * 3,
+    itemCondition: 'https://schema.org/NewCondition',
+    availability: 'https://schema.org/InStock',
+    url: canonicalProductUrl,
+    seller: {
+      '@type': 'Organization',
+      name: 'MedalPinSupply.com — Zhongshan Custom Pins, Medals & Coins Foundry',
+      url: 'https://medalpinsupply.com'
+    },
+    offers: (lp.variants || p.variants || []).map((v: any, idx: number) => ({
+      '@type': 'Offer',
+      name: `${lp.title} — ${v.materialLocalized || v.materialEn || lp.material}`,
+      sku: v.sku || `${p.sku}-V${idx + 1}`,
+      priceCurrency: 'USD',
+      price: v.tier2000 || p.tier2000,
+      priceValidUntil: '2027-12-31',
+      itemCondition: 'https://schema.org/NewCondition',
+      availability: 'https://schema.org/InStock',
+      url: canonicalProductUrl,
+      eligibleQuantity: {
+        '@type': 'QuantitativeValue',
+        minValue: p.moqNum || 100,
+        unitCode: 'C62'
+      }
+    }))
+  },
+  isRelatedTo: relatedProducts.map((rel: any) => {
+    const rd = rel.data || rel;
+    return {
+      '@type': 'Product',
+      sku: rd.sku,
+      name: localizeTitle(rd.title, currentLang),
+      url: `https://medalpinsupply.com${getLocalizedPath(`/products/${rd.slug}`, currentLang)}`
+    };
+  })
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: lp.faqs.map((f: any) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: t('breadcrumb.home'), item: `https://medalpinsupply.com${getLocalizedPath('/', currentLang)}` },
+    { '@type': 'ListItem', position: 2, name: t(`col.${p.primaryCollection}.short` as any), item: `https://medalpinsupply.com${getLocalizedPath(`/collections/${p.primaryCollection}`, currentLang)}` },
+    { '@type': 'ListItem', position: 3, name: lp.title, item: `https://medalpinsupply.com${getLocalizedPath(`/products/${p.slug}`, currentLang)}` }
+  ]
+};
+---
+
+<Layout
+  title={lp.metaTitle}
+  description={lp.metaDescription}
+  ogImage={p.featuredImage}
+  preloadImage={p.featuredImage}
+  activePage="products"
+  jsonLd={[productSchema, faqSchema, breadcrumbSchema]}
+>
+  <!-- Breadcrumb Bar -->
+  <div class="pdp-breadcrumb-bar">
+    <div class="container breadcrumb-inner">
+      <nav class="pdp-breadcrumb" aria-label="Breadcrumb">
+        <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+        <span>/</span>
+        <a href={getLocalizedPath('/products', currentLang)}>{t('breadcrumb.allCatalog')}</a>
+        <span>/</span>
+        <a href={getLocalizedPath(`/collections/${p.primaryCollection}`, currentLang)}>{t(`col.${p.primaryCollection}.short` as any)}</a>
+        <span>/</span>
+        <strong>{lp.title}</strong>
+      </nav>
+      <div class="pdp-cross-links">
+        {p.readyMold && (
+          <a href={getLocalizedPath('/collections/custom-enamel-pins', currentLang)} class="cross-pill pill-logo">{t('nav.logoReady')}</a>
+        )}
+        {p.enamelCraft && (
+          <a href={getLocalizedPath('/collections/custom-medals', currentLang)} class="cross-pill pill-tuning">{t('nav.tuningFork')}</a>
+        )}
+        {p.dieCast3d && (
+          <a href={getLocalizedPath('/collections/custom-challenge-coins', currentLang)} class="cross-pill pill-cnc">{t('nav.cncExotic')}</a>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       STAGE 1: Hero Gallery + SKU, 3-Tier Wholesale Pricing, Material Switcher & 4 Custom Radio Boxes
+       ===================================================================== -->
+  <section class="section pdp-stage-1">
+    <div class="container pdp-hero-grid">
+      <!-- Left: Product Gallery -->
+      <div class="pdp-gallery">
+        <div class="main-image-frame">
+          <img
+            id="pdp-main-img"
+            src={p.featuredImage}
+            alt={`${lp.title} - ${lp.material}`}
+            width="800"
+            height="600"
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+          />
+          <div class="frame-badges">
+            <span class="badge badge-emerald">{t('pdp.readyMold')}</span>
+          </div>
+        </div>
+
+        {allImages.length > 1 && (
+          <div class="thumb-strip">
+            {allImages.map((img: string, idx: number) => (
+              <button
+                type="button"
+                class:list={['thumb-btn', { active: idx === 0 }]}
+                data-img={img}
+                aria-label={`View angle ${idx + 1}`}
+              >
+                <img src={img} alt={`${lp.title} - ${idx + 1}`} width="120" height="90" />
+              </button>
+            ))}
+          </div>
+        )}
+
+        <!-- Quick Spec Highlights Under Image -->
+        <div class="gallery-quick-kpis">
+          <div class="qkpi">
+            <span>{t('pdp.dimensions')}</span>
+            <strong>{p.size}</strong>
+          </div>
+          <div class="qkpi">
+            <span>{t('pdp.netWeight')}</span>
+            <strong id="display-weight">{p.weight}</strong>
+          </div>
+          <div class="qkpi">
+            <span>{t('pdp.blankMoq')}</span>
+            <strong>{p.moqNum || 100} {t('unit.pcs')}</strong>
+          </div>
+          <div class="qkpi">
+            <span>{t('pdp.logoMoq')}</span>
+            <strong>{p.toolingFee.includes('1,000') || p.toolingFee.includes('1k') ? '1,000+ Free' : '500+ Free'}</strong>
+          </div>
+        </div>
+
+        <!-- Engineering & Custom Branding Summary Card Under Gallery -->
+        <div class="gallery-spec-card">
+          <div class="gsc-row">
+            <span class="gsc-label">{t('card.material').replace(':', '')}</span>
+            <strong class="gsc-val" id="gallery-mat-val">{lp.material}</strong>
+          </div>
+          <div class="gsc-row">
+            <span class="gsc-label">{t('card.magnets').replace(':', '')}</span>
+            <strong class="gsc-val">{lp.magnets}</strong>
+          </div>
+          <div class="gsc-badges">
+            <span>{t('pdp.trust1')}</span>
+            <span>{t('pdp.trust2')}</span>
+            <span>{t('pdp.trust3')}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Golden Stage-1 Wholesale Configuration & Pricing Panel -->
+      <div class="pdp-config-panel">
+        <div class="pdp-meta-top">
+          <span class="sku-code-large" id="display-sku">{t(`col.${p.primaryCollection}.short` as any)}</span>
+          <span class="factory-ref">{t('pdp.readyMold')} · {p.size}</span>
+        </div>
+
+        <h1 class="pdp-title">{lp.title}</h1>
+        <p class="pdp-short-overview">{lp.overview}</p>
+
+        <!-- Multi-Size / Craft Variant Switcher -->
+        {lp.variants && lp.variants.length > 1 && (
+          <div class="variant-selector-box">
+            <div class="selector-label">
+              <strong>{t('pdp.variantSelectTitle')} ({lp.variants.length}):</strong>
+              <span>{t('pdp.variantSelectSub')}</span>
+            </div>
+            <div class="variant-buttons">
+              {lp.variants.map((v: any, idx: number) => (
+                <button
+                  type="button"
+                  class:list={['variant-btn', { active: idx === 0 }]}
+                  data-sku={lp.title}
+                  data-material={v.materialLocalized}
+                  data-weight={v.weight}
+                  data-t100={v.tier100}
+                  data-t500={v.tier500}
+                  data-t2000={v.tier2000}
+                >
+                  <span class="v-sku">{v.size || v.materialLocalized.split('(')[0].trim()}</span>
+                  <span class="v-price">${v.tier2000} – ${v.tier100} ({v.weight})</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- 3-Tier Reference Factory-Direct Wholesale Price Table -->
+        <div class="pricing-tiers-box">
+          <div class="tiers-header">
+            <span>{t('pdp.pricingTitle')}</span>
+            <span class="tooling-free-tag">✓ {t('pdp.noMoldFee')}</span>
+          </div>
+          <div class="tiers-grid">
+            <div class="tier-cell" data-tier-qty="100" role="button" tabindex="0">
+              <span class="tier-qty">100 – 499 {t('unit.pcs')}</span>
+              <strong class="tier-val" id="price-tier-100">${p.tier100}</strong>
+              <span class="tier-sub">{t('pdp.trialBatch')}</span>
+            </div>
+            <div class="tier-cell tier-popular" data-tier-qty="500" role="button" tabindex="0">
+              <span class="tier-qty">500 – 1,999 {t('unit.pcs')}</span>
+              <strong class="tier-val" id="price-tier-500">${p.tier500}</strong>
+              <span class="tier-sub">{t('pdp.customLogoStd')}</span>
+            </div>
+            <div class="tier-cell tier-best" data-tier-qty="2000" role="button" tabindex="0">
+              <span class="tier-qty">2,000+ {t('unit.pcs')}</span>
+              <strong class="tier-val" id="price-tier-2000">${p.tier2000}</strong>
+              <span class="tier-sub">{t('pdp.volumeTier')}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Customization Radio Options -->
+        <div class="custom-options-box">
+          <div class="custom-options-title">
+            <strong>{t('pdp.selectBranding')}</strong>
+            <span>{t('pdp.readyMold')}</span>
+          </div>
+
+          <div class="radio-grid" id="custom-radio-group">
+            <label class="radio-card active">
+              <input type="radio" name="custom_mode" value="Standard Enamel / Cast Spec" data-addon="0" data-min-qty={String(p.moqNum || 100)} checked />
+              <div class="radio-info">
+                <strong>{t('pdp.opt1Title')}</strong>
+                <span>{t('pdp.opt1Desc')}</span>
+              </div>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="custom_mode" value="Two-Tone / Specialty Enamel (+$0.12-$0.35/pc)" data-addon="0.20" data-min-qty={String(p.moqNum || 100)} />
+              <div class="radio-info">
+                <strong>{t('pdp.opt2Title')}</strong>
+                <span>{t('pdp.opt2Desc')}</span>
+              </div>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="custom_mode" value="Backing Cards, Capsules or Velvet Gift Box" data-addon="0.32" data-min-qty="100" />
+              <div class="radio-info">
+                <strong>{t('pdp.opt3Title')}</strong>
+                <span>{t('pdp.opt3Desc')}</span>
+              </div>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="custom_mode" value="Pre-Production Physical Sample + 12h Free Proof" data-addon="0" data-min-qty="50" />
+              <div class="radio-info">
+                <strong>{t('pdp.opt4Title')}</strong>
+                <span>{t('pdp.opt4Desc')}</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- Instant Factory Quote Calculator -->
+          <div class="instant-calc-bar" id="pdp-instant-calc" data-base100={p.tier100} data-base500={p.tier500} data-base2000={p.tier2000} data-default-moq={String(p.moqNum || 100)}>
+            <div class="calc-qty-row">
+              <span class="calc-qty-label">{t('contact.quantity')}:</span>
+              <div class="calc-qty-chips" role="group" aria-label={t('contact.quantity')}>
+                <button type="button" class="calc-qty-chip chip-sample" data-qty="1">{microHooks.sample1Pc}</button>
+                <button type="button" class="calc-qty-chip" data-qty="50">50 {t('unit.pcs')}</button>
+                <button type="button" class="calc-qty-chip active" data-qty="100">100 {t('unit.pcs')}</button>
+                <button type="button" class="calc-qty-chip" data-qty="500">500 {t('unit.pcs')}</button>
+                <button type="button" class="calc-qty-chip" data-qty="1000">1,000 {t('unit.pcs')}</button>
+                <button type="button" class="calc-qty-chip" data-qty="2000">2,000 {t('unit.pcs')}</button>
+              </div>
+            </div>
+            <div class="calc-summary-row">
+              <div class="calc-unit-col">
+                <span class="calc-meta-label">{microHooks.unitPriceLabel}</span>
+                <strong class="calc-unit-val" id="calc-unit-display" data-free-proof={microHooks.freeLogoProof}>${p.tier100}<span>/{t('unit.pc')}</span></strong>
+              </div>
+              <div class="calc-total-col">
+                <span class="calc-meta-label">{microHooks.estTotalLabel} · <span id="calc-qty-display">100</span> {t('unit.pcs')}</span>
+                <strong class="calc-total-val" id="calc-total-display">${(parseFloat(p.tier100) * 100).toFixed(2)} USD</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Focused Conversion Zone (Option A: Direct 1-Field Email/WhatsApp Box + Full Form Link) -->
+        <form
+          class="inline-quick-sheet-form pdp-direct-lead-box"
+          id="pdp-inline-lead-form"
+          data-inline-sku={`${lp.title} — ${p.moqNum || 100} pcs Custom Spec`}
+        >
+          <div class="pdp-direct-input-row">
+            <input
+              type="email"
+              class="inline-qrfq-input pdp-direct-input"
+              placeholder={microHooks.pdpInputPlaceholder}
+              required
+              aria-label={microHooks.pdpInputPlaceholder}
+            />
+            <button type="submit" class="inline-qrfq-btn pdp-direct-submit" id="pdp-direct-submit-btn">
+              {microHooks.pdpDirectSendBtn}
+            </button>
+          </div>
+          <span class="inline-qrfq-status pdp-direct-status" hidden>{microHooks.pdpSentConfirm}</span>
+          <div class="pdp-direct-footer">
+            <a href={getLocalizedPath('/sample-kit', currentLang)} class="pdp-direct-badge" style="text-decoration: none;">{microHooks.mixMoqBadge}</a>
+            <a
+              id="pdp-rfq-btn"
+              data-rfq-base={rfqBaseUrl}
+              data-rfq-sku={lp.title}
+              data-rfq-mode="Standard Enamel / Cast Spec"
+              data-rfq-qty={String(p.moqNum || 100)}
+              href={rfqBaseUrl}
+              class="pdp-full-form-link"
+            >
+              {t('pdp.requestQuote')} →
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       STAGE 2: Standard HTML Engineering Parameter Table (Factory Crawler Zone)
+       ===================================================================== -->
+  <section class="section section-light pdp-stage-2">
+    <div class="container">
+      <GeoDirectAnswer
+        title={`${lp.title} — ${t('pdp.specsTitle')}`}
+        answer={lp.overview}
+        metrics={[
+          { label: t('pdp.prodMold'), value: t('pdp.readyMold') },
+          { label: t('card.material').replace(':', ''), value: lp.material.split('/')[0].trim() },
+          { label: `${t('pdp.dimensions')} / ${t('pdp.netWeight')}`, value: `${p.size} / ${p.weight}` },
+          { label: t('card.magnets').replace(':', ''), value: lp.magnets.slice(0, 36) }
+        ]}
+      />
+
+      <div class="stage-2-grid">
+        <div>
+          <h2 class="stage-heading">{t('pdp.specsTitle')}</h2>
+          <p class="stage-sub">
+            {t('pdp.specsSub')}
+          </p>
+          <div class="geo-table-wrap">
+            <table class="geo-table">
+              <thead>
+                <tr>
+                  <th style="width: 34%;">{t('pdp.specColParam')}</th>
+                  <th>{t('pdp.specColVal')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {lp.specs.map(([key, val]) => (
+                  <tr>
+                    <td><strong>{key}</strong></td>
+                    <td>{val}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {lp.variants && lp.variants.length > 1 && (
+            <div style="margin-top: 2rem;">
+              <h3 style="margin-bottom: 0.75rem; font-size: 1.15rem;">{t('pdp.variantMatrixTitle')}</h3>
+              <div class="geo-table-wrap">
+                <table class="geo-table">
+                  <thead>
+                    <tr>
+                      <th>{t('col.thName')}</th>
+                      <th>{t('card.material').replace(':', '')}</th>
+                      <th>{t('pdp.dimensions')}</th>
+                      <th>{t('pdp.netWeight')}</th>
+                      <th>100–499</th>
+                      <th>500–1,999</th>
+                      <th>2,000+</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {lp.variants.map((v: any) => (
+                      <tr>
+                        <td><strong>{v.name || lp.title}</strong></td>
+                        <td>{v.materialLocalized}</td>
+                        <td>{v.size}</td>
+                        <td>{v.weight}</td>
+                        <td>${v.tier100}</td>
+                        <td>${v.tier500}</td>
+                        <td><strong>${v.tier2000}</strong></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div class="features-column">
+          <h2 class="stage-heading">{t('pdp.highlightsTitle')}</h2>
+          <p class="stage-sub">{t('pdp.highlightsSub')}</p>
+          <div class="feature-cards">
+            {lp.features.map((feat: string) => (
+              <div class="feat-card">
+                <span class="feat-check">✓</span>
+                <p>{feat}</p>
+              </div>
+            ))}
+          </div>
+
+          <!-- =====================================================================
+               STAGE 3: Anti-Tooling Lock-In Declaration Box
+               ===================================================================== -->
+          <div class="anti-tooling-declaration">
+            <div class="decl-badge">{t('pdp.declBadge')}</div>
+            <h3>{t('pdp.declTitle')}</h3>
+            <p class="decl-quote">
+              "{t('pdp.declQuote')}"
+            </p>
+            <div class="decl-links">
+              <a href={getLocalizedPath('/custom-branding', currentLang)}>{t('pdp.declLink1')}</a>
+              <a href={getLocalizedPath('/custom-packaging', currentLang)}>{t('pdp.declLink2')}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Localized Product Technical Deep-Dive & Customization Article Section -->
+      <div class="pdp-editorial-card clean-editorial-content" set:html={lp.editorialHtml} />
+    </div>
+  </section>
+
+  <!-- Product FAQs -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="badge">{t('pdp.faqBadge')}</span>
+        <h2 class="section-title">{t('pdp.faqTitle')} — {lp.title}</h2>
+      </div>
+      <div class="faq-list">
+        {lp.faqs.map((faq: any, idx: number) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products in Same Collection -->
+  {relatedProducts.length > 0 && (
+    <section class="section section-light">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="badge">{t('pdp.relatedBadge')}</span>
+          <h2 class="section-title">{t('pdp.relatedTitle')}</h2>
+        </div>
+        <div class="grid-4">
+          {relatedProducts.map((rel: any) => (
+            <ProductCard product={rel} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Related Engineering & Sourcing Insights (Bidirectional Mesh) -->
+  {relatedGuides.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="badge">{t('guide.continueBadge')}</span>
+          <h2 class="section-title">{t('guide.relatedGuidesTitle')}</h2>
+        </div>
+        <div class="pdp-guides-grid">
+          {relatedGuides.map((rg: any) => {
+            const rgLoc = localizeInsightMeta(rg.data, currentLang);
+            return (
+              <a href={getLocalizedPath(`/insights/${rg.data.slug}`, currentLang)} class="pdp-guide-card">
+                <img src={rg.data.featuredImage} alt={rgLoc.title} width="400" height="300" loading="lazy" />
+                <div class="pdp-guide-body">
+                  <span class="pdp-guide-cat">{rgLoc.category}</span>
+                  <h3>{rgLoc.title}</h3>
+                  <p>{rgLoc.summary}</p>
+                  <span class="pdp-guide-cta">{t('guides.readCta')}</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+  <!-- Mobile Fixed Bottom Instant Conversion Bar -->
+  <div class="pdp-mobile-sticky-bar" role="region" aria-label={t('pdp.requestQuote')}>
+    <div class="sticky-sku-col">
+      <strong class="sticky-sku-code" id="sticky-sku-code">{lp.title}</strong>
+      <span class="sticky-sku-price" id="sticky-sku-price">${p.tier2000} – ${p.tier100} · MOQ {p.moqNum || 100}</span>
+    </div>
+    <div class="sticky-action-col">
+      <a
+        id="pdp-sticky-wa-btn"
+        href={`https://wa.me/8618750126315?text=${encodeURIComponent(`Hello MedalPinSupply, I would like wholesale pricing & a 12h free artwork proof for custom ${p.title}.`)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-sticky-wa"
+        aria-label="WhatsApp"
+      >
+        WhatsApp
+      </a>
+      <a
+        id="pdp-sticky-rfq-btn"
+        data-rfq-base={rfqBaseUrl}
+        data-rfq-sku={lp.title}
+        data-rfq-mode="Standard Enamel / Cast Spec"
+        data-rfq-qty={String(p.moqNum || 100)}
+        href={rfqBaseUrl}
+        class="btn-sticky-rfq"
+      >
+        {t('pdp.requestQuote')} →
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<script is:inline>
+  (function () {
+    // Gallery thumbnail switching
+    const mainImg = document.getElementById('pdp-main-img');
+    const thumbBtns = document.querySelectorAll('.thumb-btn');
+    thumbBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const src = btn.getAttribute('data-img');
+        if (src && mainImg) mainImg.setAttribute('src', src);
+        thumbBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Multi-variant switching & tiered calculator
+    let currentSku = (document.querySelector('.pdp-title')?.textContent || document.getElementById('display-sku')?.textContent || 'Custom Craft').trim();
+    const variantBtns = document.querySelectorAll('.variant-btn');
+    const price100 = document.getElementById('price-tier-100');
+    const price500 = document.getElementById('price-tier-500');
+    const price2000 = document.getElementById('price-tier-2000');
+    const weightEl = document.getElementById('display-weight');
+    const skuEl = document.getElementById('display-sku');
+    const rfqBtn = document.getElementById('pdp-rfq-btn');
+    const fastRfqBtn = document.getElementById('pdp-fast-rfq-btn');
+    const stickyRfqBtn = document.getElementById('pdp-sticky-rfq-btn');
+    const fastPriceEl = document.getElementById('fast-price-display');
+    const stickySkuEl = document.getElementById('sticky-sku-code');
+    const stickyPriceEl = document.getElementById('sticky-sku-price');
+    const calcBox = document.getElementById('pdp-instant-calc');
+    const calcUnitEl = document.getElementById('calc-unit-display');
+    const calcQtyEl = document.getElementById('calc-qty-display');
+    const calcTotalEl = document.getElementById('calc-total-display');
+    const qtyChips = document.querySelectorAll('.calc-qty-chip');
+    let currentQty = 100;
+
+    function updateRfqHref() {
+      if (!rfqBtn) return;
+      const checkedRadio = document.querySelector('input[name="custom_mode"]:checked');
+      const mode = currentQty === 1 ? 'Pre-Production Sample + Free 12h Proof' : (checkedRadio ? checkedRadio.value : 'Standard Spec');
+      const addon = checkedRadio ? parseFloat(checkedRadio.getAttribute('data-addon') || '0') : 0;
+      const minQty = checkedRadio ? parseInt(checkedRadio.getAttribute('data-min-qty') || '50', 10) : 50;
+
+      if (currentQty !== 1 && currentQty < minQty) {
+        currentQty = minQty;
+        qtyChips.forEach((chip) => {
+          chip.classList.toggle('active', parseInt(chip.getAttribute('data-qty') || '0', 10) === currentQty);
+        });
+      }
+
+      if (calcBox) {
+        const b100 = parseFloat(calcBox.getAttribute('data-base100') || '0');
+        const b500 = parseFloat(calcBox.getAttribute('data-base500') || '0');
+        const b2000 = parseFloat(calcBox.getAttribute('data-base2000') || '0');
+        const basePrice = currentQty >= 2000 ? b2000 : currentQty >= 500 ? b500 : b100;
+        const unitTotal = basePrice + addon;
+        const subtotal = currentQty === 1 ? unitTotal : unitTotal * currentQty;
+        if (calcUnitEl) {
+          const unitSuffix = calcUnitEl.getAttribute('data-unit-suffix') || calcUnitEl.querySelector('span')?.outerHTML || '<span>/pc</span>';
+          if (!calcUnitEl.getAttribute('data-unit-suffix')) {
+            calcUnitEl.setAttribute('data-unit-suffix', unitSuffix);
+          }
+          calcUnitEl.innerHTML = currentQty === 1 ? `$${basePrice.toFixed(2)} + Proof<span>/pc</span>` : `$${unitTotal.toFixed(2)}${unitSuffix}`;
+        }
+        if (calcQtyEl) calcQtyEl.textContent = currentQty.toLocaleString();
+        if (calcTotalEl) {
+          const freeProofLabel = calcUnitEl?.getAttribute('data-free-proof') || '12h Free Vector Proof';
+          calcTotalEl.textContent = currentQty === 1 ? `Sample + ${freeProofLabel}` : `$${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`;
+        }
+        if (stickyPriceEl) {
+          stickyPriceEl.textContent = currentQty === 1 ? `Sample (${currentSku}) · Free 12h Proof` : `$${unitTotal.toFixed(2)}/pc × ${currentQty} ($${subtotal.toFixed(0)} USD)`;
+        }
+
+        const waMsg = currentQty === 1
+          ? `Hello MedalPinSupply, please send a free 12h vector artwork proof & sample fee quote for ${currentSku}.`
+          : `Hello MedalPinSupply, please quote ${currentQty} pcs of ${currentSku} (${mode}) at ~$${unitTotal.toFixed(2)}/pc (Est. $${subtotal.toFixed(2)} USD).`;
+        const waUrl = `https://wa.me/8618750126315?text=${encodeURIComponent(waMsg)}`;
+        ['pdp-main-wa-btn', 'pdp-sticky-wa-btn'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.setAttribute('href', waUrl);
+        });
+        const inlineLeadForm = document.getElementById('pdp-inline-lead-form');
+        if (inlineLeadForm) {
+          inlineLeadForm.setAttribute(
+            'data-inline-sku',
+            `${currentSku} — ${currentQty} pcs (${mode}, $${unitTotal.toFixed(2)}/pc)`
+          );
+        }
+      }
+
+      [rfqBtn, stickyRfqBtn].forEach((btn) => {
+        if (!btn) return;
+        btn.setAttribute('data-rfq-sku', currentSku);
+        btn.setAttribute('data-rfq-mode', mode);
+        btn.setAttribute('data-rfq-qty', String(currentQty));
+      });
+    }
+
+    qtyChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const selectedQty = parseInt(chip.getAttribute('data-qty') || '100', 10);
+        currentQty = selectedQty;
+        qtyChips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        updateRfqHref();
+      });
+    });
+
+    variantBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        variantBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentSku = btn.getAttribute('data-sku') || currentSku;
+        const t100 = btn.getAttribute('data-t100') || '';
+        const t500 = btn.getAttribute('data-t500') || '';
+        const t2000 = btn.getAttribute('data-t2000') || '';
+        if (price100) price100.textContent = '$' + t100;
+        if (price500) price500.textContent = '$' + t500;
+        if (price2000) price2000.textContent = '$' + t2000;
+        if (fastPriceEl && t2000 && t100) {
+          const suffix = fastPriceEl.querySelector('span')?.outerHTML || '';
+          fastPriceEl.innerHTML = `$${t2000} – $${t100}${suffix}`;
+        }
+        if (stickySkuEl) stickySkuEl.textContent = currentSku;
+        if (stickyPriceEl && t2000 && t100) stickyPriceEl.textContent = `$${t2000} – $${t100} · MOQ 100`;
+        if (calcBox) {
+          if (t100) calcBox.setAttribute('data-base100', t100);
+          if (t500) calcBox.setAttribute('data-base500', t500);
+          if (t2000) calcBox.setAttribute('data-base2000', t2000);
+        }
+        if (weightEl) weightEl.textContent = btn.getAttribute('data-weight') || '';
+        const galleryMatEl = document.getElementById('gallery-mat-val');
+        if (galleryMatEl && btn.getAttribute('data-material')) {
+          galleryMatEl.textContent = btn.getAttribute('data-material') || '';
+        }
+        updateRfqHref();
+      });
+    });
+
+    // GA4 Tracking for Fast-Action & Mobile Sticky Conversion Bars
+    if (fastRfqBtn) {
+      fastRfqBtn.addEventListener('click', () => {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'pdp_fast_rfq_click', { sku: currentSku, qty: currentQty });
+        }
+      });
+    }
+    if (stickyRfqBtn) {
+      stickyRfqBtn.addEventListener('click', () => {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'pdp_sticky_rfq_click', { sku: currentSku, qty: currentQty });
+        }
+      });
+    }
+    const fastWaBtn = document.getElementById('pdp-fast-wa-btn');
+    if (fastWaBtn) {
+      fastWaBtn.addEventListener('click', () => {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'pdp_fast_whatsapp_click', { sku: currentSku });
+        }
+      });
+    }
+    const stickyWaBtn = document.getElementById('pdp-sticky-wa-btn');
+    if (stickyWaBtn) {
+      stickyWaBtn.addEventListener('click', () => {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'pdp_sticky_whatsapp_click', { sku: currentSku });
+        }
+      });
+    }
+
+    // Interactive 3-tier price table cells
+    const tierCells = document.querySelectorAll('.tiers-grid .tier-cell[data-tier-qty]');
+    tierCells.forEach((cell) => {
+      cell.addEventListener('click', () => {
+        const selectedQty = parseInt(cell.getAttribute('data-tier-qty') || '100', 10);
+        currentQty = selectedQty;
+        qtyChips.forEach((c) => {
+          c.classList.toggle('active', parseInt(c.getAttribute('data-qty') || '0', 10) === selectedQty);
+        });
+        updateRfqHref();
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'tier_cell_select', { sku: currentSku, qty: currentQty });
+        }
+      });
+    });
+
+    // Customization radio cards
+    const radioCards = document.querySelectorAll('#custom-radio-group .radio-card');
+    radioCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        radioCards.forEach((c) => c.classList.remove('active'));
+        card.classList.add('active');
+        const input = card.querySelector('input[type="radio"]');
+        if (input) input.checked = true;
+        updateRfqHref();
+      });
+    });
+  })();
+</script>
+
+<style>
+  .pdp-breadcrumb-bar {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.75rem 0;
+  }
+  .breadcrumb-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .pdp-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    color: #475569;
+  }
+  .pdp-breadcrumb a {
+    color: #0369a1;
+  }
+  .pdp-breadcrumb strong {
+    color: #0f172a;
+    font-family: var(--font-mono);
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .pdp-cross-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .cross-pill {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+  }
+  .pill-logo {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+  }
+  .pill-tuning {
+    background: #ede9fe;
+    color: #6d28d9;
+    border: 1px solid #c4b5fd;
+  }
+  .pill-cnc {
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #7dd3fc;
+  }
+  .pdp-stage-1 {
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .pdp-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 2.75rem;
+    align-items: start;
+  }
+  .pdp-gallery {
+    position: sticky;
+    top: 86px;
+    align-self: start;
+  }
+  @media (max-width: 960px) {
+    .pdp-gallery {
+      position: static;
+    }
+  }
+  .pdp-hero-grid > *,
+  .stage-2-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .main-image-frame {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 0.85rem;
+    transform: translateZ(0);
+  }
+  .main-image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #ffffff;
+    display: block;
+    backface-visibility: hidden;
+  }
+  .frame-badges {
+    position: absolute;
+    top: 0.85rem;
+    left: 0.85rem;
+    right: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .thumb-strip {
+    display: flex;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .thumb-btn {
+    width: 88px;
+    height: 66px;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #f8fafc;
+    cursor: pointer;
+    padding: 0;
+  }
+  .thumb-btn.active {
+    border-color: #0284c7;
+  }
+  .thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #ffffff;
+    display: block;
+  }
+  .gallery-quick-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+  .qkpi {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.7rem;
+    text-align: center;
+    min-width: 0;
+  }
+  .qkpi span {
+    display: block;
+    font-size: 0.68rem;
+    color: #475569;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .qkpi strong {
+    font-size: 0.86rem;
+    color: #0f172a;
+    font-family: var(--font-mono);
+  }
+  .gallery-spec-card {
+    margin-top: 0.65rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.65rem;
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .gsc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    padding-bottom: 0.38rem;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+  .gsc-label {
+    color: #475569;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    flex-shrink: 0;
+  }
+  .gsc-val {
+    color: #0f172a;
+    font-weight: 700;
+    text-align: right;
+    font-size: 0.79rem;
+    line-height: 1.35;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .gsc-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    font-size: 0.71rem;
+    color: #047857;
+    font-weight: 700;
+    padding-top: 0.1rem;
+  }
+  .pdp-meta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .sku-code-large {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    font-weight: 800;
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 0.28rem 0.75rem;
+    border-radius: 0.35rem;
+  }
+  .factory-ref {
+    font-size: 0.8rem;
+    color: #475569;
+    font-weight: 600;
+  }
+  .pdp-title {
+    font-size: clamp(1.55rem, 2.5vw, 2.15rem);
+    margin-bottom: 0.75rem;
+    color: #0f172a;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .pdp-short-overview {
+    font-size: 0.97rem;
+    color: #334155;
+    line-height: 1.72;
+    margin-bottom: 1.25rem;
+    overflow-wrap: break-word;
+  }
+  .variant-selector-box {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 0.75rem;
+    padding: 1rem 1.15rem;
+    margin-bottom: 1.25rem;
+  }
+  .selector-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    margin-bottom: 0.65rem;
+    flex-wrap: wrap;
+  }
+  .selector-label span {
+    color: #0369a1;
+    font-size: 0.75rem;
+  }
+  .variant-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 0.6rem;
+  }
+  .variant-btn {
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 0.55rem;
+    padding: 0.65rem 0.8rem;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.15s ease;
+  }
+  .variant-btn.active {
+    border-color: #0284c7;
+    background: #e0f2fe;
+  }
+  .v-sku {
+    font-weight: 800;
+    font-size: 0.82rem;
+    color: #0f172a;
+  }
+  .v-price {
+    font-size: 0.75rem;
+    color: #059669;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .pricing-tiers-box {
+    border: 1px solid #cbd5e1;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+  .tiers-header {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tooling-free-tag {
+    color: #34d399;
+    font-weight: 800;
+  }
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    background: #ffffff;
+  }
+  .tier-cell {
+    padding: 0.9rem 1rem;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .tier-cell:last-child {
+    border-right: none;
+  }
+  .tier-best {
+    background: #ecfdf5;
+  }
+  .tier-qty {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+  }
+  .tier-val {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: #0f172a;
+    font-family: var(--font-heading);
+    margin: 0.15rem 0;
+  }
+  .tier-best .tier-val {
+    color: #047857;
+  }
+  .tier-sub {
+    font-size: 0.7rem;
+    color: #475569;
+  }
+  .custom-options-box {
+    margin-bottom: 1.35rem;
+  }
+  .custom-options-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.84rem;
+    margin-bottom: 0.6rem;
+  }
+  .custom-options-title span {
+    color: #047857;
+    font-weight: 700;
+  }
+  .radio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+  .radio-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.7rem 0.85rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.55rem;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    min-width: 0;
+  }
+  .radio-card.active {
+    border-color: #0284c7;
+    background: #f0f9ff;
+  }
+  .radio-card input {
+    margin-top: 0.25rem;
+  }
+  .radio-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+  .radio-info strong {
+    font-size: 0.82rem;
+    color: #0f172a;
+  }
+  .radio-info span {
+    font-size: 0.72rem;
+    color: #475569;
+  }
+  .instant-calc-bar {
+    margin-top: 0.75rem;
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.65rem;
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .calc-qty-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .calc-qty-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .calc-qty-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .calc-qty-chip {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.4rem;
+    padding: 0.28rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .calc-qty-chip:hover {
+    border-color: #0284c7;
+    color: #0284c7;
+  }
+  .calc-qty-chip.active {
+    background: #0369a1;
+    border-color: #0369a1;
+    color: #ffffff;
+  }
+  .calc-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 0.65rem;
+    border-top: 1px dashed #cbd5e1;
+    gap: 0.65rem 1rem;
+  }
+  .calc-unit-col,
+  .calc-total-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .calc-total-col {
+    text-align: right;
+  }
+  .calc-meta-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #475569;
+    white-space: nowrap;
+  }
+  .calc-unit-val {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+  }
+  .calc-unit-val span {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #475569;
+  }
+  .calc-total-val {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #047857;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+  }
+  .pdp-direct-lead-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.45rem !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 1.5px solid #0284c7;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+    max-width: 100%;
+    transform: translateZ(0);
+  }
+  .pdp-direct-input-row {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 0.55rem;
+  }
+  .pdp-direct-input {
+    flex: 1 1 200px !important;
+    width: 100%;
+    min-width: 0;
+    padding: 0.72rem 0.9rem;
+    font-size: 0.88rem;
+    border-radius: 0.5rem;
+    border: 1.5px solid #64748b;
+    background: #ffffff;
+    color: #0f172a;
+  }
+  .pdp-direct-input::placeholder {
+    color: #64748b;
+  }
+  .pdp-direct-input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+  }
+  .pdp-direct-submit {
+    padding: 0.72rem 1.05rem;
+    background: #0369a1 !important;
+    color: #ffffff !important;
+    font-size: 0.86rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+    flex: 1 1 auto;
+    transition: background-color 0.15s ease;
+  }
+  .pdp-direct-submit:hover {
+    background: #075985 !important;
+  }
+  .pdp-direct-status[hidden] {
+    display: none !important;
+  }
+  .pdp-direct-status {
+    display: block;
+    margin-top: 0.1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #34d399;
+  }
+  .pdp-direct-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.45rem;
+    margin-top: 0.2rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.22);
+  }
+  .pdp-direct-badge {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #a7f3d0;
+  }
+  .pdp-full-form-link {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #38bdf8 !important;
+    text-decoration: underline !important;
+  }
+  .pdp-full-form-link:hover {
+    color: #7dd3fc !important;
+  }
+  @media (max-width: 640px) {
+    .calc-summary-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .calc-total-col {
+      text-align: left;
+    }
+    .pdp-direct-input-row {
+      flex-direction: column;
+    }
+    .pdp-direct-submit {
+      width: 100%;
+    }
+  }
+  .pdp-cta-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 0.65rem;
+  }
+  .pdp-micro-lead-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+  .micro-lead-link {
+    flex: 1 1 220px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.52rem 0.75rem;
+    background: #f0f9ff;
+    border: 1px dashed #38bdf8;
+    border-radius: 8px;
+    color: #0369a1;
+    font-size: 0.77rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+  .micro-lead-link:hover {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    color: #0f172a;
+    transform: translateY(-1px);
+  }
+  .calc-qty-chip.chip-sample {
+    border-color: #f59e0b;
+    background: #fffbeb;
+    color: #b45309;
+  }
+  .calc-qty-chip.chip-sample.active {
+    background: #d97706;
+    border-color: #d97706;
+    color: #ffffff;
+  }
+  .pdp-trust-strip {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.76rem;
+    color: #475569;
+    font-weight: 600;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .stage-2-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .stage-heading {
+    font-size: 1.4rem;
+    margin-bottom: 0.35rem;
+  }
+  .stage-sub {
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.65;
+    margin-bottom: 1.15rem;
+  }
+  .feature-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .feat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.65rem;
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: #1e293b;
+  }
+  .feat-check {
+    color: #059669;
+    font-weight: 900;
+  }
+  .anti-tooling-declaration {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 2px solid #0284c7;
+    border-radius: 0.85rem;
+    padding: 1.5rem;
+    color: #ffffff;
+  }
+  .decl-badge {
+    display: inline-block;
+    background: rgba(56, 189, 248, 0.16);
+    color: #38bdf8;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+    text-transform: uppercase;
+  }
+  .anti-tooling-declaration h3 {
+    color: #ffffff;
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+  .decl-quote {
+    color: #e2e8f0;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .decl-links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 700;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .decl-links a {
+    color: #fbbf24;
+  }
+  .pdp-editorial-card {
+    margin-top: 2.75rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 2.25rem;
+    box-shadow: var(--shadow-sm);
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+  .pdp-editorial-card :global(.editorial-header-block) {
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.6rem;
+  }
+  .pdp-editorial-card :global(.editorial-sku-pill) {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+  }
+  .pdp-editorial-card :global(h2) {
+    font-size: 1.45rem;
+    color: #0f172a;
+    margin-bottom: 0.65rem;
+    line-height: 1.3;
+  }
+  .pdp-editorial-card :global(.editorial-lead) {
+    font-size: 0.98rem;
+    color: #334155;
+    line-height: 1.72;
+    margin-bottom: 0;
+  }
+  .pdp-editorial-card :global(.editorial-spec-grid) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.85rem;
+  }
+  .pdp-editorial-card :global(.editorial-spec-box) {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.85rem;
+    padding: 1.35rem 1.45rem;
+    min-width: 0;
+  }
+  .pdp-editorial-card :global(.editorial-spec-box h3) {
+    font-size: 1.06rem;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+    line-height: 1.35;
+  }
+  .pdp-editorial-card :global(.editorial-spec-dims) {
+    display: inline-block;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 0.45rem;
+    margin-bottom: 0.85rem;
+  }
+  .pdp-editorial-card :global(.editorial-spec-list),
+  .pdp-editorial-card :global(.editorial-check-list) {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .pdp-editorial-card :global(.editorial-spec-list li),
+  .pdp-editorial-card :global(.editorial-check-list li) {
+    font-size: 0.92rem;
+    color: #1e293b;
+    line-height: 1.6;
+    padding-left: 1.35rem;
+    position: relative;
+  }
+  .pdp-editorial-card :global(.editorial-spec-list li::before) {
+    content: "•";
+    position: absolute;
+    left: 0.25rem;
+    top: 0;
+    color: #0284c7;
+    font-weight: 900;
+  }
+  .pdp-editorial-card :global(.editorial-check-list li::before) {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #059669;
+    font-weight: 900;
+  }
+  .pdp-editorial-card :global(.editorial-schedule-block) {
+    margin-bottom: 1.85rem;
+  }
+  .pdp-editorial-card :global(.editorial-schedule-block h3) {
+    font-size: 1.12rem;
+    color: #0f172a;
+    margin: 0 0 0.85rem;
+  }
+  .pdp-editorial-card :global(.editorial-insights-block) {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1.5rem;
+  }
+  .pdp-editorial-card :global(.editorial-insights-head) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .pdp-editorial-card :global(.editorial-insights-head h3) {
+    font-size: 1.12rem;
+    color: #0f172a;
+    margin: 0;
+  }
+  .pdp-editorial-card :global(.editorial-hub-pill) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.42rem 0.9rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background-color 0.18s ease, transform 0.18s ease;
+  }
+  .pdp-editorial-card :global(.editorial-hub-pill:hover) {
+    background: #0284c7;
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  @media (max-width: 768px) {
+    .pdp-editorial-card :global(.editorial-spec-grid) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .pdp-editorial-card {
+      padding: 1.35rem 1.15rem;
+    }
+    .pdp-editorial-card :global(.editorial-spec-box) {
+      padding: 1.05rem 1rem;
+    }
+  }
+  @media (max-width: 960px) {
+    .pdp-hero-grid,
+    .stage-2-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .radio-grid,
+    .pdp-cta-row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .pdp-stage-1 {
+      padding-top: 1.5rem;
+      padding-bottom: 2.25rem;
+    }
+    .pdp-title {
+      font-size: 1.42rem;
+      line-height: 1.25;
+    }
+    .thumb-btn {
+      width: 72px;
+      height: 54px;
+    }
+    .gallery-quick-kpis {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .tiers-header {
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .tiers-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .tier-cell {
+      padding: 0.7rem 0.5rem;
+      text-align: center;
+      align-items: center;
+    }
+    .tier-qty {
+      font-size: 0.66rem;
+    }
+    .tier-val {
+      font-size: 1.15rem;
+    }
+    .tier-sub {
+      font-size: 0.62rem;
+      line-height: 1.2;
+    }
+    .pdp-cta-row .btn {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+  .pdp-guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .pdp-guide-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    transform: translateZ(0);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .pdp-guide-card:hover {
+    transform: translate3d(0, -3px, 0);
+    border-color: #38bdf8;
+  }
+  .pdp-guide-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #0f172a;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .pdp-guide-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .pdp-guide-cat {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0369a1;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.45rem;
+  }
+  .pdp-guide-body h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  .pdp-guide-body p {
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pdp-guide-cta {
+    margin-top: auto;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #0369a1;
+  }
+  @media (max-width: 900px) {
+    .pdp-guides-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .pdp-fast-action-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 1px solid #334155;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+    transform: translateZ(0);
+  }
+  .fast-price-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .fast-price-pill {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #38bdf8;
+    line-height: 1.2;
+  }
+  .fast-price-pill span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-left: 0.15rem;
+  }
+  .fast-moq-tag {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #a7f3d0;
+  }
+  .fast-action-btns {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .btn-fast-rfq {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #0369a1 !important;
+    color: #ffffff !important;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 0.55rem 0.95rem;
+    border-radius: 0.5rem;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+  }
+  .btn-fast-rfq:hover {
+    background: #075985 !important;
+    color: #ffffff !important;
+  }
+  .btn-fast-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #047857 !important;
+    color: #ffffff !important;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 0.55rem 0.8rem;
+    border-radius: 0.5rem;
+    text-decoration: none !important;
+    white-space: nowrap;
+  }
+  .btn-fast-wa:hover {
+    background: #065f46 !important;
+    color: #ffffff !important;
+  }
+  .pdp-mobile-sticky-bar {
+    display: none;
+  }
+  @media (max-width: 960px) {
+    .pdp-mobile-sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 990;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      background: #0f172a;
+      border-top: 1px solid #334155;
+      padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+      box-shadow: 0 -6px 20px rgba(15, 23, 42, 0.28);
+      transform: translateZ(0);
+    }
+    .sticky-sku-col {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    .sticky-sku-code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sticky-sku-price {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #38bdf8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.25;
+    }
+    .sticky-action-col {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .btn-sticky-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #047857 !important;
+      color: #ffffff !important;
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 0.52rem 0.68rem;
+      border-radius: 0.5rem;
+      text-decoration: none !important;
+      white-space: nowrap;
+    }
+    .btn-sticky-rfq {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #0369a1 !important;
+      color: #ffffff !important;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.52rem 0.72rem;
+      border-radius: 0.5rem;
+      text-decoration: none !important;
+      white-space: nowrap;
+      text-align: center;
+      line-height: 1.2;
+    }
+  }
+  @media (max-width: 640px) {
+    .pdp-fast-action-strip {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .fast-action-btns {
+      width: 100%;
+    }
+    .btn-fast-rfq {
+      flex: 1;
+    }
+  }
+  .btn-calc-lock-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #047857 !important;
+    color: #ffffff !important;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 0.48rem 0.75rem;
+    border-radius: 0.5rem;
+    text-decoration: none !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+  .btn-calc-lock-wa:hover {
+    background: #065f46 !important;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+  }
+</style>

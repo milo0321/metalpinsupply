@@ -1,0 +1,872 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppWidget from '../components/WhatsAppWidget.astro';
+import { getLanguageFromURL, getDirection, getHreflangTags, useTranslations } from '../i18n/utils';
+import { languages, type SupportedLanguage } from '../i18n/config';
+import '../styles/global.css';
+import '../styles/rtl.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: SupportedLanguage;
+  dir?: 'ltr' | 'rtl';
+  keywords?: string;
+  canonical?: string;
+  ogImage?: string;
+  preloadImage?: string;
+  activePage?: string;
+  jsonLd?: object | object[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang,
+  dir,
+  keywords = 'custom enamel pins factory, wholesale race medals, custom challenge coins, trolley coin keyrings, metal keychains manufacturer, Zhongshan Xiaolan medal foundry',
+  canonical = Astro.url.href,
+  ogImage = 'https://medalpinsupply.com/images/hero-medal-pin-showcase.webp',
+  preloadImage,
+  activePage = '',
+  jsonLd,
+  noindex = false
+} = Astro.props;
+
+const currentLang = (lang || getLanguageFromURL(Astro.url.pathname) || 'en') as SupportedLanguage;
+const currentDir = dir || getDirection(currentLang);
+const t = useTranslations(currentLang);
+const langConfig = languages[currentLang];
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim() || 'G-HHP8CN1M58';
+const gtmId = 'GTM-TH9NHVJ4';
+const turnstileSiteKey = (
+  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ||
+  import.meta.env.TURNSTILE_SITE_KEY ||
+  (typeof process !== 'undefined' ? process.env?.PUBLIC_TURNSTILE_SITE_KEY || process.env?.TURNSTILE_SITE_KEY : '') ||
+  '0x4AAAAAAF1GTaPVmYSNUcHS'
+).trim();
+
+function htmlEncodedLen(s: string): number {
+  return (
+    s.length +
+    (s.match(/&/g) || []).length * 4 +
+    (s.match(/[<>]/g) || []).length * 3
+  );
+}
+
+function calibrateSeoTitle(raw: string, langCode: SupportedLanguage): string {
+  let clean = (raw || '').replace(/\s+/g, ' ').trim();
+  if (langCode === 'en') {
+    if (htmlEncodedLen(clean) > 60) {
+      clean = clean.replace(/\s&\s/g, ' + ');
+    }
+    if (htmlEncodedLen(clean) > 60) {
+      clean = clean.replace(/\s*\|\s*MedalPinSupply(\.com)?$/i, '').trim();
+    }
+    return clean;
+  }
+
+  // Strip redundant brand suffix on localized pages to save character budget
+  clean = clean
+    .replace(/\s*\|\s*MedalPinSupply(\.com)?$/i, '')
+    .replace(/\s*\([^)]+\)$/, '')
+    .replace(/\s&\s/g, ' + ')
+    .trim();
+
+  const suffix = ` · ${langCode.toUpperCase()}`;
+  const maxBase = 60 - suffix.length; // 55 chars
+  if (htmlEncodedLen(clean) > maxBase) {
+    if (clean.includes(' ') && !['ja'].includes(langCode)) {
+      const words = clean.split(' ');
+      let acc = '';
+      for (const w of words) {
+        const next = acc ? `${acc} ${w}` : w;
+        if (htmlEncodedLen(next) <= maxBase) {
+          acc = next;
+        } else {
+          break;
+        }
+      }
+      clean = (acc || clean.slice(0, maxBase))
+        .replace(/[\s:,\-–—/+|&·]+$/, '')
+        .replace(/\s+(vs\.?|y|i|e|et|und|en|og|och|ja|против|dan|및)$/i, '');
+    } else {
+      clean = clean.slice(0, maxBase).replace(/[\s:,\-–—/+|&·、。]+$/, '');
+    }
+  }
+  let result = `${clean}${suffix}`;
+  if (result.length < 35 && htmlEncodedLen(`${clean} | MedalPinSupply${suffix}`) <= 60) {
+    result = `${clean} | MedalPinSupply${suffix}`;
+  }
+  return result;
+}
+
+function calibrateSeoDescription(raw: string, langCode: SupportedLanguage): string {
+  let clean = (raw || '').replace(/\s+/g, ' ').trim();
+  if (langCode === 'en') {
+    if (htmlEncodedLen(clean) > 155) {
+      clean = clean.replace(/\s&\s/g, ' + ');
+    }
+    return clean;
+  }
+
+  clean = clean.replace(/\s&\s/g, ' + ');
+  const prefix = `[${langCode.toUpperCase()}] `;
+  let full = clean.startsWith('[') ? clean : `${prefix}${clean}`;
+  if (full.length < 80) {
+    full = `${full.replace(/[。.]+$/, '')} · 150 Custom Pin, Medal & Coin Styles | MedalPinSupply.com.`;
+  }
+  if (htmlEncodedLen(full) <= 154) {
+    return full;
+  }
+  const maxLen = 153;
+  if (full.includes(' ') && !['ja'].includes(langCode)) {
+    const words = full.split(' ');
+    let acc = '';
+    for (const w of words) {
+      const next = acc ? `${acc} ${w}` : w;
+      if (htmlEncodedLen(next) <= maxLen) {
+        acc = next;
+      } else {
+        break;
+      }
+    }
+    clean = (acc || full.slice(0, maxLen)).replace(/[\s:,\-–—/+|&.]+$/, '') + '.';
+  } else {
+    const endChar = langCode === 'ja' ? '。' : '.';
+    clean = full.slice(0, maxLen).replace(/[\s:,\-–—/+|&.、。]+$/, '') + endChar;
+  }
+  return clean;
+}
+
+const localizedTitle = calibrateSeoTitle(title, currentLang);
+const localizedDescription = calibrateSeoDescription(description, currentLang);
+
+const fullOgImageUrl = ogImage.startsWith('http') ? ogImage : `https://medalpinsupply.com${ogImage}`;
+
+function toCleanCanonical(raw: string): string {
+  if (!raw) return 'https://medalpinsupply.com';
+  try {
+    const parsed = new URL(raw, 'https://medalpinsupply.com');
+    parsed.protocol = 'https:';
+    parsed.hostname = 'medalpinsupply.com';
+    parsed.search = '';
+    parsed.hash = '';
+    if (parsed.pathname.length > 1 && parsed.pathname.endsWith('/')) {
+      parsed.pathname = parsed.pathname.slice(0, -1);
+    }
+    return parsed.toString().replace(/\/+$/, '');
+  } catch {
+    return raw.replace(/\/+$/, '');
+  }
+}
+
+const cleanCanonical = toCleanCanonical(canonical);
+const hreflangTags = getHreflangTags(Astro.url);
+const defaultCanonical = hreflangTags.find((tag) => tag.lang === 'en')?.href || cleanCanonical;
+
+const waUrl =
+  'https://wa.me/8618750126315?text=Hello%20MedalPinSupply%2C%20I%20would%20like%20to%20inquire%20about%20custom%20enamel%20pins%2C%20medals%20and%20challenge%20coins.';
+
+const defaultSchemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://medalpinsupply.com/#organization',
+    name: 'MedalPinSupply.com',
+    description:
+      'Direct Zhongshan factory supply for wholesale custom enamel pins, marathon race medals, military challenge coins, trolley tokens, and metal keychains.',
+    url: 'https://medalpinsupply.com',
+    logo: 'https://medalpinsupply.com/logo.svg',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Zhongshan Xiaolan Industrial Zone',
+      addressLocality: 'Zhongshan',
+      addressRegion: 'Guangdong',
+      addressCountry: 'CN'
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+86-187-5012-6315',
+      contactType: 'Wholesale & custom tooling sourcing desk',
+      email: 'sales@medalpinsupply.com',
+      availableLanguage: [
+        'English', 'German', 'French', 'Dutch', 'Spanish', 'Italian', 'Portuguese',
+        'Swedish', 'Danish', 'Norwegian', 'Finnish', 'Polish', 'Czech',
+        'Russian', 'Japanese', 'Korean', 'Indonesian', 'Arabic'
+      ]
+    },
+    knowsAbout: [
+      'Die-Struck Hard & Soft Enamel Lapel Pins Manufacturing',
+      '3D Zinc Alloy Die-Cast Marathon & Triathlon Race Medals',
+      'Heavy-Gauge Military & Law Enforcement Challenge Coins',
+      'Euro €1 & £1 Trolley Coin Keyrings & Supermarket Tokens',
+      'Custom Metal Keychains, Bottle Openers & Souvenir Giftware',
+      'US CPSIA, EN71-3 & EU REACH Lead-Free Nickel-Safe Compliance'
+    ]
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://medalpinsupply.com/#website',
+    url: 'https://medalpinsupply.com',
+    name: 'MedalPinSupply.com — Factory-Direct Custom Enamel Pins, Race Medals & Challenge Coins',
+    inLanguage: currentLang,
+    publisher: { '@id': 'https://medalpinsupply.com/#organization' }
+  }
+];
+
+const extraSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const allSchemas = [...defaultSchemas, ...extraSchemas];
+---
+
+<!doctype html>
+<html lang={currentLang} dir={currentDir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />
+    )}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <title>{localizedTitle}</title>
+    <meta name="description" content={localizedDescription} />
+    <meta name="keywords" content={keywords} />
+    <link rel="canonical" href={cleanCanonical} />
+    {hreflangTags.map((tag) => (
+      <link rel="alternate" hreflang={tag.hreflang} href={tag.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={defaultCanonical} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt Catalog Summary" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLMs-Full.txt Complete Knowledge Corpus" />
+    <link rel="indexnow" href="/f4a8b9c2d1e07365a9b8c7d6e5f4a3b2.txt" />
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    )}
+
+    <!-- Factory Metadata -->
+    <meta name="geo.region" content="CN-44" />
+    <meta name="geo.placename" content="Zhongshan Xiaolan, Guangdong, China" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={localizedTitle} />
+    <meta property="og:description" content={localizedDescription} />
+    <meta property="og:url" content={cleanCanonical} />
+    <meta property="og:image" content={fullOgImageUrl} />
+    <meta property="og:site_name" content="MedalPinSupply.com" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={localizedTitle} />
+    <meta name="twitter:description" content={localizedDescription} />
+    <meta name="twitter:image" content={fullOgImageUrl} />
+  </head>
+  <body>
+    <Header activePage={activePage} currentLang={currentLang} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer currentLang={currentLang} />
+
+    <!-- MedalPinSupply Interactive Floating WhatsApp Button & Chat Modal -->
+    <WhatsAppWidget currentLang={currentLang} />
+
+    <!-- Structured Data (JSON-LD) placed at end of body for faster Cold-Start HTML head parsing -->
+    {allSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+
+    <!-- Instant Page Navigation Prefetch (Chromium Speculation Rules API) -->
+    <script type="speculationrules" is:inline>
+      {
+        "prefetch": [
+          {
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": "/contact*" } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
+
+    <!-- GA4 Telemetry (G-HHP8CN1M58) — Fast Post-LCP Idle Load + Desktop Engagement Signals -->
+    <script is:inline define:vars={{ gaMeasurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', gaMeasurementId, {
+        send_page_view: true,
+        anonymize_ip: true
+      });
+      (function () {
+        var loaded = false;
+        var startTs = Date.now();
+        var triggerEvents = ['pointermove', 'mousemove', 'touchstart', 'pointerdown', 'scroll', 'keydown'];
+        function loadAnalytics() {
+          if (loaded) return;
+          loaded = true;
+          triggerEvents.forEach(function (ev) {
+            window.removeEventListener(ev, loadAnalytics, { passive: true });
+          });
+          var gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaMeasurementId;
+          document.head.appendChild(gaScript);
+        }
+        triggerEvents.forEach(function (ev) {
+          window.addEventListener(ev, loadAnalytics, { once: true, passive: true });
+        });
+        function scheduleIdleLoad() {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(loadAnalytics, { timeout: 900 });
+          } else {
+            setTimeout(loadAnalytics, 800);
+          }
+        }
+        if (document.readyState === 'complete') {
+          scheduleIdleLoad();
+        } else {
+          window.addEventListener('load', scheduleIdleLoad, { once: true });
+        }
+
+        // Track scroll milestones (25% & 50%) and active reading dwell so desktop sessions register accurate engagement
+        var scrolled25 = false;
+        var scrolled50 = false;
+        window.addEventListener('scroll', function () {
+          var docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
+          if (docHeight <= 0) return;
+          var pct = (window.scrollY / docHeight) * 100;
+          var elapsedMs = Math.max(100, Date.now() - startTs);
+          if (!scrolled25 && pct >= 25) {
+            scrolled25 = true;
+            gtag('event', 'scroll_depth', { percent_scrolled: 25, page_path: window.location.pathname, engagement_time_msec: elapsedMs });
+          }
+          if (!scrolled50 && pct >= 50) {
+            scrolled50 = true;
+            gtag('event', 'scroll_depth', { percent_scrolled: 50, page_path: window.location.pathname, engagement_time_msec: elapsedMs });
+          }
+        }, { passive: true });
+
+        // 8-second & 12-second active reading heartbeats (12s guarantees >10.0s after deferred gtag.js load so GA4 registers engagedSession=1)
+        setTimeout(function () {
+          if (document.visibilityState !== 'hidden') {
+            loadAnalytics();
+            gtag('event', 'engaged_read_8s', {
+              page_path: window.location.pathname,
+              dwell_seconds: 8,
+              engagement_time_msec: 8000
+            });
+          }
+        }, 8000);
+        setTimeout(function () {
+          if (document.visibilityState !== 'hidden') {
+            loadAnalytics();
+            gtag('event', 'engaged_read_8s', {
+              page_path: window.location.pathname,
+              dwell_seconds: 12,
+              engagement_time_msec: 12000
+            });
+          }
+        }, 12000);
+
+        // Track product / collection / quote CTA clicks
+        document.addEventListener('click', function (e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a) return;
+          var href = a.getAttribute('href') || '';
+          if (href.indexOf('/products/') !== -1 || href.indexOf('/collections/') !== -1 || href.indexOf('/contact') !== -1 || href.indexOf('/custom-branding') !== -1 || href.indexOf('wa.me') !== -1) {
+            loadAnalytics();
+            gtag('event', 'wholesale_navigation_click', {
+              link_url: href,
+              source_path: window.location.pathname
+            });
+          }
+        }, { passive: true });
+
+        // Flush dwell time when tab hides or navigates away
+        var dwellSent = false;
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'hidden' && !dwellSent) {
+            var sec = Math.round((Date.now() - startTs) / 1000);
+            if (sec >= 4) {
+              dwellSent = true;
+              gtag('event', 'page_dwell', {
+                page_path: window.location.pathname,
+                dwell_seconds: sec,
+                transport_type: 'beacon'
+              });
+            }
+          }
+        });
+      })();
+    </script>
+
+    <script is:inline>
+      (function () {
+        try {
+          var storage = window.localStorage || window.sessionStorage;
+          if (!storage) return;
+          var now = Date.now();
+          var currentPath = window.location.pathname + window.location.search;
+          var pageId = 'v_' + now + '_' + Math.random().toString(36).slice(2, 6);
+          function recordStep(id, path, startTime) {
+            try {
+              var duration = Math.max(1, Math.round((Date.now() - startTime) / 1000));
+              var raw = storage.getItem('rx_journey_history') || '[]';
+              var list = JSON.parse(raw);
+              if (!Array.isArray(list)) list = [];
+              list.push({ id: id, path: path, duration: duration, t: Date.now() });
+              if (list.length > 20) list = list.slice(-20);
+              storage.setItem('rx_journey_history', JSON.stringify(list));
+            } catch (_) {}
+          }
+          var prevRaw = storage.getItem('rx_active_page');
+          if (prevRaw) {
+            var prev = JSON.parse(prevRaw);
+            if (prev && prev.id && prev.startTime && prev.path !== currentPath) {
+              recordStep(prev.id, prev.path, prev.startTime);
+            }
+          }
+          storage.setItem('rx_active_page', JSON.stringify({ id: pageId, path: currentPath, startTime: now }));
+
+          window.getRxBrowsingJourneySnapshot = function () {
+            try {
+              var rawList = storage.getItem('rx_journey_history') || '[]';
+              var journey = JSON.parse(rawList);
+              if (!Array.isArray(journey)) journey = [];
+              var activeRaw = storage.getItem('rx_active_page');
+              if (activeRaw) {
+                var active = JSON.parse(activeRaw);
+                if (active && active.path) {
+                  var liveDur = Math.max(1, Math.round((Date.now() - (active.startTime || now)) / 1000));
+                  journey = journey.concat([{ id: active.id || pageId, path: active.path, duration: liveDur, isCurrent: true }]);
+                }
+              }
+              return journey.slice(-20);
+            } catch (_) {
+              return [];
+            }
+          };
+
+          window.dispatchWhatsAppLeadTelemetry = function (opts) {
+            try {
+              opts = opts || {};
+              var nowTs = Date.now();
+              if (window.__lastWaTrackTs && nowTs - window.__lastWaTrackTs < 1500) {
+                return;
+              }
+              window.__lastWaTrackTs = nowTs;
+
+              var h1Text = (document.querySelector('h1') && document.querySelector('h1').innerText.trim()) || '';
+              var titleClean = (document.title || '').split('|')[0].split(' - ')[0].trim();
+              var skuEl = document.getElementById('display-sku');
+              var skuText = skuEl ? skuEl.innerText.replace('SKU:', '').trim() : '';
+              var defaultProd = skuText
+                ? skuText + (h1Text ? ' - ' + h1Text : '')
+                : (h1Text || titleClean || 'Custom Medals, Pins & Coins');
+
+              var savedEmail = '';
+              var savedName = '';
+              var savedCompany = '';
+              try {
+                savedEmail = opts.userEmail || storage.getItem('rx_user_email') || '';
+                savedName = opts.userName || storage.getItem('rx_user_name') || '';
+                savedCompany = opts.userCompany || storage.getItem('rx_user_company') || '';
+              } catch (_) {}
+
+              var urlParams = new URLSearchParams(window.location.search);
+              var timeSpentSec = Math.max(1, Math.round((nowTs - now) / 1000)) + 's';
+              var journeySnapshot = typeof window.getRxBrowsingJourneySnapshot === 'function' ? window.getRxBrowsingJourneySnapshot() : [];
+
+              if (typeof window.gtag === 'function') {
+                window.gtag('event', 'generate_lead', {
+                  event_category: 'engagement',
+                  event_label: 'whatsapp_chat_initiated',
+                  page_location: window.location.href,
+                  page_title: document.title
+                });
+              }
+
+              fetch('/api/whatsapp-track', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  event: 'message_sent',
+                  triggerSource: opts.triggerSource || 'WhatsApp Direct Click',
+                  userEmail: savedEmail,
+                  userName: savedName,
+                  userCompany: savedCompany,
+                  pageUrl: window.location.href,
+                  pagePath: window.location.pathname,
+                  pageTitle: document.title,
+                  productName: opts.productName || defaultProd,
+                  messageText: opts.messageText || '',
+                  browsingJourney: JSON.stringify(journeySnapshot),
+                  pageReferrer: document.referrer || 'Direct Visit',
+                  browserLanguage: navigator.language || 'en',
+                  screenResolution: window.screen.width + 'x' + window.screen.height + ' (' + (window.devicePixelRatio || 1) + 'x DPR)',
+                  clientTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+                  clientLocalTime: new Date().toLocaleString(),
+                  timeOnPageSeconds: timeSpentSec,
+                  utmSource: urlParams.get('utm_source') || '',
+                  utmMedium: urlParams.get('utm_medium') || '',
+                  utmCampaign: urlParams.get('utm_campaign') || '',
+                  utmTerm: urlParams.get('utm_term') || '',
+                  utmContent: urlParams.get('utm_content') || ''
+                }),
+                keepalive: true
+              }).catch(function () {});
+            } catch (_) {}
+          };
+        } catch (_) {}
+      })();
+    </script>
+
+    <!-- Global Accordion, Language Picker & GA4 Full-Funnel Event Delegation -->
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        function trackGaEvent(eventName, params) {
+          try {
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', eventName, params || {});
+            }
+          } catch (_) {}
+        }
+
+        var waTarget = e.target.closest('a[href*="wa.me"], .wa-float-btn, .wa-send-btn, .wa-quick-chip');
+        if (waTarget) {
+          trackGaEvent('whatsapp_click', {
+            event_category: 'conversion_intent',
+            source_page: window.location.pathname,
+            trigger_type: waTarget.className || 'wa_link'
+          });
+          var waHref = waTarget.getAttribute('href') || '';
+          if (waHref.indexOf('wa.me') !== -1 && typeof window.dispatchWhatsAppLeadTelemetry === 'function') {
+            var extractedText = '';
+            try {
+              var parsedWaUrl = new URL(waHref, window.location.origin);
+              extractedText = parsedWaUrl.searchParams.get('text') || '';
+            } catch (_) {}
+            window.dispatchWhatsAppLeadTelemetry({
+              triggerSource: 'Direct Page WhatsApp Button (' + (waTarget.textContent || 'WhatsApp CTA').trim().slice(0, 40) + ')',
+              messageText: extractedText
+            });
+          }
+        }
+
+        var rfqTarget = e.target.closest('a[href*="/contact"]');
+        if (rfqTarget) {
+          var rfqSku = rfqTarget.getAttribute('data-rfq-sku') || '';
+          var rfqMode = rfqTarget.getAttribute('data-rfq-mode') || '';
+          var rfqTopic = rfqTarget.getAttribute('data-rfq-topic') || '';
+          var rfqQty = rfqTarget.getAttribute('data-rfq-qty') || '';
+          if (rfqSku || rfqMode || rfqTopic || rfqQty) {
+            try {
+              var payload = JSON.stringify({ sku: rfqSku, mode: rfqMode, topic: rfqTopic, qty: rfqQty, ts: Date.now() });
+              sessionStorage.setItem('mps_rfq_prefill', payload);
+              localStorage.setItem('mps_rfq_prefill', payload);
+            } catch (_) {}
+          }
+          trackGaEvent('rfq_cta_click', {
+            event_category: 'conversion_intent',
+            source_page: window.location.pathname,
+            cta_text: (rfqTarget.textContent || '').trim().slice(0, 60),
+            target_href: rfqTarget.getAttribute('href') || '/contact',
+            rfq_sku: rfqSku,
+            rfq_qty: rfqQty
+          });
+        }
+
+        var radioCard = e.target.closest('#custom-radio-group .radio-card');
+        if (radioCard) {
+          var radioInput = radioCard.querySelector('input[type="radio"]');
+          trackGaEvent('customization_select', {
+            event_category: 'product_config',
+            source_page: window.location.pathname,
+            custom_mode: radioInput ? radioInput.value : 'custom'
+          });
+        }
+
+        var variantBtn = e.target.closest('.variant-btn');
+        if (variantBtn) {
+          trackGaEvent('material_variant_select', {
+            event_category: 'product_config',
+            source_page: window.location.pathname,
+            variant_sku: variantBtn.getAttribute('data-sku') || ''
+          });
+        }
+
+        var header = e.target.closest('.accordion-header');
+        if (header) {
+          var item = header.closest('.accordion-item');
+          if (item) {
+            var willOpen = !item.classList.contains('active');
+            item.classList.toggle('active');
+            if (willOpen) {
+              trackGaEvent('faq_expand', {
+                event_category: 'engagement',
+                source_page: window.location.pathname,
+                question_text: (header.textContent || '').trim().slice(0, 80)
+              });
+            }
+          }
+          return;
+        }
+
+        var langBtn = e.target.closest('.lang-picker-btn');
+        var allLangWrappers = document.querySelectorAll('.lang-picker-wrapper');
+        if (langBtn) {
+          var wrapper = langBtn.closest('.lang-picker-wrapper');
+          var isOpen = wrapper && wrapper.classList.contains('active');
+          allLangWrappers.forEach(function (w) { w.classList.remove('active'); });
+          if (wrapper && !isOpen) {
+            wrapper.classList.add('active');
+          }
+          return;
+        }
+        if (!e.target.closest('.lang-dropdown-menu')) {
+          allLangWrappers.forEach(function (w) { w.classList.remove('active'); });
+        }
+      });
+
+      // Normalize trailing slashes in browser URL bar so Google WRS and user bookmarks always match the clean canonical URL
+      try {
+        if (window.location.pathname.length > 1 && window.location.pathname.endsWith('/')) {
+          var cleanPath = window.location.pathname.replace(/\/+$/, '');
+          window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+        }
+      } catch (err) {}
+
+      // Global Inline 1-Field Work Email Capture Form Handler (.inline-quick-sheet-form)
+      // Strict email validation + On-demand Cloudflare Turnstile (interaction-only) -> /api/contact
+      (function () {
+        var pageEnterTs = Date.now();
+        var TURNSTILE_SITE_KEY = '0x4AAAAAAF1GTaPVmYSNUcHS';
+        var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+        var turnstileLoaderPromise = null;
+
+        function ensureTurnstileLoaded() {
+          if (window.turnstile && typeof window.turnstile.render === 'function') {
+            return Promise.resolve(window.turnstile);
+          }
+          if (turnstileLoaderPromise) return turnstileLoaderPromise;
+          turnstileLoaderPromise = new Promise(function (resolve, reject) {
+            var existing = document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]');
+            if (existing) {
+              var tries = 0;
+              var timer = setInterval(function () {
+                tries++;
+                if (window.turnstile && typeof window.turnstile.render === 'function') {
+                  clearInterval(timer);
+                  resolve(window.turnstile);
+                } else if (tries > 50) {
+                  clearInterval(timer);
+                  reject(new Error('Turnstile timeout'));
+                }
+              }, 100);
+              return;
+            }
+            var s = document.createElement('script');
+            s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+            s.async = true;
+            s.defer = true;
+            s.onload = function () {
+              if (window.turnstile && typeof window.turnstile.render === 'function') {
+                resolve(window.turnstile);
+              } else {
+                reject(new Error('Turnstile API missing'));
+              }
+            };
+            s.onerror = function () { reject(new Error('Turnstile script failed')); };
+            document.head.appendChild(s);
+          });
+          return turnstileLoaderPromise;
+        }
+
+        function getTurnstileToken(formEl) {
+          return ensureTurnstileLoaded().then(function (ts) {
+            return new Promise(function (resolve, reject) {
+              var holder = formEl.querySelector('.inline-cf-turnstile-holder');
+              if (!holder) {
+                holder = document.createElement('div');
+                holder.className = 'inline-cf-turnstile-holder';
+                holder.style.marginTop = '0.5rem';
+                formEl.appendChild(holder);
+              }
+              holder.innerHTML = '';
+              var settled = false;
+              var timer = setTimeout(function () {
+                if (!settled) {
+                  settled = true;
+                  reject(new Error('Security check timed out. Please try again.'));
+                }
+              }, 20000);
+              try {
+                ts.render(holder, {
+                  sitekey: TURNSTILE_SITE_KEY,
+                  action: 'inline_price_sheet',
+                  appearance: 'interaction-only',
+                  theme: 'dark',
+                  callback: function (token) {
+                    if (!settled) {
+                      settled = true;
+                      clearTimeout(timer);
+                      resolve(token);
+                    }
+                  },
+                  'error-callback': function () {
+                    if (!settled) {
+                      settled = true;
+                      clearTimeout(timer);
+                      reject(new Error('Security check failed. Please retry or use /contact.'));
+                    }
+                  }
+                });
+              } catch (err) {
+                clearTimeout(timer);
+                reject(err);
+              }
+            });
+          });
+        }
+
+        document.addEventListener('submit', function (e) {
+          var inlineForm = e.target && e.target.closest ? e.target.closest('.inline-quick-sheet-form') : null;
+          if (!inlineForm) return;
+          e.preventDefault();
+          var input = inlineForm.querySelector('.inline-qrfq-input');
+          var btn = inlineForm.querySelector('.inline-qrfq-btn');
+          var statusEl = inlineForm.querySelector('.inline-qrfq-status');
+          var rawVal = (input && input.value.trim()) || '';
+
+          if (!EMAIL_RE.test(rawVal)) {
+            if (input) {
+              input.style.borderColor = '#ef4444';
+              input.focus();
+            }
+            if (statusEl) {
+              if (!statusEl.getAttribute('data-orig-msg')) {
+                statusEl.setAttribute('data-orig-msg', statusEl.textContent || '');
+              }
+              statusEl.textContent = '⚠ Please enter a valid work email address (e.g. name@company.com).';
+              statusEl.style.color = '#fca5a5';
+              statusEl.hidden = false;
+            }
+            return;
+          }
+
+          if (input) input.style.borderColor = '#cbd5e1';
+          if (statusEl && statusEl.getAttribute('data-orig-msg')) {
+            statusEl.textContent = statusEl.getAttribute('data-orig-msg');
+            statusEl.style.color = '';
+            statusEl.hidden = true;
+          }
+          var skuTarget = inlineForm.getAttribute('data-inline-sku') || 'Custom Medal, Pin & Coin Wholesale Price Guide';
+          var origBtnText = btn ? btn.textContent : '';
+          try {
+            localStorage.setItem('rx_user_email', rawVal);
+            sessionStorage.setItem('rx_user_email', rawVal);
+          } catch (_) {}
+
+          if (btn) {
+            btn.disabled = true;
+            btn.textContent = '...';
+          }
+          var journeySnapshot =
+            typeof window.getRxBrowsingJourneySnapshot === 'function'
+              ? window.getRxBrowsingJourneySnapshot()
+              : [];
+          var urlParams = new URLSearchParams(window.location.search);
+
+          getTurnstileToken(inlineForm)
+            .then(function (turnstileToken) {
+              return fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  workEmail: rawVal,
+                  productName: skuTarget,
+                  quantity: '100-500 pcs (Inline Price Sheet / Sample Request)',
+                  customization: 'Price Sheet / 12h Digital Proof',
+                  message: '[Inline Email Price-Guide Form]\nWork Email: ' + rawVal + '\nRequested: Wholesale Price Guide & Quote for ' + skuTarget,
+                  turnstileToken: turnstileToken,
+                  'cf-turnstile-response': turnstileToken,
+                  pageUrl: window.location.href,
+                  pagePath: window.location.pathname,
+                  pageTitle: document.title,
+                  browsingJourney: JSON.stringify(journeySnapshot),
+                  pageReferrer: document.referrer || 'Direct Visit',
+                  browserLanguage: navigator.language || 'en',
+                  screenResolution: window.screen.width + 'x' + window.screen.height,
+                  clientTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+                  clientLocalTime: new Date().toLocaleString(),
+                  timeOnPageSeconds: Math.max(1, Math.round((Date.now() - pageEnterTs) / 1000)) + 's',
+                  utmSource: urlParams.get('utm_source') || '',
+                  utmMedium: urlParams.get('utm_medium') || '',
+                  utmCampaign: urlParams.get('utm_campaign') || ''
+                })
+              });
+            })
+            .then(function (res) {
+              return res.json().catch(function () { return { success: false }; }).then(function (json) {
+                if (!res.ok || !json.success) {
+                  throw new Error(json.error || 'Verification failed. Please try again.');
+                }
+                return json;
+              });
+            })
+            .then(function () {
+              if (btn) {
+                btn.textContent = '✓';
+                btn.style.background = '#059669';
+              }
+              if (statusEl) {
+                if (!statusEl.textContent || statusEl.textContent.indexOf('⚠') === 0) {
+                  statusEl.textContent = '✅ Received! Our Zhongshan export desk will email your quote & custom price guide shortly.';
+                }
+                statusEl.style.color = '#34d399';
+                statusEl.hidden = false;
+              }
+              var holder = inlineForm.querySelector('.inline-cf-turnstile-holder');
+              if (holder) holder.innerHTML = '';
+              try {
+                if (typeof window.gtag === 'function') {
+                  window.gtag('event', 'generate_lead', {
+                    event_category: 'form_submission',
+                    event_label: 'inline_verified_email_box',
+                    rfq_sku: skuTarget,
+                    page_location: window.location.href
+                  });
+                }
+              } catch (_) {}
+            })
+            .catch(function (err) {
+              if (btn) {
+                btn.disabled = false;
+                btn.textContent = origBtnText || '→';
+              }
+              if (statusEl) {
+                if (!statusEl.getAttribute('data-orig-msg')) {
+                  statusEl.setAttribute('data-orig-msg', statusEl.textContent || '');
+                }
+                statusEl.textContent = '⚠ ' + (err && err.message ? err.message : 'Security verification failed. Please retry.');
+                statusEl.style.color = '#fca5a5';
+                statusEl.hidden = false;
+              }
+            });
+        });
+      })();
+    </script>
+  </body>
+</html>

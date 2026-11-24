@@ -1,0 +1,299 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../../i18n/utils';
+
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const allProducts = await getCollection('products');
+
+const corporateSkus = ['MPS-001', 'MPS-008', 'MPS-049', 'MPS-058', 'MPS-106', 'MPS-110', 'MPS-135', 'MPS-150'];
+const corporateProducts = corporateSkus
+  .map((sku) => allProducts.find((p) => p.data.sku === sku))
+  .filter(Boolean) as typeof allProducts;
+
+const PAGE_TITLES: Record<string, string> = {
+  en: 'Corporate Award Pins, Coins & Cufflinks ($0.24+)',
+  de: 'Firmen-Anstecknadeln, Münzen & Manschettenknöpfe',
+  fr: 'Pins d’Entreprise, Pièces & Boutons de Manchette',
+  nl: 'Zakelijke Reversspelden, Munten & Manchetknopen',
+  es: 'Pines Corporativos, Monedas y Gemelos ($0.24+)',
+  it: 'Spille Aziendali, Monete e Gemelli con Logo',
+  pt: 'Pins Corporativos, Moedas e Abotoaduras ($0.24+)',
+  sv: 'Företagspins, Jubileumsmynt & Manschettknappar',
+  da: 'Firmapins, Jubilæumsmønter & Manchetknapper',
+  no: 'Firmabrosjer, Jubileumsmynter & Mansjettknapper',
+  fi: 'Yrityspinssit, Juhlakolikot & Kalvosinnapit',
+  pl: 'Firmowe Piny, Monety Okolicznościowe i Spinki',
+  cs: 'Firemní Odznaky, Pamětní Mince a Manžetové Knoflíčky',
+  ru: 'Корпоративные значки, монеты и запонки с логотипом',
+  ja: '企業周年ピンバッジ・記念コイン・カフスセット特注',
+  ko: '기업 근속 기념 핀·주화·커프링크스 맞춤 제작',
+  id: 'Pin Perusahaan, Koin Penghargaan & Manset Eksekutif',
+  ar: 'دبابيس شركات وعملات تذكارية وأزرار أكمام مخصصة'
+};
+
+const PAGE_DESCS: Record<string, string> = {
+  en: 'Factory-direct custom years-of-service pins, anniversary coins & cufflink gift box sets ($0.24–$3.65, MOQ 50 pcs, 500+ die waiver, 12h vector proof).',
+  de: 'Direkt ab Werk: Dienstjubiläums-Pins, Firmenmünzen & Manschettenknopf-Sets ($0.24–$3.65, MOQ 50 Stk., Werkzeugbefreiung ab 500 Stk., 12h Korrektur).',
+  fr: 'Pins d’ancienneté, pièces d’anniversaire et coffrets boutons de manchette en gros ($0.24–$3.65, MOQ 50 pcs, moules offerts dès 500/1000, BAT 12h).',
+  nl: 'Direct uit fabriek: jubileumpins, bedrijfsmunten & manchetknopen in geschenkdoos ($0.24–$3.65, MOQ 50 st., matrijsvrijstelling bij 500+ stuks).',
+  es: 'Pines de antigüedad, monedas conmemorativas y juegos de gemelos directos de fábrica ($0.24–$3.65, MOQ 50 uds., exención de molde, prueba 12h).',
+  it: 'Spille aziendali, monete anniversario e set gemelli in cofanetto ($0.24–$3.65, MOQ 50 pz., esenzione stampo da 500 pz., bozza digitale gratis in 12h).',
+  pt: 'Pins de tempo de casa, moedas comemorativas e conjuntos de abotoaduras ($0.24–$3.65, MOQ 50 un., isenção de molde a partir de 500 un., arte 12h).',
+  sv: 'Företagspins för jubileum, minnesmynt & manschettknappset direkt från fabrik ($0.24–$3.65, MOQ 50 st, avgiftsbefrielse vid 500+ st, 12h korrektur).',
+  da: 'Firmajubilæumspins, erindringsmønter & manchetknappesæt ($0.24–$3.65, MOQ 50 stk., værktøjsfritagelse ved 500+ stk., gratis korrektur på 12 timer).',
+  no: 'Jubileumspins, minnemynter & mansjettknappesett fra fabrikk ($0.24–$3.65, MOQ 50 stk., verktøyfritak fra 500 stk., gratis 12t digital korrektur).',
+  fi: 'Yrityksen vuosipäiväpinssit, juhlakolikot & kalvosinnappisetit ($0.24–$3.65, MOQ 50 kpl, ilmainen muotti 500+ erässä, maksuton 12h digivedos).',
+  pl: 'Firmowe piny stażowe, monety jubileuszowe i zestawy spinek w etui ($0.24–$3.65, MOQ 50 szt., zwolnienie z matrycy przy 500+ szt., projekt w 12h).',
+  cs: 'Firemní výroční odznaky, pamětní mince a sady manžetových knoflíčků ($0.24–$3.65, MOQ 50 ks, odpuštění formy od 500 ks, náhled do 12 hodin).',
+  ru: 'Корпоративные значки выслуги лет, памятные монеты и наборы запонок ($0.24–$3.65, от 50 шт., отмена платы за штамп от 500 шт., макет 12 ч).',
+  ja: '永年勤続バッジ、創立記念コイン、特製カフリンクス＆タイピンセットを工場直販（$0.24〜$3.65、MOQ 50個、500個〜金型代免除・12時間データ校正）。',
+  ko: '근속 기념 핀, 창립 기념 주화, 임원용 커프링크스·타이바 선물 세트 ($0.24–$3.65, MOQ 50개, 500개 이상 금형비 면제, 12시간 무료 시안).',
+  id: 'Pin penghargaan masa kerja, koin perayaan & set manset dalam kotak beludru ($0.24–$3.65, MOQ 50 pcs, bebas biaya cetakan mulai 500 pcs).',
+  ar: 'دبابيس سنوات الخدمة وعملات الذكرى السنوية وأطقم أزرار الأكمام مباشرة من المصنع ($0.24–$3.65، MOQ 50 قطعة، إعفاء القالب عند 500+ قطعة).'
+};
+
+const corporateFaqs = [
+  {
+    question: 'Why do HR teams and brand agencies order custom lapel pins, coins, and cufflinks directly from Zhongshan?',
+    answer: 'Intermediary promotional distributors typically add 100%–200% markups and outsource metal production anyway. Ordering directly from MedalPinSupply.com’s Zhongshan Xiaolan manufacturing lines gives you transparent 100 / 500 / 2,000-pc factory pricing, real gold/silver/antique electroplating, and in-house box kitting.'
+  },
+  {
+    question: 'What is the Minimum Order Quantity (MOQ) for corporate award pins and executive gift sets?',
+    answer: 'Custom years-of-service pins, tie bars, and commemorative coins start at just 50 pieces per design. Custom 2D dies ($45–$85 pins, cufflinks, and tie bars) are waived automatically at 500+ pcs per design, and custom steel molds are stored free for 3 years.'
+  },
+  {
+    question: 'How much do custom corporate award pins, milestone coins, and cufflink box sets cost?',
+    answer: 'Conferences & mass onboarding button badges/soft enamel pins run $0.14–$0.75/pc; Years-of-Service Hard Enamel cloisonne lapel pins run $0.42–$1.25/pc; 40mm Mint Brass Anniversary Coins run $1.35–$3.10/pc; and Suede/Leatherette Executive Cufflink & Tie Bar Gift Sets run $2.25–$3.65/set at volume.'
+  },
+  {
+    question: 'Can we plate 1-year, 5-year, 10-year, and 25-year milestone pins in Bronze, Silver, and Gold using the same mold?',
+    answer: 'Yes! You pay only once for the master stamping die (waived at 500+ combined pcs) and can split plating finishes—such as Antique Bronze (1 Year), Shiny Nickel (5 Years), Real Gold Plating (10 Years), and Synthetic Gemstone Inset Gold (20+ Years)—across the same base badge.'
+  },
+  {
+    question: 'Can we engrave individual employee names or milestone dates onto anniversary coins and tie bars?',
+    answer: 'Yes. Using automated MOPA fiber laser stations, we engrave recipient names, employee ID numbers, or sequential edition numbers (e.g., 001/200) onto coin edges, pin backs, or brass alligator tie clips.'
+  },
+  {
+    question: 'Do you offer garment-safe magnetic pin backs that will not pierce silk blouses or tailored wool suits?',
+    answer: 'Yes. Upgrade standard butterfly clutches to Dual-Magnet Neodymium Backing Plates so executives and hospitality staff can wear award pins and name badges on fine silk or cashmere garments without needle holes.'
+  },
+  {
+    question: 'How fast can we receive a digital artwork proof and pre-production physical sample?',
+    answer: 'Our artwork desk returns a 1:1 Pantone production proof free within 12 hours of receiving your .AI/.EPS/.SVG/.PDF file. Physical pre-production samples take 7–10 days before bulk dispatch.'
+  },
+  {
+    question: 'What corporate gift packaging upgrades are available for boardroom handouts?',
+    answer: 'Pair any pin or coin with custom CMYK 400gsm Backing Cards (+$0.12–$0.22/pc), optical Acrylic Coin Capsules (+$0.15–$0.35/pc), or hinged Flocked Velvet / Leatherette Foil-Stamped Gift Boxes (+$0.85–$1.85/pc).'
+  },
+  {
+    question: 'Are your electroplated finishes CPSIA, REACH, and California Prop 65 compliant for corporate programs?',
+    answer: 'Yes. All copper, brass, iron, and Zamak #3 zinc alloy badges use lead-free (<90 ppm) and nickel-safe export plating compliant with US CPSIA, Prop 65, EU REACH, and EN 1811 skin-contact jewelry standards.'
+  },
+  {
+    question: 'How does shipping work for international conferences or global multi-office deliveries?',
+    answer: 'We ship consolidated cartons via 4–7 day DDP Air Express (DHL, FedEx, UPS) or ocean freight directly to corporate HQ, trade show hotels, or fulfillment houses worldwide.'
+  }
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: corporateFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const corpServiceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Corporate Years-of-Service Pins, Milestone Coins & Executive Cufflink Gift Sets',
+  provider: { '@type': 'Organization', name: 'MedalPinSupply.com', url: 'https://medalpinsupply.com' },
+  description: 'Factory-direct custom hard enamel service pins, mint brass milestone coins, and velvet-boxed cufflink gift sets. MOQ 50 pcs, 500+ die waivers, 12h free vector proof.'
+};
+---
+
+<Layout
+  title={PAGE_TITLES[currentLang] || PAGE_TITLES.en}
+  description={PAGE_DESCS[currentLang] || PAGE_DESCS.en}
+  ogImage="/images/insights/corporate-years-of-service-award-pins-and-anniversary-commemorative-coins-hero.webp"
+  activePage="custom-branding"
+  jsonLd={[corpServiceSchema, faqSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-grid">
+      <div class="grand-hero-info">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <a href={getLocalizedPath('/custom-branding', currentLang)}>{t('nav.customLogo')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">Corporate Gifts</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-gold">CORPORATE AWARDS &amp; VIP SETS</span>
+          <span class="badge badge-emerald">Years-of-Service · Multi-Plating Split OK</span>
+        </div>
+
+        <h1 class="grand-hero-title">{PAGE_TITLES[currentLang] || PAGE_TITLES.en}</h1>
+        <p class="grand-hero-lead">
+          {PAGE_DESCS[currentLang] || PAGE_DESCS.en}
+        </p>
+
+        <div class="hero-glass-grid">
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Promo Pins &amp; Badges</span>
+            <strong class="glass-kpi-val">$0.14 – $0.75</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Hard Enamel Pins</span>
+            <strong class="glass-kpi-val">$0.42 – $1.25</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Digital Proof</span>
+            <strong class="glass-kpi-val">Free in 12h</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">2D Die Waiver</span>
+            <strong class="glass-kpi-val">@ 500+ {t('unit.pcs')}</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href={getLocalizedPath('/contact', currentLang)} class="btn btn-accent btn-hero">
+            Get Free 12h Vector Proof →
+          </a>
+          <a href={getLocalizedPath('/collections/executive-cufflinks-tie-bars', currentLang)} class="btn btn-secondary-dark btn-hero">
+            View Cufflinks &amp; Gift Sets →
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase-card">
+        <div class="hero-showcase-top">
+          <span class="sku-pill">SERVICE PINS · COINS · CUFFLINKS</span>
+          <span class="hero-showcase-price">MOQ 50 {t('unit.pcs')}</span>
+        </div>
+        <div class="hero-showcase-img-wrap">
+          <img
+            src="/images/insights/corporate-years-of-service-award-pins-and-anniversary-commemorative-coins-hero.webp"
+            alt="Custom hard enamel years-of-service lapel pins, mint brass anniversary coins, and velvet-boxed cufflink gift sets"
+            width="480"
+            height="360"
+            loading="eager"
+          />
+        </div>
+        <div class="hero-showcase-meta">
+          <span>Cloisonne Hard Enamel</span>
+          <span>24K Gold / Bronze Plating</span>
+          <span>Velvet Foil Cases</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <GeoDirectAnswer
+      title="Direct Answer: Factory-Direct Corporate Award Pins, Milestone Coins & Menswear Gift Sets"
+      answer="MedalPinSupply manufactures custom corporate award pins, anniversary challenge coins, and velvet-boxed cufflink sets directly in Zhongshan Xiaolan starting at 50 pcs: Conference Handout Badges ($0.14–$0.75/pc), Years-of-Service Cloisonne Hard Enamel Pins ($0.42–$1.25/pc, split bronze/silver/gold plating on one shared mold), 40mm Anniversary Coins ($1.35–$3.10/pc), and Leatherette Cufflink & Tie Bar Sets ($2.25–$3.65/set). Every order includes a free 12-hour vector artwork proof and automatic 2D die waivers at 500+ pcs."
+    />
+
+    <form class="inline-quick-sheet-form" data-inline-sku="Corporate Award Pins, Milestone Coins & Executive Gift Box Sets (MOQ 50+)" novalidate>
+      <div class="inline-qrfq-text">
+        <strong>{microHooks.getFullSheetPdf}</strong>
+        <span>{microHooks.mixMoqBadge}</span>
+      </div>
+      <div class="inline-qrfq-controls">
+        <input
+          type="email"
+          class="inline-qrfq-input"
+          placeholder={`${t('contact.workEmail')} (name@company.com)`}
+          aria-label={t('contact.workEmail')}
+          required
+        />
+        <button type="submit" class="inline-qrfq-btn">
+          ⚡ {microHooks.sheet140} →
+        </button>
+      </div>
+      <div class="inline-qrfq-status" hidden></div>
+    </form>
+
+    <section class="section">
+      <div class="section-header-center">
+        <span class="badge">CORPORATE RECOGNITION BUDGET MATRIX</span>
+        <h2 class="section-title">Match Your Corporate Event Tier to Custom Metal Recognition</h2>
+      </div>
+      <div class="geo-table-wrap">
+        <table class="geo-table">
+          <thead>
+            <tr>
+              <th>Corporate Program Tier</th>
+              <th>Factory Unit Range (500–2,000+ Pcs)</th>
+              <th>Recommended Custom Styles</th>
+              <th>Craft &amp; Packaging Pairing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Trade Shows, Recruiters &amp; Mass Events</strong></td>
+              <td>$0.14 – $0.75 / pc</td>
+              <td>Tinplate Button Badges ($0.14+), Black-Nickel Pins ($0.49+), Stainless Steel Bottle Openers ($0.76+)</td>
+              <td>Soft Enamel or CMYK Offset + Custom 400gsm Backing Card (+$0.12/pc)</td>
+            </tr>
+            <tr>
+              <td><strong>Years-of-Service Milestones (1 / 5 / 10 / 20 Yr)</strong></td>
+              <td>$0.42 – $1.62 / pc</td>
+              <td>Cloisonne Hard Enamel Pins ($0.58+), 3D Sculpted Zinc Pins, Antique Bronze Commemorative Coins ($1.18+)</td>
+              <td>One Shared Stamping Die + Split Bronze/Silver/Gold Plating + Magnetic Clasp</td>
+            </tr>
+            <tr>
+              <td><strong>Executive VIP, Board &amp; Founders Sets</strong></td>
+              <td>$1.88 – $3.65 / set</td>
+              <td>24K Proof Collector Coins ($2.35+), 3D Logo Cufflinks ($1.88+), Brass Tie Bar + Leatherette Gift Case</td>
+              <td>Sequential Laser Numbering + Optical Coin Capsule + Hinged Velvet Box</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section section-light" style="padding: 2.5rem 1.75rem; border-radius: 1rem;">
+      <div class="section-header-center">
+        <span class="badge badge-emerald">TOP 8 CORPORATE RECOGNITION SPECS</span>
+        <h2 class="section-title">Flagship Lapel Pins, Milestone Coins &amp; Executive Menswear Sets</h2>
+      </div>
+      <div class="grid-4">
+        {corporateProducts.map((p) => (
+          <ProductCard product={p.data} lang={currentLang} />
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header-center">
+        <span class="badge">CORPORATE GIFTING FAQ</span>
+        <h2 class="section-title">Logo Proofing, Pricing &amp; Event Turnaround Questions</h2>
+      </div>
+      <div class="faq-list">
+        {corporateFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

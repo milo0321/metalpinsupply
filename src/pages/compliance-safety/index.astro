@@ -1,0 +1,275 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../../i18n/utils';
+import { getComplianceTableData, getLocalizedPageFaqs } from '../../i18n/pageContentLocalization';
+
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const compTable = getComplianceTableData(currentLang);
+
+const complianceFaqs = [
+  {
+    question: 'Do your custom pins, medals, and coins comply with US CPSIA (< 90 ppm lead) and California Prop 65?',
+    answer: 'Yes. All export batches use certified virgin Zamak #3 zinc alloy, lead-free C26800 brass, copper, low-carbon iron, and 304 stainless steel paired with heavy-metal-free enamels and plating chemistry, maintaining total lead content well below the US CPSIA 90 ppm substrate and surface coating limits as well as California Proposition 65 thresholds.'
+  },
+  {
+    question: 'Are your soft enamels, cloisonne pastes, and epoxy coatings compliant with EU EN71-3?',
+    answer: 'Yes. Every Pantone-mixed soft enamel paint, kiln-cured cloisonne paste, transparent acrylic dome, and soft PVC patch compound uses cadmium-free, phthalate-free pigments formulated to satisfy European EN71-3 heavy-metal migration standards.'
+  },
+  {
+    question: 'Do you offer nickel-free electroplating compliant with EU REACH Annex XVII & EN 1811?',
+    answer: 'Yes. For jewelry lapel pins, cufflinks, collar insignias, and skin-contact awards destined for European markets, we provide copper-underplated nickel-free rack plating (Real Gold, Rose Gold, Satin Gold, Brass, and Palladium) tested below the EN 1811 nickel release threshold (< 0.5 µg/cm²/wk).'
+  },
+  {
+    question: 'Are soft PVC patches and silicone wristbands 6P/7P phthalate-free?',
+    answer: 'Yes. Our molded 3D soft PVC morale patches, PVC keychains, and PVC rubber clutches use virgin eco-grade non-phthalate compound compliant with REACH SVHC and US CPSIA phthalate restrictions (DEHP, DBP, BBP, DINP, DIDP, DNOP < 0.1%).'
+  },
+  {
+    question: 'How do you verify silver solder pull-force and pin clutch security on badges and lapel pins?',
+    answer: 'Pin spurs, tie-bar alligator clips, and M4 screw posts are silver-brazed or capacitive-welded onto brass/zinc backs and sample-pulled to > 4.5 kg tensile strength before plating to eliminate loose clasps or sharp detached pin posts.'
+  },
+  {
+    question: 'Do you provide breakaway safety clips for youth tournament marathon ribbons and lanyards?',
+    answer: 'Yes. For school sports, Little League trading pins, and youth summer camp award ribbons, we equip satin and woven neck ribbons with quick-release plastic safety breakaway clasps to prevent choking or neck-snag hazards.'
+  },
+  {
+    question: 'What quality inspections are performed on every medal, coin, and pin batch before shipment?',
+    answer: 'Every production lot in Zhongshan Xiaolan undergoes 100% cosmetic screening (inspecting enamel underfill/overfill, Pantone delta-E color consistency, plating brightness, bezel scratches, and epoxy dome clarity) alongside batch dimension checks and saltwater sweat/tarnish resistance spot checks.'
+  },
+  {
+    question: 'Can we arrange SGS, Intertek, Bureau Veritas, or QIMA third-party lab or factory audits?',
+    answer: 'Absolutely. We support batch chemical testing by SGS or Intertek upon client request and welcome accredited QIMA, Bureau Veritas, TUV, or client inspectors inside our Zhongshan Xiaolan QC facility prior to balance release.'
+  },
+  {
+    question: 'How do you handle protective lacquering so antique bronze, copper, and brass medals stay crisp?',
+    answer: 'Raw brass, bronze, and antique silver surfaces receive an invisible electrophoretic clear lacquer bake after ultrasonic cleaning, locking out warehouse humidity and sweat oxidation during overseas ocean or air transit.'
+  },
+  {
+    question: 'Do you supply General Certificates of Conformity (GCC), Tracking Labels, and custom CPSIA markings?',
+    answer: 'Yes. For schools, federal buyers, museums, and US/EU retail chains, we stamp batch codes onto polybag labels or card backs and supply material declarations and compliance sheets alongside commercial shipping invoices.'
+  }
+];
+
+const localizedComplianceFaqs = getLocalizedPageFaqs('compliance', complianceFaqs, currentLang);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: localizedComplianceFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+const complianceWebPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'US CPSIA Lead-Free, EU EN71-3 & REACH Nickel-Free Metal Craft Compliance',
+  description: 'Verified factory compliance for wholesale custom pins, medals, challenge coins & PVC patches: US CPSIA (<90 ppm Pb), CA Prop 65, EU EN71-3, REACH Annex XVII & EN 1811 nickel-free plating.',
+  url: `https://medalpinsupply.com${getLocalizedPath('/compliance-safety', currentLang)}`
+};
+
+const COMPLIANCE_META_DESC_MAP: Record<string, string> = {
+  en: 'US CPSIA (<90 ppm lead), CA Prop 65, EU EN71-3 & REACH Annex XVII nickel-free plating compliance across 158 custom pin, medal, coin & PVC craft specs.',
+  es: 'Cumplimiento US CPSIA (<90 ppm plomo), CA Prop 65, UE EN71-3 y baños sin níquel REACH en 158 pines, medallas, monedas y parches de PVC.',
+  de: 'US CPSIA (<90 ppm Blei), CA Prop 65, EU EN71-3 & nickelfreie Galvanik nach REACH (EN 1811) für 158 Pin-, Medaillen-, Coin- & PVC-Spezifikationen.',
+  fr: 'Conformité US CPSIA (<90 ppm plomb), Prop 65, UE EN71-3 et placage sans nickel REACH Annex XVII sur 158 styles de pins, médailles et pièces.',
+  ja: '米国CPSIA（鉛90ppm未満）・カリフォルニア州Prop 65・欧州EN71-3重金属溶出基準・REACHニッケルフリー鍍金に適合した158仕様のバッジ＆メダル。',
+  ko: '미국 CPSIA(납 90ppm 미만), 캘리포니아 Prop 65, 유럽 EN71-3 및 REACH 무니켈 도금 규격을 충족하는 158종 맞춤 핀·메달·챌린지 코인.',
+  ar: 'مطابقة معايير CPSIA (<90 جزء بالمليون رصاص) وProp 65 وEN71-3 وREACH الخالي من النيكل عبر 158 مواصفة دبابيس وميداليات وعملات.',
+  pt: 'Conformidade US CPSIA (<90 ppm chumbo), CA Prop 65, UE EN71-3 e banhos sem níquel REACH em 158 especificações de pins, medalhas e moedas.',
+  ru: 'Соответствие стандартам US CPSIA (<90 ppm Pb), Prop 65, EU EN71-3 и безникелевой гальванике REACH для 158 форматов значков, медалей и монет.',
+  it: 'Conformità US CPSIA (<90 ppm piombo), CA Prop 65, UE EN71-3 e galvanica nichel-free REACH per 158 specifiche di spille, medaglie e monete.',
+  nl: 'Voldoet aan US CPSIA (<90 ppm lood), CA Prop 65, EU EN71-3 en REACH nikkelvrij galvaniseren voor 158 maatwerk pin-, medaille- en muntspecs.',
+  pl: 'Zgodność z US CPSIA (<90 ppm ołowiu), Prop 65, UE EN71-3 oraz powłokami bez niklu REACH Annex XVII dla 158 wzorów pinów, medali i monet.',
+  id: 'Kepatuhan US CPSIA (<90 ppm timbal), Prop 65, EU EN71-3 & pelapisan bebas nikel REACH di 158 spesifikasi pin, medali, koin, dan PVC.',
+  sv: 'Uppfyller US CPSIA (<90 ppm bly), Prop 65, EU EN71-3 & nickelfri REACH-plätering över 158 specialtillverkade pins-, medalj- och myntspecar.',
+  no: 'Oppfyller US CPSIA (<90 ppm bly), Prop 65, EU EN71-3 & nikkelfri REACH-plettering på tvers av 158 pins-, medalje- og myntspesifikasjoner.',
+  da: 'Overholder US CPSIA (<90 ppm bly), Prop 65, EU EN71-3 & nikkelfri REACH-belægning på 158 specialfremstillede pins-, medalje- og møntspecs.',
+  fi: 'US CPSIA (<90 ppm lyijy), CA Prop 65, EU EN71-3 ja REACH-nikkelitön pintakäsittely kaikissa 158 pinssi-, mitali- ja kolikkosarjoissamme.',
+  cs: 'Shoda s normami US CPSIA (<90 ppm olova), Prop 65, EU EN71-3 a bezniklové pokovení REACH pro 158 stylů odznaků, medailí a mincí.'
+};
+const pageDescription = COMPLIANCE_META_DESC_MAP[currentLang] || COMPLIANCE_META_DESC_MAP.en;
+---
+
+<Layout
+  title={currentLang === 'en' ? 'CPSIA Lead-Free, EN71-3 & REACH Compliance | MedalPinSupply' : `${t('comp.heroTitle')} | MedalPinSupply`}
+  description={pageDescription}
+  activePage="insights"
+  jsonLd={[complianceWebPageSchema, faqSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-grid">
+      <div class="grand-hero-info">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">{t('nav.complianceSafety')}</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-emerald">{t('comp.heroBadge')}</span>
+          <span class="badge badge-dark">US CPSIA · EU EN71-3 · REACH Annex XVII</span>
+        </div>
+
+        <h1 class="grand-hero-title">{t('comp.heroTitle')}</h1>
+        <p class="grand-hero-lead">
+          {t('comp.heroDesc')}
+        </p>
+
+        <div class="hero-glass-grid">
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">US CPSIA / Prop 65</span>
+            <strong class="glass-kpi-val">Pb &lt; 90 ppm</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">EU EN 1811 Nickel</span>
+            <strong class="glass-kpi-val">&lt; 0.5 µg/cm²/wk</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Soft PVC Compound</span>
+            <strong class="glass-kpi-val">6P/7P Phthalate-Free</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Solder Pull-Force</span>
+            <strong class="glass-kpi-val">&gt; 4.5 kg Tensile</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href={getLocalizedPath('/contact', currentLang)} class="btn btn-accent btn-hero">
+            {t('nav.requestQuote')}
+          </a>
+          <a href={getLocalizedPath('/insights/cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance', currentLang)} class="btn btn-secondary-dark btn-hero">
+            {t('guides.readCta')}
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase-card">
+        <div class="hero-showcase-top">
+          <span class="sku-pill">CPSIA · EN71-3 · REACH NICKEL-FREE</span>
+          <span class="hero-showcase-price">100% Export Compliant</span>
+        </div>
+        <div class="hero-showcase-img-wrap">
+          <img
+            src="/images/insights/cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance-hero.webp"
+            alt={t('comp.heroTitle')}
+            width="480"
+            height="360"
+            loading="eager"
+          />
+        </div>
+        <div class="hero-showcase-meta">
+          <span>Lead-Free Brass &amp; Zinc</span>
+          <span>Zero-Phthalate Enamel</span>
+          <span>SGS / Intertek Ready</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <GeoDirectAnswer
+      title={t('comp.geoTitle')}
+      answer={t('comp.geoAnswer')}
+    />
+
+    <form class="inline-quick-sheet-form" data-inline-sku="CPSIA / EN71-3 / REACH Compliance Declaration & Custom Craft Price Guide" novalidate>
+      <div class="inline-qrfq-text">
+        <strong>{microHooks.getFullSheetPdf}</strong>
+        <span>{microHooks.mixMoqBadge}</span>
+      </div>
+      <div class="inline-qrfq-controls">
+        <input
+          type="email"
+          class="inline-qrfq-input"
+          placeholder={`${t('contact.workEmail')} (name@company.com)`}
+          aria-label={t('contact.workEmail')}
+          required
+        />
+        <button type="submit" class="inline-qrfq-btn">
+          ⚡ {microHooks.sheet140} →
+        </button>
+      </div>
+      <div class="inline-qrfq-status" hidden></div>
+    </form>
+
+    <section class="section">
+      <h2 style="margin-bottom: 1rem;">{t('comp.matrixTitle')}</h2>
+      <div class="geo-table-wrap">
+        <table class="geo-table">
+          <thead>
+            <tr>
+              {compTable.headers.map((h) => (
+                <th>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {compTable.rows.map((row) => (
+              <tr>
+                <td><strong>{row[0]}</strong></td>
+                <td>{row[1]}</td>
+                <td>{row[2]}</td>
+                <td>{row[3]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Compliance & Safety FAQ Section -->
+    <section class="section section-light comp-faq-box">
+      <div class="section-header-center">
+        <span class="badge">{t('comp.faqBadge')}</span>
+        <h2 class="section-title">{t('comp.faqTitle')}</h2>
+      </div>
+      <div class="faq-list">
+        {localizedComplianceFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 3.5rem 0;
+  }
+  .page-hero h1 {
+    color: #ffffff;
+    font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+    margin: 0.85rem 0;
+  }
+  .page-hero p {
+    color: #cbd5e1;
+    max-width: 820px;
+    font-size: 1.05rem;
+  }
+  .comp-faq-box {
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    margin-bottom: 3.5rem;
+  }
+  @media (max-width: 640px) {
+    .comp-faq-box {
+      padding: 1.75rem 1.15rem;
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>

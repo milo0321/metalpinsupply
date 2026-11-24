@@ -1,0 +1,299 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../../i18n/utils';
+
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const allProducts = await getCollection('products');
+
+const sampleSkus = ['MPS-001', 'MPS-016', 'MPS-025', 'MPS-049', 'MPS-058', 'MPS-061', 'MPS-081', 'MPS-091'];
+const sampleProducts = sampleSkus
+  .map((sku) => allProducts.find((p) => p.data.sku === sku))
+  .filter(Boolean) as typeof allProducts;
+
+const PAGE_TITLES: Record<string, string> = {
+  en: 'Pin, Medal & Coin Physical Sample Box Program',
+  de: 'Musterkoffer für Pins, Medaillen & Münzen bestellen',
+  fr: 'Coffret Échantillons Pins, Médailles & Coins OEM',
+  nl: 'Fysieke Monsterdoos Pins, Medailles & Munten',
+  es: 'Caja de Muestras Físicas de Pines, Medallas y Monedas',
+  it: 'Campioni Fisici di Spille, Medaglie e Monete',
+  pt: 'Kit de Amostras Físicas de Pins, Medalhas e Moedas',
+  sv: 'Fysisk Provlåda med Pins, Medaljer & Coins',
+  da: 'Fysisk Prøveæske med Pins, Medaljer & Mønter',
+  no: 'Fysisk Prøveboks med Pins, Medaljer & Mynter',
+  fi: 'Pinssi-, Mitali- & Kolikkonäytepakkaus Tehtaalta',
+  pl: 'Pudełko Próbek Pinów, Medali i Monet Okolicznościowych',
+  cs: 'Vzorková Sada Odznaků, Medailí a Pamětních Mincí',
+  ru: 'Физический набор образцов значков, медалей и монет',
+  ja: 'ピン・メダル・コイン実物サンプル評価キット注文',
+  ko: '맞춤 핀·메달·코인 실물 공정 평가 샘플 박스 신청',
+  id: 'Paket Sampel Fisik Pin, Medali & Koin Evaluasi Pabrik',
+  ar: 'صندوق عينات فعلية للدبابيس والميداليات والعملات'
+};
+
+const PAGE_DESCS: Record<string, string> = {
+  en: 'Order physical reference sample boxes & paid pre-production custom prototypes across 158 crafts (cloisonne, 3D zinc, antique bronze) from Zhongshan.',
+  de: 'Bestellen Sie physische Referenzmuster & bezahlte Vorserienmuster für 158 Pin-, Medaillen- & Münztechniken direkt aus unserem Werk in Zhongshan.',
+  fr: 'Commandez nos coffrets d’échantillons physiques ou prototypes de pré-production sur 158 procédés (émail dur, zinc 3D, bronze antique) de Zhongshan.',
+  nl: 'Bestel fysieke referentie-monsterdozen of betaalde pre-productie proefmonsters over 158 technieken (cloisonné, 3D-zink, brons) uit Zhongshan.',
+  es: 'Solicite cajas de muestras físicas de referencia y prototipos de preproducción en 158 acabados (cloisonné, zinc 3D, bronce antiguo) desde Zhongshan.',
+  it: 'Ordina cofanetti di campioni fisici e prototipi pre-produzione su 158 lavorazioni (cloisonné, zinco 3D, bronzo antico) direttamente da Zhongshan.',
+  pt: 'Solicite caixas de amostras físicas de referência e protótipos pagos em 158 especificações (cloisonné, zinco 3D, bronze antigo) de Zhongshan.',
+  sv: 'Beställ fysiska referensprovlådor eller betalda förproduktionsprover inom 158 hantverk (hård emalj, 3D-zink, antik brons) direkt från Zhongshan.',
+  da: 'Bestil fysiske referenceprøver eller betalte førproduktionsprototyper på tværs af 158 specifikationer direkte fra vores fabrik i Zhongshan.',
+  no: 'Bestill fysiske referanseprøver eller betalte pre-produksjonsprototyper på tvers av 158 spesifikasjoner direkte fra vår fabrikk i Zhongshan.',
+  fi: 'Tilaa fyysisiä vertailunäytteitä tai maksullisia esituotantonäytteitä 158 eri pinssi-, mitali- & kolikkoprosessista suoraan Zhongshanin tehtaalta.',
+  pl: 'Zamów fizyczne pudełka wzorników lub płatne prototypy przedprodukcyjne spośród 158 specyfikacji (twarda emalia, cynk 3D, brąz) z Zhongshan.',
+  cs: 'Objednejte fyzické sady vzorků či placené předvýrobní prototypy napříč 158 procesy (tvrdý smalt, 3D zinek, starobronz) přímo z továrny v Zhongshanu.',
+  ru: 'Закажите физические образцы покрытий и платные предсерийные прототипы среди 158 форматов (эмаль, 3D-цинк, античная бронза) напрямую из Чжуншаня.',
+  ja: '七宝（ハードエナメル）、3D亜鉛ダイカスト、アンティーク銅など158仕様の実物サンプルBOX・有償試作品（7〜10日）を中山工場より直送手配します。',
+  ko: '칠보(하드 에나멜), 3D 아연합금, 엔틱 도금 등 158종 공정 실물 비교 샘플 키트 및 맞춤 유상 시제품(7–10일)을 중산 공장에서 직배송합니다.',
+  id: 'Pesan kotak sampel referensi fisik & prototipe berbayar (7–10 hari) di 158 spesifikasi (enamel keras, seng 3D, perunggu antik) dari Zhongshan.',
+  ar: 'اطلب صندوق عينات مرجعية فعلية أو نماذج أولية مخصصة (7–10 أيام) عبر 158 مواصفة من المينا الصلبة والزنك ثلاثي الأبعاد مباشرة من مصنع تشونغشان.'
+};
+
+const sampleFaqs = [
+  {
+    question: 'What is included in a Craft Finish Reference Box vs. a Custom Logo Prototype Sample?',
+    answer: 'All bulk production is 100% custom made to order (we do not carry stock merchandise or off-the-shelf ready molds). A Reference Craft Box ships archived physical samples from past custom runs showing Cloisonne Hard Enamel, Soft Enamel, 3D Zinc Die-Casting, 24K Gold, Antique Brass, and Ribbon weaves before cutting your dedicated tool. A Custom Prototype Sample cuts your dedicated 2D/3D steel die and ships 3–5 custom finished samples with your exact artwork.'
+  },
+  {
+    question: 'What do custom pre-production samples cost, and when are sample mold fees waived?',
+    answer: 'Reference craft boxes from past runs carry only flat unit + courier charges so you can inspect plating, enamel hardness, and thickness before tooling. Custom 2D stamping dies ($45–$85) and 3D sculpted molds ($95–$150) are cut for physical custom samples (7–10 days) and waived 100% when ordering 500+ (pins) or 1,000+ (medals/coins).'
+  },
+  {
+    question: 'Can we inspect electroplating colors (Antique Bronze vs. Matte Black vs. Satin Gold) in one sample kit?',
+    answer: 'Yes. We assemble 6-piece and 10-piece archived finish comparison kits combining Cloisonne Hard Enamel, Black Nickel Soft Enamel, 3D Zinc Finisher Medals, Antique Bronze Coins, 24K Gold Coins, 3D Keychains, and European Trolley Coins.'
+  },
+  {
+    question: 'How fast do reference sample boxes and custom pre-production prototypes ship?',
+    answer: 'Factory multi-craft finish reference boxes dispatch within 48 hours via DHL/FedEx (4–6 business days door-to-door) to verify metal finish quality. Custom tool-cut pre-production samples require 7–10 working days (12–15 days for dual-plated coins or multi-piece 3D sculptures) before express courier dispatch.'
+  },
+  {
+    question: 'Do we get a digital photo or HD video sample approval before paying for full bulk production?',
+    answer: 'Yes! You receive a free 12-hour 1:1 vector layout proof prior to tooling, plus studio macro photos (or physical DHL courier sample upon request) of your first struck article for Pantone and plating sign-off before mass casting or stamping begins.'
+  },
+  {
+    question: 'Can we evaluate marathon ribbon weaves (Dye-Sublimated vs. Woven) and clasp hardware inside the sample kit?',
+    answer: 'Yes. Specify whether you want Custom Dye-Sublimated Satin vs. Woven Jacqard ribbons, plus sample clasps including Butterfly Clutch, PVC Rubber, Deluxe Locking, or Twin-Magnet backs in your sample note.'
+  },
+  {
+    question: 'Which sample combination best proves the difference between 2D Die-Struck Brass and 3D Zinc Die-Casting?',
+    answer: 'Pair a Die-Struck Brass Cloisonne Hard Enamel Pin and Mint Brass 24K Proof Coin with a 3D Zamak-3 Marathon Medal and 3D Curved Police Shield Badge to feel contour depth, edge bevel crispness, and alloy weight side by side.'
+  },
+  {
+    question: 'Can we split multiple craft styles inside one consolidated DHL parcel to cut freight fees?',
+    answer: 'Absolutely. All pins, medals, challenge coins, trolley keyrings, divot tools, and packaging cards ship consolidated from our Zhongshan Export Consolidation Hub inside one tracked courier shipment.'
+  },
+  {
+    question: 'What payment rails are supported for evaluation sample boxes and pre-production molds?',
+    answer: 'We accept corporate PayPal, Wise, and T/T bank wire for both sample kits and custom tooling charges. Contact us with your delivery postal code for an itemized landed courier calculation.'
+  },
+  {
+    question: 'After approving our physical sample, what are the bulk production MOQs and lead times?',
+    answer: 'Bulk runs start at 50–100 pcs per design (200 pcs on trolley coins and tinplate buttons, with 2D dies waived at 500+ pcs). Standard mass production runs 10–15 days, followed by 4–7 days DDP Air or Ocean freight delivery.'
+  }
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: sampleFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Custom Pin, Medal & Challenge Coin Physical Sample Evaluation Program',
+  provider: { '@type': 'Organization', name: 'MedalPinSupply.com', url: 'https://medalpinsupply.com' },
+  description: 'Physical multi-finish reference boxes & paid custom pre-production prototypes (7–10 days) across 158 metal craft specifications from Zhongshan Xiaolan.'
+};
+---
+
+<Layout
+  title={PAGE_TITLES[currentLang] || PAGE_TITLES.en}
+  description={PAGE_DESCS[currentLang] || PAGE_DESCS.en}
+  ogImage="/images/factory/showcase-1.webp"
+  activePage="products"
+  jsonLd={[serviceSchema, faqSchema]}
+>
+  <section class="grand-hero">
+    <div class="container grand-hero-grid">
+      <div class="grand-hero-info">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <a href={getLocalizedPath('/products', currentLang)}>{t('breadcrumb.allCatalog')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">Sample Kit</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-gold">REFERENCE SAMPLES &amp; CUSTOM PROTOTYPES</span>
+          <span class="badge badge-emerald">158 Specs · 7–10 Day Custom Strike</span>
+        </div>
+
+        <h1 class="grand-hero-title">{PAGE_TITLES[currentLang] || PAGE_TITLES.en}</h1>
+        <p class="grand-hero-lead">
+          {PAGE_DESCS[currentLang] || PAGE_DESCS.en}
+        </p>
+
+        <div class="hero-glass-grid">
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Craft Kit Dispatch</span>
+            <strong class="glass-kpi-val">48h Handoff</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Custom Sample Strike</span>
+            <strong class="glass-kpi-val">7–10 Days</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Digital Vector Proof</span>
+            <strong class="glass-kpi-val">Free in 12h</strong>
+          </div>
+          <div class="glass-kpi-card">
+            <span class="glass-kpi-label">Courier Consolidation</span>
+            <strong class="glass-kpi-val">DHL / FedEx / UPS</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href={getLocalizedPath('/contact', currentLang)} class="btn btn-accent btn-hero">
+            {t('nav.requestQuote')}
+          </a>
+          <a href={getLocalizedPath('/wholesale-catalog', currentLang)} class="btn btn-secondary-dark btn-hero">
+            Custom Price Guide →
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase-card">
+        <div class="hero-showcase-top">
+          <span class="sku-pill">PHYSICAL EVALUATION DESK</span>
+          <span class="hero-showcase-price">158 Metal Craft Specs</span>
+        </div>
+        <div class="hero-showcase-img-wrap">
+          <img
+            src="/images/factory/showcase-1.webp"
+            alt="Physical evaluation sample kit featuring cloisonne enamel pins, 3D zinc medals, challenge coins, and plating swatches"
+            width="480"
+            height="360"
+            loading="eager"
+          />
+        </div>
+        <div class="hero-showcase-meta">
+          <span>Enamel &amp; Plating Swatches</span>
+          <span>1:1 12h Digital Proof</span>
+          <span>Zhongshan Direct DHL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <GeoDirectAnswer
+      title="Direct Answer: How Custom Pin, Medal & Coin Sampling Works"
+      answer="Every bulk order is 100% custom-tooled (no off-the-shelf ready molds or resale stock). MedalPinSupply offers Craft Finish Evaluation Kits (comparing hard enamel, soft enamel, 3D zinc relief, antique bronze, and 24K gold finishes across archived client strikes) shipped within 48 hours, plus custom tool-cut Pre-Production Prototypes ($55–$85 2D die / $95–$150 3D mold, 7–10 days turnaround) waived automatically at 500+ pcs (pins) or 1,000+ pcs (medals/coins/keychains)."
+    />
+
+    <form class="inline-quick-sheet-form" data-inline-sku="Craft Finish Evaluation Kit & Custom Tool Prototype Request" novalidate>
+      <div class="inline-qrfq-text">
+        <strong>{microHooks.getFullSheetPdf}</strong>
+        <span>{microHooks.mixMoqBadge}</span>
+      </div>
+      <div class="inline-qrfq-controls">
+        <input
+          type="email"
+          class="inline-qrfq-input"
+          placeholder={`${t('contact.workEmail')} (name@company.com)`}
+          aria-label={t('contact.workEmail')}
+          required
+        />
+        <button type="submit" class="inline-qrfq-btn">
+          ⚡ {microHooks.sheet140} →
+        </button>
+      </div>
+      <div class="inline-qrfq-status" hidden></div>
+    </form>
+
+    <section class="section">
+      <div class="section-header-center">
+        <span class="badge">CURATED EVALUATION ASSORTMENTS</span>
+        <h2 class="section-title">3 Proven Sample Swatch Kits to Inspect Before Bulk Production</h2>
+      </div>
+      <div class="geo-table-wrap">
+        <table class="geo-table">
+          <thead>
+            <tr>
+              <th>Sample Kit Focus</th>
+              <th>Included Archive Craft Pieces</th>
+              <th>Engineering Details Evaluated</th>
+              <th>Turnaround &amp; Dispatch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Enamel Craft &amp; Plating Comparison (6 Pcs)</strong></td>
+              <td>Cloisonne Hard Enamel Pin, Black Nickel Soft Enamel Pin, 3D Sculpted Zinc Pin, Spin-Cast Pewter Pin</td>
+              <td>Inspect stone-polished flush enamel vs. recessed soft enamel bevels, Pantone ink gloss, and butterfly vs. locking clasps.</td>
+              <td>Archive finish swatches dispatch in 48h via DHL/FedEx; optional custom die strike in 7–10d.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Marathon Medal &amp; Coin Weight Pack (4 Pcs)</strong></td>
+              <td>3D Marathon Finisher Medal, Bottle Opener Finisher Medal, Antique Bronze Coin, 24K Proof Collector Coin</td>
+              <td>Evaluate 3mm–4mm alloy thickness, 3D sculptural contours, diamond-cut coin edges, and sublimated vs. woven medal ribbons.</td>
+              <td>Consolidated air parcel from Zhongshan Hub with custom ribbon swatch card.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Trolley Token, Hardware &amp; Retail Card Pack (5 Pcs)</strong></td>
+              <td>€1 Euro Trolley Coin, 3D Zinc Keychain, Magnetic Golf Divot Tool, Acrylic Coin Capsule, 400gsm Pin Card</td>
+              <td>Test €1 / UK £1 trolley token sizing, carabiner tension, card thickness, and retail capsule tolerances.</td>
+              <td>Ships together in one tracked parcel with complimentary CAD dieline templates.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section section-light" style="padding: 2.5rem 1.75rem; border-radius: 1rem;">
+      <div class="section-header-center">
+        <span class="badge badge-emerald">TOP-SAMPLED CUSTOM CRAFT FORMATS</span>
+        <h2 class="section-title">Popular Custom Craft Styles Evaluated Across 11 Collections</h2>
+      </div>
+      <div class="grid-4">
+        {sampleProducts.map((p) => (
+          <ProductCard product={p.data} lang={currentLang} />
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header-center">
+        <span class="badge">SAMPLE &amp; LOGISTICS FAQ</span>
+        <h2 class="section-title">Transparent Policies for Paid Evaluation Samples</h2>
+      </div>
+      <div class="faq-list">
+        {sampleFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

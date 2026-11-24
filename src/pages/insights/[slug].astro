@@ -1,0 +1,1299 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
+import { getLanguageFromURL, useTranslations, getLocalizedPath, getMicroHookLabels } from '../../i18n/utils';
+import { localizeInsightMeta, localizeInsightFaqs, localizeInsightHtml } from '../../i18n/insightAndCollectionLocalization';
+import { localizeProduct, localizeTitle } from '../../i18n/productLocalization';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('insights');
+  const allProducts = await getCollection('products');
+
+  return guides.map((guide, idx) => {
+    const relatedSkus = guide.data.relatedSkus || [];
+    const relatedProducts = allProducts.filter((p) => relatedSkus.includes(p.data.sku)).slice(0, 8);
+    const relatedGuides: typeof guides = [];
+    for (let offset = 1; offset <= 4 && offset < guides.length; offset++) {
+      relatedGuides.push(guides[(idx + offset) % guides.length]);
+    }
+    return {
+      params: { slug: guide.data.slug },
+      props: { guide, relatedProducts, relatedGuides }
+    };
+  });
+}
+
+const { guide, relatedProducts, relatedGuides = [] } = Astro.props;
+const currentLang = getLanguageFromURL(Astro.url);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const locGuideMeta = localizeInsightMeta(guide.data, currentLang);
+await render(guide);
+const rawGuideHtml = guide.rendered?.html || guide.body || '';
+const localizedGuideHtml =
+  currentLang === 'en'
+    ? rawGuideHtml
+    : localizeInsightHtml(rawGuideHtml, guide.data, currentLang).replace(
+        /href="(\/(?:products|collections|insights|custom-branding|custom-packaging|compliance-safety|about|contact)[^"]*)"/g,
+        (_m: string, p1: string) => `href="${getLocalizedPath(p1, currentLang)}"`
+      );
+
+function buildDefaultGuideFaqs(g: any, relProds: any[]): { question: string; answer: string }[] {
+  const topic = (g.metaTitle || g.title || '').split(':')[0].trim();
+  const styleList = relProds && relProds.length ? relProds.slice(0, 3).map((rp: any) => rp.data.title).join(', ') : 'Custom Hard Enamel Lapel Pins, 3D Marathon Medals & Challenge Coins';
+  const lowP = relProds && relProds.length ? relProds[0].data.tier2000 : '0.45';
+  const moqP = relProds && relProds.length ? (relProds[0].data.moqNum || 100) : 100;
+
+  return [
+    {
+      question: `What is the factory MOQ and unit price range covered in "${topic}"?`,
+      answer: `Custom production batches across these craft formats (${styleList}) typically start at ${moqP} pcs per artwork design (from $0.14/pc on buttons/clips to $${lowP}+/pc at 2,000+ pcs on heavy die-struck and 3D cast formats). Exact ex-works USD pricing depends on custom dimensions, metal thickness, and plating finish.`
+    },
+    {
+      question: 'What do custom stamping dies and 3D casting molds cost, and when is tooling waived?',
+      answer: 'Standard 2D stamped lapel pin and trolley coin dies cost $55–$85 USD (automatically waived at 500+ pcs per design). Custom 3D zinc die-cast molds for marathon medals, challenge coins, and badges cost $95–$150 USD (waived at 1,000+ pcs). All custom steel dies are archived free for 3 years for zero-fee reorders.'
+    },
+    {
+      question: 'Should buyers select Cloisonne Hard Enamel, Die-Struck Soft Enamel, or 3D Zinc Die-Casting?',
+      answer: 'Choose Cloisonne Hard Enamel for flush-ground jewelry smoothness and corporate/service awards, Die-Struck Soft Enamel for vivid recessed Pantone colors and bold relief edges at 15%–25% lower cost, or 3D Zinc Alloy Die-Casting for contoured multi-level medals, thick coins, and intricate cut-out shapes.'
+    },
+    {
+      question: 'How fast can I receive a digital artwork proof before opening custom tooling?',
+      answer: 'Upload your vector (.AI, .EPS, .PDF, .SVG) or sketch via /contact or WhatsApp (+86 187 5012 6315). Our Zhongshan artwork team returns a scaled 1:1 Pantone color and die-line proof completely free within 12 hours prior to production.'
+    },
+    {
+      question: 'What electroplating finishes and specialty color effects are available?',
+      answer: 'Standard electroplating includes bright gold, nickel/silver, brass, copper, black nickel, matte black, antique bronze/brass/silver, plus dual-tone selective masking, rainbow anodized PVD, translucent stained glass, glitter, glow-in-the-dark, and optical clear epoxy domes.'
+    },
+    {
+      question: 'Can I request a paid pre-production physical sample before bulk mass production?',
+      answer: 'Yes. Physical sample strikes ship within 7–10 business days via DHL/FedEx express once custom tooling is engraved, allowing race directors, uniform officers, and brands to inspect color fidelity, weight, and attachment hardware before approving full batch finishing.'
+    },
+    {
+      question: `How are attachments and hardware configured for these custom styles (${styleList})?`,
+      answer: (g.slug || '').includes('fridge-magnet')
+        ? 'Custom metal fridge magnets feature recessed N35–N52 nickel-plated neodymium discs locked with flush structural epoxy for heavy 3D zinc or kinetic pieces, sintered ceramic ferrite discs for tourist landmarks, or full-back 1.5mm die-cut anisotropic soft rubber magnets and clear EVA bumper pads that grip stainless steel appliances without scratching.'
+        : 'Lapel pins come standard with brass butterfly clutches, rubber PVC backs, deluxe locking clutches, or clothing-safe neodymium magnetic bars. Medals include custom dye-sublimated 25×850mm satin ribbons or drape mounts; keychains and trolley tokens use chrome split rings or swivel lobster clasps.'
+    },
+    {
+      question: 'What retail and gift packaging upgrades are manufactured in-house?',
+      answer: 'Standard items ship individually polybagged at $0.00 extra cost. Optional retail upgrades include 400gsm matte or foil-stamped backing cards (+$0.12–$0.22/pc), crystal-clear non-PVC acrylic coin capsules (+$0.15–$0.35/pc), and hinged velvet clamshell gift boxes (+$0.85–$1.85/pc).'
+    },
+    {
+      question: 'Do MedalPinSupply alloys, enamels, and electroplatings meet US CPSIA and EU REACH standards?',
+      answer: 'Yes. We cast certified lead-free Zamak #3 zinc (<0.005% Pb), C26800 brass, non-phthalate Pantone enamels, and soft PVC meeting US CPSIA (<90 ppm lead), California Prop 65, EU EN71-3, and EN 1811 nickel-release directives.'
+    },
+    {
+      question: 'What are standard bulk production lead times and DDP international air shipping speeds?',
+      answer: 'Bulk production runs 7–12 business days for stamped pins and coins and 10–15 business days for 3D die-cast medals or badges. Turnkey DDP air courier delivers door-to-door in 5–7 business days directly from Guangdong.'
+    }
+  ];
+}
+
+const guideFaqs = buildDefaultGuideFaqs(guide.data, relatedProducts);
+const localizedGuideFaqs = localizeInsightFaqs(guide.data.slug, guideFaqs, currentLang);
+
+// Dynamic Reading Time Calculation based on actual text, technical tables, and FAQ elements
+const rawText = guide.body ? guide.body.replace(/<[^>]*>?/gm, ' ') : '';
+const wordCount = rawText.split(/\s+/).filter((word) => word.length > 0).length;
+const tableCount = (guide.body ? guide.body.match(/<table/g) || [] : []).length;
+const faqCount = localizedGuideFaqs.length;
+const computedReadingMinutes = Math.max(
+  8,
+  Math.round(wordCount / 160 + tableCount * 1.5 + faqCount * 0.45)
+);
+const dynamicReadTime = `${computedReadingMinutes} ${t('unit.minRead')}`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['TechArticle', 'BlogPosting'],
+  headline: locGuideMeta.title,
+  description: locGuideMeta.summary,
+  image: [`https://medalpinsupply.com${guide.data.featuredImage}`],
+  datePublished: guide.data.publishDate,
+  dateModified: guide.data.updatedDate || guide.data.publishDate,
+  author: {
+    '@type': 'Organization',
+    name: locGuideMeta.author,
+    '@id': 'https://medalpinsupply.com/#organization'
+  },
+  publisher: {
+    '@id': 'https://medalpinsupply.com/#organization'
+  },
+  mentions: relatedProducts.map((rp: any) => ({
+    '@type': 'Product',
+    sku: rp.data.sku,
+    name: localizeTitle(rp.data.title, currentLang),
+    image: `https://medalpinsupply.com${rp.data.featuredImage}`,
+    url: `https://medalpinsupply.com${getLocalizedPath(`/products/${rp.data.slug}`, currentLang)}`,
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'USD',
+      lowPrice: String(rp.data.tier2000),
+      highPrice: String(rp.data.tier100),
+      offerCount: 3,
+      availability: 'https://schema.org/InStock'
+    }
+  }))
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: t('breadcrumb.home'),
+      item: `https://medalpinsupply.com${getLocalizedPath('/', currentLang)}`
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: t('breadcrumb.guides'),
+      item: `https://medalpinsupply.com${getLocalizedPath('/insights', currentLang)}`
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: locGuideMeta.title,
+      item: `https://medalpinsupply.com${getLocalizedPath(`/insights/${guide.data.slug}`, currentLang)}`
+    }
+  ]
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: localizedGuideFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+---
+
+<Layout
+  title={currentLang === 'en' ? guide.data.metaTitle : `${locGuideMeta.title} | MedalPinSupply`}
+  description={currentLang === 'en' ? guide.data.metaDescription : locGuideMeta.summary}
+  ogImage={guide.data.featuredImage}
+  preloadImage={guide.data.featuredImage}
+  activePage="insights"
+  jsonLd={[articleSchema, breadcrumbSchema, faqSchema]}
+>
+  <article class="guide-article">
+    <header class="grand-hero">
+      <div class="container" style="max-width: 1040px;">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href={getLocalizedPath('/', currentLang)}>{t('breadcrumb.home')}</a>
+          <span class="bc-sep">/</span>
+          <a href={getLocalizedPath('/insights', currentLang)}>{t('breadcrumb.guides')}</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">{locGuideMeta.category}</span>
+        </nav>
+
+        <div class="hero-badges-row">
+          <span class="badge badge-dark">{locGuideMeta.category}</span>
+          <span class="badge badge-gold">{dynamicReadTime}</span>
+        </div>
+
+        <h1 class="grand-hero-title">{locGuideMeta.title}</h1>
+        <p class="grand-hero-lead" style="max-width: 920px;">{locGuideMeta.summary}</p>
+
+        <div class="article-meta-bar">
+          <div class="meta-author-block">
+            <div class="meta-avatar">MPS</div>
+            <div class="meta-col">
+              <span class="meta-label">{t('guide.by')}</span>
+              <strong class="meta-val">{locGuideMeta.author}</strong>
+            </div>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-col">
+            <span class="meta-label">{t('guide.updated')}</span>
+            <strong class="meta-val">{guide.data.updatedDate || guide.data.publishDate}</strong>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-col">
+            <span class="meta-label">{t('guide.tocTitle')}</span>
+            <strong class="meta-val">{dynamicReadTime}</strong>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 3-COLUMN BACKLINKO PUBLICATION ARCHITECTURE -->
+    <div class="container article-layout-grid">
+      <!-- LEFT SIDEBAR: Sticky Table of Contents -->
+      <aside class="article-sidebar left-sidebar" aria-label="Table of Contents">
+        <div class="sticky-wrapper">
+          <h4 class="sidebar-title">{t('guide.tocTitle')}</h4>
+          <nav id="toc-container" class="toc-nav">
+            <!-- Dynamically populated by inline script -->
+          </nav>
+        </div>
+      </aside>
+
+      <!-- CENTER COLUMN: Main Skyscraper Article -->
+      <div class="article-main">
+        <!-- Featured Hero Image -->
+        <div class="article-featured-image-wrap">
+          <img
+            src={guide.data.featuredImage}
+            alt={locGuideMeta.title}
+            width="800"
+            height="600"
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <!-- Executive Engineering Summary Callout -->
+        <GeoDirectAnswer
+          title={t('guide.execBriefTitle')}
+          answer={locGuideMeta.summary}
+        />
+
+        <!-- Above-the-Fold Matched Custom Craft Styles & Proof Strip -->
+        {relatedProducts.length > 0 && (
+          <div class="guide-fast-track-bar" aria-label={t('guide.refModelsTitle')}>
+            <div class="fast-track-head">
+              <span class="fast-track-title">⚡ {t('guide.refModelsTitle')}</span>
+            </div>
+            <div class="fast-track-chips">
+              {relatedProducts.slice(0, 6).map((rp: any) => {
+                const locP = localizeProduct(rp.data, currentLang);
+                return (
+                  <a
+                    href={getLocalizedPath(`/products/${rp.data.slug}`, currentLang)}
+                    class="fast-sku-chip"
+                    data-fast-sku={locP.title}
+                  >
+                    <img src={rp.data.featuredImage} alt={locP.title} width="44" height="33" loading="eager" />
+                    <div class="fast-sku-meta">
+                      <span class="fast-sku-code">${rp.data.tier2000}+/{t('unit.pc')} · MOQ {rp.data.moqNum}</span>
+                      <span class="fast-sku-name">{locP.title}</span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <form
+          class="inline-quick-sheet-form"
+          data-inline-sku={relatedProducts.length > 0 ? `${relatedProducts.slice(0, 3).map((rp: any) => rp.data.title).join(', ')} (${guide.data.slug})` : `Guide Inquiry (${guide.data.slug})`}
+          novalidate
+        >
+          <div class="inline-qrfq-text">
+            <strong>{microHooks.getFullSheetPdf}</strong>
+            <span>{microHooks.mixMoqBadge}</span>
+          </div>
+          <div class="inline-qrfq-controls">
+            <input
+              type="email"
+              class="inline-qrfq-input"
+              placeholder={`${t('contact.workEmail')} (name@company.com)`}
+              aria-label={t('contact.workEmail')}
+              required
+            />
+            <button type="submit" class="inline-qrfq-btn">
+              ⚡ {microHooks.sheet140} →
+            </button>
+          </div>
+          <div class="inline-qrfq-status" hidden></div>
+        </form>
+
+        <!-- Mobile & Tablet Quick-Jump Table of Contents (Visible <= 1180px) -->
+        <details class="mobile-toc-box">
+          <summary class="mobile-toc-summary">
+            <span>📑 {t('guide.tocTitle')}</span>
+            <span class="mobile-toc-chevron">▾</span>
+          </summary>
+          <nav id="mobile-toc-container" class="mobile-toc-nav" aria-label="Mobile Table of Contents"></nav>
+        </details>
+
+        <!-- Main Editorial Content -->
+        <div class="prose article-body clean-editorial-content" set:html={localizedGuideHtml} />
+
+        <!-- Referenced Custom Craft Styles -->
+        {relatedProducts.length > 0 && (
+          <section class="related-skus-section" id="referenced-factory-models">
+            <div class="related-skus-head">
+              <h2>{t('guide.refModelsTitle')}</h2>
+              <a
+                href={getLocalizedPath('/contact', currentLang)}
+                class="btn btn-primary btn-sm"
+                data-rfq-sku={relatedProducts.slice(0, 3).map((rp: any) => rp.data.title).join(', ')}
+                data-rfq-qty="100"
+              >
+                {t('nav.requestQuote')} &rarr;
+              </a>
+            </div>
+            <div class="grid-3">
+              {relatedProducts.slice(0, 6).map((p: any) => (
+                <ProductCard product={p} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- Related Engineering Insights Box -->
+        {relatedGuides.length > 0 && (
+          <section class="related-guides-box" id="related-engineering-insights">
+            <span class="badge">{t('guide.continueBadge')}</span>
+            <h2>{t('guide.relatedGuidesTitle')}</h2>
+            <div class="related-guides-grid">
+              {relatedGuides.map((rg: any) => {
+                const rgLoc = localizeInsightMeta(rg.data, currentLang);
+                return (
+                  <a href={getLocalizedPath(`/insights/${rg.data.slug}`, currentLang)} class="related-guide-card">
+                    <img src={rg.data.featuredImage} alt={rgLoc.title} width="400" height="300" loading="lazy" />
+                    <div class="related-guide-body">
+                      <span class="related-guide-cat">{rgLoc.category}</span>
+                      <h3>{rgLoc.title}</h3>
+                      <span class="related-guide-cta">{t('guides.readCta')}</span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        <!-- Guide 10-FAQ Section -->
+        <section class="section section-light guide-faq-section" id="frequently-asked-questions">
+          <div class="section-header-center">
+            <span class="badge">{t('guides.faqBadge')}</span>
+            <h2 class="section-title">{t('pdp.faqTitle')} — {locGuideMeta.category}</h2>
+          </div>
+          <div class="faq-list">
+            {localizedGuideFaqs.map((faq, idx) => (
+              <div class:list={['accordion-item', { active: idx === 0 }]}>
+                <button type="button" class="accordion-header">
+                  <span>{faq.question}</span>
+                  <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Author & Engineering Lab Credentials Card -->
+        <div class="author-credential-card">
+          <div class="author-info-wrap">
+            <span class="author-sub">{t('guide.authorSub')}</span>
+            <h4 class="author-name">{t('guide.authorName')}</h4>
+            <p class="author-bio">
+              {t('guide.authorBio')}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDEBAR: Floating Minimalist Share & Instant Quote Icon Dock -->
+      <aside class="article-sidebar right-sidebar" aria-label="Quick Share & Sourcing Actions">
+        <div class="sticky-wrapper">
+          <div class="share-dock-card">
+            <button type="button" class="dock-btn btn-linkedin" id="share-linkedin" aria-label="Share on LinkedIn" title="Share on LinkedIn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </button>
+
+            <button type="button" class="dock-btn btn-x" id="share-twitter" aria-label="Share on X" title="Share on X">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </button>
+
+            <button type="button" class="dock-btn btn-whatsapp" id="share-whatsapp" aria-label="Share on WhatsApp" title="Share on WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            </button>
+
+            <button type="button" class="dock-btn btn-copy" id="share-copy" aria-label="Copy Link" title="Copy Link">
+              <svg class="icon-link" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </button>
+
+            <div class="dock-divider"></div>
+
+            <a
+              href={getLocalizedPath('/contact', currentLang)}
+              class="dock-btn btn-rfq"
+              aria-label={t('nav.requestQuote')}
+              title={t('nav.requestQuote')}
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+</Layout>
+
+<script is:inline>
+  (function () {
+    // 1. Dynamic TOC & Scrollspy (Desktop + Mobile Accordion)
+    var tocNav = document.getElementById('toc-container');
+    var mobileTocNav = document.getElementById('mobile-toc-container');
+    var articleBody = document.querySelector('.article-main');
+    if (articleBody) {
+      var headings = articleBody.querySelectorAll('h2');
+      if (headings.length) {
+        var ul = document.createElement('ul');
+        var mobileUl = document.createElement('ul');
+        headings.forEach(function (h, idx) {
+          if (!h.id) {
+            h.id = 'section-' + (idx + 1);
+          }
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + h.id;
+          a.textContent = h.textContent;
+          li.appendChild(a);
+          ul.appendChild(li);
+
+          var mLi = document.createElement('li');
+          var mA = document.createElement('a');
+          mA.href = '#' + h.id;
+          mA.textContent = h.textContent;
+          mA.addEventListener('click', function () {
+            var detailsBox = mA.closest('details');
+            if (detailsBox) detailsBox.removeAttribute('open');
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'guide_toc_click', { section_id: h.id, page_path: window.location.pathname });
+            }
+          });
+          mLi.appendChild(mA);
+          mobileUl.appendChild(mLi);
+        });
+        if (tocNav) tocNav.appendChild(ul);
+        if (mobileTocNav) mobileTocNav.appendChild(mobileUl);
+
+        var tocLinks = tocNav ? tocNav.querySelectorAll('a') : [];
+        if (tocLinks.length && 'IntersectionObserver' in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  var activeId = entry.target.id;
+                  tocLinks.forEach(function (link) {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
+                  });
+                }
+              });
+            },
+            { rootMargin: '-15% 0px -78% 0px', threshold: 0 }
+          );
+          headings.forEach(function (h) {
+            observer.observe(h);
+          });
+        }
+      }
+    }
+
+    // Track Fast-Track SKU & RFQ clicks
+    document.querySelectorAll('.fast-sku-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'guide_fast_sku_click', {
+            sku: chip.getAttribute('data-fast-sku') || '',
+            page_path: window.location.pathname
+          });
+        }
+      });
+    });
+    var fastRfqBtn = document.querySelector('.fast-track-rfq-btn');
+    if (fastRfqBtn) {
+      fastRfqBtn.addEventListener('click', function () {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'guide_fast_rfq_click', {
+            skus: fastRfqBtn.getAttribute('data-rfq-sku') || '',
+            page_path: window.location.pathname
+          });
+        }
+      });
+    }
+
+    // 2. Social Share & Copy Link Dock Buttons
+    var shareUrl = encodeURIComponent(window.location.href);
+    var shareTitle = encodeURIComponent(document.title);
+
+    var linkedinBtn = document.getElementById('share-linkedin');
+    if (linkedinBtn) {
+      linkedinBtn.addEventListener('click', function () {
+        window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + shareUrl, '_blank');
+      });
+    }
+
+    var twitterBtn = document.getElementById('share-twitter');
+    if (twitterBtn) {
+      twitterBtn.addEventListener('click', function () {
+        window.open('https://twitter.com/intent/tweet?url=' + shareUrl + '&text=' + shareTitle, '_blank');
+      });
+    }
+
+    var whatsappBtn = document.getElementById('share-whatsapp');
+    if (whatsappBtn) {
+      whatsappBtn.addEventListener('click', function () {
+        window.open('https://api.whatsapp.com/send?text=' + shareTitle + '%20' + shareUrl, '_blank');
+      });
+    }
+
+    var copyBtn = document.getElementById('share-copy');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(window.location.href).then(function () {
+            var iconLink = copyBtn.querySelector('.icon-link');
+            var iconCheck = copyBtn.querySelector('.icon-check');
+            copyBtn.classList.add('copied');
+            if (iconLink) iconLink.style.display = 'none';
+            if (iconCheck) iconCheck.style.display = 'block';
+            setTimeout(function () {
+              copyBtn.classList.remove('copied');
+              if (iconLink) iconLink.style.display = 'block';
+              if (iconCheck) iconCheck.style.display = 'none';
+            }, 2000);
+          });
+        }
+      });
+    }
+  })();
+</script>
+
+<style>
+  .article-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+  }
+  .meta-author-block {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .meta-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    border: 2px solid rgba(56, 189, 248, 0.45);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .meta-col {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .meta-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    font-weight: 700;
+  }
+  .meta-val {
+    color: #ffffff;
+    font-size: 0.96rem;
+    font-weight: 700;
+  }
+  .meta-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(148, 163, 184, 0.25);
+  }
+  @media (max-width: 640px) {
+    .meta-divider {
+      display: none;
+    }
+    .article-meta-bar {
+      gap: 1rem;
+    }
+  }
+
+  /* 3-Column Publication Grid (Wider Center Content + Compact 64px Right Icon Dock) */
+  .article-layout-grid {
+    display: grid;
+    grid-template-columns: 235px minmax(0, 1fr) 64px;
+    gap: 3rem;
+    max-width: 1360px;
+    margin: 0 auto;
+    align-items: stretch;
+    padding-top: 2.75rem;
+    padding-bottom: 4rem;
+  }
+
+  .article-sidebar {
+    min-width: 0;
+    height: 100%;
+  }
+
+  .sticky-wrapper {
+    position: sticky;
+    top: 108px;
+    height: max-content;
+  }
+
+  .sidebar-title {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+    font-weight: 800;
+  }
+
+  .toc-nav :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-left: 2px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .toc-nav :global(a) {
+    display: block;
+    padding: 0.3rem 0 0.3rem 0.75rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #334155;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+    font-weight: 500;
+    overflow-wrap: break-word;
+    transition: all 0.18s ease;
+  }
+
+  .toc-nav :global(a:hover) {
+    color: #0284c7;
+    border-left-color: #cbd5e1;
+  }
+
+  .toc-nav :global(a.active) {
+    color: #0284c7;
+    font-weight: 700;
+    border-left-color: #0284c7;
+  }
+
+  /* RIGHT SIDEBAR: Floating Minimalist Share & Instant Quote Dock (52px) */
+  .right-sidebar .sticky-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .share-dock-card {
+    width: 52px;
+    padding: 0.5rem 0;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 1px solid var(--color-border, #e2e8f0);
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    transform: translateZ(0);
+  }
+
+  .share-dock-card:hover {
+    box-shadow: 0 14px 28px -4px rgba(15, 23, 42, 0.12), 0 10px 12px -5px rgba(15, 23, 42, 0.06);
+  }
+
+  .dock-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #f8fafc;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #475569;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    padding: 0;
+  }
+
+  /* LinkedIn: Bright Blue Hover */
+  .dock-btn.btn-linkedin:hover {
+    background: #0077b5;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 119, 181, 0.35);
+  }
+
+  /* X / Twitter: Solid Dark Hover */
+  .dock-btn.btn-x:hover {
+    background: #0f172a;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.35);
+  }
+
+  /* WhatsApp: Emerald Green Hover */
+  .dock-btn.btn-whatsapp:hover {
+    background: #25d366;
+    color: #ffffff;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  }
+
+  /* Copy Link: Sky Blue Hover / Emerald Active */
+  .dock-btn.btn-copy:hover {
+    background: #0284c7;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+  }
+
+  .dock-btn.btn-copy.copied {
+    background: #ecfdf5 !important;
+    color: #059669 !important;
+    border-color: #a7f3d0 !important;
+    transform: scale(1.06);
+  }
+
+  .dock-divider {
+    width: 22px;
+    height: 1px;
+    background: #e2e8f0;
+    margin: 0.15rem 0;
+  }
+
+  /* Instant RFQ Button: Fresh Emerald Green */
+  .dock-btn.btn-rfq {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+  }
+
+  .dock-btn.btn-rfq:hover {
+    background: #059669;
+    color: #ffffff;
+    border-color: #059669;
+    transform: translateY(-2px) scale(1.08);
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+  }
+
+  .article-main {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .article-featured-image-wrap {
+    margin-bottom: 2rem;
+    border-radius: 0.9rem;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: var(--shadow-md);
+    background: #0f172a;
+    transform: translateZ(0);
+  }
+
+  .article-featured-image-wrap img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #0f172a;
+    display: block;
+  }
+
+  .prose {
+    font-size: 1.05rem;
+    line-height: 1.82;
+    color: #1e293b;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  .prose :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  .prose :global(h2) {
+    font-size: 1.6rem;
+    margin: 2.75rem 0 1rem;
+    color: #0f172a;
+    padding-bottom: 0.45rem;
+    border-bottom: 2px solid #f1f5f9;
+    scroll-margin-top: 110px;
+  }
+  .prose :global(h3) {
+    font-size: 1.25rem;
+    margin: 1.85rem 0 0.7rem;
+    color: #0f172a;
+    scroll-margin-top: 110px;
+  }
+  .prose :global(p) {
+    margin-bottom: 1.35rem;
+    color: #1e293b;
+    line-height: 1.82;
+    max-width: 68ch;
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 1.35rem;
+    padding-left: 1.4rem;
+    max-width: 68ch;
+  }
+  .prose :global(li) {
+    margin-bottom: 0.65rem;
+    color: #1e293b;
+    line-height: 1.76;
+  }
+  .prose :global(.article-figure) {
+    margin: 2.25rem auto;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transform: translateZ(0);
+  }
+  .prose :global(.article-figure img) {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: #f8fafc;
+    display: block;
+  }
+  .prose :global(.article-figure figcaption) {
+    padding: 0.75rem 1rem;
+    font-size: 0.84rem;
+    color: #475569;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    font-style: italic;
+  }
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    background: #f1f5f9;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.86em;
+    color: #0f172a;
+  }
+  .prose :global(a:not(.btn):not(.btn-hero):not(.btn-primary):not(.cta-btn):not(.cta-button):not(.fast-track-rfq-btn)) {
+    color: #0369a1;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose :global(a:not(.btn):not(.btn-hero):not(.btn-primary):not(.cta-btn):not(.cta-button):not(.fast-track-rfq-btn):hover) {
+    color: #075985;
+  }
+
+  /* Referenced Ready-to-Produce Factory Models: Always 3 products per row on desktop */
+  .related-skus-section {
+    margin-top: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid #e2e8f0;
+    max-width: 100%;
+  }
+  .related-skus-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-bottom: 1.35rem;
+  }
+  .related-skus-head h2 {
+    font-size: 1.45rem;
+    margin: 0;
+  }
+  .related-skus-head .btn {
+    white-space: normal;
+    word-break: break-word;
+    max-width: 100%;
+    text-align: center;
+  }
+  .related-skus-section .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.35rem;
+  }
+
+  .related-guides-box {
+    margin-top: 2rem;
+    padding: 2.5rem 2.25rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+  .related-guides-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .related-guides-box h2 {
+    font-size: 1.35rem;
+    margin: 0.6rem 0 1.25rem;
+  }
+  .related-guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
+  .related-guide-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transform: translateZ(0);
+  }
+  .related-guide-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .related-guide-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #0f172a;
+  }
+  .related-guide-body {
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+  }
+  .related-guide-cat {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #0369a1;
+    text-transform: uppercase;
+  }
+  .related-guide-body h3 {
+    font-size: 0.92rem;
+    line-height: 1.35;
+    color: #0f172a;
+    margin: 0;
+    flex: 1;
+  }
+  .related-guide-cta {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #0369a1;
+    margin-top: 0.25rem;
+  }
+
+  .guide-faq-section {
+    border-radius: 1rem;
+    padding: 2.5rem 1.75rem;
+    margin-top: 3rem;
+  }
+
+  .author-credential-card {
+    margin-top: 2.5rem;
+    padding: 1.75rem;
+    background: #0f172a;
+    color: #ffffff;
+    border-radius: 0.9rem;
+    border: 1px solid #334155;
+  }
+  .author-sub {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #38bdf8;
+    font-weight: 800;
+  }
+  .author-name {
+    color: #ffffff;
+    font-size: 1.15rem;
+    margin: 0.3rem 0 0.6rem;
+  }
+  .author-bio {
+    color: #cbd5e1;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  @media (max-width: 1180px) {
+    .article-layout-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .article-sidebar {
+      display: none;
+    }
+    .mobile-toc-box {
+      display: block;
+    }
+  }
+
+  /* Above-the-Fold Fast-Track SKU Strip & Mobile TOC */
+  .guide-fast-track-bar {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.15rem;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+  }
+
+  .fast-track-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .fast-track-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .fast-track-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  }
+
+  .fast-track-rfq-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #0369a1;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.38rem 0.85rem;
+    border-radius: 9999px;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .fast-track-rfq-btn:hover {
+    background: #075985;
+  }
+
+  .fast-track-rfq-btn.btn-track-sample {
+    background: #fffbeb;
+    color: #92400e !important;
+    border: 1px solid #f59e0b;
+  }
+
+  .fast-track-rfq-btn.btn-track-sample:hover {
+    background: #fef3c7;
+    color: #78350f !important;
+    border-color: #d97706;
+  }
+
+  .fast-track-rfq-btn.btn-track-sheet {
+    background: #f0f9ff;
+    color: #075985 !important;
+    border: 1px solid #38bdf8;
+  }
+
+  .fast-track-rfq-btn.btn-track-sheet:hover {
+    background: #e0f2fe;
+    color: #0c4a6e !important;
+    border-color: #0284c7;
+  }
+
+  .fast-track-chips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .fast-sku-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.45rem 0.65rem;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    min-width: 0;
+  }
+
+  .fast-sku-chip:hover {
+    border-color: #0284c7;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .fast-sku-chip img {
+    width: 44px;
+    height: 33px;
+    object-fit: contain;
+    border-radius: 6px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+  }
+
+  .fast-sku-meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .fast-sku-code {
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #0369a1;
+    line-height: 1.2;
+  }
+
+  .fast-sku-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-toc-box {
+    display: none;
+    margin: 0 0 1.5rem;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .mobile-toc-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.86rem;
+    font-weight: 800;
+    color: #0f172a;
+    cursor: pointer;
+    list-style: none;
+    background: #f1f5f9;
+  }
+
+  .mobile-toc-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-toc-nav {
+    padding: 0.75rem 1.1rem 1rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .mobile-toc-nav :global(ul) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .mobile-toc-nav :global(a) {
+    display: block;
+    font-size: 0.85rem;
+    color: #334155;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .mobile-toc-nav :global(a:hover) {
+    color: #0284c7;
+  }
+
+  @media (max-width: 640px) {
+    .fast-track-chips {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .fast-track-actions {
+      width: 100%;
+    }
+    .fast-track-rfq-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .related-skus-section .grid-3 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .article-layout-grid {
+      padding-top: 1.75rem;
+      padding-bottom: 2.5rem;
+    }
+    .related-skus-section .grid-3,
+    .related-guides-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .related-guides-box {
+      padding: 1.65rem 1.15rem;
+    }
+    .guide-faq-section {
+      padding: 1.75rem 1.15rem;
+      margin-top: 2rem;
+    }
+    .prose {
+      font-size: 0.96rem;
+      line-height: 1.7;
+    }
+    .prose :global(h2) {
+      font-size: 1.32rem;
+      margin: 2rem 0 0.75rem;
+    }
+    .prose :global(h3) {
+      font-size: 1.1rem;
+      margin: 1.4rem 0 0.55rem;
+    }
+    .author-credential-card {
+      padding: 1.25rem 1.15rem;
+    }
+  }
+</style>

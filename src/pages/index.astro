@@ -1,0 +1,1135 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import GeoDirectAnswer from '../components/GeoDirectAnswer.astro';
+import { COLLECTIONS } from '../data/collections';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../i18n/utils';
+import { localizeCollectionContent, localizeInsightMeta } from '../i18n/insightAndCollectionLocalization';
+import { getLocalizedPageFaqs } from '../i18n/pageContentLocalization';
+import { localizeTitle } from '../i18n/productLocalization';
+
+const currentLang = getLanguageFromURL(Astro.url.pathname);
+const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
+const allProducts = await getCollection('products');
+const sortedProducts = allProducts.sort((a, b) => a.data.rowId - b.data.rowId);
+const allGuides = await getCollection('insights');
+
+const priorityGuideSlugs = [
+  'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide',
+  'custom-marathon-and-5k-10k-finisher-medals-race-director-sourcing-guide',
+  'custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide',
+  'european-trolley-coin-keyrings-1-euro-vs-12-sided-uk-pound-specs',
+  'custom-3d-curved-police-security-and-fire-department-badges-guide',
+  'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale',
+  'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd',
+  'custom-enamel-and-3d-cufflinks-tie-bars-executive-menswear-gift-sets',
+  'custom-golf-divot-repair-tools-and-magnetic-hat-clip-ball-markers-guide',
+  'custom-metal-fridge-magnets-3d-zinc-vs-hard-soft-enamel-epoxy-guide',
+  'custom-embroidered-patches-vs-woven-and-3d-soft-pvc-morale-patches',
+  'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance',
+  'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping'
+];
+const featuredCrawlGuides = priorityGuideSlugs
+  .map((slug) => allGuides.find((g) => g.data.slug === slug))
+  .filter(Boolean);
+
+const priorityCrawlProducts = sortedProducts
+  .filter((p) => p.data.rowId % 5 === 1)
+  .slice(0, 30);
+
+const primaryCollections = COLLECTIONS.filter((c) => c.group === 'primary');
+const crossCollections = COLLECTIONS.filter((c) => c.group === 'cross');
+
+// Section 1: Flagship Custom Lapel Pins (Collection #1)
+const logoFeatured = sortedProducts
+  .filter((p) => p.data.primaryCollection === 'custom-enamel-pins')
+  .slice(0, 8);
+
+// Section 4: Featured 3D Race & Marathon Medals (Collection #2)
+const tuningForkProducts = sortedProducts
+  .filter((p) => p.data.primaryCollection === 'custom-medals')
+  .slice(0, 8);
+
+// Section 5: Featured Challenge Coins & Trolley Tokens (Collections #3 & #5)
+const exoticFeatured = sortedProducts
+  .filter((p) => ['custom-challenge-coins', 'trolley-coin-keyrings'].includes(p.data.primaryCollection))
+  .filter((_, idx) => idx % 4 === 0)
+  .slice(0, 8);
+
+const homeFaqs = [
+  {
+    question: 'What are the custom die and casting mold fees, and when are they waived?',
+    answer: 'Custom 2D stamped lapel pin, keychain, and trolley coin dies cost $45–$85 (waived automatically at 500+ pcs per design), and 3D sculpted medal, challenge coin, or buckle molds cost $95–$150 (waived at 1,000+ pcs). Every paid custom steel die is archived free for 3 years for zero-fee reorders.'
+  },
+  {
+    question: 'Do you keep pre-made inventory, or how are your 158 custom craft styles organized?',
+    answer: 'Every pin, medal, challenge coin, badge, and keychain is 100% custom-tooled from your own logo or vector artwork—never stocked pre-made inventory. Our directory organizes 158 custom manufacturing specifications across 6 Primary Craft Hubs (Custom Enamel Pins, Custom Race Medals, Challenge Coins, Metal Keychains, €1/£1 Trolley Coins, and Police/Military Insignia) and 5 Specialty Lines (Executive Cufflinks & Buckles, Golf Tools, Bookmarks/Openers/Souvenirs, Patches/PVC/Boxes, and Custom Metal Fridge Magnets).'
+  },
+  {
+    question: 'How fast can I receive a digital proof and pre-production physical sample?',
+    answer: 'Send your vector logo or rough sketch via /contact or WhatsApp and receive a scaled 1:1 Pantone color & die-line digital proof completely free within 12 hours. Optional paid physical pre-production sample strikes finish in 7–10 business days via DHL/FedEx.'
+  },
+  {
+    question: 'Should we choose Cloisonne Hard Enamel, Die-Struck Soft Enamel, or 3D Zinc Die-Casting?',
+    answer: 'Select Cloisonne Hard Enamel for jewelry-grade smooth flush surfaces ($0.28–$1.85/pc), Die-Struck Soft Enamel for crisp raised metal ridges framing vivid recessed Pantone fills at 15%–25% lower unit cost, or 3D Zinc Die-Casting for contoured race medals, police shields, and heavyweight belt buckles.'
+  },
+  {
+    question: 'What is the Minimum Order Quantity (MOQ) per custom design?',
+    answer: 'Most lapel pins, keychains, challenge coins, cufflinks, and badges start at just 50–100 pcs MOQ per design, while custom race medals, golf divot tools, and European €1/£1 trolley coins start at 100–200 pcs MOQ with tiered wholesale price breaks at 500 and 2,000+ pcs.'
+  },
+  {
+    question: 'Do your European Trolley Coin Keyrings fit both €1 Euro and UK 12-sided £1 supermarket locks?',
+    answer: 'Yes. We strike dedicated Euro €1 coins at exact mint geometry (23.25mm diameter × 2.33mm thickness) and UK 12-sided £1 tokens (23.43mm across flats × 2.80mm thickness) in die-struck iron, solid brass, or zinc alloy with swivel lobster clasps and detachable magnetic frames.'
+  },
+  {
+    question: 'Are your alloys, enamel colors, and electroplatings safe for US CPSIA and EU REACH imports?',
+    answer: 'Yes. We pour certified lead-free Zamak #3 zinc ingots (<0.005% Pb), C26800 brass, non-phthalate Pantone enamels and PVC resins, plus optional nickel-free rack plating compliant with US CPSIA (<90 ppm lead), California Prop 65, EU EN71-3, and EN 1811 standards.'
+  },
+  {
+    question: 'What packaging upgrades are available beyond individual polybags?',
+    answer: 'Every pin, medal, coin, and keychain ships individually polybagged at $0.00 extra cost. Optional upgrades include 400gsm matte or foil-stamped retail pin backing cards (+$0.12–$0.22/pc), crystal-clear 38–60mm acrylic coin capsules (+$0.15–$0.35/pc), and hinged velvet gift boxes (+$0.85–$1.85/pc).'
+  },
+  {
+    question: 'What are standard production lead times and international DDP delivery speeds?',
+    answer: 'Mass production completes in 7–12 business days for stamped pins, coins, and trolley tokens and 10–15 business days for 3D sculpted medals or heavy buckles. Express air courier (DHL/FedEx DDP door-to-door) delivers globally in 5–7 business days directly from Guangdong.'
+  },
+  {
+    question: 'What payment methods do wholesale buyers and organizations use?',
+    answer: 'We accept T/T Bank Wire, corporate Wise transfers, Credit Card, and PayPal, with high-resolution pre-shipment batch photos and packing lists provided prior to dispatch.'
+  }
+];
+
+const localizedHomeFaqs = getLocalizedPageFaqs('home', homeFaqs, currentLang);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: localizedHomeFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const homeItemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${t('home.hero.title')} | MedalPinSupply.com`,
+  numberOfItems: COLLECTIONS.length,
+  itemListElement: COLLECTIONS.map((col, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    url: `https://medalpinsupply.com${getLocalizedPath(`/collections/${col.slug}`, currentLang)}`,
+    name: t(`col.${col.slug}.name` as any)
+  }))
+};
+
+const HOME_META_DESC_MAP: Record<string, string> = {
+  en: 'Factory-direct custom enamel pins, 3D marathon medals, challenge coins & €1 trolley coins: 158 craft styles ($0.14–$6.95, MOQ 50). 12h free proof.',
+  de: 'Pins, 3D-Laufmedaillen, Challenge Coins & Einkaufswagenchips ab Werk: 158 Stile ($0,14–$6,95, MOQ 50–200). 12h Gratis-Entwurf & Formkosten-Erlass.',
+  fr: 'Pins émaillés, médailles 3D, pièces Challenge & jetons caddie 1€ : 158 styles sur mesure ($0,14–$6,95, MOQ 50–200). BAT gratuit 12h.',
+  nl: 'Maatwerk emaille pins, 3D marathonmedailles, challenge coins & €1 munten: 158 stijlen ($0,14–$6,95, MOQ 50–200). Gratis 12u proef.',
+  es: 'Fábrica de pines esmaltados, medallas 3D, monedas Challenge y fichas €1: 158 estilos a medida ($0.14–$6.95, MOQ 50–200). Prueba gratis 12h.',
+  it: 'Fabbrica spille smaltate, medaglie 3D, monete Challenge e gettoni €1: 158 stili su misura ($0,14–$6,95, MOQ 50–200). Bozza gratuita 12h.',
+  pt: 'Fábrica de broches esmaltados, medalhas 3D, moedas Challenge e fichas €1: 158 estilos sob medida ($0.14–$6.95, MOQ 50–200). Prova grátis 12h.',
+  sv: 'Emaljpins, 3D-maratonmedaljer, challenge coins & €1 polletter direkt från fabrik: 158 stilar ($0.14–$6.95, MOQ 50–200). Fri skiss 12h.',
+  da: 'Emaljepins, 3D-maratonmedaljer, challenge coins & €1 poletter fra fabrik: 158 stilarter ($0.14–$6.95, MOQ 50–200). Gratis udkast på 12t.',
+  no: 'Emaljepins, 3D-maratonmedaljer, challenge coins & handlevognmynter: 158 stiler ($0.14–$6.95, MOQ 50–200). Gratis skisse på 12t.',
+  fi: 'Emalipinssit, 3D-maratonmitalit, challenge-kolikot & ostospoletit tehtaalta: 158 tyyliä ($0.14–$6.95, MOQ 50–200). Ilmainen vedos 12h.',
+  pl: 'Przypinki emaliowane, medale 3D, monety Challenge i żetony €1 prosto z fabryki: 158 stylów ($0.14–$6.95, MOQ 50–200). Projekt 12h gratis.',
+  cs: 'Smaltované odznaky, 3D maratonské medaile, challenge mince a žetony €1 z továrny: 158 stylů ($0.14–$6.95, MOQ 50–200). Náhled 12h zdarma.',
+  ru: 'Значки с эмалью, 3D-медали, монеты Challenge Coins и жетоны €1 с завода: 158 форматов ($0.14–$6.95, MOQ 50–200). Бесплатный макет 12 ч.',
+  ja: 'カスタムピンバッジ・3Dマラソンメダル・チャレンジコイン・€1カートコイン直営工場：全158仕様($0.14〜$6.95、MOQ 50個〜、12h無料校正)。',
+  ko: '커스텀 에나멜 핀, 3D 마라톤 메달, 챌린지 코인 & €1 트롤리 코인 직영 공장: 전 158종 ($0.14–$6.95, MOQ 50개~). 12시간 무료 시안.',
+  id: 'Pabrik pin enamel, medali maraton 3D, koin challenge & koin troli €1: 158 gaya kustom ($0,14–$6,95, MOQ 50–200). Desain gratis 12 jam.',
+  ar: 'مصنع دبابيس المينا والميداليات ثلاثية الأبعاد وعملات التحدي وعملات التسوق: 158 نمطاً مخصصاً ($0.14–$6.95، الحد الأدنى 50–200). تصميم مجاني.'
+};
+---
+
+<Layout
+  title={currentLang === 'en' ? 'Custom Enamel Pins, Medals & Challenge Coins | MedalPinSupply' : `${t('home.hero.title')} | MedalPinSupply.com`}
+  description={HOME_META_DESC_MAP[currentLang] || t('home.hero.lead')}
+  preloadImage="/images/hero-medal-pin-showcase.webp"
+  activePage="home"
+  jsonLd={[homeItemListSchema, faqSchema]}
+>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badges">
+          <span class="badge badge-dark">{t('home.hero.badge1')}</span>
+          <span class="badge badge-gold">{t('home.hero.badge2')}</span>
+        </div>
+        <h1 class="hero-title">
+          {t('home.hero.title')}<br />
+          <span>{t('home.hero.titleHighlight')}</span>
+        </h1>
+        <p class="hero-lead">
+          {t('home.hero.lead')}
+        </p>
+
+        <div class="hero-kpis">
+          <div class="kpi-item">
+            <strong>{t('home.hero.kpi1Val')}</strong>
+            <span>{t('home.hero.kpi1Sub')}</span>
+          </div>
+          <div class="kpi-item">
+            <strong>{t('home.hero.kpi2Val')}</strong>
+            <span>{t('home.hero.kpi2Sub')}</span>
+          </div>
+          <div class="kpi-item">
+            <strong>{t('home.hero.kpi3Val')}</strong>
+            <span>{t('home.hero.kpi3Sub')}</span>
+          </div>
+          <div class="kpi-item">
+            <strong>{t('home.hero.kpi4Val')}</strong>
+            <span>{t('home.hero.kpi4Sub')}</span>
+          </div>
+        </div>
+
+        <div class="hero-ctas">
+          <a href={getLocalizedPath('/collections/custom-enamel-pins', currentLang)} class="btn btn-accent">
+            {t('home.hero.ctaLogo')}
+          </a>
+          <a href={getLocalizedPath('/products', currentLang)} class="btn btn-primary">
+            {t('home.hero.ctaCatalog')}
+          </a>
+        </div>
+
+        <div class="hero-col-pills">
+          {COLLECTIONS.slice(0, 6).map((col) => (
+            <a href={getLocalizedPath(`/collections/${col.slug}`, currentLang)} class="hero-col-pill">
+              <span>{t(`col.${col.slug}.short` as any)}</span>
+              <strong>{col.skuCount}</strong>
+            </a>
+          ))}
+          <a
+            href={getLocalizedPath('/contact', currentLang)}
+            class="hero-col-pill"
+            data-rfq-sku="Custom Enamel Pins, 3D Marathon Medals & Challenge Coins"
+            data-rfq-mode="Free 12h Digital Artwork Proof"
+            data-rfq-qty="100"
+          >
+            <span>🎨 12h Proof</span>
+            <strong>Free Art</strong>
+          </a>
+          <a
+            href={getLocalizedPath('/contact', currentLang)}
+            class="hero-col-pill"
+            data-rfq-sku="All 158 Custom Craft Styles (Price Guide)"
+            data-rfq-mode="Standard Enamel / Die-Cast"
+            data-rfq-qty="500"
+          >
+            <span>{microHooks.sheet140}</span>
+            <strong>PDF</strong>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-showcase">
+        <div class="showcase-card">
+          <div class="showcase-top">
+            <span class="sku-pill">{t('home.hero.showcasePill')}</span>
+            <span class="showcase-price">$0.14 – $6.95<span>/{t('unit.pc')}</span></span>
+          </div>
+          <img
+            src="/images/hero-medal-pin-showcase.webp"
+            alt="Custom Cloisonne Hard Enamel Pins, 3D Sculpted Marathon Finisher Medals, Challenge Coins, and Euro Trolley Tokens by MedalPinSupply"
+            width="480"
+            height="360"
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+            class="showcase-img"
+          />
+          <div class="showcase-meta">
+            <strong>{t('home.hero.showcaseTitle')}</strong>
+            <p>{t('home.hero.showcaseDesc')}</p>
+            <div class="showcase-links">
+              <a href={getLocalizedPath('/collections/custom-enamel-pins', currentLang)}>{t('home.hero.showcaseLink1')}</a>
+              <a href={getLocalizedPath('/contact', currentLang)}>{t('card.quoteSku')} →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Verified Supply Chain Specification Summary -->
+  <div class="container">
+    <GeoDirectAnswer
+      title={t('home.geo.title')}
+      answer={t('home.geo.answer')}
+    />
+
+    <form class="inline-quick-sheet-form" data-inline-sku="Custom Medal, Pin & Coin Craft Styles ($0.14–$6.95 · Price Guide & 12h Proof)" novalidate>
+      <div class="inline-qrfq-text">
+        <strong>{microHooks.getFullSheetPdf}</strong>
+        <span>{microHooks.mixMoqBadge}</span>
+      </div>
+      <div class="inline-qrfq-controls">
+        <input
+          type="email"
+          class="inline-qrfq-input"
+          placeholder={`${t('contact.workEmail')} (name@company.com)`}
+          aria-label={t('contact.workEmail')}
+          required
+        />
+        <button type="submit" class="inline-qrfq-btn">
+          ⚡ {microHooks.sheet140} →
+        </button>
+      </div>
+      <div class="inline-qrfq-status" hidden></div>
+    </form>
+  </div>
+
+  <!-- Section 1: Featured 2D Die-Struck & Enamel Custom Craft Models (Immediate Visual SKU Grid) -->
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="badge badge-emerald">{t('home.section3.badge')}</span>
+        <h2 class="section-title">{t('home.section3.title')}</h2>
+        <p class="section-subtitle">
+          {t('home.section3.sub')}
+        </p>
+      </div>
+
+      <div class="quick-cat-bar">
+        {primaryCollections.map((col) => (
+          <a href={getLocalizedPath(`/collections/${col.slug}`, currentLang)} class="quick-cat-pill">
+            <span>{t(`col.${col.slug}.short` as any)}</span>
+            <strong>{col.skuCount}</strong>
+          </a>
+        ))}
+        <a href={getLocalizedPath('/custom-branding', currentLang)} class="quick-cat-pill quick-cat-pill-gold">
+          <span>★ {t('nav.customLogo')}</span>
+          <strong>500+ Die Free</strong>
+        </a>
+      </div>
+
+      <div class="grid-4">
+        {logoFeatured.map((p) => (
+          <ProductCard product={p} />
+        ))}
+      </div>
+
+      <div class="section-cta-row">
+        <a href={getLocalizedPath('/collections/custom-enamel-pins', currentLang)} class="btn btn-primary">
+          {t('home.section3.cta')}
+        </a>
+        <a href={getLocalizedPath('/products', currentLang)} class="btn btn-outline">
+          {t('home.hero.ctaCatalog')} →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: 6 Primary Category Collections (with 3-SKU Visual Previews) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="badge">{t('home.section1.badge')}</span>
+        <h2 class="section-title">{t('home.section1.title')}</h2>
+        <p class="section-subtitle">
+          {t('home.section1.sub')}
+        </p>
+      </div>
+
+      <div class="grid-3">
+        {primaryCollections.map((col) => {
+          const locCol = localizeCollectionContent(col, currentLang);
+          const previewSkus = sortedProducts
+            .filter((p) => p.data.primaryCollection === col.slug)
+            .slice(0, 3);
+          return (
+            <a href={getLocalizedPath(`/collections/${col.slug}`, currentLang)} class="collection-card">
+              <div class="col-card-top">
+                <span class="col-num">{t('home.section1.catPrefix')} 0{col.number}</span>
+                <span class="col-count">{col.skuCount} {t('home.section1.readyMolds')}</span>
+              </div>
+              <h3 class="col-title">{t(`col.${col.slug}.name` as any)}</h3>
+              <p class="col-zh">{t(`col.${col.slug}.short` as any)} · {col.priceRangeUsd}</p>
+              {previewSkus.length > 0 && (
+                <div class="col-thumb-strip">
+                  {previewSkus.map((sku) => (
+                    <div class="col-thumb-item">
+                      <img
+                        src={sku.data.featuredImage}
+                        alt={localizeTitle(sku.data.title, currentLang)}
+                        width="88"
+                        height="66"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span>${sku.data.tier2000}+</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <p class="col-desc">{locCol.heroSubtitle}</p>
+              <div class="col-footer">
+                <span>MOQ: {locCol.moq}</span>
+                <span class="col-cta">{col.skuCount} {t('home.section1.exploreModels')}</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: 3 High-Converting Cross-Tag Collections -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="badge badge-gold">{t('home.section2.badge')}</span>
+        <h2 class="section-title">{t('home.section2.title')}</h2>
+        <p class="section-subtitle" style="color: #cbd5e1;">
+          {t('home.section2.sub')}
+        </p>
+      </div>
+
+      <div class="grid-3">
+        {crossCollections.map((col) => {
+          const locCol = localizeCollectionContent(col, currentLang);
+          return (
+            <div class="cross-card">
+              <div class="cross-badge">{t(`col.${col.slug}.short` as any)}</div>
+              <h3>{t(`col.${col.slug}.name` as any)}</h3>
+              <p class="cross-zh">{t(`col.${col.slug}.short` as any)} · {col.priceRangeUsd}</p>
+              <p class="cross-desc">{locCol.heroSubtitle}</p>
+              <ul class="cross-highlights">
+                {locCol.engineeringHighlights.map((h: string) => (
+                  <li>✓ {h}</li>
+                ))}
+              </ul>
+              <a href={getLocalizedPath(`/collections/${col.slug}`, currentLang)} class="btn btn-accent" style="width: 100%; margin-top: auto;">
+                {col.skuCount} {t('home.section2.browseAll')}
+              </a>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Acoustic Tuning Fork Series (All 7 Models) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="badge">{t('home.section4.badge')}</span>
+        <h2 class="section-title">{t('home.section4.title')}</h2>
+        <p class="section-subtitle">
+          {t('home.section4.sub')}
+        </p>
+      </div>
+
+      <div class="grid-4">
+        {tuningForkProducts.map((p) => (
+          <ProductCard product={p} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Multi-Material Supply Chain Ladder Case Study -->
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="badge">{t('home.section5.badge')}</span>
+        <h2 class="section-title">{t('home.section5.title')}</h2>
+        <p class="section-subtitle">
+          {t('home.section5.sub')}
+        </p>
+      </div>
+
+      <div class="grid-4">
+        {exoticFeatured.map((p) => (
+          <ProductCard product={p} />
+        ))}
+      </div>
+
+      <div class="home-crawl-hub-card">
+        <div class="crawl-hub-block">
+          <div class="crawl-hub-head">
+            <span class="badge">{t('nav.guides')}</span>
+            <h3>{t('guide.relatedGuidesTitle')}</h3>
+          </div>
+          <div class="crawl-guides-grid">
+            {featuredCrawlGuides.map((g: any) => {
+              const gLoc = localizeInsightMeta(g.data, currentLang);
+              return (
+                <a href={getLocalizedPath(`/insights/${g.data.slug}`, currentLang)} class="crawl-guide-link">
+                  <span class="crawl-guide-cat">{gLoc.category}</span>
+                  <strong>{gLoc.title}</strong>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+
+        <div class="crawl-hub-divider"></div>
+
+        <div class="crawl-hub-block">
+          <div class="crawl-hub-head crawl-hub-head-split">
+            <div class="crawl-hub-head-left">
+              <span class="badge">{t('nav.allCatalog')}</span>
+              <h3>{t('guide.refModelsTitle')}</h3>
+            </div>
+            <a href={getLocalizedPath('/wholesale-catalog', currentLang)} class="crawl-hub-all-link">
+              {t('home.hero.ctaCatalog')} →
+            </a>
+          </div>
+          <div class="crawl-skus-pills">
+            {priorityCrawlProducts.map((p: any) => (
+              <a href={getLocalizedPath(`/products/${p.data.slug}`, currentLang)} class="crawl-sku-pill">
+                <span class="crawl-sku-code">{t(`col.${p.data.primaryCollection}.short` as any)}</span>
+                <span class="crawl-sku-name">{localizeTitle(p.data.title, currentLang)}</span>
+                <span class="crawl-sku-price">${p.data.tier2000}+</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: FAQ Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="badge">{t('home.faq.badge')}</span>
+        <h2 class="section-title">{t('home.faq.title')}</h2>
+      </div>
+      <div class="faq-list">
+        {localizedHomeFaqs.map((faq, idx) => (
+          <div class:list={['accordion-item', { active: idx === 0 }]}>
+            <button type="button" class="accordion-header">
+              <span>{faq.question}</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Conversion CTA -->
+  <section class="section section-light">
+    <div class="container">
+      <div class="sourcing-cta-box">
+        <div class="cta-inner">
+          <div>
+            <span class="badge badge-gold" style="margin-bottom: 0.75rem;">{t('home.cta.badge')}</span>
+            <h2>{t('home.cta.title')}</h2>
+            <p style="margin-top: 0.65rem; max-width: 720px;">
+              {t('home.cta.desc')}
+            </p>
+          </div>
+          <div class="cta-buttons">
+            <a href={getLocalizedPath('/products', currentLang)} class="btn btn-accent">{t('home.hero.ctaCatalog')} →</a>
+            <a href={getLocalizedPath('/contact', currentLang)} class="btn btn-primary">{t('nav.requestQuote')}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero-section {
+    background: radial-gradient(circle at 80% 20%, #1e293b 0%, #090d16 70%);
+    color: #ffffff;
+    padding: 4.5rem 0;
+    border-bottom: 1px solid #1e293b;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 3.6vw, 3.1rem);
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 1.15rem;
+  }
+  .hero-title span {
+    color: #38bdf8;
+  }
+  .hero-lead {
+    font-size: 1.08rem;
+    color: #cbd5e1;
+    line-height: 1.68;
+    margin-bottom: 1.75rem;
+  }
+  .hero-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .kpi-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.6rem;
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .kpi-item strong {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: #fbbf24;
+  }
+  .kpi-item span {
+    font-size: 0.74rem;
+    color: #94a3b8;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+  .showcase-card {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  }
+  .showcase-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
+  }
+  .showcase-price {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #34d399;
+  }
+  .showcase-price span {
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+  .showcase-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background: #f8fafc;
+    border-radius: 0.65rem;
+    margin-bottom: 1rem;
+  }
+  .showcase-meta strong {
+    display: block;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
+  .showcase-meta p {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 0.85rem;
+  }
+  .hero-col-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1.15rem;
+  }
+  .hero-col-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #f8fafc;
+    font-size: 0.76rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .hero-col-pill strong {
+    color: #fbbf24;
+    font-weight: 800;
+  }
+  .hero-col-pill:hover {
+    background: rgba(2, 132, 199, 0.35);
+    border-color: #38bdf8;
+    transform: translateY(-1px);
+  }
+  .showcase-links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .showcase-links a {
+    color: #38bdf8;
+  }
+  .collection-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.9rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  .collection-card:hover {
+    border-color: #0284c7;
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .col-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .col-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0284c7;
+    text-transform: uppercase;
+  }
+  .col-count {
+    background: #f0f9ff;
+    color: #0369a1;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+  .col-title {
+    font-size: 1.25rem;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+  }
+  .quick-cat-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-bottom: 2rem;
+  }
+  .quick-cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.48rem 0.9rem;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #0f172a;
+    transition: all 0.18s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  .quick-cat-pill:hover {
+    border-color: #0284c7;
+    color: #0284c7;
+    transform: translateY(-2px);
+  }
+  .quick-cat-pill strong {
+    background: #f0f9ff;
+    color: #0369a1;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.12rem 0.48rem;
+    border-radius: 999px;
+  }
+  .quick-cat-pill-gold {
+    background: #0f172a;
+    border-color: #334155;
+    color: #ffffff;
+  }
+  .quick-cat-pill-gold:hover {
+    background: #1e293b;
+    border-color: #38bdf8;
+    color: #38bdf8;
+  }
+  .quick-cat-pill-gold strong {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+  }
+  .section-cta-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .col-thumb-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.6rem;
+  }
+  .col-thumb-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+  .col-thumb-item img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    border-radius: 0.38rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+  }
+  .col-thumb-item span {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #334155;
+  }
+  .col-zh {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #059669;
+    margin-bottom: 0.75rem;
+  }
+  .col-desc {
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+  .col-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.85rem;
+    border-top: 1px solid #f1f5f9;
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+  .col-cta {
+    font-weight: 800;
+    color: #0284c7;
+  }
+  .cross-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.9rem;
+    padding: 1.65rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .cross-badge {
+    display: inline-block;
+    align-self: flex-start;
+    background: rgba(245, 158, 11, 0.18);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    margin-bottom: 0.85rem;
+  }
+  .cross-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+  }
+  .cross-zh {
+    color: #38bdf8;
+    font-size: 0.84rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .cross-desc {
+    color: #cbd5e1;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .cross-highlights {
+    list-style: none;
+    font-size: 0.82rem;
+    color: #94a3b8;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .cta-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 960px) {
+    .hero-section {
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+      padding: 3rem 0;
+    }
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+    }
+    .hero-kpis {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .hero-section {
+      padding: 2.15rem 0 2.5rem;
+    }
+    .hero-title {
+      font-size: 1.68rem;
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+    }
+    .hero-lead {
+      font-size: 0.95rem;
+      line-height: 1.58;
+      margin-bottom: 1.25rem;
+    }
+    .hero-kpis {
+      gap: 0.6rem;
+      margin-bottom: 1.35rem;
+    }
+    .kpi-item {
+      padding: 0.65rem 0.75rem;
+    }
+    .kpi-item strong {
+      font-size: 1.05rem;
+    }
+    .kpi-item span {
+      font-size: 0.68rem;
+    }
+    .hero-ctas {
+      flex-direction: column;
+      width: 100%;
+      gap: 0.7rem;
+    }
+    .hero-ctas .btn {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+    .showcase-card {
+      padding: 0.95rem;
+    }
+    .showcase-links {
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .collection-card,
+    .cross-card {
+      padding: 1.2rem;
+    }
+    .col-title,
+    .cross-card h3 {
+      font-size: 1.12rem;
+    }
+    .cta-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.25rem;
+    }
+    .cta-buttons {
+      flex-direction: column;
+      width: 100%;
+    }
+    .cta-buttons .btn {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+    .home-crawl-hub-card {
+      padding: 1.25rem;
+    }
+    .crawl-guides-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .home-crawl-hub-card {
+    margin-top: 2.5rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transform: translateZ(0);
+  }
+  .crawl-hub-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.15rem;
+  }
+  .crawl-hub-head h3 {
+    margin: 0;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: #0f172a;
+  }
+  .crawl-guides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.85rem;
+  }
+  .crawl-guide-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.85rem 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.65rem;
+    text-decoration: none;
+    color: #0f172a;
+    min-width: 0;
+    max-width: 100%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .crawl-guide-link:hover {
+    border-color: #0284c7;
+    background: #f0f9ff;
+  }
+  .crawl-guide-cat {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #0369a1;
+  }
+  .crawl-guide-link strong {
+    font-size: 0.88rem;
+    line-height: 1.4;
+    color: #0f172a;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .crawl-hub-divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 1.75rem 0;
+  }
+  .crawl-hub-head-split {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .crawl-hub-head-left {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+  .crawl-hub-head-left h3 {
+    margin: 0;
+  }
+  .crawl-hub-all-link {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #0284c7;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .crawl-hub-all-link:hover {
+    text-decoration: underline;
+  }
+  .crawl-skus-pills {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .crawl-sku-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.58rem 0.78rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    color: #1e293b;
+    min-width: 0;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .crawl-sku-pill:hover {
+    border-color: #0284c7;
+    background: #f0f9ff;
+    color: #0f172a;
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.08);
+  }
+  .crawl-sku-code {
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #0369a1;
+    background: #e0f2fe;
+    padding: 0.16rem 0.45rem;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .crawl-sku-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .crawl-sku-price {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #0f172a;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  @media (max-width: 1024px) {
+    .crawl-skus-pills {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .crawl-skus-pills {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

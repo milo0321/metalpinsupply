@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getLanguageFromURL, getLocalizedPath, useTranslations } from '../i18n/utils';
+
+const currentLang = getLanguageFromURL(Astro.url.pathname);
+const t = useTranslations(currentLang);
+---
+
+<Layout
+  title={`${t('err404.badge')} | MedalPinSupply.com`}
+  description={t('err404.desc')}
+  noindex={true}
+>
+  <section class="section" style="text-align: center; padding: 6rem 0;">
+    <div class="container">
+      <span class="badge">{t('err404.badge')}</span>
+      <h1 style="font-size: 2.5rem; margin: 1rem 0;">{t('err404.title')}</h1>
+      <p style="color: #475569; max-width: 600px; margin: 0 auto 2rem;">
+        {t('err404.desc')}
+      </p>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href={getLocalizedPath('/products', currentLang)} class="btn btn-primary">{t('home.hero.ctaCatalog')} →</a>
+        <a href={getLocalizedPath('/collections/custom-enamel-pins', currentLang)} class="btn btn-accent">{t('home.hero.ctaLogo')}</a>
+      </div>
+    </div>
+  </section>
+</Layout>
