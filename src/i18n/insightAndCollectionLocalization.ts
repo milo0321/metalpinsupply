@@ -3469,7 +3469,7 @@ export function localizeInsightHtml(rawHtml: string, guideData: any, lang: Suppo
   const meshLinks: string[] = [];
   for (const m of rawHtml.matchAll(/<a\s+href="(\/(?:products|collections|insights)\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
     const locHref = getLocalizedPath(m[1], lang);
-    const label = m[2].replace(/<[^>]+>/g, '').trim();
+    const label = m[2].replace(/<[^>]+>/g, '').replace(/\s*→\s*$/, '').trim();
     if (!seenHrefs.has(locHref) && label) {
       seenHrefs.add(locHref);
       meshLinks.push(`<li><a href="${locHref}">${label}</a></li>`);

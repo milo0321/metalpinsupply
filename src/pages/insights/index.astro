@@ -2,16 +2,37 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import GeoDirectAnswer from '../../components/GeoDirectAnswer.astro';
-import { getLanguageFromURL, getLocalizedPath, useTranslations } from '../../i18n/utils';
+import { getLanguageFromURL, getLocalizedPath, useTranslations, getMicroHookLabels } from '../../i18n/utils';
 import { localizeInsightMeta } from '../../i18n/insightAndCollectionLocalization';
 import { getLocalizedPageFaqs } from '../../i18n/pageContentLocalization';
 
 const currentLang = getLanguageFromURL(Astro.url);
 const t = useTranslations(currentLang);
+const microHooks = getMicroHookLabels(currentLang);
 
 const guides = (await getCollection('insights')).sort(
   (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );
+
+function computeReadMinutes(g: any): number {
+  const rawText = g.body ? g.body.replace(/<[^>]*>?/gm, ' ') : '';
+  const wc = rawText.split(/\s+/).filter((w: string) => w.length > 0).length;
+  const tc = (g.body ? g.body.match(/<table/g) || [] : []).length;
+  return Math.max(8, Math.round(wc / 160 + tc * 1.5 + 10 * 0.45));
+}
+
+const catMap = new Map<string, { raw: string; label: string; count: number }>();
+for (const g of guides) {
+  const rawCat = g.data.category;
+  const existing = catMap.get(rawCat);
+  if (existing) {
+    existing.count++;
+  } else {
+    const lm = localizeInsightMeta(g.data, currentLang);
+    catMap.set(rawCat, { raw: rawCat, label: lm.category, count: 1 });
+  }
+}
+const insightCategories = Array.from(catMap.values());
 
 const guidesHubFaqs = [
   {
@@ -171,7 +192,7 @@ const pageDescription = INSIGHTS_META_DESC_MAP[currentLang] || INSIGHTS_META_DES
           class="badge badge-gold"
           style="text-decoration: none;"
         >
-          📊 Get Custom Price Guide (PDF/Excel) →
+          {microHooks.getFullSheetPdf}
         </a>
         <a
           href={getLocalizedPath('/contact', currentLang)}
@@ -181,7 +202,7 @@ const pageDescription = INSIGHTS_META_DESC_MAP[currentLang] || INSIGHTS_META_DES
           class="badge badge-dark"
           style="text-decoration: none;"
         >
-          📦 Order Craft Finish Sample Kit →
+          📦 {t('pdp.orderSample')} →
         </a>
       </div>
     </div>
@@ -194,18 +215,30 @@ const pageDescription = INSIGHTS_META_DESC_MAP[currentLang] || INSIGHTS_META_DES
     />
 
     <section class="section">
+      <div class="insights-cat-pills" id="insightsCatPills" role="group" aria-label={t('catalog.categoryLabel')}>
+        <button type="button" class="cat-pill active" data-cat-filter="all" aria-pressed="true">
+          {t('breadcrumb.guides')} ({guides.length})
+        </button>
+        {insightCategories.map((c) => (
+          <button type="button" class="cat-pill" data-cat-filter={c.raw} aria-pressed="false">
+            {c.label} ({c.count})
+          </button>
+        ))}
+      </div>
+
       <div class="grid-3" id="insightsGrid">
         {guides.map((g) => {
           const lm = localizeInsightMeta(g.data, currentLang);
+          const readMins = computeReadMinutes(g);
           return (
-            <article class="guide-card" data-search={`${lm.title} ${lm.summary} ${lm.category} ${g.data.slug}`.toLowerCase()}>
+            <article class="guide-card" data-cat={g.data.category} data-search={`${lm.title} ${lm.summary} ${lm.category} ${g.data.slug}`.toLowerCase()}>
               <a href={getLocalizedPath(`/insights/${g.data.slug}`, currentLang)} class="guide-img-link">
-                <img src={g.data.featuredImage} alt={lm.title} width="400" height="300" />
+                <img src={g.data.featuredImage} alt={lm.title} width="400" height="300" loading="lazy" />
               </a>
               <div class="guide-body">
                 <div class="guide-meta">
                   <span class="guide-cat">{lm.category}</span>
-                  <span>10 {t('unit.minRead')}</span>
+                  <span>{readMins} {t('unit.minRead')}</span>
                 </div>
                 <h2>
                   <a href={getLocalizedPath(`/insights/${g.data.slug}`, currentLang)}>{lm.title}</a>
@@ -245,19 +278,69 @@ const pageDescription = INSIGHTS_META_DESC_MAP[currentLang] || INSIGHTS_META_DES
 <script is:inline>
   (function () {
     var searchInput = document.getElementById('insightsSearchInput');
+    var pills = document.querySelectorAll('#insightsCatPills .cat-pill');
     var cards = document.querySelectorAll('#insightsGrid .guide-card');
-    if (!searchInput || !cards.length) return;
-    searchInput.addEventListener('input', function () {
-      var q = searchInput.value.toLowerCase().trim();
+    if (!cards.length) return;
+    var activeCat = 'all';
+
+    function applyFilter() {
+      var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
       cards.forEach(function (card) {
         var text = card.getAttribute('data-search') || '';
-        card.style.display = !q || text.indexOf(q) !== -1 ? '' : 'none';
+        var cat = card.getAttribute('data-cat') || '';
+        var matchCat = activeCat === 'all' || cat === activeCat;
+        var matchQ = !q || text.indexOf(q) !== -1;
+        card.style.display = matchCat && matchQ ? '' : 'none';
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applyFilter);
+    }
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        activeCat = pill.getAttribute('data-cat-filter') || 'all';
+        pills.forEach(function (p) {
+          var isOn = p === pill;
+          p.classList.toggle('active', isOn);
+          p.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+        });
+        applyFilter();
       });
     });
   })();
 </script>
 
 <style>
+  .insights-cat-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-bottom: 1.75rem;
+  }
+  .cat-pill {
+    appearance: none;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 9999px;
+    padding: 0.45rem 0.95rem;
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1e293b;
+    cursor: pointer;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+  .cat-pill:hover {
+    border-color: #0369a1;
+    color: #0369a1;
+    background: #f0f9ff;
+  }
+  .cat-pill.active {
+    background: #0369a1;
+    border-color: #0369a1;
+    color: #ffffff;
+  }
   .insights-search-wrap {
     position: relative;
     width: 100%;
@@ -299,17 +382,29 @@ const pageDescription = INSIGHTS_META_DESC_MAP[currentLang] || INSIGHTS_META_DES
     display: flex;
     flex-direction: column;
     box-shadow: var(--shadow-sm);
+    transform: translateZ(0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .guide-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
   }
   .guide-img-link {
     aspect-ratio: 4 / 3;
     background: #0f172a;
     border-bottom: 1px solid #f1f5f9;
     overflow: hidden;
+    display: block;
   }
   .guide-img-link img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .guide-card:hover .guide-img-link img {
+    transform: scale(1.03);
   }
   .guide-body {
     padding: 1.35rem;
@@ -320,12 +415,14 @@ const pageDescription = INSIGHTS_META_DESC_MAP[currentLang] || INSIGHTS_META_DES
   .guide-meta {
     display: flex;
     justify-content: space-between;
-    font-size: 0.75rem;
-    color: #64748b;
+    gap: 0.5rem;
+    font-size: 0.76rem;
+    color: #475569;
+    font-weight: 600;
     margin-bottom: 0.5rem;
   }
   .guide-cat {
-    color: #0284c7;
+    color: #0369a1;
     font-weight: 700;
   }
   .guide-body h2 {
@@ -337,16 +434,16 @@ const pageDescription = INSIGHTS_META_DESC_MAP[currentLang] || INSIGHTS_META_DES
     color: #0f172a;
   }
   .guide-body p {
-    font-size: 0.88rem;
-    color: #475569;
-    line-height: 1.6;
+    font-size: 0.92rem;
+    color: #334155;
+    line-height: 1.65;
     margin-bottom: 1rem;
     flex: 1;
   }
   .guide-cta {
     font-size: 0.85rem;
     font-weight: 800;
-    color: #0284c7;
+    color: #0369a1;
   }
   .guides-faq-box {
     border-radius: 1rem;

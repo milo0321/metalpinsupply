@@ -60,7 +60,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'executive-cufflinks-tie-bars'],
     focusSkus: ['MPS-001', 'MPS-002', 'MPS-003', 'MPS-004', 'MPS-010', 'MPS-016', 'MPS-019', 'MPS-105'],
     tags: ['Hard Enamel', 'Soft Enamel', 'Lapel Pins', 'Manufacturing'],
-    angle: 'Compares high-temperature kiln-cured stone-polished hard enamel against recessed 180°C baked soft enamel and epoxy dome protection.'
+    angle: 'MedalPinSupply produces flush stone-polished cloisonne hard enamel pins ($0.58–$1.45/pc EXW) and recessed 180°C baked soft enamel pins ($0.42–$1.15/pc EXW) at 50 pcs MOQ, with 2D steel dies ($55–$65) waived automatically at 500+ pcs.'
   },
   {
     slug: 'zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost',
@@ -71,7 +71,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'custom-medals', 'custom-challenge-coins'],
     focusSkus: ['MPS-008', 'MPS-005', 'MPS-025', 'MPS-035', 'MPS-045', 'MPS-061', 'MPS-068', 'MPS-114'],
     tags: ['Zinc Alloy', 'Die-Struck Brass', 'Die-Casting', 'Cost Analysis'],
-    angle: 'Breaks down why 3D medals and cut-out pins rely on molten Zamak #3 die-casting while crisp military brass coins require hydraulic coining presses.'
+    angle: 'Hot-chamber Zamak #3 zinc die-casting forms multi-level 3D relief and open windows for medals and pins ($95–$150 molds waived at 1,000+ pcs), while hydraulic coining stamps razor-sharp 2D brass and iron badges ($55–$75 dies waived at 500+ pcs).'
   },
   {
     slug: 'photo-etched-brass-vs-offset-printed-silk-screen-lapel-pins',
@@ -82,7 +82,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'metal-bookmarks-openers-souvenirs'],
     focusSkus: ['MPS-004', 'MPS-006', 'MPS-007', 'MPS-023', 'MPS-064', 'MPS-069', 'MPS-085', 'MPS-129'],
     tags: ['Photo-Etched Brass', 'Offset Printing', 'Silk-Screen', 'CMYK'],
-    angle: 'Explains how acid photo-etching handles filigree bookmarks and lightweight badges while CMYK offset epoxy printing solves photographic shading.'
+    angle: 'Acid photo-etched 0.8mm brass ($0.38–$1.05/pc) resolves intricate thin-line filigree without stamping burrs, whereas CMYK offset litho printing under clear epoxy domes reproduces photographic portraits and continuous gradients starting at 100 pcs MOQ.'
   },
   {
     slug: 'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd',
@@ -93,7 +93,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'custom-challenge-coins', 'executive-cufflinks-tie-bars'],
     focusSkus: ['MPS-016', 'MPS-017', 'MPS-048', 'MPS-049', 'MPS-058', 'MPS-070', 'MPS-080', 'MPS-105'],
     tags: ['Electroplating', 'Black Nickel', 'Antique Bronze', 'PVD Rainbow'],
-    angle: 'Analyzes barrel vs rack plating uniformity, matte black electrophoretic dye coats, iridescent PVD rainbow anodizing, and protective lacquer sealing.'
+    angle: 'MedalPinSupply electroplates custom pins, medals, and coins across 12 industrial bath finishes—spanning 18K gold, rhodium silver, mirror black nickel, brushed antique bronze, dyed black matte, and PVD rainbow—sealed with clear protective lacquer.'
   },
   {
     slug: 'epoxy-dome-coating-on-soft-enamel-pins-keychains-pros-and-cons',
@@ -104,7 +104,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'custom-metal-keychains', 'trolley-coin-keyrings'],
     focusSkus: ['MPS-003', 'MPS-006', 'MPS-021', 'MPS-022', 'MPS-064', 'MPS-069', 'MPS-085', 'MPS-108'],
     tags: ['Epoxy Dome', 'Soft Enamel', 'Keychains', 'Surface Coating'],
-    angle: 'Evaluates optical polyurethane vs epoxy resin domes over soft enamel and CMYK prints on lapel pins, flag pins, and cufflinks.'
+    angle: 'Optical polyurethane and clear epoxy dome coatings protect soft enamel colors and CMYK offset prints from key-ring scratching while adding a smooth 3D magnifying lens gloss from $0.32–$1.25/pc EXW.'
   },
   {
     slug: '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering',
@@ -115,7 +115,7 @@ const GUIDES = [
     cols: ['custom-medals', 'custom-challenge-coins', 'executive-cufflinks-tie-bars'],
     focusSkus: ['MPS-008', 'MPS-009', 'MPS-025', 'MPS-033', 'MPS-045', 'MPS-061', 'MPS-114', 'MPS-136'],
     tags: ['3D Sculpting', 'Mold Engineering', 'Medals', 'Belt Buckles'],
-    angle: 'Explains 3D CAD relief height tolerances (0.8mm–2.5mm relief) and why antique sandblasted recesses enhance sculpted faces on medals and buckles.'
+    angle: 'CNC 3D Z-axis sculpting carves continuous 0.8mm–2.5mm multi-plane contours for faces, skylines, and mascots, while stepped 2D multi-level molds sharpen tiered corporate crests and text at 15%–20% lower mold cost.'
   },
   {
     slug: 'cut-out-hollow-design-and-inner-cut-mold-fees-for-medals-and-coins',
@@ -126,7 +126,7 @@ const GUIDES = [
     cols: ['custom-medals', 'custom-challenge-coins', 'custom-enamel-pins'],
     focusSkus: ['MPS-015', 'MPS-028', 'MPS-031', 'MPS-050', 'MPS-051', 'MPS-061', 'MPS-098', 'MPS-129'],
     tags: ['Cut-Out Design', 'Hollow Medals', 'Trimming Die', 'Tooling'],
-    angle: 'Covers structural bridge widths (>= 2.5mm for 4mm medals), hydraulic blanking trim dies, and smooth deburring on cut-out sports medals and shield coins.'
+    angle: 'Custom cut-out medals, hollow challenge coins, and silhouette keychains require minimum 2.5mm load-bearing metal bridges on 4mm castings plus precision trimming dies to keep inner windows crisp and burr-free.'
   },
   {
     slug: 'specialty-enamel-effects-glitter-glow-in-the-dark-stained-glass-translucent',
@@ -138,7 +138,7 @@ const GUIDES = [
     focusSkus: ['MPS-010', 'MPS-011', 'MPS-015', 'MPS-155', 'MPS-158', 'MPS-031', 'MPS-032', 'MPS-057'],
     relatedGuides: ['museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer', 'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide', 'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd'],
     tags: ['Glitter Enamel', 'Glow-in-the-Dark', 'Stained Glass', 'Specialty Pins'],
-    angle: 'Details particle dispersion in transparent glitter resin, luminance half-life in night-run medals, and diamond-cut texture beneath translucent inks.'
+    angle: 'Specialty collector pins, night-run medals, and tourist fridge magnets combine translucent stained-glass resin windows, metallic micro-glitter, and strontium aluminate night-glow pigments from 50–100 pcs MOQ.'
   },
   {
     slug: 'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms',
@@ -150,7 +150,7 @@ const GUIDES = [
     focusSkus: ['MPS-012', 'MPS-013', 'MPS-014', 'MPS-154', 'MPS-027', 'MPS-040', 'MPS-053', 'MPS-065'],
     relatedGuides: ['museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer', '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering', 'custom-3d-zinc-alloy-vs-soft-enamel-and-spinning-metal-keychains'],
     tags: ['Spinner Medals', 'Slider Pins', 'Kinetic Fridge Magnets', 'Kinetic Hardware'],
-    angle: 'Compares riveted center hubs, curved track clearances (0.25mm tolerance), and magnetic interlocks in interactive pins, fridge magnets, and marathon medals.'
+    angle: 'Kinetic spinner bearings, 0.25mm-clearance sliding tracks, and hinged clasp joints transform custom lapel pins, fridge magnets, and marathon medals into interactive merchandise starting at 100 pcs MOQ.'
   },
   {
     slug: 'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale',
@@ -161,7 +161,7 @@ const GUIDES = [
     cols: ['trolley-coin-keyrings', 'custom-metal-keychains', 'custom-enamel-pins'],
     focusSkus: ['MPS-006', 'MPS-021', 'MPS-066', 'MPS-074', 'MPS-081', 'MPS-097', 'MPS-119', 'MPS-133'],
     tags: ['Mold Fees', 'Bulk Waivers', 'Factory Tooling', 'Procurement'],
-    angle: 'Documents transparent 2D/3D custom tooling fees ($45–$150), automatic 500-pc and 1,000-pc bulk fee waivers, shared-die finish splits, and free 3-year reorder storage.'
+    angle: 'Standard 2D stamping dies ($45–$85) waive 100% automatically at 500+ pcs per artwork, and 3D zinc die-cast molds ($95–$150) waive 100% at 1,000+ pcs, with free 3-year reorder vault storage.'
   },
 
   // Pillar 2: Medals & Sports Events (7)
@@ -174,7 +174,7 @@ const GUIDES = [
     cols: ['custom-medals', 'patches-pvc-packaging'],
     focusSkus: ['MPS-025', 'MPS-026', 'MPS-028', 'MPS-033', 'MPS-034', 'MPS-037', 'MPS-042', 'MPS-044'],
     tags: ['Marathon Medals', '5K Medals', 'Race Directors', 'Sports Events'],
-    angle: 'Maps race distance tiering (2.5" 5K vs 3.5"–4.5" marathon/triathlon), weight budgets, shared Gold/Silver/Bronze molds, and backwards expo delivery timelines.'
+    angle: 'Race directors engineer tiered events using 2.5-inch 5K medals (54g) through 4.5-inch triathlon finishers (178g), sharing unified Gold, Silver, and Bronze 3D molds to cross the 1,000-pc mold fee waiver threshold.'
   },
   {
     slug: 'spinner-bottle-opener-and-magnetic-interlocking-race-medal-trends',
@@ -185,7 +185,7 @@ const GUIDES = [
     cols: ['custom-medals', 'metal-bookmarks-openers-souvenirs'],
     focusSkus: ['MPS-027', 'MPS-029', 'MPS-030', 'MPS-031', 'MPS-032', 'MPS-040', 'MPS-041', 'MPS-043'],
     tags: ['Spinner Medals', 'Interlocking Medals', 'Bottle Opener Medals', 'Trends'],
-    angle: 'Demonstrates how multi-race magnetic puzzle series and functional beer-mile bottle opener medals drive participant retention.'
+    angle: 'Multi-race 2-to-4-piece magnetic interlocking finisher series, 360° spinning center medallions, and integrated brewery bottle-opener medals lift multi-event runner retention across marathon series.'
   },
   {
     slug: 'dye-sublimated-vs-woven-neck-ribbons-for-custom-sports-medals',
@@ -196,7 +196,7 @@ const GUIDES = [
     cols: ['custom-medals', 'patches-pvc-packaging'],
     focusSkus: ['MPS-044', 'MPS-025', 'MPS-026', 'MPS-035', 'MPS-038', 'MPS-036', 'MPS-037', 'MPS-150'],
     tags: ['Medal Ribbons', 'Dye Sublimation', 'Woven Lanyards', 'Hardware'],
-    angle: 'Details ribbon widths (25mm vs 38mm), double-sided sponsor logo alignment, wide cast medal slots vs brass jump rings, and sewn V-angle drape geometry.'
+    angle: 'Full-color 25mm and 38mm dye-sublimated satin neck ribbons reproduce unlimited sponsor graphics with zero color charges, while jacquard woven lanyards add heavyweight stitched drape and V-bar hardware.'
   },
   {
     slug: 'youth-sports-tournament-medals-and-baseball-trading-pins-bulk-guide',
@@ -207,7 +207,7 @@ const GUIDES = [
     cols: ['custom-medals', 'custom-enamel-pins'],
     focusSkus: ['MPS-037', 'MPS-034', 'MPS-020', 'MPS-010', 'MPS-012', 'MPS-014', 'MPS-036', 'MPS-103'],
     tags: ['Baseball Trading Pins', 'Youth Medals', 'Tournaments', 'Sports Leagues'],
-    angle: 'Pairs budget-optimized 2.2" tournament medallions with high-trade-value oversized glitter and dangle baseball pins for Little League & Cooperstown.'
+    angle: 'Youth leagues stretch seasonal budgets by combining $0.82–$1.85 tournament medallions with oversized 1.75–2.0-inch glitter, slider, and spinner baseball trading pins delivered in 8–12 business days.'
   },
   {
     slug: 'academic-graduation-medallions-and-military-drape-ribbon-medals-guide',
@@ -218,7 +218,7 @@ const GUIDES = [
     cols: ['custom-medals', 'police-badges-insignia', 'patches-pvc-packaging'],
     focusSkus: ['MPS-035', 'MPS-038', 'MPS-041', 'MPS-044', 'MPS-045', 'MPS-147', 'MPS-150', 'MPS-019'],
     tags: ['Academic Medallions', 'Graduation Medals', 'Military Medals', 'Brass'],
-    angle: 'Covers hydraulic brass coining sharpness for Latin university seals, pin-bar grosgrain ribbon draping, and velvet/mahogany award boxes.'
+    angle: 'Heirloom solid C26000 brass academic medallions and military commendation medals stamp with sharp 0.15mm seals, pairing with striped grosgrain pin-bar drape ribbons and hinged velvet award cases.'
   },
   {
     slug: 'custom-championship-rings-vs-trophy-medals-for-sports-tournaments',
@@ -229,7 +229,7 @@ const GUIDES = [
     cols: ['police-badges-insignia', 'custom-medals'],
     focusSkus: ['MPS-103', 'MPS-033', 'MPS-036', 'MPS-037', 'MPS-041', 'MPS-147', 'MPS-150', 'MPS-020'],
     tags: ['Championship Rings', 'Tournament Awards', 'Trophy Medals', 'Sports'],
-    angle: 'Breaks down US size 7–13 zinc alloy ring molds, bezel stone-setting, dual-panel side crests, and velvet box presentation vs heavyweight 4" finisher medals.'
+    angle: 'Custom 3D tournament championship rings (US sizes 7–13, bezel cubic zirconia stones, 50 pcs MOQ) command trophy prestige from $2.85–$6.40/pc compared with oversized 4-inch heavyweight finisher medals.'
   },
   {
     slug: 'virtual-race-finisher-medals-lightweight-mailer-packaging-and-fulfillment',
@@ -240,7 +240,7 @@ const GUIDES = [
     cols: ['custom-medals', 'patches-pvc-packaging', 'custom-enamel-pins'],
     focusSkus: ['MPS-042', 'MPS-026', 'MPS-028', 'MPS-044', 'MPS-149', 'MPS-002', 'MPS-030', 'MPS-141'],
     tags: ['Virtual Races', 'Mail-Ready Medals', 'Fulfillment', 'Logistics'],
-    angle: 'Details 2.8mm thickness engineering (72g vs 130g standard) to stay under postal thickness and weight cutoffs while preserving full 3.0" visual diameter.'
+    angle: 'Weight-optimized 2.8mm Zamak #3 virtual race medals (72g vs 130g standard) slash parcel postage costs by up to 35% while keeping full 3.0-inch diameter, flat-folded ribbons, and barcode-labeled bags.'
   },
 
   // Pillar 3: Coins & Military Insignia (7)
@@ -253,7 +253,7 @@ const GUIDES = [
     cols: ['custom-challenge-coins', 'police-badges-insignia'],
     focusSkus: ['MPS-045', 'MPS-046', 'MPS-047', 'MPS-052', 'MPS-051', 'MPS-054', 'MPS-091', 'MPS-148'],
     tags: ['Challenge Coins', 'Diamond-Cut Edge', 'Military Coins', 'Brass'],
-    angle: 'Compares oblique, rope, spur, wave, crosscut, and reeded edge treatments alongside 1.75" vs 2.0" coin geometry and protective PVC vs acrylic capsules.'
+    angle: 'Military and law enforcement challenge coins stamp from solid C26000 brass in 1.75-inch and 2.0-inch diameters at 3.5mm thickness with six CNC diamond-cut edges: oblique, rope, spur, wave, crosscut, and reeded.'
   },
   {
     slug: 'dual-plated-two-tone-gold-silver-challenge-coins-masking-process',
@@ -264,7 +264,7 @@ const GUIDES = [
     cols: ['custom-challenge-coins', 'custom-medals', 'police-badges-insignia'],
     focusSkus: ['MPS-048', 'MPS-041', 'MPS-055', 'MPS-058', 'MPS-091', 'MPS-092', 'MPS-096', 'MPS-114'],
     tags: ['Dual Plating', 'Two-Tone', 'Challenge Coins', 'Electroplating'],
-    angle: 'Walks step-by-step through primary bath plating, protective resist lacquering, secondary bath contrast plating, and polishing tolerances on coins and shields.'
+    angle: 'Selective electroplating hand-masking combines 24K mirror gold and antique silver or black nickel on one challenge coin or shield badge through primary plating, liquid resist masking, and secondary bath contrast.'
   },
   {
     slug: 'sequential-laser-numbering-and-acrylic-capsule-packaging-for-coins',
@@ -275,7 +275,7 @@ const GUIDES = [
     cols: ['custom-challenge-coins', 'patches-pvc-packaging'],
     focusSkus: ['MPS-054', 'MPS-058', 'MPS-055', 'MPS-048', 'MPS-148', 'MPS-147', 'MPS-150', 'MPS-059'],
     tags: ['Laser Numbering', 'Coin Capsules', 'Velvet Boxes', 'Limited Edition'],
-    angle: 'Explains rotary Galvo laser indexing along 3.5mm coin edges, inner EVA sizing rings inside 40–50mm acrylic capsules, and foil-stamped velvet cases.'
+    angle: 'Rotary Galvo fiber lasers engrave sequential edition numbers (001/500) directly onto 3.5mm coin edges, paired with EVA-fitted 40–50mm acrylic capsules and custom foil-stamped velvet presentation boxes.'
   },
   {
     slug: 'custom-3d-curved-police-security-and-fire-department-badges-guide',
@@ -286,7 +286,7 @@ const GUIDES = [
     cols: ['police-badges-insignia', 'custom-enamel-pins'],
     focusSkus: ['MPS-091', 'MPS-092', 'MPS-093', 'MPS-094', 'MPS-095', 'MPS-096', 'MPS-024', 'MPS-116'],
     tags: ['Police Badges', 'Sheriff Stars', 'Firefighter Badges', 'Security Uniforms'],
-    angle: 'Details hydraulic dome curvature forming, hard enamel polishing over curved bezels, soldered heavy safety catches, recessed cowhide belt clips, and authorization compliance.'
+    angle: 'Curved brass and zinc police shields, 5-to-7-point sheriff stars, and Maltese crosses undergo hydraulic dome forming, flush cloisonne polishing, silver-soldered safety catches, and cowhide belt clip fitting.'
   },
   {
     slug: 'military-stainless-steel-dog-tags-vs-3d-zinc-alloy-pendant-tags',
@@ -297,7 +297,7 @@ const GUIDES = [
     cols: ['police-badges-insignia', 'custom-metal-keychains'],
     focusSkus: ['MPS-097', 'MPS-098', 'MPS-099', 'MPS-104', 'MPS-074', 'MPS-061', 'MPS-080', 'MPS-133'],
     tags: ['Dog Tags', '304 Stainless Steel', 'Military Tags', 'Pendants'],
-    angle: 'Contrasts standard 5-line mechanical embossing on US spec 304 stainless blanks with deep cut-out 3D zinc alloy club and fashion pendant tags.'
+    angle: 'US-spec 0.4mm rolled-edge 304 stainless steel dog tags stamp five embossed lines with silicone silencers ($0.24+/pc), whereas 3D Zamak #3 pendant tags cast deep cut-out streetwear and club jewelry.'
   },
   {
     slug: 'magnetic-vs-pin-back-metal-employee-name-plates-for-hotels-airlines',
@@ -308,7 +308,7 @@ const GUIDES = [
     cols: ['police-badges-insignia', 'custom-enamel-pins'],
     focusSkus: ['MPS-100', 'MPS-101', 'MPS-102', 'MPS-018', 'MPS-007', 'MPS-019', 'MPS-024', 'MPS-141'],
     tags: ['Name Plates', 'Magnetic Name Badges', 'Hospitality', 'Uniforms'],
-    angle: 'Evaluates 3-magnet neodymium pull strength through wool suit lapels, sliding paper-insert reusable frames, and engraved solid brass bars.'
+    angle: 'Three-magnet neodymium backing bars hold heavy hotel and airline uniform name plates securely without fabric pinholes, alongside beveled solid brass plates and reusable paper-insert window frames.'
   },
   {
     slug: 'corporate-years-of-service-award-pins-and-anniversary-commemorative-coins',
@@ -319,7 +319,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'custom-challenge-coins', 'executive-cufflinks-tie-bars'],
     focusSkus: ['MPS-019', 'MPS-055', 'MPS-058', 'MPS-105', 'MPS-109', 'MPS-112', 'MPS-147', 'MPS-150'],
     tags: ['Service Award Pins', 'Corporate Recognition', 'Anniversary Coins', 'HR Gifts'],
-    angle: 'Shows HR directors how to use a single master stamp die with color-swapped gemstones (sapphire, ruby, diamond CZ) and electroplating upgrades across 5-to-25 year tenure levels.'
+    angle: 'Corporate HR teams run cost-efficient 5, 10, 15, and 25-year tenure award programs by sharing one master die across progressive silver/18K gold electroplatings and swappable cubic zirconia accents.'
   },
 
   // Pillar 4: Keychains & Trolley Coins (6)
@@ -332,7 +332,7 @@ const GUIDES = [
     cols: ['trolley-coin-keyrings', 'custom-metal-keychains'],
     focusSkus: ['MPS-081', 'MPS-082', 'MPS-083', 'MPS-084', 'MPS-085', 'MPS-086', 'MPS-087', 'MPS-088'],
     tags: ['Trolley Coins', '1 Euro Token', 'UK 12-Sided Pound', 'European Promo'],
-    angle: 'Documents exact millimeter tolerances required so promotional trolley coins lock and release smoothly across Aldi, Lidl, Tesco, Sainsbury, and international grocery fleets.'
+    angle: 'MedalPinSupply stamps supermarket trolley tokens within ±0.08mm lock tolerances—23.25×2.33mm €1 Euro, 23.43×2.8mm 12-sided UK £1, 26.5mm CAD Loonie, and 25.0mm AUD—starting at $0.30/pc EXW.'
   },
   {
     slug: 'magnetic-detachable-vs-lobster-clasp-and-pull-out-trolley-coin-holders',
@@ -343,7 +343,7 @@ const GUIDES = [
     cols: ['trolley-coin-keyrings', 'custom-metal-keychains'],
     focusSkus: ['MPS-084', 'MPS-081', 'MPS-087', 'MPS-089', 'MPS-090', 'MPS-085', 'MPS-086', 'MPS-149'],
     tags: ['Magnetic Coin Holder', 'Trolley Unlocker Key', 'Keyrings', 'Promo'],
-    angle: 'Evaluates user ergonomics, unit cost ($0.30 to $0.72 at 2k pcs), and imprint surface visibility across snap-out magnetic housings and push-pull key tools.'
+    angle: 'European grocery chains choose among magnetic snap-out coin holders (no coin hole needed), nickel lobster clasps ($0.30–$0.72/pc), non-detaching front-pull key unlockers, and stitched PU loops.'
   },
   {
     slug: 'custom-3d-zinc-alloy-vs-soft-enamel-and-spinning-metal-keychains',
@@ -354,7 +354,7 @@ const GUIDES = [
     cols: ['custom-metal-keychains', 'metal-bookmarks-openers-souvenirs'],
     focusSkus: ['MPS-061', 'MPS-062', 'MPS-063', 'MPS-065', 'MPS-067', 'MPS-068', 'MPS-072', 'MPS-079'],
     tags: ['Metal Keychains', 'Spinner Keychain', '3D Zinc Alloy', 'Enamel'],
-    angle: 'Maps factory keychain capabilities across 11 sub-processes, covering dual-sided spinners, stainless nail-clipper hybrids, and scratch-resistant finishes.'
+    angle: 'Our Zhongshan keychain foundry manufactures 11 custom metal formats—spanning 3D sculpted zinc alloy, dual-sided cloisonne enamel, 360° rotating spinners, nail-clipper hybrids, and pocket bottle openers.'
   },
   {
     slug: 'genuine-leather-metal-emblem-keychains-for-auto-dealerships-real-estate',
@@ -365,7 +365,7 @@ const GUIDES = [
     cols: ['custom-metal-keychains', 'executive-cufflinks-tie-bars'],
     focusSkus: ['MPS-066', 'MPS-073', 'MPS-080', 'MPS-065', 'MPS-090', 'MPS-113', 'MPS-147', 'MPS-074'],
     tags: ['Leather Keychains', 'Auto Dealerships', 'Real Estate Gifts', 'Chrome'],
-    angle: 'Contrasts split top-grain cowhide vs stitched microfiber PU fobs, recessed metal emblem bonding against pocket scratch noise near car ignitions, and velvet gift box upgrades.'
+    angle: 'Stitched top-grain cowhide and microfiber PU key fobs bond recessed chrome or black-nickel emblems securely to eliminate cabin rattle noise for automotive dealers, EV brands, and closing gifts.'
   },
   {
     slug: 'boutique-hotel-vintage-stamped-brass-room-key-tags-and-fobs-guide',
@@ -376,7 +376,7 @@ const GUIDES = [
     cols: ['custom-metal-keychains', 'metal-bookmarks-openers-souvenirs'],
     focusSkus: ['MPS-078', 'MPS-068', 'MPS-070', 'MPS-077', 'MPS-074', 'MPS-080', 'MPS-100', 'MPS-133'],
     tags: ['Hotel Key Tags', 'Solid Brass', 'Antique Patina', 'Hospitality'],
-    angle: 'Guides boutique hotels, luxury resorts, and short-term rental brands through 2.0mm solid brass diamond tags, variable room-number engraving, and custom rim-stamped rings.'
+    angle: 'Boutique hotels specify 2.0mm solid C26000 brass diamond and oval room fobs with hand-relieved antique bronze patina, deep laser-numbered suites, and heavy matching solid brass split rings.'
   },
   {
     slug: 'anodized-aluminum-carabiner-climb-loops-vs-laser-stainless-keyrings',
@@ -387,7 +387,7 @@ const GUIDES = [
     cols: ['custom-metal-keychains', 'patches-pvc-packaging'],
     focusSkus: ['MPS-075', 'MPS-076', 'MPS-074', 'MPS-077', 'MPS-071', 'MPS-087', 'MPS-133', 'MPS-144'],
     tags: ['Carabiners', 'Stainless Keychains', 'Trade Show Promo', 'Bulk Waiver'],
-    angle: 'Highlights fast-turnaround laser and anodized hardware (anodized carabiners, stainless steel tags, laser-cut acrylic) with 500+ fixture waivers and 5–8 day turnarounds for urgent conferences.'
+    angle: 'Urgent conferences source anodized aluminum carabiner loops and brushed 304 stainless steel laser keyrings from $0.29–$0.85/pc with automatic fixture fee waivers at 500+ pcs and 5–8 day turnarounds.'
   },
 
   // Pillar 5: Executive, Golf & Souvenirs (5)
@@ -400,7 +400,7 @@ const GUIDES = [
     cols: ['executive-cufflinks-tie-bars', 'patches-pvc-packaging'],
     focusSkus: ['MPS-105', 'MPS-106', 'MPS-107', 'MPS-108', 'MPS-109', 'MPS-110', 'MPS-111', 'MPS-113'],
     tags: ['Cufflinks', 'Tie Bars', 'Money Clips', 'Executive Gifts'],
-    angle: 'Examines swivel bullet-back hardware reliability, stock vs custom-molded toggle costs, 55mm alligator vs tension slide bars, and matched 2-piece velvet gift boxes.'
+    angle: 'Corporate and university menswear sets pair cloisonne hard enamel cufflinks on swivel bullet-back toggles with 55mm alligator or slide tie bars, engraved money clips, and two-piece velvet gift boxes.'
   },
   {
     slug: 'custom-3d-western-rodeo-and-motorcycle-club-heavy-zinc-belt-buckles',
@@ -411,7 +411,7 @@ const GUIDES = [
     cols: ['executive-cufflinks-tie-bars', 'police-badges-insignia'],
     focusSkus: ['MPS-114', 'MPS-115', 'MPS-116', 'MPS-117', 'MPS-118', 'MPS-049', 'MPS-094', 'MPS-150'],
     tags: ['Belt Buckles', 'Western Rodeo', 'Motorcycle Clubs', '3D Zinc Alloy'],
-    angle: 'Covers 1.5" vs 1.75" rear bail clearances, structural rib reinforcement on heavy 165g buckles, cubic zirconia trophy borders, and functional bottle-opener lips.'
+    angle: 'Heavyweight 4×3-inch 165g Zamak #3 western rodeo and biker club belt buckles feature reinforced rear structural ribs, 1.5–1.75-inch leather strap loops, cubic zirconia stones, and opener lips.'
   },
   {
     slug: 'custom-golf-divot-repair-tools-and-magnetic-hat-clip-ball-markers-guide',
@@ -422,7 +422,7 @@ const GUIDES = [
     cols: ['custom-golf-accessories', 'patches-pvc-packaging'],
     focusSkus: ['MPS-119', 'MPS-120', 'MPS-121', 'MPS-122', 'MPS-123', 'MPS-124', 'MPS-125', 'MPS-126'],
     tags: ['Golf Divot Tools', 'Ball Markers', 'Golf Tournaments', 'Pro Shops'],
-    angle: 'Explains why stamped iron markers must be used over brass for magnetic attraction on divot forks and visor clips, plus windowed gift tins.'
+    angle: 'Golf pro shops and charity outings use ferromagnetic stamped iron ball markers (instead of non-magnetic brass) so markers lock cleanly onto neodymium 2-prong divot forks, switchblades, and cap visor clips.'
   },
   {
     slug: 'photo-etched-hollow-brass-bookmarks-for-museums-universities-publishers',
@@ -433,7 +433,7 @@ const GUIDES = [
     cols: ['metal-bookmarks-openers-souvenirs', 'custom-enamel-pins'],
     focusSkus: ['MPS-129', 'MPS-130', 'MPS-131', 'MPS-004', 'MPS-139', 'MPS-149', 'MPS-137', 'MPS-015'],
     tags: ['Metal Bookmarks', 'Photo-Etched Brass', 'Museum Merch', 'Publishing'],
-    angle: 'Details minimum filigree cut-out web thickness (>= 0.35mm on 0.4mm brass), burr-free chemical etching, silk tassel loops, and museum-giftshop backing card assembly.'
+    angle: 'Acid photo-etched 0.4mm solid C26000 brass museum bookmarks preserve ultra-fine hollow filigree bridges (>= 0.35mm width) free of stamping burrs, paired with Pantone silk tassels on 350gsm retail cards.'
   },
   {
     slug: 'craft-brewery-heavy-zinc-bottle-openers-and-3d-souvenir-fridge-magnets',
@@ -445,7 +445,7 @@ const GUIDES = [
     focusSkus: ['MPS-132', 'MPS-133', 'MPS-134', 'MPS-135', 'MPS-136', 'MPS-154', 'MPS-156', 'MPS-072'],
     relatedGuides: ['custom-metal-fridge-magnets-3d-zinc-vs-hard-soft-enamel-epoxy-guide', 'fridge-magnet-pull-force-neodymium-vs-ferrite-rubber-backing-and-retail-cards', 'museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer'],
     tags: ['Bottle Openers', 'Fridge Magnets', 'Craft Breweries', 'Souvenirs'],
-    angle: 'Covers bending yield limits around pry tabs on zinc vs 2.0mm 304 stainless speed openers (cast zinc vs 304 stainless steel) and N45 vs ferrite pull forces on fridge magnets.'
+    angle: 'Craft breweries and taprooms pair bend-resistant 4.2mm Zamak #3 pry openers and 2.0mm 304 stainless speed paddles with high-pull N45 neodymium 3D souvenir fridge magnets from $0.45/pc.'
   },
 
   // Pillar 6: Sourcing, Packaging & Compliance (5)
@@ -458,7 +458,7 @@ const GUIDES = [
     cols: ['patches-pvc-packaging', 'police-badges-insignia'],
     focusSkus: ['MPS-141', 'MPS-142', 'MPS-143', 'MPS-144', 'MPS-145', 'MPS-146', 'MPS-094', 'MPS-138'],
     tags: ['Embroidered Patches', 'Woven Patches', 'Soft PVC', 'Morale Patches'],
-    angle: 'Compares 3mm thread resolution limits in embroidery vs tiny lettering clarity in woven patches, metallic bullion crests, and rugged 3D PVC.'
+    angle: 'Uniform and outdoor brands select 50%–100% merrowed embroidery for textured twill crests, high-density woven threads for crisp sub-2mm typography, and waterproof 3D soft PVC morale patches with Velcro backs.'
   },
   {
     slug: 'lapel-pin-backs-and-attachments-butterfly-clutch-rubber-magnet-locking',
@@ -469,7 +469,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'police-badges-insignia'],
     focusSkus: ['MPS-001', 'MPS-002', 'MPS-018', 'MPS-024', 'MPS-091', 'MPS-096', 'MPS-100', 'MPS-112'],
     tags: ['Pin Backs', 'Butterfly Clutch', 'Locking Clutch', 'Magnetic Pins'],
-    angle: 'Evaluates retention pull-force across standard butterfly clutches, soft colored PVC clutches, tool-free spring locking backs (for heavy 3D/motorcycle pins), and no-hole magnets.'
+    angle: 'Pin back hardware determines garments retention and fabric safety—comparing standard brass butterfly clutches, color-matched PVC caps, tool-free locking mechanisms, and triple-magnet suit bars.'
   },
   {
     slug: 'custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging',
@@ -481,7 +481,7 @@ const GUIDES = [
     focusSkus: ['MPS-147', 'MPS-148', 'MPS-149', 'MPS-150', 'MPS-151', 'MPS-109', 'MPS-125', 'MPS-055'],
     relatedGuides: ['fridge-magnet-pull-force-neodymium-vs-ferrite-rubber-backing-and-retail-cards', 'custom-metal-fridge-magnets-3d-zinc-vs-hard-soft-enamel-epoxy-guide', 'sequential-laser-numbering-and-acrylic-capsule-packaging-for-coins'],
     tags: ['Backing Cards', 'Velvet Boxes', 'Coin Capsules', 'Retail Packaging'],
-    angle: 'Demonstrates factory pre-mounting workflows onto euro-slot 350gsm backing cards, magnet blister cards, capsule sizing inserts, and mahogany award box economics.'
+    angle: 'Foundry-direct pre-mounting onto 350–400gsm Euro-slot backing cards, custom magnet blister headers, 38–50mm acrylic coin capsules, and velvet clamshell gift boxes raises retail shelf margins by 35%+.'
   },
   {
     slug: 'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance',
@@ -492,7 +492,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'custom-challenge-coins', 'patches-pvc-packaging'],
     focusSkus: ['MPS-001', 'MPS-009', 'MPS-037', 'MPS-045', 'MPS-104', 'MPS-144', 'MPS-145', 'MPS-146'],
     tags: ['CPSIA', 'California Prop 65', 'REACH', 'Nickel-Free'],
-    angle: 'Covers lead-free pewter, phthalate-free PVC, substrate XRF verification (<90 ppm Pb), and nickel-free plating baths for skin-contact pins & jewelry.'
+    angle: 'Every MedalPinSupply batch certifies virgin Zamak #3 zinc, solid brass, non-phthalate Pantone enamels, and soft PVC to US CPSIA (<90 ppm lead), California Prop 65, EU REACH SVHC, and EN 1811 nickel limits.'
   },
   {
     slug: 'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping',
@@ -503,7 +503,7 @@ const GUIDES = [
     cols: ['custom-medals', 'custom-enamel-pins', 'custom-challenge-coins'],
     focusSkus: ['MPS-025', 'MPS-001', 'MPS-045', 'MPS-061', 'MPS-081', 'MPS-091', 'MPS-119', 'MPS-141'],
     tags: ['China Direct', 'Zhongshan Factory', 'DDP Shipping', 'Lead Times'],
-    angle: 'Maps day-by-day factory production milestones from vector proof to electroplating QC, carton drop protection for heavy 15kg medal cartons, and transparent DDP customs clearance.'
+    angle: 'Direct ordering from our Zhongshan Xiaolan foundry locks 12-hour free vector proofs, 2–3 day CNC die cutting, 7–15 business day batch finishing, and 4–7 day door-to-door DDP express air shipping.'
   },
 
   // Pillar 7 / Hub Expansion: Custom Metal Fridge Magnets (3 New Guides #41–#43)
@@ -517,7 +517,7 @@ const GUIDES = [
     focusSkus: ['MPS-136', 'MPS-151', 'MPS-152', 'MPS-153', 'MPS-157', 'MPS-158', 'MPS-001', 'MPS-002'],
     relatedGuides: ['museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer', 'fridge-magnet-pull-force-neodymium-vs-ferrite-rubber-backing-and-retail-cards', 'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide'],
     tags: ['Metal Fridge Magnets', 'Hard Enamel Magnets', '3D Zinc Magnets', 'CMYK Epoxy'],
-    angle: 'MetalPinSupply manufactures custom 3D Zamak #3 zinc, flush cloisonne hard enamel, recessed soft enamel, and CMYK epoxy fridge magnets from $0.48–$1.95/pc EXW, with 2D dies waived at 500+ pcs and 3D sculpted molds waived at 1,000+ pcs.'
+    angle: 'MedalPinSupply manufactures custom 3D Zamak #3 zinc, flush cloisonne hard enamel, recessed soft enamel, and CMYK epoxy fridge magnets from $0.48–$1.95/pc EXW, with 2D dies waived at 500+ pcs and 3D sculpted molds waived at 1,000+ pcs.'
   },
   {
     slug: 'museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer',
@@ -556,10 +556,134 @@ function getSkuObj(skuCode) {
   return allProds.find((p) => p.sku === skuCode) || allProds[0];
 }
 
+function getPillarCopy(g, row1, row2, row3) {
+  const isMagnet = Array.isArray(g.cols) && g.cols[0] === 'custom-metal-fridge-magnets';
+  const cat = g.category;
+
+  if (isMagnet) {
+    return {
+      leadLine: `Fridge magnet unit cost depends on 3D relief depth, mold waiver thresholds, and rear magnet pull hold on brushed stainless doors.`,
+      pillarBullets: `<li><strong>Die-Struck Brass &amp; Hard Enamel:</strong> Crisp 0.15mm borders and stone-polished cloisonne pair cleanly with recessed N45 magnets in ${pLinkFn(row2[2])} and ${pLinkFn(row2[3])}.</li>
+  <li><strong>Zamak #3 3D &amp; Kinetic Die-Casting:</strong> Mold multi-level city landmarks, rotating spinners, and stained-glass cut-outs with ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Offset CMYK + Optical Epoxy:</strong> Seal gradients and photography beneath UV-stabilized domes across ${pLinkFn(row3[0])} and ${pLinkFn(row3[1])}.</li>
+  <li><strong>Rear Magnet &amp; Scratch Shielding:</strong> Embed 10×2mm N45 rare-earth disks or 1.5mm full-back rubber sheets with PET pads on ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>`,
+      workflowNote: `Engineers mill 1.6mm–2.0mm pockets flush into the casting back so bonded magnets grip tightly without tipping heavy castings.`,
+      failPara1: `Oversized metal fridge magnets often slide down low-ferritic brushed stainless appliances when thin glued magnets lose shear grip. Exposed sharp metal burrs also scratch luxury door coatings.`,
+      failPara2: `Our Zhongshan line tests vertical slip load on brushed steel and verifies epoxy seat cure strength before packing. Every alloy lot passes XRF screening for US CPSIA and EU EN71-3 safety.`,
+      failBullets: `<li><strong>Vertical Shear Hold Audit:</strong> Pull testing confirms 18N–35N magnetic grip on stainless steel across ${pLinkFn(row1[4])} and ${pLinkFn(row1[5])}.</li>
+  <li><strong>Anti-Scratch Cushion Barriers:</strong> Flush-recessed magnet seats and optional EVA/PET backing pads protect appliances on ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Delta-E Enamel Precision:</strong> Syringe dispensing meters Pantone fills evenly across ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])} before 180°C kiln baking.</li>
+  <li><strong>IATA Air Shielded Cartons:</strong> Galvanized iron separator sheets keep magnetic flux below 0.00525 Gauss at 2.1m for express DDP air clearance.</li>`
+    };
+  }
+
+  if (cat === 'Medals & Sports Events') {
+    return {
+      leadLine: `Race-day unit margins hinge on shared multi-tier molds, thickness-to-weight tuning, and sewn ribbon slot tensile durability.`,
+      pillarBullets: `<li><strong>2.5" to 4.5" 3D Zinc Medallions:</strong> High-pressure Zamak #3 casting shapes deep relief tracks for finisher medals such as ${pLinkFn(row2[2])} and ${pLinkFn(row2[3])}.</li>
+  <li><strong>Shared Gold / Silver / Bronze Tooling:</strong> Cast multiple placement finishes from one steel cavity across ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])} to cut setup overhead.</li>
+  <li><strong>Dye-Sublimated &amp; Woven Ribbons:</strong> Sew 25mm or 38mm satin neck lanyards with crisp V-angle bars on ${pLinkFn(row3[0])} and ${pLinkFn(row3[1])}.</li>
+  <li><strong>Spinner Hubs &amp; Interlocking Series:</strong> Add 360° center pivots or recessed neodymium edge locks to boost participant sign-ups via ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>`,
+      workflowNote: `Sharing one base 3D mold across 5K, 10K, and Half-Marathon finishes with ribbon swaps frequently lowers unit tooling cost below zero above 1,000 total pieces.`,
+      failPara1: `Heavy 140g+ race medallions face delivery delays or clasp failure when cast top slots lack 2.5mm structural bridges or arrive close to event expos without V-stitch inspection.`,
+      failPara2: `We load-test every jump ring and ribbon V-seam above 45N prior to bagging, scheduling express air split shipments when race deadlines tighten.`,
+      failBullets: `<li><strong>Ribbon Slot &amp; Jump Ring Load:</strong> Tensile testing confirms 45N+ neck-strap strength across ${pLinkFn(row1[4])} and ${pLinkFn(row1[5])}.</li>
+  <li><strong>Balanced Medal Weight Tuning:</strong> Thickness tapering keeps postage-sensitive formats light on ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Sponsor Ribbon Color Lock:</strong> Sublimation heat-transfer matches Pantone brand hues across ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>
+  <li><strong>Rain-Ready Individual Sleeves:</strong> Sealed polybags keep antique plating dry in outdoor finisher chutes across 5-ply export cartons.</li>`
+    };
+  }
+
+  if (cat === 'Coins & Military Insignia') {
+    return {
+      leadLine: `Official-grade command coins and duty badges demand crisp hydraulic coining edges, dome curvature forming, and zero-pinhole attachment hardware.`,
+      pillarBullets: `<li><strong>Heavy-Gauge Solid Brass Coining:</strong> 3.5mm C26000 mint blanks strike sharp unit insignia across ${pLinkFn(row2[2])} and ${pLinkFn(row2[3])}.</li>
+  <li><strong>Six CNC Diamond-Cut Rims:</strong> Mill oblique, rope, spur, wave, crosscut, or reeded edges onto ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Two-Tone Selective Masking:</strong> Combine 24K mirror gold and antique silver through hand-applied liquid resist on ${pLinkFn(row3[0])} and ${pLinkFn(row3[1])}.</li>
+  <li><strong>Rotary Edge Numbering &amp; Fasteners:</strong> Index 001/500 edition serials or solder heavy safety catches and leather holsters on ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>`,
+      workflowNote: `Multi-strike hydraulic presses exert up to 800 tons on 2-inch solid brass blanks so microscopic motto typography stays sharp around reeded rims.`,
+      failPara1: `Cheap cast coins fail inspections when shallow surface plating peels along diamond-cut borders or thin curved police badges warp under ball-and-catch pin pressure.`,
+      failPara2: `Engineers silver-solder heavy safety catches after dome pressing and seal dual-plated baths under clear baked lacquer before capsule insertion.`,
+      failBullets: `<li><strong>Curved Badge Catch Strength:</strong> High-temp silver brazing secures safety pins on ${pLinkFn(row1[4])} and ${pLinkFn(row1[5])}.</li>
+  <li><strong>Two-Tone Mask Line Crispness:</strong> Microscope checks verify clean resist boundaries across ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Three-Magnet Suit Grip Audit:</strong> Pull-force tests confirm fabric hold through heavy blazers on ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>
+  <li><strong>Capsule &amp; Velvet Box Sizing:</strong> Precision EVA foam rings cushion 40mm–50mm coins tightly inside acrylic presentation shells.</li>`
+    };
+  }
+
+  if (cat === 'Keychains & Trolley Coins') {
+    return {
+      leadLine: `Daily pocket hardware fails fast unless mechanical tolerances, split-ring spring tension, and abrasion-proof coatings hold up on crowded key rings.`,
+      pillarBullets: `<li><strong>±0.08mm Cart Lock Tolerances:</strong> Die-struck €1 (23.25mm) and 12-sided UK £1 (23.43mm) blanks fit ${pLinkFn(row2[2])} and ${pLinkFn(row2[3])}.</li>
+  <li><strong>3D Zinc, Enamel &amp; Magnetic Frames:</strong> Pair un-drilled coins with snap-out magnetic housings or spinners via ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Leather, Brass &amp; Carabiner Hybrid Fobs:</strong> Combine cowhide loops or 2.0mm antique brass hotel tags on ${pLinkFn(row3[0])} and ${pLinkFn(row3[1])}.</li>
+  <li><strong>High-Volume Anodized &amp; Stainless Tags:</strong> Laser mark 304 steel or anodized aluminum fast across ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>`,
+      workflowNote: `Calibrating both outer coin diameter and rim thickness within ±0.08mm prevents supermarket trolley tokens from jamming inside coin drawers.`,
+      failPara1: `Everyday pocket carry exposes keychains to coins, keys, and moisture—causing soft uncoated paint to chip or weak split rings and clasps to pry open prematurely.`,
+      failPara2: `Zhongshan technicians verify cart-slot insertion across European and UK test gauges and finish pocket surfaces with clear polyurethane domes or recessed enamel walls.`,
+      failBullets: `<li><strong>Go/No-Go Cart Lock Check:</strong> Every trolley batch passes €1 and 12-sided £1 slot gauges across ${pLinkFn(row1[4])} and ${pLinkFn(row1[5])}.</li>
+  <li><strong>Clasp &amp; Jump Ring Fatigue Test:</strong> 500-cycle spring tests verify snap-back tension on ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>UV Epoxy Lens Hardness:</strong> Optical resin shields printed artwork from key scratches on ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>
+  <li><strong>Anti-Rattle Leather Bonding:</strong> Structural adhesive plus riveted eyelets secure metal crests cleanly inside stitched hides.</li>`
+    };
+  }
+
+  if (cat === 'Executive, Golf & Souvenirs') {
+    return {
+      leadLine: `High-perceived-value executive menswear, golf pro-shop kits, and etched filigree souvenirs depend on hardware precision and cohesive gift presentation.`,
+      pillarBullets: `<li><strong>Swivel Toggle &amp; Bar Menswear Hardware:</strong> Rhodium-plated brass bases anchor bullet-back cufflinks and 55mm tie bars via ${pLinkFn(row2[2])} and ${pLinkFn(row2[3])}.</li>
+  <li><strong>Heavy 165g Buckles &amp; Pry Openers:</strong> Cast Zamak #3 ribs reinforce rope borders and opener lips on ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Ferromagnetic Stamped Golf Markers:</strong> Match iron ball markers to rare-earth divot tools and visor clips with ${pLinkFn(row3[0])} and ${pLinkFn(row3[1])}.</li>
+  <li><strong>0.4mm Acid Photo-Etched Filigree:</strong> Chemically etch burr-free museum bookmarks and ornaments across ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>`,
+      workflowNote: `Note this critical golf hardware rule: custom ball markers must stamp in ferromagnetic iron (never non-magnetic solid brass) so they snap securely onto divot tools.`,
+      failPara1: `Executive and souvenir programs suffer returns when loose cufflink hinges droop, non-magnetic brass golf markers fall off hat clips, or thin brass bookmarks snag delicate book pages.`,
+      failPara2: `Our foundry inspects toggle spring detent firmness, tests vertical magnetic marker retention, and electrolytically polishes photo-etched filigree edges before boxing.`,
+      failBullets: `<li><strong>Magnetic Marker Attraction Check:</strong> Ferromagnetic testing confirms firm snap retention on ${pLinkFn(row1[4])} and ${pLinkFn(row1[5])}.</li>
+  <li><strong>Toggle Spring &amp; Buckle Rib Load:</strong> Torque checks verify zero wobble across swivel hinges on ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Burr-Free Etched Filigree Edges:</strong> Micro-deburring smooths 0.35mm internal bridges on ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>
+  <li><strong>Matched Gift Tin &amp; Velvet Insertion:</strong> Factory kitting places matched sets neatly inside custom-cut velvet trays for immediate gifting.</li>`
+    };
+  }
+
+  if (cat === 'Sourcing, Packaging & Compliance') {
+    return {
+      leadLine: `Turnkey retail readiness and customs clearance depend on lab-certified raw alloys, proper clutch engineering, and pre-mounted packaging before DDP dispatch.`,
+      pillarBullets: `<li><strong>Threaded, Woven &amp; 3D PVC Patches:</strong> Balance crisp 1.5mm woven lettering against waterproof molded rubber crests in ${pLinkFn(row2[2])} and ${pLinkFn(row2[3])}.</li>
+  <li><strong>Precision Clutch &amp; Backing Selection:</strong> Match brass butterfly clasps, spring locks, or magnets across ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Foundry-Mounted Retail Cards &amp; Boxes:</strong> Assemble 350–400gsm Euro-slot cards, acrylic capsules, and velvet cases onto ${pLinkFn(row3[0])} and ${pLinkFn(row3[1])}.</li>
+  <li><strong>CPSIA, Prop 65 &amp; REACH Certification:</strong> Screen incoming brass, Zamak #3, pigments, and PVC lots via ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>`,
+      workflowNote: `Pre-mounting finished hardware onto printed backing cards or inside coin capsules at our Zhongshan packing floor eliminates third-party domestic kitting fees.`,
+      failPara1: `Importers face customs holds or retail delisting when recycled scrap zinc spikes above 90 ppm lead, nickel baths trigger skin allergies, or heavy cartons crush in air hubs.`,
+      failPara2: `Every shipment uses certified virgin metals, phthalate-free inks, double-wall 15kg master cartons, and verified HS codes (7117/8308) for predictable door-to-door DDP clearance.`,
+      failBullets: `<li><strong>XRF Heavy-Metal Screening:</strong> Handheld XRF analyzers test raw ingots under 90 ppm lead on ${pLinkFn(row1[4])} and ${pLinkFn(row1[5])}.</li>
+  <li><strong>Thread Density &amp; Hook-Loop Shear:</strong> Merrowed border lockstitch and Velcro peel checks verify durability across ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Shelf-Ready Backing Card Fit:</strong> Die-cut slits align pin posts cleanly onto retail cards for ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>
+  <li><strong>15kg Export Carton Drop Shielding:</strong> Honeycomb dividers prevent surface scuffing across long-haul DHL/FedEx DDP air routes.</li>`
+    };
+  }
+
+  // Default: Pillar 1 Materials & Manufacturing (non-magnet)
+  return {
+    leadLine: `Pin, medal, and coin unit economics depend on relief depth, die waiver volume breaks, and rear clasp or attachment geometry.`,
+    pillarBullets: `<li><strong>Die-Struck C26000 Brass &amp; Iron:</strong> Strike razor-sharp coin rims, 0.15mm borders, and flush stone-polished cloisonne on ${pLinkFn(row2[2])} and ${pLinkFn(row2[3])}.</li>
+  <li><strong>Zamak #3 Hot-Chamber 3D Casting:</strong> Inject crisp multi-level relief, inner cut-out windows, and spinner pivots across ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Photo-Etched &amp; Offset Litho Imaging:</strong> Hold thin 0.35mm filigree silhouettes or CMYK photo gradients under clear domes on ${pLinkFn(row3[0])} and ${pLinkFn(row3[1])}.</li>
+  <li><strong>12 Electroplating &amp; Dye Coats:</strong> Finish pieces in 18K gold, rhodium silver, mirror black nickel, antique bronze, or matte dye across ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>`,
+    workflowNote: `Selecting hydraulic die-struck stamping for crisp flat enamel or molten Zamak #3 die-casting for 3D depth locks yield quality from the first strike.`,
+    failPara1: `Wholesale buyers hit avoidable enamel cross-bleeding, brittle rear post snaps, or dull recessed plating when artwork wall clearances drop below factory minimums before engraving.`,
+    failPara2: `Our tooling desk enforces >= 0.15mm metal walls on pins (>= 0.35mm on sculpted coins) during free 12-hour proofs and verifies XRF lead safety on every melt.`,
+    failBullets: `<li><strong>Rear Post Silver Brazing Audit:</strong> High-torque soldering secures butterfly spurs above 25N pull force on ${pLinkFn(row1[4])} and ${pLinkFn(row1[5])}.</li>
+  <li><strong>Pantone Delta-E Metered Filling:</strong> Precision dispensers fill recessed cavities prior to 180°C kiln baking across ${pLinkFn(row2[4])} and ${pLinkFn(row2[5])}.</li>
+  <li><strong>Electrophoretic Lacquer Sealing:</strong> Protective clear coats block oxidation across antique and mirror plating on ${pLinkFn(row3[2])} and ${pLinkFn(row3[3])}.</li>
+  <li><strong>Individually Sealed Tray Packing:</strong> Separate polybags and divider inserts stop metal-on-metal rub throughout express DDP air transit.</li>`
+  };
+}
+
+let pLinkFn;
 function buildArticle(g, idx) {
   const isNewMagnetGuide = Array.isArray(g.cols) && g.cols[0] === 'custom-metal-fridge-magnets';
   const publishDate = isNewMagnetGuide ? '2026-11-24' : '2026-10-20';
-  const updatedDate = (isNewMagnetGuide || MODIFIED_TODAY_SLUGS.has(g.slug)) ? '2026-11-24' : '2026-11-23';
+  const updatedDate = '2026-11-24';
   const col1 = g.cols[0];
   const col2 = g.cols[1] || 'custom-enamel-pins';
   const col3 = g.cols[2] || null;
@@ -591,18 +715,18 @@ function buildArticle(g, idx) {
   const fig1Img = `/images/insights/${g.slug}-fig1.webp`;
   const fig2Img = `/images/insights/${g.slug}-fig2.webp`;
 
-  // Ensure unique H2 headings across ALL guides by embedding the specific guide topic title fragment cleanly
-  const shortTopic = isNewMagnetGuide
-    ? g.metaTitle.replace(':', ' —').replace(/ Guide$/i, '').trim()
-    : g.metaTitle.replace(/ Guide$/i, '').trim();
+  // Ensure unique, clean H2 headings without double colons across all 43 guides
+  const shortTopic = g.metaTitle.replace(/:/g, ' —').replace(/\s+Guide$/i, '').trim();
 
   const pLink = (p, label) => `<a href="/products/${p.slug}">${label || p.title}</a>`;
+  pLinkFn = pLink;
   const cLink = (slug) => `<a href="/collections/${slug}">${COL_NAMES[slug]}</a>`;
   const colsPhrase = col3 ? `${cLink(col1)}, ${cLink(col2)}, and ${cLink(col3)}` : `${cLink(col1)} and ${cLink(col2)}`;
 
   const row1 = linkPool.slice(0, 6);
   const row2 = linkPool.slice(6, 12);
   const row3 = linkPool.slice(12, 18);
+  const pillar = getPillarCopy(g, row1, row2, row3);
 
   const md = `---
 title: "${g.title.replace(/"/g, '\\"')}"
@@ -624,24 +748,26 @@ relatedSkus: ${JSON.stringify(g.focusSkus.slice(0, 8))}
 
 <p><strong>Direct Answer:</strong> ${g.angle}</p>
 
-<p>Wholesale buyers access factory-direct pricing starting from <strong>$${row1[0].tier2000} to $${row1[0].tier100}/pc</strong> on custom craft styles like ${pLink(row1[0], row1[0].title)}. Every custom run includes complimentary 12-hour vector proofs and 7–15 business day fabrication.</p>
+<p>Wholesale buyers access factory-direct pricing from <strong>$${row1[0].tier2000} to $${row1[0].tier100}/pc</strong> on custom options like ${pLink(row1[0], row1[0].title)}. Every custom production run includes complimentary 12-hour vector proofs.</p>
 
-<p>Across our Zhongshan Xiaolan metalworking hub, every project begins with 1:1 digital Pantone artwork layouts built to your branding before any custom steel die is cut. Physical pre-production prototypes ship in 7–10 business days to lock in finish fidelity.</p>
+<p>At our Zhongshan Xiaolan metalworking foundry, production begins with 1:1 Pantone die-line layouts before steel cutting starts. Pre-production samples ship in ${row1[0].sampleTime} so procurement teams confirm weight and finish luster early.</p>
 
-<p>When procurement teams compare options across ${colsPhrase}, small miscalculations in base alloy multiply into costly delays. Choosing the right custom tooling architecture early prevents soft edges and enamel bleed.</p>
+<p>When teams evaluate crafts across ${colsPhrase}, subtle shifts in alloy thickness and plating adhesion affect land-cost efficiency.</p>
 
-<p>${isNewMagnetGuide
-  ? `Here is what matters most for serious buyers: fridge magnet unit economics depend on relief depth, mold fee waivers, and rear magnet shear hold on brushed stainless doors. Below, we map verified factory tolerances across ${pLink(row1[1])}, ${pLink(row1[2])}, and ${pLink(row1[3])}.`
-  : `Here is what matters most for serious buyers: unit economics hinge on relief height, mold fee waivers, and clasp strength. Below, we map verified factory tolerances across ${pLink(row1[1])}, ${pLink(row1[2])}, and ${pLink(row1[3])}.`}</p>
+<p><strong>Here is what separates reliable custom tooling from cheap shortcuts:</strong></p>
+
+<p>${pillar.leadLine}</p>
+
+<p>Below, we benchmark factory specifications across ${pLink(row1[1])}, ${pLink(row1[2])}, and ${pLink(row1[3])}.</p>
 
 <figure class="article-figure">
   <img src="${fig1Img}" alt="Side-by-side custom craft comparison of ${row1[0].title} and ${row1[1].title}" width="800" height="310" loading="lazy" />
   <figcaption>Figure 1: Factory process comparison pairing ${row1[0].title} (${row1[0].material}, left) with ${row1[1].title} (${row1[1].material}, right) for ${shortTopic}.</figcaption>
 </figure>
 
-<h2 id="technical-specification-matrix-${idx + 1}">2. ${shortTopic}: Unit Cost, Material &amp; Tooling Comparison Matrix</h2>
+<h2 id="technical-specification-matrix-${idx + 1}">2. ${shortTopic} — Unit Cost, Material &amp; Tooling Comparison Matrix</h2>
 
-<p>Standard catalog sheets often obscure custom mold amortization and extra Pantone color fees until the final invoice. To keep budgets predictable, the engineering matrix below benchmarks exact alloys, weights, MOQs, and custom pricing tiers for ${shortTopic}.</p>
+<p>Opaque quotes often conceal mold amortization and extra Pantone fees until the final invoice. The engineering matrix below benchmarks exact alloys, weights, MOQs, and wholesale pricing tiers for ${shortTopic}.</p>
 
 <div class="geo-table-wrap">
   <table class="geo-table">
@@ -670,24 +796,25 @@ relatedSkus: ${JSON.stringify(g.focusSkus.slice(0, 8))}
   <strong>Key Procurement Takeaway (${shortTopic}):</strong> Consolidating colorway variants onto a single steel die—or ordering <strong>500+</strong> 2D brass or <strong>1,000+</strong> 3D zinc units—waives the custom mold fee down to <strong>$0.00/pc</strong>. Fast-setup craft formats like ${pLink(row2[0], row2[0].title)} shorten lead times immediately.
 </div>
 
-<p>For tight seasonal launch calendars, fast-setup 2D stamping and laser fixtures such as ${pLink(row2[0])} and ${pLink(row2[1])} cut 3–5 days off initial sample lead times. Paid custom dies cut to your artwork remain archived free of charge for three years for rapid $0 reorders.</p>
+<p><strong>How can purchasing teams unlock zero mold cost right away?</strong></p>
 
-<h2 id="metallurgy-plating-workflow-${idx + 1}">3. ${shortTopic}: Substrate Metallurgy, Electroplating &amp; Production Workflow</h2>
+<p>Pairing color-swapped editions on one master die—or crossing 500+ pcs on 2D brass—automatically reduces mold setup to $0.00. Styles like ${pLink(row2[0])} and ${pLink(row2[1])} also retain free 3-year die storage.</p>
 
-<p>Visual distinction in bespoke pins, medals, challenge coins, and badges starts with matching raw alloy ductility to surface geometry. Flat two-dimensional crests stamp cleanly in solid brass or iron, whereas sculpted depth requires molten zinc flow.</p>
+<h2 id="metallurgy-plating-workflow-${idx + 1}">3. ${shortTopic} — Substrate Metallurgy, Electroplating &amp; Workflow</h2>
 
-<p>Every custom run at our Zhongshan foundry passes through six controlled checkpoints from raw blanking to export carton sealing. Automated optical inspection flags surface pitting or plating shadow before final attachment soldering.</p>
+<p><strong>The engineering principle is straightforward:</strong> substrate ductility governs detail sharpness. Flat two-dimensional crests stamp crisply in solid brass or iron, whereas deep sculpted forms flow cleanly in hot-chamber Zamak #3 zinc.</p>
+
+<p>Every batch passes six quality checkpoints between blanking and export boxing. Automated optical screening isolates surface pitting or soldering voids before attachment assembly begins.</p>
+
+<h3>Core Fabrication Stages &amp; Material Pairing</h3>
 
 <ul>
-  ${isNewMagnetGuide ? `<li><strong>Die-Struck C26000 Brass &amp; Hard Enamel Tooling:</strong> Preferred when sharp 0.15mm borders or stone-polished cloisonne surfaces meet recessed dual N45 neodymium pockets—exemplified by ${pLink(row2[2])} and ${pLink(row2[3])}.</li>
-  <li><strong>Zamak #3 Hot-Chamber 3D &amp; Kinetic Die-Casting:</strong> Built for multi-level castle or mountain relief, 360-degree rotating gears, and stained-glass cut-outs such as ${pLink(row2[4])} and ${pLink(row2[5])}.</li>
-  <li><strong>Offset CMYK + Crystal Epoxy &amp; Recessed Pockets:</strong> Ideal for painterly park posters and photography sealed beneath UV-stabilized domed lenses across ${pLink(row3[0])} and ${pLink(row3[1])}.</li>
-  <li><strong>Rear Backing &amp; Anti-Scratch Surface Protection:</strong> Pair recessed 10×2mm N45 rare-earth magnets, sintered ferrite disks, or full-back 1.5mm rubber sheets with clear PET/EVA pads across ${pLink(row3[2])} and ${pLink(row3[3])}.</li>`
-  : `<li><strong>Die-Struck C26000 Brass &amp; Iron Tooling:</strong> Preferred when razor-sharp coin edges, 0.15mm raised metal lines, or flush stone-polished cloisonne surfaces are required—exemplified by ${pLink(row2[2])} and ${pLink(row2[3])}.</li>
-  <li><strong>Zamak #3 Hot-Chamber Zinc Die-Casting:</strong> Built for multi-level 3D relief topography, open inner cut-out windows, bottle openers, and 360-degree spinning hubs such as ${pLink(row2[4])} and ${pLink(row2[5])}.</li>
-  <li><strong>Photo-Etched &amp; Offset Litho Processes:</strong> Ideal for delicate 0.4mm–0.8mm filigree silhouettes or photorealistic CMYK gradients under crystal epoxy domes, featured in ${pLink(row3[0])} and ${pLink(row3[1])}.</li>
-  <li><strong>Protective &amp; Vintage Plating Options:</strong> Choose bright 18K gold, rhodium silver, mirror black nickel, antique bronze, or matte black electrophoretic dye coats across ${pLink(row3[2])} and ${pLink(row3[3])}.</li>`}
+  ${pillar.pillarBullets}
 </ul>
+
+<p><strong>Why match specific crafts instead of defaulting to one base alloy?</strong></p>
+
+<p>${pillar.workflowNote} Inspecting physical strikes across textures ensures balanced pocket heft and clean visual borders before full production stamping starts.</p>
 
 <figure class="article-figure">
   <img src="${fig2Img}" alt="Three-panel custom manufacturing comparison featuring ${row2[0].title}, ${row2[1].title}, and ${row2[2].title}" width="1170" height="305" loading="lazy" />
@@ -696,9 +823,11 @@ relatedSkus: ${JSON.stringify(g.focusSkus.slice(0, 8))}
 
 <h2 id="procurement-timeline-packaging-${idx + 1}">4. Tooling Economics, Retail Packaging &amp; Pre-Shipment Milestones (${shortTopic})</h2>
 
-<p>Experienced purchasing directors look beyond unit factory gate cost to reduce warehouse kitting time and lift retail display margins. Pre-assembled packaging at the foundry level saves days of manual fulfillment downstream.</p>
+<p>Experienced buyers look beyond ex-works unit pricing to cut downstream kitting labor and boost retail margins. Pre-mounted factory packaging arrives shelf-ready straight from Guangdong.</p>
 
-<p>Mounting bespoke pieces onto ${pLink(getSkuObj('MPS-149'))} prepares finished pieces for immediate point-of-sale hooks. Commemorative issues paired with ${pLink(getSkuObj('MPS-148'))} or hinged cases (${pLink(getSkuObj('MPS-147'))}, ${pLink(getSkuObj('MPS-150'))}) safeguard mirror plating during transit.</p>
+<p>Mounting finished pieces on ${pLink(getSkuObj('MPS-149'))} prepares retail hooks cleanly before air courier dispatch.</p>
+
+<p>Commemorative editions paired with ${pLink(getSkuObj('MPS-148'))}, ${pLink(getSkuObj('MPS-147'))}, or ${pLink(getSkuObj('MPS-150'))} prevent transit scuffing.</p>
 
 <div class="geo-table-wrap">
   <table class="geo-table">
@@ -745,39 +874,35 @@ relatedSkus: ${JSON.stringify(g.focusSkus.slice(0, 8))}
   </table>
 </div>
 
-<h2 id="field-failure-prevention-${idx + 1}">5. Field Failure Prevention &amp; Pre-Shipment Inspection Protocol: ${shortTopic}</h2>
+<p><strong>What happens to your custom steel die after the first production batch?</strong></p>
 
-<p>${isNewMagnetGuide
-  ? 'Heavy cast metal fridge magnets often suffer field returns when shallow glued magnets pop off or slide down low-ferritic brushed stainless appliance doors. Poorly recessed rear pockets and abrasive burrs also scratch luxury refrigerator finishes.'
-  : 'Even experienced merchandisers hit avoidable quality rejections when fine artwork clearances are overlooked prior to steel die engraving. Enamel cross-bleeding, brittle rear post solder joints, and rapid antique patina tarnish account for most wholesale defect claims.'}</p>
+<p>Every paid custom stamping die or 3D brass master stays archived inside our Zhongshan tool vault for three years at zero fee. Future restocks skip engraving completely and enter production within 24 hours.</p>
 
-<p>${isNewMagnetGuide
-  ? 'Before approving bulk runs, Zhongshan engineers mill 1.6mm–2.0mm deep rear pockets and lock N35–N52 magnets with UV structural epoxy before vertical shear testing on brushed steel. Every incoming alloy batch clears XRF screening for CPSIA and EN71-3 safety.'
-  : 'Before authorizing bulk production, engineers verify minimum raised metal dividing lines (&gt;= 0.15mm for pins and &gt;= 0.35mm for sculpted coins) on wet-enamel proofs. Every incoming alloy batch also clears XRF heavy-metal screening for CPSIA and REACH compliance.'}</p>
+<h2 id="field-failure-prevention-${idx + 1}">5. Field Failure Prevention &amp; Pre-Shipment Inspection Protocol (${shortTopic})</h2>
+
+<p>${pillar.failPara1}</p>
+
+<p>${pillar.failPara2}</p>
+
+<h3>Mandatory Foundry QC Checkpoints Before Bulk Release</h3>
 
 <ul>
-  ${isNewMagnetGuide
-    ? `<li><strong>Recessed Magnet Pull &amp; Shear Audit:</strong> Vertical slip-load tests verify 18N–35N magnetic grip on brushed steel across ${pLink(row1[4], row1[4].title)} and ${pLink(row1[5], row1[5].title)} so heavy castings hold heavy papers securely.</li>
-  <li><strong>Anti-Scratch Stainless Door Protection:</strong> Flush-recessed magnet pockets plus optional clear EVA/PET cushion pads prevent scratching across painted and bare steel finishes on ${pLink(row2[4], row2[4].title)} and ${pLink(row2[5], row2[5].title)}.</li>
-  <li><strong>Pantone Delta-E Color Control:</strong> Syringe dispensing meters PMS pigments consistently across recessed cavities on ${pLink(row3[2], row3[2].title)} and ${pLink(row3[3], row3[3].title)} prior to 180°C kiln baking.</li>
-  <li><strong>IATA Air-Freight Magnetic Shielding:</strong> Heavy galvanized iron separator sheets and 400gsm Euro-slot backing cards keep external magnetic flux below 0.00525 Gauss at 2.1m for seamless express air DDP clearance.</li>`
-    : `<li><strong>Post Pull-Force &amp; Clutch Audit:</strong> High-torque silver solder joins brass spurs securely on ${pLink(row1[4], row1[4].title)} and ${pLink(row1[5], row1[5].title)}, withstanding over 25N pull force without snapping.</li>
-  <li><strong>Pantone Delta-E Color Control:</strong> Syringe dispensing meters PMS pigments consistently across recessed cavities on ${pLink(row2[4], row2[4].title)} and ${pLink(row2[5], row2[5].title)} prior to 180°C kiln baking.</li>
-  <li><strong>Plating Thickness &amp; Lacquer Seal:</strong> Protective electrophoretic clear coats prevent fingerprint oxidation across mirror finishes on ${pLink(row3[2], row3[2].title)} and ${pLink(row3[3], row3[3].title)}.</li>
-  <li><strong>Transit Drop &amp; Polybag Protection:</strong> Individual polybags, tray dividers, and 5-ply master cartons prevent plating rub during international air DDP transit.</li>`}
+  ${pillar.failBullets}
 </ul>
 
-<p>Explore complementary engineering data across ${colsPhrase}, or consult these companion technical reports before finalizing your custom production brief:</p>
+<p><strong>Ready to finalize your custom brief or cross-check sibling tolerances?</strong></p>
 
-<ul>
-  <li><a href="/insights/${sib1.slug}">${sib1.title}</a> — detailed tolerance and finish benchmarks.</li>
-  <li><a href="/insights/${sib2.slug}">${sib2.title}</a> — tooling economics and bulk scheduling data.</li>
-  <li><a href="/insights/${sib3.slug}">${sib3.title}</a> — packaging upgrades and hardware safety specs.</li>
+<p>Review matched craft specs across ${colsPhrase}, or read the related engineering field guides below before approving tooling:</p>
+
+<ul class="editorial-guide-links">
+  <li><a href="/insights/${sib1.slug}"><span class="guide-link-text">${sib1.title}</span><span class="guide-link-arrow" aria-hidden="true">→</span></a></li>
+  <li><a href="/insights/${sib2.slug}"><span class="guide-link-text">${sib2.title}</span><span class="guide-link-arrow" aria-hidden="true">→</span></a></li>
+  <li><a href="/insights/${sib3.slug}"><span class="guide-link-text">${sib3.title}</span><span class="guide-link-arrow" aria-hidden="true">→</span></a></li>
 </ul>
 
 <div class="sourcing-cta-box">
   <h3>Request Your Free 12-Hour Artwork Proof &amp; Factory Quote (${shortTopic})</h3>
-  <p>Send your logo artwork and target quantity to our Zhongshan export engineering desk. Compare ${pLink(row1[0], row1[0].title)}, ${pLink(row1[1], row1[1].title)}, and ${pLink(row1[2], row1[2].title)} with transparent mold fee waivers and DDP delivery estimates.</p>
+  <p>Send your artwork and target quantity to our Zhongshan desk. Compare ${pLink(row1[0], row1[0].title)}, ${pLink(row1[1], row1[1].title)}, and ${pLink(row1[2], row1[2].title)} with mold waivers and DDP estimates.</p>
   <a href="/contact" data-rfq-sku="${row1[0].title}, ${row1[1].title}" data-rfq-qty="500" class="btn btn-primary">Request Wholesale Quote &amp; Proof →</a>
 </div>
 `;

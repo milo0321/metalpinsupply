@@ -362,19 +362,20 @@ img {
   border-collapse: collapse;
   text-align: left;
   font-size: 0.94rem;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Backlinko Scannable Key Takeaway Box */
 .exec-callout-box {
-  background-color: #f8fafc;
+  background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
   border: 1px solid #bae6fd;
   border-left: 4px solid #0284c7;
   border-radius: var(--radius-lg);
-  padding: 1.2rem 1.4rem;
-  margin: 1.65rem 0 1.85rem;
+  padding: 1.25rem 1.45rem;
+  margin: 1.85rem 0;
   color: #0f172a;
-  font-size: 0.98rem;
-  line-height: 1.75;
+  font-size: 1rem;
+  line-height: 1.76;
   overflow-wrap: break-word;
 }
 
@@ -1084,5 +1085,43 @@ img {
     text-align: center;
   }
 }
+
+/* Localized 2-Column Mesh Link Chips on /<lang>/insights/<slug> */
+.localized-mesh-links {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 1.5rem 0 1.25rem !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+.localized-mesh-links li {
+  margin: 0 !important;
+  min-width: 0;
+}
+.localized-mesh-links a {
+  display: block;
+  padding: 0.55rem 0.85rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.55rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #0369a1 !important;
+  text-decoration: none !important;
+  overflow-wrap: break-word;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+.localized-mesh-links a:hover {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+@media (max-width: 640px) {
+  .localized-mesh-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 
 
