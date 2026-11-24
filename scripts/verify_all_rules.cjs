@@ -439,16 +439,87 @@ for (const k of redirectKeys) {
   }
   seenRedirects.add(k);
 }
-const sitemapFile = path.join(ROOT, 'dist/sitemap-0.xml');
-if (fs.existsSync(sitemapFile)) {
-  const smXml = fs.readFileSync(sitemapFile, 'utf8');
-  const smLocs = [...smXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-  const badSlashLocs = smLocs.filter((u) => u.endsWith('/'));
-  if (badSlashLocs.length > 0) {
-    fail(`Found ${badSlashLocs.length} sitemap <loc> URLs with trailing slash (causes Cloudflare 301 redirects): e.g. ${badSlashLocs[0]}`);
+const robotsTxtPath = path.join(ROOT, 'public/robots.txt');
+const robotsTxtContent = fs.existsSync(robotsTxtPath) ? fs.readFileSync(robotsTxtPath, 'utf8') : '';
+if (robotsTxtContent.includes('sitemap-0.xml')) {
+  fail('public/robots.txt still references legacy sitemap-0.xml');
+}
+if (!robotsTxtContent.includes('https://medalpinsupply.com/sitemap-index.xml')) {
+  fail('public/robots.txt missing authoritative sitemap-index.xml directive');
+}
+
+const legacySitemap = path.join(ROOT, 'dist/sitemap-0.xml');
+if (fs.existsSync(legacySitemap)) {
+  fail('Stale monolithic dist/sitemap-0.xml still exists after build');
+}
+
+const sitemapIndexPath = path.join(ROOT, 'dist/sitemap-index.xml');
+let totalSitemapUrls = 0;
+let perLocaleSitemapCount = 0;
+const nonEnLocaleSet = new Set(expectedLangs.filter((l) => l !== 'en'));
+
+if (fs.existsSync(path.join(ROOT, 'dist'))) {
+  if (!fs.existsSync(sitemapIndexPath)) {
+    fail('dist/sitemap-index.xml is missing');
+  } else {
+    const indexXml = fs.readFileSync(sitemapIndexPath, 'utf8');
+    const countsPerLang = [];
+    for (const lang of expectedLangs) {
+      const expectedIndexLoc = `<loc>https://medalpinsupply.com/sitemap-${lang}.xml</loc>`;
+      if (!indexXml.includes(expectedIndexLoc)) {
+        fail(`dist/sitemap-index.xml missing child sitemap for locale "${lang}"`);
+      }
+      const localeSmPath = path.join(ROOT, `dist/sitemap-${lang}.xml`);
+      if (!fs.existsSync(localeSmPath)) {
+        fail(`Missing per-language sitemap file: dist/sitemap-${lang}.xml`);
+        continue;
+      }
+      const smXml = fs.readFileSync(localeSmPath, 'utf8');
+      const urlBlocks = [...smXml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
+      const smLocs = [...smXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+      if (smLocs.length === 0) {
+        fail(`dist/sitemap-${lang}.xml has 0 URLs`);
+      }
+      if (urlBlocks.length !== smLocs.length) {
+        fail(`dist/sitemap-${lang}.xml has malformed <url>/<loc> pairing (${urlBlocks.length} vs ${smLocs.length})`);
+      }
+      for (const blk of urlBlocks) {
+        if (!/<lastmod>\d{4}-\d{2}-\d{2}T/.test(blk)) {
+          fail(`dist/sitemap-${lang}.xml has <url> entry missing ISO <lastmod>`);
+          break;
+        }
+      }
+      const badSlashLocs = smLocs.filter((u) => u.endsWith('/'));
+      if (badSlashLocs.length > 0) {
+        fail(`Found ${badSlashLocs.length} sitemap <loc> URLs with trailing slash in sitemap-${lang}.xml: e.g. ${badSlashLocs[0]}`);
+      }
+      for (const u of smLocs) {
+        const pathname = u.replace(/^https:\/\/medalpinsupply\.com/, '') || '/';
+        const firstSeg = pathname.split('/').filter(Boolean)[0];
+        if (lang === 'en') {
+          if (firstSeg && nonEnLocaleSet.has(firstSeg)) {
+            fail(`dist/sitemap-en.xml leaked non-English URL: ${u}`);
+            break;
+          }
+        } else {
+          if (u !== `https://medalpinsupply.com/${lang}` && !u.startsWith(`https://medalpinsupply.com/${lang}/`)) {
+            fail(`dist/sitemap-${lang}.xml contains URL from another locale: ${u}`);
+            break;
+          }
+        }
+      }
+      countsPerLang.push({ lang, count: smLocs.length });
+      totalSitemapUrls += smLocs.length;
+    }
+    const uniqueCounts = [...new Set(countsPerLang.map((c) => c.count))];
+    if (uniqueCounts.length !== 1 || uniqueCounts[0] === 0) {
+      fail(`Per-locale sitemap URL counts do not match uniformly across 18 locales: ${JSON.stringify(countsPerLang)}`);
+    } else {
+      perLocaleSitemapCount = uniqueCounts[0];
+    }
   }
 }
-pass(`All ${redirectKeys.length} redirects in astro.config.mjs and all sitemap <loc> URLs are clean with 0 trailing-slash 301 redirects.`);
+pass(`All ${redirectKeys.length} redirects in astro.config.mjs clean; sitemap-index.xml + 18 locale sitemaps (${perLocaleSitemapCount} URLs/locale, ${totalSitemapUrls} total) verified with 0 trailing-slash 301s and ISO <lastmod>.`);
 
 // ---------------------------------------------------------------------------
 // RULE 7: 18-Language Full-Site Route Parity & Zero English Link Fallback

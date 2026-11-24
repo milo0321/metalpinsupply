@@ -39,8 +39,7 @@ const currentLang = (lang || getLanguageFromURL(Astro.url.pathname) || 'en') as 
 const currentDir = dir || getDirection(currentLang);
 const t = useTranslations(currentLang);
 const langConfig = languages[currentLang];
-const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim() || 'G-HHP8CN1M58';
-const gtmId = 'GTM-TH9NHVJ4';
+const gtmId = import.meta.env.PUBLIC_GTM_ID?.trim() || 'GTM-NX7XN5MK';
 const turnstileSiteKey = (
   import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ||
   import.meta.env.TURNSTILE_SITE_KEY ||
@@ -227,6 +226,13 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Tag (GTM-NX7XN5MK) -->
+    <script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -313,48 +319,19 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
       }
     </script>
 
-    <!-- GA4 Telemetry (G-HHP8CN1M58) — Fast Post-LCP Idle Load + Desktop Engagement Signals -->
-    <script is:inline define:vars={{ gaMeasurementId }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){window.dataLayer.push(arguments);}
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', gaMeasurementId, {
-        send_page_view: true,
-        anonymize_ip: true
-      });
+    <!-- GTM Engagement Signals (scroll depth, read heartbeats, nav clicks, dwell) -->
+    <script is:inline>
       (function () {
-        var loaded = false;
         var startTs = Date.now();
-        var triggerEvents = ['pointermove', 'mousemove', 'touchstart', 'pointerdown', 'scroll', 'keydown'];
-        function loadAnalytics() {
-          if (loaded) return;
-          loaded = true;
-          triggerEvents.forEach(function (ev) {
-            window.removeEventListener(ev, loadAnalytics, { passive: true });
-          });
-          var gaScript = document.createElement('script');
-          gaScript.async = true;
-          gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaMeasurementId;
-          document.head.appendChild(gaScript);
-        }
-        triggerEvents.forEach(function (ev) {
-          window.addEventListener(ev, loadAnalytics, { once: true, passive: true });
-        });
-        function scheduleIdleLoad() {
-          if ('requestIdleCallback' in window) {
-            window.requestIdleCallback(loadAnalytics, { timeout: 900 });
-          } else {
-            setTimeout(loadAnalytics, 800);
-          }
-        }
-        if (document.readyState === 'complete') {
-          scheduleIdleLoad();
-        } else {
-          window.addEventListener('load', scheduleIdleLoad, { once: true });
+        function emitGtagEvent(name, params) {
+          try {
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', name, params);
+            }
+          } catch (_) {}
         }
 
-        // Track scroll milestones (25% & 50%) and active reading dwell so desktop sessions register accurate engagement
+        // Track scroll milestones (25% & 50%) and active reading dwell
         var scrolled25 = false;
         var scrolled50 = false;
         window.addEventListener('scroll', function () {
@@ -364,19 +341,18 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
           var elapsedMs = Math.max(100, Date.now() - startTs);
           if (!scrolled25 && pct >= 25) {
             scrolled25 = true;
-            gtag('event', 'scroll_depth', { percent_scrolled: 25, page_path: window.location.pathname, engagement_time_msec: elapsedMs });
+            emitGtagEvent('scroll_depth', { percent_scrolled: 25, page_path: window.location.pathname, engagement_time_msec: elapsedMs });
           }
           if (!scrolled50 && pct >= 50) {
             scrolled50 = true;
-            gtag('event', 'scroll_depth', { percent_scrolled: 50, page_path: window.location.pathname, engagement_time_msec: elapsedMs });
+            emitGtagEvent('scroll_depth', { percent_scrolled: 50, page_path: window.location.pathname, engagement_time_msec: elapsedMs });
           }
         }, { passive: true });
 
-        // 8-second & 12-second active reading heartbeats (12s guarantees >10.0s after deferred gtag.js load so GA4 registers engagedSession=1)
+        // 8-second & 12-second active reading heartbeats
         setTimeout(function () {
           if (document.visibilityState !== 'hidden') {
-            loadAnalytics();
-            gtag('event', 'engaged_read_8s', {
+            emitGtagEvent('engaged_read_8s', {
               page_path: window.location.pathname,
               dwell_seconds: 8,
               engagement_time_msec: 8000
@@ -385,8 +361,7 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
         }, 8000);
         setTimeout(function () {
           if (document.visibilityState !== 'hidden') {
-            loadAnalytics();
-            gtag('event', 'engaged_read_8s', {
+            emitGtagEvent('engaged_read_8s', {
               page_path: window.location.pathname,
               dwell_seconds: 12,
               engagement_time_msec: 12000
@@ -400,8 +375,7 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
           if (!a) return;
           var href = a.getAttribute('href') || '';
           if (href.indexOf('/products/') !== -1 || href.indexOf('/collections/') !== -1 || href.indexOf('/contact') !== -1 || href.indexOf('/custom-branding') !== -1 || href.indexOf('wa.me') !== -1) {
-            loadAnalytics();
-            gtag('event', 'wholesale_navigation_click', {
+            emitGtagEvent('wholesale_navigation_click', {
               link_url: href,
               source_path: window.location.pathname
             });
@@ -415,7 +389,7 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
             var sec = Math.round((Date.now() - startTs) / 1000);
             if (sec >= 4) {
               dwellSent = true;
-              gtag('event', 'page_dwell', {
+              emitGtagEvent('page_dwell', {
                 page_path: window.location.pathname,
                 dwell_seconds: sec,
                 transport_type: 'beacon'
