@@ -19,7 +19,6 @@ The agent is strictly forbidden from running the following dangerous or destruct
 | Category | Prohibited Commands / Patterns | Rationale |
 | :--- | :--- | :--- |
 | **Destructive File Removal** | `rm -rf /`, `rm -rf ~`, `rm -rf *`, `rm -rf .*` | Risk of accidental workspace or system file deletion |
-| **VCS Push Operations** | `git push`, `git push origin ...` | Strictly prohibited from autonomous execution. The user will manually review and push after task completion. |
 | **VCS Force Operations** | `git push --force`, `git push -f`, `git reset --hard HEAD~*`, `git clean -fdx` | Destroys uncommitted code, git history, or workspace branches |
 | **Privilege Escalation** | `sudo`, `su`, `chmod -R 777 /` | Security hazard outside workspace isolation |
 | **Secret / Credential Leakage** | `cat ~/.ssh/*`, `cat ~/.aws/*`, printing raw `.env` secrets to logs | Security and privacy violation |
@@ -35,8 +34,8 @@ The following commands are pre-approved to run automatically within the workspac
 - **Asset & Image Processing**:
   - `python3 -c "..."` (Pillow/PIL image optimization, dimension inspection, montage generation within workspace/artifact directories)
 - **Safe Version Control**:
-  - `git status`, `git diff`, `git log -n ...`, `git branch`, `git add ...`, `git commit -m "..."`
-  - **Local Git Commit Invariant**: After completing any task, refactoring, or dependency update, the agent MUST run rule verification (`node scripts/verify_all_rules.cjs`), verify production build (`npm run build`), and commit changes locally to git (`git commit`). NEVER run `git push` autonomously unless explicitly commanded by the user.
+  - `git status`, `git diff`, `git log -n ...`, `git branch`, `git add ...`, `git commit -m "..."`, `git push origin main`
+  - **Commit & Auto-Push Invariant**: After completing any task, refactoring, or dependency update, the agent MUST verify rules (`node scripts/verify_all_rules.cjs`) and production build (`npm run build`) when applicable, commit changes locally (`git commit`), and push directly to `origin/main` (`git push origin main`) without waiting for extra confirmation (never force-push).
 - **Headless Browser Verification**:
   - Headless Chrome screenshot verification against local dev server `http://127.0.0.1:4323/`
 
