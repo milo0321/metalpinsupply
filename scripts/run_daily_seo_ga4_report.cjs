@@ -152,9 +152,11 @@ async function main() {
     'https://medalpinsupply.com/collections/custom-medals',
     'https://medalpinsupply.com/collections/custom-challenge-coins',
     'https://medalpinsupply.com/collections/custom-metal-fridge-magnets',
-    'https://medalpinsupply.com/products/hard-enamel-lapel-pins',
-    'https://medalpinsupply.com/products/die-struck-soft-enamel-pins',
-    'https://medalpinsupply.com/products/3d-die-cast-marathon-finisher-medals',
+    'https://medalpinsupply.com/contact',
+    'https://medalpinsupply.com/products/custom-hard-enamel-lapel-pins',
+    'https://medalpinsupply.com/products/custom-soft-enamel-lapel-pins',
+    'https://medalpinsupply.com/products/custom-3d-marathon-finisher-medals',
+    'https://medalpinsupply.com/products/custom-baseball-trading-pins',
     'https://medalpinsupply.com/products/military-3d-brass-challenge-coins',
     'https://medalpinsupply.com/insights/hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide'
   ];

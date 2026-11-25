@@ -1,0 +1,106 @@
+{
+  "domain": "medalpinsupply.com",
+  "projectId": "0b313e0a4c8185caaed40ab6e20421adb91e18f2a4ebe4580ba66c469cca724e",
+  "updatedAt": "2026-11-25T10:56:00Z",
+  "siteAudit": {
+    "title_short": {
+      "status": "done",
+      "resolvedAt": "2026-11-25T10:56:00Z",
+      "affectedCount": 3,
+      "note": "Expanded metaTitle on custom-hard-enamel-lapel-pins (55 chars) and custom-tinplate-button-badges (53 chars), and expanded Japanese col.trolley-coin-keyrings.short so /ja/collections/trolley-coin-keyrings title reaches 39 chars."
+    },
+    "seo_non_friendly_url": {
+      "status": "ignored",
+      "resolvedAt": "2026-11-25T10:56:00Z",
+      "affectedCount": 613,
+      "reason": "False-positive heuristic on localized /<lang>/insights/<hyphenated-slug> paths. All URLs are clean lowercase hyphenated ASCII slugs without query params, passing all 19 GSC sitemaps with 0 warnings/errors. Renaming 613 indexed URLs would cause harmful 301 redirect chains."
+    }
+  },
+  "keywordOpportunities": {
+    "custom challenge coins": {
+      "status": "done",
+      "targetUrl": "/collections/custom-challenge-coins",
+      "note": "Front-loaded 'Custom Challenge Coins Maker & Factory' in COLLECTION_SEO_TITLES (Wave 1 title & snippet optimization; vol 18,100, CPC $13.63, SD 17)."
+    },
+    "custom challenge coins maker": {
+      "status": "done",
+      "targetUrl": "/collections/custom-challenge-coins",
+      "note": "Included 'Custom Challenge Coins Maker' directly in collection title."
+    },
+    "custom enamel pins": {
+      "status": "done",
+      "targetUrl": "/collections/custom-enamel-pins",
+      "note": "Front-loaded 'Custom Enamel Pins Manufacturer' in COLLECTION_SEO_TITLES (vol 8,100, CPC $14.21) and expanded flagship custom-hard-enamel-lapel-pins title."
+    },
+    "custom enamel pins manufacturers": {
+      "status": "done",
+      "targetUrl": "/collections/custom-enamel-pins",
+      "note": "Targeted via 'Custom Enamel Pins Manufacturer' title front-load."
+    },
+    "custom medals": {
+      "status": "done",
+      "targetUrl": "/collections/custom-medals",
+      "note": "Updated COLLECTION_SEO_TITLES to 'Custom Medals for Races & Awards' (vol 4,400, CPC $9.36)."
+    },
+    "custom medals for races": {
+      "status": "done",
+      "targetUrl": "/collections/custom-medals",
+      "note": "Targeted directly in COLLECTION_SEO_TITLES ('Custom Medals for Races & Awards')."
+    },
+    "custom medals for awards": {
+      "status": "done",
+      "targetUrl": "/collections/custom-medals",
+      "note": "Targeted directly in COLLECTION_SEO_TITLES ('Custom Medals for Races & Awards')."
+    },
+    "custom golf ball markers": {
+      "status": "done",
+      "targetUrl": "/collections/custom-golf-accessories",
+      "note": "Front-loaded 'Custom Golf Ball Markers & Divot Tools' in COLLECTION_SEO_TITLES (vol 5,400, CPC $5.48, SD 13)."
+    },
+    "custom belt buckles": {
+      "status": "done",
+      "targetUrl": "/collections/executive-cufflinks-tie-bars",
+      "note": "Front-loaded 'Custom Belt Buckles, Cufflinks & Tie Bars' in COLLECTION_SEO_TITLES (vol 14,800, SD 19)."
+    },
+    "custom bottle openers": {
+      "status": "done",
+      "targetUrl": "/collections/metal-bookmarks-openers-souvenirs",
+      "note": "Front-loaded 'Custom Bottle Openers & Brass Bookmarks' in COLLECTION_SEO_TITLES (vol 2,400, CPC $7.15, SD 22)."
+    },
+    "custom brass bookmarks": {
+      "status": "done",
+      "targetUrl": "/collections/metal-bookmarks-openers-souvenirs",
+      "note": "Included 'Brass Bookmarks' directly in COLLECTION_SEO_TITLES."
+    },
+    "custom fridge magnets": {
+      "status": "done",
+      "targetUrl": "/collections/custom-metal-fridge-magnets",
+      "note": "Updated COLLECTION_SEO_TITLES to 'Custom Fridge Magnets Bulk & Wholesale' (vol 5,400, CPC $6.77, SD 30)."
+    },
+    "custom fridge magnets bulk": {
+      "status": "done",
+      "targetUrl": "/collections/custom-metal-fridge-magnets",
+      "note": "Targeted 'Bulk & Wholesale' modifiers directly in COLLECTION_SEO_TITLES."
+    },
+    "custom fridge magnets wholesale": {
+      "status": "done",
+      "targetUrl": "/collections/custom-metal-fridge-magnets",
+      "note": "Targeted 'Bulk & Wholesale' modifiers directly in COLLECTION_SEO_TITLES."
+    },
+    "custom metal keychains bulk": {
+      "status": "done",
+      "targetUrl": "/collections/custom-metal-keychains",
+      "note": "Updated COLLECTION_SEO_TITLES to 'Custom Metal Keychains Bulk & Wholesale'."
+    },
+    "custom metal keychains": {
+      "status": "done",
+      "targetUrl": "/collections/custom-metal-keychains",
+      "note": "Matched directly in COLLECTION_SEO_TITLES."
+    },
+    "custom baseball trading pins": {
+      "status": "done",
+      "targetUrl": "/products/custom-baseball-trading-pins",
+      "note": "Day-1 GSC query (Pos 67.0). Tightened SKU metaTitle to 'Custom Baseball Trading Pins | Bulk Soft Enamel ($0.65+)' and front-loaded metaDescription."
+    }
+  }
+}

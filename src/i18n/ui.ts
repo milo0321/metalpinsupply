@@ -5941,7 +5941,7 @@ export const ui: Record<SupportedLanguage, Record<string, string>> = {
     "col.custom-challenge-coins.name": "カスタム・ミリタリー＆記念チャレンジコイン",
     "col.custom-metal-keychains.short": "メタルキーホルダー",
     "col.custom-metal-keychains.name": "カスタム3D・七宝・本革メタルキーホルダー＆カラビナ",
-    "col.trolley-coin-keyrings.short": "トロリーコイン",
+    "col.trolley-coin-keyrings.short": "€1・£1トロリーコインキーホルダー",
     "col.trolley-coin-keyrings.name": "欧州€1(23.25mm) / 英国£1(12角23.43mm)対応トロリーコインキーホルダー",
     "col.police-badges-insignia.short": "警察・消防バッジ",
     "col.police-badges-insignia.name": "曲面プレス警察・消防・警備バッジ＆名札プレート・ドッグタグ",
