@@ -43,16 +43,42 @@ function parseUserAgent(ua) {
     os = 'Linux';
   }
 
-  if (/edg\/(\d+[\.\d]+)/i.test(ua)) {
+  if (/crios\/(\d+[\.\d]+)/i.test(ua)) {
+    browser = `Google Chrome (iOS) ${ua.match(/crios\/(\d+[\.\d]+)/i)?.[1] || ''}`;
+  } else if (/fxios\/(\d+[\.\d]+)/i.test(ua)) {
+    browser = `Mozilla Firefox (iOS) ${ua.match(/fxios\/(\d+[\.\d]+)/i)?.[1] || ''}`;
+  } else if (/edgios\/(\d+[\.\d]+)/i.test(ua)) {
+    browser = `Microsoft Edge (iOS) ${ua.match(/edgios\/(\d+[\.\d]+)/i)?.[1] || ''}`;
+  } else if (/gsa\/(\d+[\.\d]+)/i.test(ua)) {
+    browser = `Google App (iOS WebView) ${ua.match(/gsa\/(\d+[\.\d]+)/i)?.[1] || ''}`;
+  } else if (/fban|fbav/i.test(ua)) {
+    browser = 'Facebook In-App Browser';
+  } else if (/instagram/i.test(ua)) {
+    browser = 'Instagram In-App Browser';
+  } else if (/linkedinapp/i.test(ua)) {
+    browser = 'LinkedIn In-App Browser';
+  } else if (/micromessenger/i.test(ua)) {
+    browser = 'WeChat In-App Browser';
+  } else if (/tiktok|musical_ly|bytedancewebview/i.test(ua)) {
+    browser = 'TikTok In-App Browser';
+  } else if (/duckduckgo/i.test(ua)) {
+    browser = 'DuckDuckGo Browser';
+  } else if (/samsungbrowser\/(\d+[\.\d]+)/i.test(ua)) {
+    browser = `Samsung Internet ${ua.match(/samsungbrowser\/(\d+[\.\d]+)/i)?.[1] || ''}`;
+  } else if (/brave/i.test(ua)) {
+    browser = 'Brave Browser';
+  } else if (/edg\/(\d+[\.\d]+)/i.test(ua)) {
     browser = `Microsoft Edge ${ua.match(/edg\/(\d+[\.\d]+)/i)?.[1] || ''}`;
   } else if (/opr\/(\d+[\.\d]+)/i.test(ua)) {
     browser = `Opera ${ua.match(/opr\/(\d+[\.\d]+)/i)?.[1] || ''}`;
   } else if (/chrome\/(\d+[\.\d]+)/i.test(ua) && !/edg|opr/i.test(ua)) {
     browser = `Google Chrome ${ua.match(/chrome\/(\d+[\.\d]+)/i)?.[1] || ''}`;
   } else if (/version\/(\d+[\.\d]+).*safari/i.test(ua)) {
-    browser = `Apple Safari ${ua.match(/version\/(\d+[\.\d]+)/i)?.[1] || ''}`;
+    browser = `Apple Safari ${ua.match(/version\/(\d+[\.\d]+).*safari/i)?.[1] || ''}`;
   } else if (/firefox\/(\d+[\.\d]+)/i.test(ua)) {
     browser = `Mozilla Firefox ${ua.match(/firefox\/(\d+[\.\d]+)/i)?.[1] || ''}`;
+  } else if (/(iPhone|iPad).*AppleWebKit/i.test(ua)) {
+    browser = 'iOS In-App WebView (Safari Engine)';
   }
 
   return { browser: browser.trim(), os: os.trim(), device: device.trim() };

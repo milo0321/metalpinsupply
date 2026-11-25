@@ -1,5 +1,5 @@
 ---
-import { getLanguageFromURL, useTranslations } from '../i18n/utils';
+import { getLanguageFromURL, getLocalizedPath, useTranslations } from '../i18n/utils';
 import type { SupportedLanguage } from '../i18n/config';
 
 interface Props {
@@ -79,7 +79,7 @@ const isEnabled = cleanDigits.length >= 7;
             📦 Free 12h Artwork Proof
           </button>
           <button type="button" class="wa-quick-chip" data-wa-preset="logo">
-            ⚡ 100–500 Pcs Custom Quote
+            ⚡ 300–500 Pcs Custom Quote
           </button>
         </div>
 
@@ -94,6 +94,18 @@ const isEnabled = cleanDigits.length >= 7;
           >{t('whatsapp.defaultMessage')}</textarea>
         </div>
 
+        <!-- OPTIONAL BACKUP WORK EMAIL (PREVENT DROPOFF IF DEVICE LACKS WHATSAPP) -->
+        <div class="wa-email-backup-wrap">
+          <input
+            type="email"
+            id="whatsappBackupEmail"
+            class="wa-email-backup-input"
+            placeholder="Optional: Work email for backup PDF quote"
+            autocomplete="email"
+            aria-label="Optional work email for backup quote"
+          />
+        </div>
+
         <!-- START WHATSAPP CHAT BUTTON (Direct 1-Click Launch) -->
         <button type="button" id="whatsappSubmitBtn" class="btn-start-chat">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -101,6 +113,14 @@ const isEnabled = cleanDigits.length >= 7;
           </svg>
           <span>{t('whatsapp.startChat')}</span>
         </button>
+
+        <a
+          href={getLocalizedPath('/contact', currentLang)}
+          id="whatsappFallbackQuoteLink"
+          class="wa-fallback-quote-link"
+        >
+          No WhatsApp on this device? Send via Email Quote Form &rarr;
+        </a>
 
         <!-- PRIVACY FOOTNOTE -->
         <p class="chat-footnote">
@@ -551,6 +571,40 @@ const isEnabled = cleanDigits.length >= 7;
     z-index: 3;
   }
 
+  .wa-email-backup-wrap {
+    margin-bottom: 0.6rem;
+  }
+
+  .wa-email-backup-input {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    color: #0f172a;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .wa-email-backup-input:focus {
+    border-color: #16a34a;
+  }
+
+  .wa-fallback-quote-link {
+    display: block;
+    text-align: center;
+    margin: 0.55rem 0 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #0284c7;
+    text-decoration: underline;
+  }
+
+  .wa-fallback-quote-link:hover {
+    color: #0369a1;
+  }
+
   .chat-footnote {
     font-size: 0.7rem;
     color: #64748b;
@@ -649,11 +703,11 @@ const isEnabled = cleanDigits.length >= 7;
           var targetLabel = skuText ? skuText + ' (' + h1 + ')' : h1;
           textarea.dataset.userEdited = 'true';
           if (preset === 'catalog') {
-            textarea.value = 'Hi MedalPinSupply! Please send me your Custom Craft Price Guide (PDF/Excel) with 100 / 500 / 2,000+ pcs tier pricing.\n• Viewing: ' + targetLabel + ' (' + cleanUrl + ')';
+            textarea.value = 'Hi MedalPinSupply! Please send me your Custom Craft Price Guide (PDF/Excel) with 300 / 500 / 2,000+ pcs tier pricing.\n• Viewing: ' + targetLabel + ' (' + cleanUrl + ')';
           } else if (preset === 'sample') {
             textarea.value = 'Hi MedalPinSupply! Please prepare a Free 12h Digital Artwork Proof and quote a pre-production sample for ' + targetLabel + ' (' + cleanUrl + ').';
           } else {
-            textarea.value = 'Hi MedalPinSupply! Please quote 100–500 pcs Custom Enamel / Die-Cast + DDP air/sea shipping for ' + targetLabel + ' (' + cleanUrl + ').';
+            textarea.value = 'Hi MedalPinSupply! Please quote 300–500 pcs Custom Enamel / Die-Cast + DDP air/sea shipping for ' + targetLabel + ' (' + cleanUrl + ').';
           }
         });
       });
@@ -723,17 +777,50 @@ const isEnabled = cleanDigits.length >= 7;
       document.querySelectorAll('[data-open-whatsapp]').forEach(function (el) {
         el.addEventListener('click', function (e) {
           e.preventDefault();
+          var prefillMsg = el.getAttribute('data-wa-prefill-msg');
+          if (prefillMsg) {
+            textarea.value = prefillMsg;
+            textarea.dataset.userEdited = 'true';
+          }
           openModal();
         });
       });
 
+      var backupEmailInput = document.getElementById('whatsappBackupEmail');
+      var fallbackQuoteLink = document.getElementById('whatsappFallbackQuoteLink');
+      if (fallbackQuoteLink) {
+        fallbackQuoteLink.addEventListener('click', function () {
+          try {
+            var h1 = (document.querySelector('h1') && document.querySelector('h1').innerText.trim()) || document.title.split('|')[0].trim();
+            var skuEl = document.getElementById('display-sku');
+            var skuText = skuEl ? skuEl.innerText.replace('SKU:', '').trim() : '';
+            var prefill = JSON.stringify({
+              sku: skuText ? skuText + ' - ' + h1 : h1,
+              mode: 'Custom Logo',
+              ts: Date.now()
+            });
+            sessionStorage.setItem('mps_rfq_prefill', prefill);
+            localStorage.setItem('mps_rfq_prefill', prefill);
+          } catch (_) {}
+        });
+      }
+
       submitBtn.addEventListener('click', function () {
         var msg = (textarea.value || '').trim() || 'Hi MedalPinSupply! I would like to inquire about custom pins, medals, coins & keychains.';
         var normalizedMsg = msg.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        var rawBackupEmail = backupEmailInput && backupEmailInput.value ? backupEmailInput.value.trim() : '';
+        var validBackupEmail = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(rawBackupEmail) ? rawBackupEmail : '';
+        if (validBackupEmail) {
+          try {
+            localStorage.setItem('rx_user_email', validBackupEmail);
+            sessionStorage.setItem('rx_user_email', validBackupEmail);
+          } catch (_) {}
+        }
 
         if (typeof window.dispatchWhatsAppLeadTelemetry === 'function') {
           window.dispatchWhatsAppLeadTelemetry({
             triggerSource: 'Floating WhatsApp Chat Modal',
+            userEmail: validBackupEmail,
             messageText: normalizedMsg
           });
         } else {
@@ -748,6 +835,7 @@ const isEnabled = cleanDigits.length >= 7;
               body: JSON.stringify({
                 event: 'message_sent',
                 triggerSource: 'Floating WhatsApp Chat Modal',
+                userEmail: validBackupEmail,
                 pageUrl: window.location.href,
                 pagePath: window.location.pathname,
                 pageTitle: document.title,

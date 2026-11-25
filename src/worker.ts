@@ -15,12 +15,6 @@ export interface Env {
 const UNDER_CONSTRUCTION_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NX7XN5MK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
@@ -135,7 +129,11 @@ export default {
 
     // 0. Serve friendly "Website Under Construction" page for Mainland China (CN) IPs or /under-construction route
     const country = ((request as any).cf?.country || request.headers.get('CF-IPCountry') || '').toUpperCase();
+    const userAgent = request.headers.get('User-Agent') || '';
     const isVerifiedBot = Boolean((request as any).cf?.botManagement?.verifiedBot);
+    const isSearchOrAiBot = /googlebot|google-inspectiontool|bingbot|yandex|duckduckbot|baiduspider|slurp|applebot|gptbot|chatgpt-user|oai-searchbot|claudebot|anthropic-ai|perplexitybot|google-extended|ahrefsbot|semrushbot|mj12bot|dotbot|facebookexternalhit|linkedinbot|twitterbot|whatsapp|telegrambot|discordbot/i.test(
+      userAgent
+    );
     const cookieHeader = request.headers.get('Cookie') || '';
     const hasUnlockCookie = cookieHeader.includes('mps_preview_unlock=1');
 
@@ -150,13 +148,24 @@ export default {
       });
     }
 
-    if (url.pathname === '/under-construction' || (country === 'CN' && !isVerifiedBot && !hasUnlockCookie)) {
+    if (url.searchParams.get('preview_lock') === '1') {
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: '/under-construction',
+          'Set-Cookie': 'mps_preview_unlock=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax',
+        },
+      });
+    }
+
+    if (url.pathname === '/under-construction' || (country === 'CN' && !isVerifiedBot && !isSearchOrAiBot && !hasUnlockCookie)) {
       return new Response(UNDER_CONSTRUCTION_HTML, {
         status: 200,
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
           'Cache-Control': 'no-store, no-cache, must-revalidate',
           'X-Robots-Tag': 'noindex, nofollow',
+          'X-Geo-Shield': 'cn-maintenance',
         },
       });
     }

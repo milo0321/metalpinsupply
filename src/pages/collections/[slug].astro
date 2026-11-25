@@ -324,6 +324,8 @@ const COLLECTION_META_DESC_MAP: Record<string, string> = {
             href={`https://wa.me/8618750126315?text=${encodeURIComponent(`Hello MedalPinSupply, I am browsing ${cleanShortName} ($${minColPrice}–$${maxColPrice} USD) and would like custom wholesale pricing & a free 12h artwork proof.`)}`}
             target="_blank"
             rel="noopener noreferrer"
+            data-open-whatsapp
+            data-wa-prefill-msg={`Hello MedalPinSupply, I am browsing ${cleanShortName} ($${minColPrice}–$${maxColPrice} USD) and would like custom wholesale pricing & a free 12h artwork proof.`}
             class="btn btn-secondary-dark btn-wa-hero btn-hero"
           >
             💬 WhatsApp {t('nav.requestQuote')}

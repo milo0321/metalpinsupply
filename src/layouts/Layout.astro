@@ -560,7 +560,7 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
             trigger_type: waTarget.className || 'wa_link'
           });
           var waHref = waTarget.getAttribute('href') || '';
-          if (waHref.indexOf('wa.me') !== -1 && typeof window.dispatchWhatsAppLeadTelemetry === 'function') {
+          if (waHref.indexOf('wa.me') !== -1 && !waTarget.hasAttribute('data-open-whatsapp') && typeof window.dispatchWhatsAppLeadTelemetry === 'function') {
             var extractedText = '';
             try {
               var parsedWaUrl = new URL(waHref, window.location.origin);

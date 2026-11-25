@@ -49,16 +49,42 @@ function parseUserAgent(ua) {
     os = 'ChromeOS';
   }
 
-  if (/edg\/(\d+[.\d]+)/i.test(ua)) {
+  if (/crios\/(\d+[.\d]+)/i.test(ua)) {
+    browser = `Google Chrome (iOS) ${ua.match(/crios\/(\d+[.\d]+)/i)?.[1] || ''}`;
+  } else if (/fxios\/(\d+[.\d]+)/i.test(ua)) {
+    browser = `Mozilla Firefox (iOS) ${ua.match(/fxios\/(\d+[.\d]+)/i)?.[1] || ''}`;
+  } else if (/edgios\/(\d+[.\d]+)/i.test(ua)) {
+    browser = `Microsoft Edge (iOS) ${ua.match(/edgios\/(\d+[.\d]+)/i)?.[1] || ''}`;
+  } else if (/gsa\/(\d+[.\d]+)/i.test(ua)) {
+    browser = `Google App (iOS WebView) ${ua.match(/gsa\/(\d+[.\d]+)/i)?.[1] || ''}`;
+  } else if (/fban|fbav/i.test(ua)) {
+    browser = 'Facebook In-App Browser';
+  } else if (/instagram/i.test(ua)) {
+    browser = 'Instagram In-App Browser';
+  } else if (/linkedinapp/i.test(ua)) {
+    browser = 'LinkedIn In-App Browser';
+  } else if (/micromessenger/i.test(ua)) {
+    browser = 'WeChat In-App Browser';
+  } else if (/tiktok|musical_ly|bytedancewebview/i.test(ua)) {
+    browser = 'TikTok In-App Browser';
+  } else if (/duckduckgo/i.test(ua)) {
+    browser = 'DuckDuckGo Browser';
+  } else if (/samsungbrowser\/(\d+[.\d]+)/i.test(ua)) {
+    browser = `Samsung Internet ${ua.match(/samsungbrowser\/(\d+[.\d]+)/i)?.[1] || ''}`;
+  } else if (/brave/i.test(ua)) {
+    browser = 'Brave Browser';
+  } else if (/edg\/(\d+[.\d]+)/i.test(ua)) {
     browser = `Microsoft Edge ${ua.match(/edg\/(\d+[.\d]+)/i)?.[1] || ''}`;
   } else if (/opr\/(\d+[.\d]+)/i.test(ua)) {
     browser = `Opera ${ua.match(/opr\/(\d+[.\d]+)/i)?.[1] || ''}`;
   } else if (/chrome\/(\d+[.\d]+)/i.test(ua) && !/edg|opr/i.test(ua)) {
     browser = `Google Chrome ${ua.match(/chrome\/(\d+[.\d]+)/i)?.[1] || ''}`;
   } else if (/version\/(\d+[.\d]+).*safari/i.test(ua)) {
-    browser = `Apple Safari ${ua.match(/version\/(\d+[.\d]+)/i)?.[1] || ''}`;
+    browser = `Apple Safari ${ua.match(/version\/(\d+[.\d]+).*safari/i)?.[1] || ''}`;
   } else if (/firefox\/(\d+[.\d]+)/i.test(ua)) {
     browser = `Mozilla Firefox ${ua.match(/firefox\/(\d+[.\d]+)/i)?.[1] || ''}`;
+  } else if (/(iPhone|iPad).*AppleWebKit/i.test(ua)) {
+    browser = 'iOS In-App WebView (Safari Engine)';
   }
 
   return { browser: browser.trim(), os: os.trim(), device: device.trim() };
@@ -182,6 +208,12 @@ export async function onRequestPost(context) {
       : '';
     const cfAsOrg = cfObj.asOrganization || '';
     const parsedUa = parseUserAgent(rawUserAgent);
+    const isDatacenterOrVpn =
+      /HostRoyale|DigitalOcean|Amazon|AWS|Google Cloud|Google LLC|Microsoft|Hetzner|OVH|Linode|Akamai|Vultr|Choopa|M247|Datacamp|Mullvad|Surfshark|NordVPN|Cloudflare|Alibaba|Tencent|Huawei Cloud|Contabo|Leaseweb/i.test(
+        cfAsOrg
+      );
+    const hasTzMismatch = Boolean(clientTimezone && cfTimezone && clientTimezone !== cfTimezone);
+    const rawUaSnippet = String(rawUserAgent || '').slice(0, 240);
 
     let countryCode2 = 'GL';
     if (cfCountry && cfCountry.length === 2 && cfCountry !== 'XX' && cfCountry !== 'Unknown') {
@@ -395,11 +427,11 @@ ${quotedMessage}`;
             </tr>
             <tr>
               <td style="padding: 8px 12px; font-weight: 600; color: #475569; background: #f8fafc; border: 1px solid #e2e8f0;">Client Local Time:</td>
-              <td style="padding: 8px 12px; color: #0f172a; border: 1px solid #e2e8f0;"><strong>${escapeHtml(clientLocalTime || 'N/A')}</strong> <span style="color: #64748b;">(${escapeHtml(clientTimezone || cfTimezone || 'N/A')})</span></td>
+              <td style="padding: 8px 12px; color: #0f172a; border: 1px solid #e2e8f0;"><strong>${escapeHtml(clientLocalTime || 'N/A')}</strong> <span style="color: #64748b;">(${escapeHtml(clientTimezone || cfTimezone || 'N/A')})</span>${hasTzMismatch ? ` <span style="display:inline-block;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:4px;">⚠️ TZ Mismatch (${escapeHtml(cfTimezone)})</span>` : ''}</td>
             </tr>
             <tr>
               <td style="padding: 8px 12px; font-weight: 600; color: #475569; background: #f8fafc; border: 1px solid #e2e8f0;">Client IP &amp; Network:</td>
-              <td style="padding: 8px 12px; color: #0f172a; font-family: monospace; border: 1px solid #e2e8f0;">${escapeHtml(clientIp)} ${cfAsOrg ? `(${escapeHtml(cfAsOrg)} ${escapeHtml(cfAsn)})` : ''}</td>
+              <td style="padding: 8px 12px; color: #0f172a; font-family: monospace; border: 1px solid #e2e8f0;">${escapeHtml(clientIp)} ${cfAsOrg ? `(${escapeHtml(cfAsOrg)} ${escapeHtml(cfAsn)})` : ''}${isDatacenterOrVpn ? ' <span style="display:inline-block;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;font-family:sans-serif;font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:4px;">⚠️ Datacenter / VPN ASN</span>' : ''}</td>
             </tr>
           </table>
 
@@ -419,6 +451,10 @@ ${quotedMessage}`;
             <tr>
               <td style="padding: 8px 12px; font-weight: 600; color: #475569; background: #f8fafc; border: 1px solid #e2e8f0;">Screen Resolution:</td>
               <td style="padding: 8px 12px; color: #0f172a; border: 1px solid #e2e8f0;">${escapeHtml(screenResolution)}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 12px; font-weight: 600; color: #475569; background: #f8fafc; border: 1px solid #e2e8f0;">Raw User-Agent:</td>
+              <td style="padding: 8px 12px; color: #475569; font-family: monospace; font-size: 11px; word-break: break-all; border: 1px solid #e2e8f0;">${escapeHtml(rawUaSnippet)}</td>
             </tr>
           </table>
 
