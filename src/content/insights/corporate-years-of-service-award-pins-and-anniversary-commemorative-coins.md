@@ -2,7 +2,7 @@
 title: "Corporate Years-of-Service Award Pins & Milestone Anniversary Coins: Tiered Recognition Playbook"
 slug: "corporate-years-of-service-award-pins-and-anniversary-commemorative-coins"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Coins & Military Insignia"
 summary: "Design progressive 5, 10, 15, and 25-year employee recognition programs combining stone-set gold brass service pins, anniversary coins, and velvet boxes."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-019","MPS-055","MPS-058","MPS-105","MPS-109","MPS-112","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,7 +55,7 @@ relatedSkus: ["MPS-019","MPS-055","MPS-058","MPS-105","MPS-109","MPS-112","MPS-1
         <td><a href="/products/years-of-service-award-pins"><strong>Custom Corporate Years-of-Service Award Pins</strong></a></td>
         <td>Solid Die-Struck Brass + Zirconia<br/><small>Flush Hard Enamel + Hand-Set Genuine/CZ Stone</small></td>
         <td>22×18×1.6mm · 8g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.50 / $0.88 / <strong>$0.58</strong></td>
       </tr>
       <tr>
@@ -90,7 +90,7 @@ relatedSkus: ["MPS-019","MPS-055","MPS-058","MPS-105","MPS-109","MPS-112","MPS-1
         <td><a href="/products/die-struck-crest-tie-tacks"><strong>Custom Die-Struck Crest Tie Tacks with Chain</strong></a></td>
         <td>Solid Brass / Iron<br/><small>18mm Crest Emblem + Clutch Pin & Shirt-Button Chain</small></td>
         <td>Ø18×1.5mm · 9g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.65 / $0.98 / <strong>$0.68</strong></td>
       </tr>
     </tbody>

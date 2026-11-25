@@ -53,6 +53,22 @@ const microHooks = getMicroHookLabels(currentLang);
 const lp = localizeProduct(p, currentLang);
 const rfqBaseUrl = getLocalizedPath('/contact', currentLang);
 
+const prodMoq = p.moqNum || 100;
+const tier1Start = Math.max(100, prodMoq);
+const tier1Label = tier1Start >= 499 ? `${tier1Start}` : `${tier1Start} – 499`;
+const tier1Compact = tier1Start >= 499 ? `${tier1Start}` : `${tier1Start}–499`;
+const calcQtyPresets = prodMoq >= 500
+  ? [1, 500, 1000, 2000]
+  : prodMoq >= 300
+    ? [1, 300, 500, 1000, 2000]
+    : prodMoq >= 200
+      ? [1, 200, 500, 1000, 2000]
+      : prodMoq >= 100
+        ? [1, 100, 300, 500, 1000, 2000]
+        : [1, 50, 100, 500, 1000, 2000];
+const defaultCalcQty = prodMoq >= 100 ? prodMoq : 100;
+const defaultCalcUnit = defaultCalcQty >= 2000 ? p.tier2000 : defaultCalcQty >= 500 ? p.tier500 : p.tier100;
+
 const allImages = p.galleryImages && p.galleryImages.length > 0 ? p.galleryImages : [p.featuredImage];
 
 const allVariantPrices = [
@@ -306,8 +322,8 @@ const breadcrumbSchema = {
             <span class="tooling-free-tag">✓ {t('pdp.noMoldFee')}</span>
           </div>
           <div class="tiers-grid">
-            <div class="tier-cell" data-tier-qty="100" role="button" tabindex="0">
-              <span class="tier-qty">100 – 499 {t('unit.pcs')}</span>
+            <div class="tier-cell" data-tier-qty={String(tier1Start)} role="button" tabindex="0">
+              <span class="tier-qty">{tier1Label} {t('unit.pcs')}</span>
               <strong class="tier-val" id="price-tier-100">${p.tier100}</strong>
               <span class="tier-sub">{t('pdp.trialBatch')}</span>
             </div>
@@ -324,6 +340,14 @@ const breadcrumbSchema = {
           </div>
         </div>
 
+        <div class="pricing-ref-notice" role="note">
+          <span class="pricing-ref-notice-icon" aria-hidden="true">💡</span>
+          <div class="pricing-ref-notice-body">
+            <strong>{t('pdp.pricingRefBadge')}:</strong>
+            <span>{t('pdp.pricingRefNote')}</span>
+          </div>
+        </div>
+
         <!-- 4 Customization Radio Options -->
         <div class="custom-options-box">
           <div class="custom-options-title">
@@ -333,7 +357,7 @@ const breadcrumbSchema = {
 
           <div class="radio-grid" id="custom-radio-group">
             <label class="radio-card active">
-              <input type="radio" name="custom_mode" value="Standard Enamel / Cast Spec" data-addon="0" data-min-qty={String(p.moqNum || 100)} checked />
+              <input type="radio" name="custom_mode" value="Standard Enamel / Cast Spec" data-addon="0" data-min-qty={String(defaultCalcQty)} checked />
               <div class="radio-info">
                 <strong>{t('pdp.opt1Title')}</strong>
                 <span>{t('pdp.opt1Desc')}</span>
@@ -341,7 +365,7 @@ const breadcrumbSchema = {
             </label>
 
             <label class="radio-card">
-              <input type="radio" name="custom_mode" value="Two-Tone / Specialty Enamel (+$0.12-$0.35/pc)" data-addon="0.20" data-min-qty={String(p.moqNum || 100)} />
+              <input type="radio" name="custom_mode" value="Two-Tone / Specialty Enamel (+$0.12-$0.35/pc)" data-addon="0.20" data-min-qty={String(defaultCalcQty)} />
               <div class="radio-info">
                 <strong>{t('pdp.opt2Title')}</strong>
                 <span>{t('pdp.opt2Desc')}</span>
@@ -349,7 +373,7 @@ const breadcrumbSchema = {
             </label>
 
             <label class="radio-card">
-              <input type="radio" name="custom_mode" value="Backing Cards, Capsules or Velvet Gift Box" data-addon="0.32" data-min-qty="100" />
+              <input type="radio" name="custom_mode" value="Backing Cards, Capsules or Velvet Gift Box" data-addon="0.32" data-min-qty={String(defaultCalcQty)} />
               <div class="radio-info">
                 <strong>{t('pdp.opt3Title')}</strong>
                 <span>{t('pdp.opt3Desc')}</span>
@@ -357,7 +381,7 @@ const breadcrumbSchema = {
             </label>
 
             <label class="radio-card">
-              <input type="radio" name="custom_mode" value="Pre-Production Physical Sample + 12h Free Proof" data-addon="0" data-min-qty="50" />
+              <input type="radio" name="custom_mode" value="Pre-Production Physical Sample + 12h Free Proof" data-addon="0" data-min-qty={String(prodMoq)} />
               <div class="radio-info">
                 <strong>{t('pdp.opt4Title')}</strong>
                 <span>{t('pdp.opt4Desc')}</span>
@@ -366,26 +390,29 @@ const breadcrumbSchema = {
           </div>
 
           <!-- Instant Factory Quote Calculator -->
-          <div class="instant-calc-bar" id="pdp-instant-calc" data-base100={p.tier100} data-base500={p.tier500} data-base2000={p.tier2000} data-default-moq={String(p.moqNum || 100)}>
+          <div class="instant-calc-bar" id="pdp-instant-calc" data-base100={p.tier100} data-base500={p.tier500} data-base2000={p.tier2000} data-default-moq={String(defaultCalcQty)}>
             <div class="calc-qty-row">
               <span class="calc-qty-label">{t('contact.quantity')}:</span>
               <div class="calc-qty-chips" role="group" aria-label={t('contact.quantity')}>
-                <button type="button" class="calc-qty-chip chip-sample" data-qty="1">{microHooks.sample1Pc}</button>
-                <button type="button" class="calc-qty-chip" data-qty="50">50 {t('unit.pcs')}</button>
-                <button type="button" class="calc-qty-chip active" data-qty="100">100 {t('unit.pcs')}</button>
-                <button type="button" class="calc-qty-chip" data-qty="500">500 {t('unit.pcs')}</button>
-                <button type="button" class="calc-qty-chip" data-qty="1000">1,000 {t('unit.pcs')}</button>
-                <button type="button" class="calc-qty-chip" data-qty="2000">2,000 {t('unit.pcs')}</button>
+                {calcQtyPresets.map((q) => (
+                  <button
+                    type="button"
+                    class:list={['calc-qty-chip', { 'chip-sample': q === 1, active: q === defaultCalcQty }]}
+                    data-qty={String(q)}
+                  >
+                    {q === 1 ? microHooks.sample1Pc : `${q.toLocaleString()} ${t('unit.pcs')}`}
+                  </button>
+                ))}
               </div>
             </div>
             <div class="calc-summary-row">
               <div class="calc-unit-col">
                 <span class="calc-meta-label">{microHooks.unitPriceLabel}</span>
-                <strong class="calc-unit-val" id="calc-unit-display" data-free-proof={microHooks.freeLogoProof}>${p.tier100}<span>/{t('unit.pc')}</span></strong>
+                <strong class="calc-unit-val" id="calc-unit-display" data-free-proof={microHooks.freeLogoProof}>${defaultCalcUnit}<span>/{t('unit.pc')}</span></strong>
               </div>
               <div class="calc-total-col">
-                <span class="calc-meta-label">{microHooks.estTotalLabel} · <span id="calc-qty-display">100</span> {t('unit.pcs')}</span>
-                <strong class="calc-total-val" id="calc-total-display">${(parseFloat(p.tier100) * 100).toFixed(2)} USD</strong>
+                <span class="calc-meta-label">{microHooks.estTotalLabel} · <span id="calc-qty-display">{defaultCalcQty.toLocaleString()}</span> {t('unit.pcs')}</span>
+                <strong class="calc-total-val" id="calc-total-display">${(parseFloat(defaultCalcUnit) * defaultCalcQty).toFixed(2)} USD</strong>
               </div>
             </div>
           </div>
@@ -481,7 +508,7 @@ const breadcrumbSchema = {
                       <th>{t('card.material').replace(':', '')}</th>
                       <th>{t('pdp.dimensions')}</th>
                       <th>{t('pdp.netWeight')}</th>
-                      <th>100–499</th>
+                      <th>{tier1Compact}</th>
                       <th>500–1,999</th>
                       <th>2,000+</th>
                     </tr>
@@ -500,6 +527,13 @@ const breadcrumbSchema = {
                     ))}
                   </tbody>
                 </table>
+              </div>
+              <div class="pricing-ref-notice" role="note">
+                <span class="pricing-ref-notice-icon" aria-hidden="true">💡</span>
+                <div class="pricing-ref-notice-body">
+                  <strong>{t('pdp.pricingRefBadge')}:</strong>
+                  <span>{t('pdp.pricingRefNote')}</span>
+                </div>
               </div>
             </div>
           )}
@@ -671,14 +705,15 @@ const breadcrumbSchema = {
     const calcQtyEl = document.getElementById('calc-qty-display');
     const calcTotalEl = document.getElementById('calc-total-display');
     const qtyChips = document.querySelectorAll('.calc-qty-chip');
-    let currentQty = 100;
+    const defaultMoq = parseInt(calcBox?.getAttribute('data-default-moq') || '100', 10);
+    let currentQty = defaultMoq;
 
     function updateRfqHref() {
       if (!rfqBtn) return;
       const checkedRadio = document.querySelector('input[name="custom_mode"]:checked');
       const mode = currentQty === 1 ? 'Pre-Production Sample + Free 12h Proof' : (checkedRadio ? checkedRadio.value : 'Standard Spec');
       const addon = checkedRadio ? parseFloat(checkedRadio.getAttribute('data-addon') || '0') : 0;
-      const minQty = checkedRadio ? parseInt(checkedRadio.getAttribute('data-min-qty') || '50', 10) : 50;
+      const minQty = checkedRadio ? parseInt(checkedRadio.getAttribute('data-min-qty') || String(defaultMoq), 10) : defaultMoq;
 
       if (currentQty !== 1 && currentQty < minQty) {
         currentQty = minQty;
@@ -737,7 +772,7 @@ const breadcrumbSchema = {
 
     qtyChips.forEach((chip) => {
       chip.addEventListener('click', () => {
-        const selectedQty = parseInt(chip.getAttribute('data-qty') || '100', 10);
+        const selectedQty = parseInt(chip.getAttribute('data-qty') || String(defaultMoq), 10);
         currentQty = selectedQty;
         qtyChips.forEach((c) => c.classList.remove('active'));
         chip.classList.add('active');
@@ -761,7 +796,7 @@ const breadcrumbSchema = {
           fastPriceEl.innerHTML = `$${t2000} – $${t100}${suffix}`;
         }
         if (stickySkuEl) stickySkuEl.textContent = currentSku;
-        if (stickyPriceEl && t2000 && t100) stickyPriceEl.textContent = `$${t2000} – $${t100} · MOQ 100`;
+        if (stickyPriceEl && t2000 && t100) stickyPriceEl.textContent = `$${t2000} – $${t100} · MOQ ${defaultMoq}`;
         if (calcBox) {
           if (t100) calcBox.setAttribute('data-base100', t100);
           if (t500) calcBox.setAttribute('data-base500', t500);
@@ -812,7 +847,7 @@ const breadcrumbSchema = {
     const tierCells = document.querySelectorAll('.tiers-grid .tier-cell[data-tier-qty]');
     tierCells.forEach((cell) => {
       cell.addEventListener('click', () => {
-        const selectedQty = parseInt(cell.getAttribute('data-tier-qty') || '100', 10);
+        const selectedQty = parseInt(cell.getAttribute('data-tier-qty') || String(defaultMoq), 10);
         currentQty = selectedQty;
         qtyChips.forEach((c) => {
           c.classList.toggle('active', parseInt(c.getAttribute('data-qty') || '0', 10) === selectedQty);
@@ -1138,7 +1173,7 @@ const breadcrumbSchema = {
     border: 1px solid #cbd5e1;
     border-radius: 0.75rem;
     overflow: hidden;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.5rem;
   }
   .tiers-header {
     background: #0f172a;

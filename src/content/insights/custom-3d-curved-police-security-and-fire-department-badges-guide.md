@@ -2,7 +2,7 @@
 title: "Custom 3D Curved Police Shields, Sheriff Stars & Fire Department Badges: Stamping, Pins & Holsters"
 slug: "custom-3d-curved-police-security-and-fire-department-badges-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Coins & Military Insignia"
 summary: "Manufacturing standards for curved brass/zinc police shields, 5/6/7-point sheriff stars, Maltese crosses, safety pin backs, and leather belt clips."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-091","MPS-092","MPS-093","MPS-094","MPS-095","MPS-096","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -90,7 +90,7 @@ relatedSkus: ["MPS-091","MPS-092","MPS-093","MPS-094","MPS-095","MPS-096","MPS-0
         <td><a href="/products/miniature-collar-hat-police-badges"><strong>Custom Miniature Collar & Hat Police Badges</strong></a></td>
         <td>Die-Struck Brass / Zinc<br/><small>1.0"–1.5" Scaled Cap/Collar Replica + Hard Enamel</small></td>
         <td>32×25×2.2mm · 16g</td>
-        <td>50 pcs<br/><small>$65 Mini Die (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$65 Mini Die (Waived @ 500+)</small></td>
         <td>$2.40 / $1.48 / <strong>$1.05</strong></td>
       </tr>
     </tbody>

@@ -12,7 +12,7 @@
   "primaryCollection": "police-badges-insignia",
   "primaryCollectionName": "Police, Security & Military Insignia",
   "crossCollections": [
-    "custom-medals"
+    "custom-challenge-coins"
   ],
   "readyMold": false,
   "enamelCraft": true,

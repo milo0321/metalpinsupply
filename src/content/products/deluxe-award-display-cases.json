@@ -12,8 +12,8 @@
   "primaryCollection": "patches-pvc-packaging",
   "primaryCollectionName": "Custom Patches, PVC & Packaging",
   "crossCollections": [
-    "custom-medals",
-    "custom-challenge-coins"
+    "custom-challenge-coins",
+    "executive-cufflinks-tie-bars"
   ],
   "readyMold": true,
   "enamelCraft": false,

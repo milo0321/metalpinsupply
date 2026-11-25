@@ -2,7 +2,7 @@
 title: "Custom Embroidered Patches vs. High-Density Woven & 3D Soft PVC Morale Patches: Coverage & Backings"
 slug: "custom-embroidered-patches-vs-woven-and-3d-soft-pvc-morale-patches"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Sourcing, Packaging & Compliance"
 summary: "Choose between 50%–100% embroidery, bullion wire crests, fine-thread woven labels, and waterproof 3D soft PVC patches with iron-on or Velcro backs."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-141","MPS-142","MPS-143","MPS-144","MPS-145","MPS-146","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -83,7 +83,7 @@ relatedSkus: ["MPS-141","MPS-142","MPS-143","MPS-144","MPS-145","MPS-146","MPS-0
         <td><a href="/products/soft-pvc-morale-patches-pins"><strong>Custom Soft PVC Lapel Pins & Tactical Morale Patches</strong></a></td>
         <td>Waterproof Eco Soft PVC<br/><small>Flexible 3D Molded Tactical Patch w/ Sewing Channel</small></td>
         <td>80×50×3.5mm · 14g</td>
-        <td>100 pcs<br/><small>$55 PVC Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$55 PVC Mold (Waived @ 1,000+)</small></td>
         <td>$1.25 / $0.68 / <strong>$0.44</strong></td>
       </tr>
       <tr>

@@ -2,7 +2,7 @@
 title: "Youth Sports Tournament Medals & Oversized Baseball Trading Pins: High-Volume League Sourcing"
 slug: "youth-sports-tournament-medals-and-baseball-trading-pins-bulk-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Medals & Sports Events"
 summary: "Optimize league budgets with $0.82–$1.85 tournament medals and oversized 1.75 to 2-inch glitter or spinner baseball trading pins in 8–12 days."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-037","MPS-034","MPS-020","MPS-010","MPS-012","MPS-014","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,42 +55,42 @@ relatedSkus: ["MPS-037","MPS-034","MPS-020","MPS-010","MPS-012","MPS-014","MPS-0
         <td><a href="/products/youth-sports-tournament-medals"><strong>Custom Youth Soccer, Baseball & Basketball Medals</strong></a></td>
         <td>Die-Cast Zinc Alloy<br/><small>High-Volume 2"–2.5" Tournament Soft Enamel</small></td>
         <td>Ø55×2.8mm (2.2") · 54g</td>
-        <td>100 pcs<br/><small>$85 Mold (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$85 Mold (Waived @ 500+ pcs)</small></td>
         <td>$1.85 / $1.15 / <strong>$0.82</strong></td>
       </tr>
       <tr>
         <td><a href="/products/gold-silver-bronze-award-medals"><strong>Custom Gold Silver Bronze Antique Award Medals</strong></a></td>
         <td>Die-Cast Zinc Alloy<br/><small>Shared Mold 1st/2nd/3rd Place Plating Split</small></td>
         <td>Ø65×3.0mm (2.5") · 68g</td>
-        <td>100 pcs<br/><small>$95 Shared Mold (3 Finishes Included)</small></td>
+        <td>300 pcs<br/><small>$95 Shared Mold (3 Finishes Included)</small></td>
         <td>$2.15 / $1.38 / <strong>$0.98</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-baseball-trading-pins"><strong>Custom Baseball & Youth Sports Trading Pins</strong></a></td>
         <td>Die-Struck Iron / Zinc Alloy<br/><small>Oversized Soft Enamel + Glitter / Spinner / Dangle</small></td>
         <td>45×40×1.8mm · 22g</td>
-        <td>100 pcs<br/><small>$75 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$75 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.65 / $0.95 / <strong>$0.65</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-glitter-enamel-pins"><strong>Custom Glitter Enamel Lapel Pins</strong></a></td>
         <td>Die-Struck Iron / Zinc Alloy<br/><small>Recessed Soft Enamel Infused with Metallic Glitter</small></td>
         <td>35×35×1.6mm · 13g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.35 / $0.78 / <strong>$0.52</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-spinner-enamel-pins"><strong>Custom Spinner Interactive Enamel Pins</strong></a></td>
         <td>2-Layer Zinc Alloy + Brass Rivet<br/><small>360° Riveted Spinning Center Wheel + Enamel</small></td>
         <td>45×45×3.5mm · 28g</td>
-        <td>100 pcs<br/><small>$125 Dual-Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$125 Dual-Mold (Waived @ 1,000+)</small></td>
         <td>$2.20 / $1.35 / <strong>$0.95</strong></td>
       </tr>
       <tr>
         <td><a href="/products/hinged-dangle-enamel-pins"><strong>Custom Hinged & Dangle Chain Enamel Pins</strong></a></td>
         <td>Zinc Alloy / Brass + Jump Rings<br/><small>2-Part Hinged Window or Suspended Dangle Charm</small></td>
         <td>42×35×2.5mm · 21g</td>
-        <td>100 pcs<br/><small>$110 Dual-Die (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$110 Dual-Die (Waived @ 1,000+)</small></td>
         <td>$2.10 / $1.28 / <strong>$0.88</strong></td>
       </tr>
     </tbody>

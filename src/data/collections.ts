@@ -29,12 +29,12 @@ export const COLLECTIONS: CollectionMeta[] = [
     badge: 'Category #1 · 24 Pin Crafts & Styles',
     skuCount: 24,
     priceRangeUsd: '$0.14 – $2.35',
-    moq: '50 – 200 pcs',
+    moq: '300 pcs',
     leadTime: '7–12 Days',
     toolingNote: '$55–$85 die (Waived @ 500+ pcs)',
     targetKeywords: 'custom enamel pins wholesale, hard enamel lapel pins manufacturer, soft enamel pins bulk, photo etched brass pins, 3d zinc alloy lapel pins, custom flag pins supplier',
-    heroSubtitle: '24 specialized lapel pin configurations covering Cloisonne hard enamel, die-struck soft enamel, clear epoxy domes, photo-etched brass, 3D die-cast zinc/pewter, glitter, glow-in-the-dark, interactive spinners, crossed flag pins, and tinplate buttons ($0.14–$2.35/pc, MOQ 50 pcs).',
-    geoDirectAnswer: 'MedalPinSupply manufactures 24 custom lapel lapel pin styles in Zhongshan Xiaolan across 9 factory processes: hard enamel (cloisonne/pro-enamel), die-struck soft enamel, photo-etched brass, antique die-struck uncolored relief, offset CMYK & silk-screen printing, 3D zinc alloy die-casting, spin-cast pewter, and tinplate button badges. Starting MOQ is 50 pcs with 12-hour free digital proofs, $55–$85 custom die fees (waived at 500+ pcs), and 7–12 business day production.',
+    heroSubtitle: '24 specialized lapel pin configurations covering Cloisonne hard enamel, die-struck soft enamel, clear epoxy domes, photo-etched brass, 3D die-cast zinc/pewter, glitter, glow-in-the-dark, interactive spinners, crossed flag pins, and tinplate buttons ($0.14–$2.35/pc, MOQ 300 pcs).',
+    geoDirectAnswer: 'MedalPinSupply manufactures 24 custom lapel pin styles in Zhongshan Xiaolan across 9 factory processes: hard enamel (cloisonne/pro-enamel), die-struck soft enamel, photo-etched brass, antique die-struck uncolored relief, offset CMYK & silk-screen printing, 3D zinc alloy die-casting, spin-cast pewter, and tinplate button badges. Standard MOQ is 300 pcs per design to keep unit pricing economical, with 12-hour free digital proofs, $55–$85 custom die fees (waived at 500+ pcs), and 7–12 business day production.',
     engineeringHighlights: [
       'Complete 9-Process Pin Foundry: Seamlessly choose between flush-polished hard enamel, recessed tactile soft enamel, ultra-thin 0.8mm photo-etched brass, full-color CMYK offset epoxy, or 3D sculpted zinc alloy.',
       'Interactive & Specialty Enamel Effects: Precision kinetic mechanisms milled for rotating spinner pins, sliding tracks, hinged dangles, translucent stained glass, glitter, and luminous glow-in-the-dark pigments.',
@@ -55,7 +55,7 @@ export const COLLECTIONS: CollectionMeta[] = [
       },
       {
         question: 'What is the minimum order quantity (MOQ) and turnaround time for custom lapel pins?',
-        answer: 'Die-struck hard enamel, soft enamel, and interactive zinc pins start at just 50 pcs MOQ (100 pcs for photo-etched, offset printed, or glow-in-the-dark). Digital artwork proofs are sent free within 12 hours, and bulk production finishes in 7–12 business days.'
+        answer: 'All custom hard enamel, soft enamel, photo-etched brass, offset printed, and 3D zinc lapel pins start at a factory MOQ of 300 pcs per design—ensuring competitive unit pricing by amortizing press setup, electroplating racks, and Pantone color mixing. Digital artwork proofs are sent free within 12 hours, and bulk production finishes in 7–12 business days.'
       },
       {
         question: 'Which electroplating colors are available without extra tooling charges?',
@@ -93,12 +93,12 @@ export const COLLECTIONS: CollectionMeta[] = [
     badge: 'Category #2 · 20 Medal Formats',
     skuCount: 20,
     priceRangeUsd: '$0.24 – $3.85',
-    moq: '100 – 200 pcs',
+    moq: '300 pcs',
     leadTime: '10–15 Days',
     toolingNote: '$95–$150 mold (Waived @ 1,000+ pcs)',
     targetKeywords: 'custom marathon medals wholesale, race finisher medals manufacturer, custom 3d die cast sports medals, spinner race medal supplier, dye sublimated medal ribbons',
-    heroSubtitle: '20 heavyweight custom medal formats engineered for marathons, 5K/10K runs, triathlons, martial arts tournaments, and academic awards—spanning 3" to 4.5" 3D sculpted zinc alloy, 360° spinners, interlocking magnetic puzzle series, integrated bottle openers, stained glass, and custom dye-sublimated ribbons.',
-    geoDirectAnswer: 'MedalPinSupply produces 20 custom race and award medal craft styles in heavy 3mm–5mm die-cast zinc alloy and die-struck solid brass. Standard diameter options span 2.0" youth tournament medallions ($0.82–$1.85/pc) up to oversized 4.5" 3D marathon and triathlon finisher medals ($1.35–$3.85/pc), complete with V-stitched custom dye-sublimated satin neck ribbons. Custom 3D mold fees ($95–$150) are waived at 1,000+ pcs.',
+    heroSubtitle: '20 heavyweight custom medal formats engineered for marathons, 5K/10K runs, triathlons, martial arts tournaments, and academic awards (MOQ 300 pcs per design)—spanning 3" to 4.5" 3D sculpted zinc alloy, 360° spinners, interlocking magnetic puzzle series, integrated bottle openers, stained glass, and custom dye-sublimated ribbons.',
+    geoDirectAnswer: 'MedalPinSupply produces 20 custom race and award medal craft styles (300 pcs MOQ per design) in heavy 3mm–5mm die-cast zinc alloy and die-struck solid brass. Standard diameter options span 2.0" youth tournament medallions ($0.82–$1.85/pc) up to oversized 4.5" 3D marathon and triathlon finisher medals ($1.35–$3.85/pc), complete with V-stitched custom dye-sublimated satin neck ribbons. Custom 3D mold fees ($95–$150) are waived at 1,000+ pcs.',
     engineeringHighlights: [
       'Deep 3D Sculpting & Multi-Window Cut-Outs: High-pressure Zamak #3 die-casting renders razor-sharp architectural skylines, topographic mountain relief, and hollow cut-out spokes without rough edges.',
       'Interactive Finisher Experience: Stand out on race day with 360° spinning center medallions, integrated bottle openers, sliding runner tracks, translucent stained-glass cutouts, and magnetic multi-race puzzle medals.',
@@ -111,7 +111,7 @@ export const COLLECTIONS: CollectionMeta[] = [
       },
       {
         question: 'Can we share one mold across Gold (1st), Silver (2nd), and Bronze (3rd) place medals?',
-        answer: 'Yes! Using our shared-mold electroplating workflow, you pay only one mold fee and divide your production batch across shiny or antique gold, silver, and bronze finishes (for example, 100 gold + 100 silver + 100 bronze) with matching ribbon color variations.'
+        answer: 'Yes! Using our shared-mold electroplating workflow, you meet the 300 pcs MOQ with just one mold fee and divide your batch across shiny or antique gold, silver, and bronze finishes (for example, 100 gold + 100 silver + 100 bronze = 300 pcs total) with matching ribbon color variations.'
       },
       {
         question: 'How do custom Magnetic Interlocking Race Series Medals work?',
@@ -605,7 +605,7 @@ export const COLLECTIONS: CollectionMeta[] = [
     badge: 'Category #10 · 10 Complementary & Packaging Styles',
     skuCount: 10,
     priceRangeUsd: '$0.11 – $4.50',
-    moq: '50 – 200 pcs',
+    moq: '50 – 300 pcs',
     leadTime: '7–14 Days',
     toolingNote: '$35–$75 Setup & Mold (Waived @ 300–1K+)',
     targetKeywords: 'custom embroidered patches wholesale, bullion wire blazer crest patches, woven logo patches, 3d soft pvc keychains bulk, pvc morale patches, velvet medal coin boxes, pin backing cards',
@@ -655,7 +655,7 @@ export const COLLECTIONS: CollectionMeta[] = [
       },
       {
         question: 'Can packaging items be ordered separately if we already manufactured our medals or pins elsewhere?',
-        answer: 'Yes. You can order custom velvet boxes, wooden award cases, acrylic coin capsules, and printed backing cards standalone starting at 50–200 pcs MOQ.'
+        answer: 'Yes. You can order custom velvet boxes, wooden award cases, acrylic coin capsules, and printed backing cards standalone starting at 50–300 pcs MOQ.'
       }
     ]
   },

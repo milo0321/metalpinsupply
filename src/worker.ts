@@ -15,6 +15,12 @@ export interface Env {
 const UNDER_CONSTRUCTION_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NX7XN5MK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
@@ -247,7 +253,7 @@ export default {
           JSON.stringify({
             status: 'ok',
             service: 'MedalPinSupply Contact API',
-            turnstileSiteKey: env.PUBLIC_TURNSTILE_SITE_KEY || env.TURNSTILE_SITE_KEY || '0x4AAAAAAF1GTaPVmYSNUcHS'
+            turnstileSiteKey: env.PUBLIC_TURNSTILE_SITE_KEY || env.TURNSTILE_SITE_KEY || '0x4AAAAAAGQ7Ymi90f_zxDHO'
           }),
           {
             status: 200,

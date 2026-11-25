@@ -2,7 +2,7 @@
 title: "Cut-Out Hollow Design Engineering for Race Medals, Challenge Coins & Keychains: Wall Thickness Rules"
 slug: "cut-out-hollow-design-and-inner-cut-mold-fees-for-medals-and-coins"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Engineering rules for open inner cut-out windows in race medals, shield coins, and metal keychains: minimum bridge width, trim dies, and pricing."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-015","MPS-028","MPS-031","MPS-050","MPS-051","MPS-061","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,21 +55,21 @@ relatedSkus: ["MPS-015","MPS-028","MPS-031","MPS-050","MPS-051","MPS-061","MPS-0
         <td><a href="/products/stained-glass-translucent-enamel-pins"><strong>Custom Translucent Stained-Glass Enamel Pins</strong></a></td>
         <td>Cut-Out Brass / Zinc Alloy<br/><small>Open-Back Window Cut-Out + Translucent Resin</small></td>
         <td>38×32×2.0mm · 14g</td>
-        <td>100 pcs<br/><small>$85 Cut-Out Die (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$85 Cut-Out Die (Waived @ 500+)</small></td>
         <td>$1.65 / $0.98 / <strong>$0.68</strong></td>
       </tr>
       <tr>
         <td><a href="/products/cut-out-hollow-sports-medals"><strong>Custom Cut-Out Hollow Zinc Alloy Sports Medals</strong></a></td>
         <td>Die-Cast Zamak #3 Zinc Alloy<br/><small>Multi-Window Hollow Cut-Outs + 3D Relief</small></td>
         <td>Ø76×3.8mm (3.0") · 96g</td>
-        <td>100 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
         <td>$2.65 / $1.72 / <strong>$1.25</strong></td>
       </tr>
       <tr>
         <td><a href="/products/stained-glass-enamel-medals"><strong>Custom Translucent Stained-Glass Enamel Medals</strong></a></td>
         <td>Cut-Out Zinc Alloy + Resin<br/><small>Open-Back Translucent Stained-Glass Enamel Fill</small></td>
         <td>Ø76×3.8mm (3.0") · 98g</td>
-        <td>100 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
         <td>$3.10 / $2.05 / <strong>$1.48</strong></td>
       </tr>
       <tr>

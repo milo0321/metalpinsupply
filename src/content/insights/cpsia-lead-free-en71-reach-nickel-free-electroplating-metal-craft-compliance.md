@@ -2,7 +2,7 @@
 title: "Global Metal Craft Compliance: US CPSIA Lead Limits, CA Prop 65, EU REACH & Nickel-Free Plating"
 slug: "cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Sourcing, Packaging & Compliance"
 summary: "Meet US CPSIA (<90 ppm lead), California Prop 65, EU REACH SVHC, and EN 1811 nickel-release regulations across zinc alloy, brass, enamel, and PVC."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-001","MPS-009","MPS-037","MPS-045","MPS-104","MPS-144","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,21 +55,21 @@ relatedSkus: ["MPS-001","MPS-009","MPS-037","MPS-045","MPS-104","MPS-144","MPS-1
         <td><a href="/products/custom-hard-enamel-lapel-pins"><strong>Custom Hard Enamel Lapel Pins (Cloisonne Finish)</strong></a></td>
         <td>Stamped Brass / Iron<br/><small>Kiln-Cured & Flush Stone-Polished Cloisonne Hard Enamel</small></td>
         <td>25.4×25.4×1.5mm · 10g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.45 / $0.85 / <strong>$0.58</strong></td>
       </tr>
       <tr>
         <td><a href="/products/3d-pewter-lapel-pins"><strong>Custom 3D Spin-Cast Pewter Lapel Pins</strong></a></td>
         <td>Lead-Free Fine Pewter Alloy<br/><small>Centrifugal Silicone Spin-Casting + Deep Relief</small></td>
         <td>32×28×3.0mm · 19g</td>
-        <td>100 pcs<br/><small>$95 Master Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$95 Master Mold (Waived @ 1k)</small></td>
         <td>$1.75 / $1.05 / <strong>$0.72</strong></td>
       </tr>
       <tr>
         <td><a href="/products/youth-sports-tournament-medals"><strong>Custom Youth Soccer, Baseball & Basketball Medals</strong></a></td>
         <td>Die-Cast Zinc Alloy<br/><small>High-Volume 2"–2.5" Tournament Soft Enamel</small></td>
         <td>Ø55×2.8mm (2.2") · 54g</td>
-        <td>100 pcs<br/><small>$85 Mold (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$85 Mold (Waived @ 500+ pcs)</small></td>
         <td>$1.85 / $1.15 / <strong>$0.82</strong></td>
       </tr>
       <tr>

@@ -10,7 +10,7 @@
   "vars": {
     "NOTIFICATION_EMAIL": "sales@medalpinsupply.com",
     "RESEND_FROM_EMAIL": "MedalPinSupply Inquiries <quotes@send.medalpinsupply.com>",
-    "PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAF1GTaPVmYSNUcHS",
+    "PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAGQ7Ymi90f_zxDHO",
     "PUBLIC_GTM_ID": "GTM-NX7XN5MK"
   },
   "assets": {

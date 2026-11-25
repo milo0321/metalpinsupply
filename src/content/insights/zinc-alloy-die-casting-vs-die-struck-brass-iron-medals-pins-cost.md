@@ -2,7 +2,7 @@
 title: "Zinc Alloy Die-Casting vs. Die-Struck Brass & Iron: 3D Relief Depth, Tooling Fees & Unit Economics"
 slug: "zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Compare hot-chamber Zamak #3 zinc alloy die-casting vs hydraulic die-struck brass and iron across 3D sculpting depth, mold fees ($55–$150), and unit cost."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-008","MPS-005","MPS-025","MPS-035","MPS-045","MPS-061","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,28 +55,28 @@ relatedSkus: ["MPS-008","MPS-005","MPS-025","MPS-035","MPS-045","MPS-061","MPS-0
         <td><a href="/products/3d-zinc-alloy-die-cast-pins"><strong>Custom 3D Zinc Alloy Die-Cast Lapel Pins</strong></a></td>
         <td>Zamak #3 Zinc Alloy<br/><small>3D Multi-Level CNC Mold Die-Casting + Cut-Outs</small></td>
         <td>35×30×2.8mm · 16g</td>
-        <td>100 pcs<br/><small>$95 3D Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$95 3D Mold (Waived @ 1,000+)</small></td>
         <td>$1.55 / $0.92 / <strong>$0.62</strong></td>
       </tr>
       <tr>
         <td><a href="/products/die-struck-antique-brass-pins"><strong>Custom Die-Struck Antique Brass Lapel Pins (No Color)</strong></a></td>
         <td>Solid Brass / Iron<br/><small>Sandblasted Recessed + Raised Hand-Buffed Relief</small></td>
         <td>25×25×1.6mm · 11g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.20 / $0.68 / <strong>$0.45</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-3d-marathon-finisher-medals"><strong>Custom 3D Die-Cast Marathon Finisher Medals</strong></a></td>
         <td>Heavy Zamak #3 Zinc Alloy<br/><small>Deep 3D Sculpted CNC Relief + Soft Enamel</small></td>
         <td>Ø85×4.0mm (3.35") · 125g</td>
-        <td>100 pcs<br/><small>$120 3D Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$120 3D Mold (Waived @ 1,000+)</small></td>
         <td>$2.85 / $1.85 / <strong>$1.35</strong></td>
       </tr>
       <tr>
         <td><a href="/products/die-struck-brass-academic-medals"><strong>Custom Die-Struck Brass Academic & Graduation Medals</strong></a></td>
         <td>Solid C26000 Brass<br/><small>Hydraulic High-Tonnage 2D/3D Coin Stamping</small></td>
         <td>Ø57×3.2mm (2.25") · 78g</td>
-        <td>100 pcs<br/><small>$110 Brass Die (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$110 Brass Die (Waived @ 1,000+)</small></td>
         <td>$2.90 / $1.95 / <strong>$1.42</strong></td>
       </tr>
       <tr>

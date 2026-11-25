@@ -2,7 +2,7 @@
 title: "Specialty Enamel Pigments: Glitter, Glow-in-the-Dark & Translucent Stained-Glass Pin Engineering"
 slug: "specialty-enamel-effects-glitter-glow-in-the-dark-stained-glass-translucent"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "How to design high-margin specialty enamel pins and night-run medals using metallic glitter, phosphorescent glow powder, and translucent resin."
@@ -16,7 +16,7 @@ relatedSkus: ["MPS-010","MPS-011","MPS-015","MPS-155","MPS-158","MPS-031","MPS-0
 
 <h2 id="engineering-overview-8">1. Engineering Overview: Glitter, Glow & Stained-Glass Enamel Pin</h2>
 
-<p><strong>Direct Answer:</strong> Specialty collector pins, night-run medals, and tourist fridge magnets combine translucent stained-glass resin windows, metallic micro-glitter, and strontium aluminate night-glow pigments from 50–100 pcs MOQ.</p>
+<p><strong>Direct Answer:</strong> Specialty collector pins and night-run medals (300 pcs MOQ) plus tourist fridge magnets (100 pcs MOQ) combine translucent stained-glass resin windows, metallic micro-glitter, and strontium aluminate night-glow pigments.</p>
 
 <p>Wholesale buyers access factory-direct pricing from <strong>$0.52 to $1.35/pc</strong> on custom options like <a href="/products/custom-glitter-enamel-pins">Custom Glitter Enamel Lapel Pins</a>. Every custom production run includes complimentary 12-hour vector proofs.</p>
 
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-010","MPS-011","MPS-015","MPS-155","MPS-158","MPS-031","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,21 +55,21 @@ relatedSkus: ["MPS-010","MPS-011","MPS-015","MPS-155","MPS-158","MPS-031","MPS-0
         <td><a href="/products/custom-glitter-enamel-pins"><strong>Custom Glitter Enamel Lapel Pins</strong></a></td>
         <td>Die-Struck Iron / Zinc Alloy<br/><small>Recessed Soft Enamel Infused with Metallic Glitter</small></td>
         <td>35×35×1.6mm · 13g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.35 / $0.78 / <strong>$0.52</strong></td>
       </tr>
       <tr>
         <td><a href="/products/glow-in-the-dark-enamel-pins"><strong>Custom Glow-in-the-Dark Enamel Pins</strong></a></td>
         <td>Die-Struck Iron / Zinc Alloy<br/><small>Phosphorescent Luminous Enamel Pigment Fill</small></td>
         <td>35×32×1.6mm · 12g</td>
-        <td>100 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.40 / $0.82 / <strong>$0.55</strong></td>
       </tr>
       <tr>
         <td><a href="/products/stained-glass-translucent-enamel-pins"><strong>Custom Translucent Stained-Glass Enamel Pins</strong></a></td>
         <td>Cut-Out Brass / Zinc Alloy<br/><small>Open-Back Window Cut-Out + Translucent Resin</small></td>
         <td>38×32×2.0mm · 14g</td>
-        <td>100 pcs<br/><small>$85 Cut-Out Die (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$85 Cut-Out Die (Waived @ 500+)</small></td>
         <td>$1.65 / $0.98 / <strong>$0.68</strong></td>
       </tr>
       <tr>
@@ -90,7 +90,7 @@ relatedSkus: ["MPS-010","MPS-011","MPS-015","MPS-155","MPS-158","MPS-031","MPS-0
         <td><a href="/products/stained-glass-enamel-medals"><strong>Custom Translucent Stained-Glass Enamel Medals</strong></a></td>
         <td>Cut-Out Zinc Alloy + Resin<br/><small>Open-Back Translucent Stained-Glass Enamel Fill</small></td>
         <td>Ø76×3.8mm (3.0") · 98g</td>
-        <td>100 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
         <td>$3.10 / $2.05 / <strong>$1.48</strong></td>
       </tr>
     </tbody>

@@ -2,7 +2,7 @@
 title: "Custom 3D Western Rodeo Trophy & Motorcycle Club Belt Buckles: Heavy Zinc Casting & Loop Specs"
 slug: "custom-3d-western-rodeo-and-motorcycle-club-heavy-zinc-belt-buckles"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Executive, Golf & Souvenirs"
 summary: "Manufacturing blueprint for 4x3-inch 165g 3D zinc alloy rodeo trophy buckles, biker club buckles, and utility bottle-opener belt buckles."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-114","MPS-115","MPS-116","MPS-117","MPS-118","MPS-049","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

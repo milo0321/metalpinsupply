@@ -2,7 +2,7 @@
 title: "Genuine Leather & Metal Emblem Keychains for Automotive Dealerships, Car Clubs & Real Estate"
 slug: "genuine-leather-metal-emblem-keychains-for-auto-dealerships-real-estate"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Keychains & Trolley Coins"
 summary: "High-retention stitched leather and chrome zinc key fobs for auto dealerships, EV brands, and homebuyer closing gifts starting at 100 pcs MOQ."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-066","MPS-073","MPS-080","MPS-065","MPS-090","MPS-113","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

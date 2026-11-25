@@ -2,7 +2,7 @@
 title: "Sequential Laser Edge Numbering (001/500) & Collector Capsule Packaging for Limited-Edition Coins"
 slug: "sequential-laser-numbering-and-acrylic-capsule-packaging-for-coins"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Coins & Military Insignia"
 summary: "Add serialized edition numbers (001/500) via rotary fiber laser and pair limited challenge coins with crystal acrylic capsules and velvet boxes."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-054","MPS-058","MPS-055","MPS-048","MPS-148","MPS-147","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

@@ -44,7 +44,7 @@ const turnstileSiteKey = (
   import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ||
   import.meta.env.TURNSTILE_SITE_KEY ||
   (typeof process !== 'undefined' ? process.env?.PUBLIC_TURNSTILE_SITE_KEY || process.env?.TURNSTILE_SITE_KEY : '') ||
-  '0x4AAAAAAF1GTaPVmYSNUcHS'
+  '0x4AAAAAAGQ7Ymi90f_zxDHO'
 ).trim();
 
 function htmlEncodedLen(s: string): number {
@@ -224,15 +224,14 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
 <!doctype html>
 <html lang={currentLang} dir={currentDir}>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Google Tag (GTM-NX7XN5MK) -->
     <script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -319,9 +318,13 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
       }
     </script>
 
-    <!-- GTM Engagement Signals (scroll depth, read heartbeats, nav clicks, dwell) -->
+    <!-- GTM Engagement Signals (scroll depth, read heartbeats, nav clicks, form start, dwell) -->
     <script is:inline>
       (function () {
+        var ua = navigator.userAgent || '';
+        var isBot = navigator.webdriver === true || /HeadlessChrome|GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Bytespider|AhrefsBot|SemrushBot|DotBot|MJ12bot|PetalBot|Bingbot|Googlebot/i.test(ua);
+        if (isBot) return;
+
         var startTs = Date.now();
         function emitGtagEvent(name, params) {
           try {
@@ -330,6 +333,23 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
             }
           } catch (_) {}
         }
+
+        // Track rfq_form_start once per page on initial focus in inline or contact RFQ forms
+        var formStartSent = false;
+        document.addEventListener('focusin', function (e) {
+          if (formStartSent) return;
+          var el = e.target;
+          if (!el || !el.matches) return;
+          if (el.matches('.inline-qrfq-input') || (el.matches('input, textarea, select') && el.closest('form#contact-form, form.contact-form, form.inline-quick-sheet-form'))) {
+            formStartSent = true;
+            emitGtagEvent('rfq_form_start', {
+              event_category: 'conversion_intent',
+              source_path: window.location.pathname,
+              form_type: el.matches('.inline-qrfq-input') ? 'inline_quick_sheet' : 'contact_rfq_form',
+              field_name: el.getAttribute('name') || el.id || 'email'
+            });
+          }
+        }, { passive: true });
 
         // Track scroll milestones (25% & 50%) and active reading dwell
         var scrolled25 = false;
@@ -640,7 +660,7 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
       // Strict email validation + On-demand Cloudflare Turnstile (interaction-only) -> /api/contact
       (function () {
         var pageEnterTs = Date.now();
-        var TURNSTILE_SITE_KEY = '0x4AAAAAAF1GTaPVmYSNUcHS';
+        var TURNSTILE_SITE_KEY = '0x4AAAAAAGQ7Ymi90f_zxDHO';
         var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
         var turnstileLoaderPromise = null;
 
@@ -785,9 +805,10 @@ const allSchemas = [...defaultSchemas, ...extraSchemas];
                 body: JSON.stringify({
                   workEmail: rawVal,
                   productName: skuTarget,
-                  quantity: '100-500 pcs (Inline Price Sheet / Sample Request)',
-                  customization: 'Price Sheet / 12h Digital Proof',
-                  message: '[Inline Email Price-Guide Form]\nWork Email: ' + rawVal + '\nRequested: Wholesale Price Guide & Quote for ' + skuTarget,
+                  estimatedQuantity: '300-500 pcs (Inline Price Sheet / Sample Request)',
+                  brandingMode: 'Price Sheet / 12h Digital Proof',
+                  inquiryDetails: '[Inline Email Price-Guide Form]\nWork Email: ' + rawVal + '\nRequested: Wholesale Price Guide & Quote for ' + skuTarget,
+                  rxJsProof: 'mps_js_ok',
                   turnstileToken: turnstileToken,
                   'cf-turnstile-response': turnstileToken,
                   pageUrl: window.location.href,

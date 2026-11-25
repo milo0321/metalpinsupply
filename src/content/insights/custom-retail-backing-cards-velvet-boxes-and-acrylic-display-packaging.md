@@ -2,7 +2,7 @@
 title: "Retail Pin Backing Cards, Velvet Gift Boxes & Acrylic Coin Capsules: Boosting Margin 35%+ at Checkout"
 slug: "custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Sourcing, Packaging & Compliance"
 summary: "Turn wholesale pins, medals, and challenge coins into retail-ready gifts with 350gsm foil backing cards, 38–50mm acrylic capsules, and velvet boxes."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-147","MPS-148","MPS-149","MPS-150","MPS-151","MPS-109","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -69,7 +69,7 @@ relatedSkus: ["MPS-147","MPS-148","MPS-149","MPS-150","MPS-151","MPS-109","MPS-1
         <td><a href="/products/custom-pin-backing-cards"><strong>Custom Printed Retail Backing Cards for Enamel Pins</strong></a></td>
         <td>350gsm–400gsm Art Cardstock<br/><small>CMYK Offset Card Print + Euro-Slot Polybag + Pre-Mount</small></td>
         <td>85×55mm / 100×70mm · 6g</td>
-        <td>200 pcs<br/><small>$35 Die-Cut & Proof Plate (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$35 Die-Cut & Proof Plate (Waived @ 500+)</small></td>
         <td>$0.35 / $0.18 / <strong>$0.11</strong></td>
       </tr>
       <tr>

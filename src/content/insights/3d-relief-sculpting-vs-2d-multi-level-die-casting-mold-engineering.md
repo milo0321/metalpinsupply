@@ -2,7 +2,7 @@
 title: "True 3D Relief Sculpting vs. 2D Multi-Level Die-Casting: Mold Engraving & Shading Engineering"
 slug: "3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Understand how CNC 3D Z-axis sculpting differs from stepped 2D metal layers on custom marathon medals, challenge coins, and western belt buckles."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-008","MPS-009","MPS-025","MPS-033","MPS-045","MPS-061","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,28 +55,28 @@ relatedSkus: ["MPS-008","MPS-009","MPS-025","MPS-033","MPS-045","MPS-061","MPS-1
         <td><a href="/products/3d-zinc-alloy-die-cast-pins"><strong>Custom 3D Zinc Alloy Die-Cast Lapel Pins</strong></a></td>
         <td>Zamak #3 Zinc Alloy<br/><small>3D Multi-Level CNC Mold Die-Casting + Cut-Outs</small></td>
         <td>35×30×2.8mm · 16g</td>
-        <td>100 pcs<br/><small>$95 3D Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$95 3D Mold (Waived @ 1,000+)</small></td>
         <td>$1.55 / $0.92 / <strong>$0.62</strong></td>
       </tr>
       <tr>
         <td><a href="/products/3d-pewter-lapel-pins"><strong>Custom 3D Spin-Cast Pewter Lapel Pins</strong></a></td>
         <td>Lead-Free Fine Pewter Alloy<br/><small>Centrifugal Silicone Spin-Casting + Deep Relief</small></td>
         <td>32×28×3.0mm · 19g</td>
-        <td>100 pcs<br/><small>$95 Master Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$95 Master Mold (Waived @ 1k)</small></td>
         <td>$1.75 / $1.05 / <strong>$0.72</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-3d-marathon-finisher-medals"><strong>Custom 3D Die-Cast Marathon Finisher Medals</strong></a></td>
         <td>Heavy Zamak #3 Zinc Alloy<br/><small>Deep 3D Sculpted CNC Relief + Soft Enamel</small></td>
         <td>Ø85×4.0mm (3.35") · 125g</td>
-        <td>100 pcs<br/><small>$120 3D Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$120 3D Mold (Waived @ 1,000+)</small></td>
         <td>$2.85 / $1.85 / <strong>$1.35</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-triathlon-cycling-medals"><strong>Custom Triathlon & Cycling Heavyweight Medals</strong></a></td>
         <td>Extra-Heavy Zinc Alloy<br/><small>Oversized 3.5"–4.5" 5mm Deep 3D Relief + Cut-Out</small></td>
         <td>Ø100×5.0mm (4.0") · 178g</td>
-        <td>100 pcs<br/><small>$145 Heavy Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$145 Heavy Mold (Waived @ 1,000+)</small></td>
         <td>$3.50 / $2.35 / <strong>$1.75</strong></td>
       </tr>
       <tr>

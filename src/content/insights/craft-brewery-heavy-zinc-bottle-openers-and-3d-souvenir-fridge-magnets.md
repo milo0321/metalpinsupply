@@ -2,7 +2,7 @@
 title: "Craft Brewery Metal Bottle Openers & 3D Landmark Souvenir Fridge Magnets: Structural Strength & Magnet Force"
 slug: "craft-brewery-heavy-zinc-bottle-openers-and-3d-souvenir-fridge-magnets"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Executive, Golf & Souvenirs"
 summary: "Compare 4.2mm heavy 3D zinc brewery openers, stainless speed-rail paddles, credit-card wallet openers, and high-hold 3D landmark souvenir magnets."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-132","MPS-133","MPS-134","MPS-135","MPS-136","MPS-154","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

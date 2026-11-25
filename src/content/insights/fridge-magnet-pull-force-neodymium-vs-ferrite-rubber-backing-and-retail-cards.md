@@ -2,7 +2,7 @@
 title: "Metal Fridge Magnet Engineering: N45 Neodymium vs. Ferrite & Soft Rubber Pull Force Plus Retail Packaging"
 slug: "fridge-magnet-pull-force-neodymium-vs-ferrite-rubber-backing-and-retail-cards"
 publishDate: "2026-11-24"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Sourcing, Packaging & Compliance"
 summary: "Engineer metal fridge magnet hold strength comparing recessed N45 neodymium vs ceramic ferrite vs soft rubber backs, plus 400gsm retail card packaging."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-134","MPS-136","MPS-151","MPS-156","MPS-153","MPS-149","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -90,7 +90,7 @@ relatedSkus: ["MPS-134","MPS-136","MPS-151","MPS-156","MPS-153","MPS-149","MPS-1
         <td><a href="/products/custom-pin-backing-cards"><strong>Custom Printed Retail Backing Cards for Enamel Pins</strong></a></td>
         <td>350gsm–400gsm Art Cardstock<br/><small>CMYK Offset Card Print + Euro-Slot Polybag + Pre-Mount</small></td>
         <td>85×55mm / 100×70mm · 6g</td>
-        <td>200 pcs<br/><small>$35 Die-Cut & Proof Plate (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$35 Die-Cut & Proof Plate (Waived @ 500+)</small></td>
         <td>$0.35 / $0.18 / <strong>$0.11</strong></td>
       </tr>
     </tbody>

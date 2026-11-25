@@ -163,9 +163,13 @@ export async function onRequestPost(context) {
       companyName = '',
       destinationCountry = '',
       productName = '',
-      estimatedQuantity = '',
-      brandingMode = '',
-      inquiryDetails = '',
+      estimatedQuantity: estimatedQuantityDirect = '',
+      quantity: quantityAlt = '',
+      brandingMode: brandingModeDirect = '',
+      customization: customizationAlt = '',
+      inquiryDetails: inquiryDetailsDirect = '',
+      message: messageAlt = '',
+      rxJsProof = '',
       browsingJourney = '',
       rx_bot_trap_hp9 = '',
       pageUrl = '',
@@ -184,6 +188,9 @@ export async function onRequestPost(context) {
       turnstileToken: turnstileTokenDirect = ''
     } = data;
 
+    const estimatedQuantity = estimatedQuantityDirect || quantityAlt || '';
+    const brandingMode = brandingModeDirect || customizationAlt || '';
+    const inquiryDetails = inquiryDetailsDirect || messageAlt || '';
     const turnstileTokenAlt = data['cf-turnstile-response'] || '';
 
     const trimmedEmail = String(workEmail || '').trim();
@@ -203,10 +210,10 @@ export async function onRequestPost(context) {
       );
     }
 
-    // Anti-bot Honeypot check
+    // Zero-False-Positive Anti-Spam Shield (Layers A–D)
     const turnstileToken = (turnstileTokenDirect || turnstileTokenAlt || token || '').trim();
-    if (rx_bot_trap_hp9 && rx_bot_trap_hp9.trim().length > 0 && !turnstileToken && !fileAttachment) {
-      return new Response(
+    const silentSpamResponse = () =>
+      new Response(
         JSON.stringify({
           success: true,
           message: 'Inquiry received successfully.',
@@ -214,6 +221,44 @@ export async function onRequestPost(context) {
         }),
         { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
+
+    // Layer A: Autofill-safe honeypot trap
+    if (rx_bot_trap_hp9 && rx_bot_trap_hp9.trim().length > 0 && !turnstileToken && !fileAttachment) {
+      return silentSpamResponse();
+    }
+
+    // Layer B: Direct Raw HTTP POST Bypass Check (all 5 browser telemetry signals missing without Turnstile/attachment)
+    if (
+      !turnstileToken &&
+      !fileAttachment &&
+      !String(pageUrl).startsWith('http') &&
+      screenResolution === 'N/A' &&
+      timeOnPageSeconds === 'N/A' &&
+      !clientLocalTime &&
+      !rxJsProof
+    ) {
+      return silentSpamResponse();
+    }
+
+    // Layer C: XRumer / GSA Identical Bot Token
+    const cleanFullName = String(fullName || '').trim();
+    const cleanCompany = String(companyName || '').trim();
+    const cleanProduct = String(productName || '').trim();
+    if (
+      cleanFullName &&
+      ((cleanFullName === cleanCompany && cleanFullName === cleanProduct) ||
+        (/^[a-zA-Z0-9]+_[a-zA-Z0-9]{3,}$/.test(cleanFullName) && cleanFullName === cleanProduct))
+    ) {
+      return silentSpamResponse();
+    }
+
+    // Layer D: BBCode / HTML link injection & gambling/casino spam filter
+    const notesStr = String(inquiryDetails || '');
+    if (
+      /\[url=|\[\/url\]|<a\s+href=/i.test(notesStr) ||
+      /\b(freebet|online\s+casino|slot\s+gacor|poker\s+bonus|sportsbook\s+promo|1win|mostbet)\b/i.test(notesStr)
+    ) {
+      return silentSpamResponse();
     }
 
     const cfObj = request.cf || {};
@@ -238,6 +283,23 @@ export async function onRequestPost(context) {
 
     // Cloudflare Turnstile verification (supports both TURNSTILE_SECRET_KEY and TURNSTILE_SECRET)
     const secretKey = env.TURNSTILE_SECRET_KEY || env.TURNSTILE_SECRET;
+    let requestHost = '';
+    try {
+      requestHost = new URL(request.url).hostname.toLowerCase();
+    } catch (_) {}
+    const isLocalHost = requestHost === 'localhost' || requestHost === '127.0.0.1';
+
+    if (!secretKey && !isLocalHost) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error:
+            'Security verification is temporarily unavailable. Please email sales@medalpinsupply.com or message us on WhatsApp.'
+        }),
+        { status: 503, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+      );
+    }
+
     if (secretKey) {
       if (!turnstileToken || typeof turnstileToken !== 'string' || turnstileToken.length > 2048) {
         return new Response(
@@ -261,17 +323,46 @@ export async function onRequestPost(context) {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: bodyParams
         });
-        const verifyOutcome = await verifyRes.json();
-        if (!verifyOutcome.success) {
+        if (!verifyRes.ok) {
           return new Response(
             JSON.stringify({
               success: false,
-              error: 'Anti-bot security verification failed. Please refresh and try again.'
+              error: 'Unable to reach security verification service. Please retry in a moment or contact us via WhatsApp.'
+            }),
+            { status: 503, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+          );
+        }
+        const verifyOutcome = await verifyRes.json();
+        const verifiedHost = String(verifyOutcome?.hostname || '').toLowerCase();
+        const isAllowedHost =
+          !verifiedHost ||
+          verifiedHost === 'medalpinsupply.com' ||
+          verifiedHost === 'www.medalpinsupply.com' ||
+          verifiedHost === 'localhost' ||
+          verifiedHost === '127.0.0.1' ||
+          verifiedHost.endsWith('.workers.dev');
+        const verifiedAction = String(verifyOutcome?.action || '');
+        const isAllowedAction =
+          !verifiedAction || verifiedAction === 'contact' || verifiedAction === 'inline_price_sheet';
+
+        if (!verifyOutcome || verifyOutcome.success !== true || !isAllowedHost || !isAllowedAction) {
+          return new Response(
+            JSON.stringify({
+              success: false,
+              error: 'Anti-bot security verification failed. Please refresh the page and complete the security check again.'
             }),
             { status: 403, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
           );
         }
-      } catch (_) {}
+      } catch (_) {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: 'Unable to reach security verification service. Please retry in a moment or contact us via WhatsApp.'
+          }),
+          { status: 503, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+        );
+      }
     }
 
     let parsedJourney = [];

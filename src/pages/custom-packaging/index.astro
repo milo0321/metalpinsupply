@@ -36,7 +36,7 @@ const packagingFaqs = [
   },
   {
     question: 'What is the cost and MOQ difference between Backing Cards, Acrylic Capsules, and Velvet Boxes?',
-    answer: 'Individual OPP polybagging is included free from 50 pcs. Custom 400gsm Retail Backing Cards add +$0.12–$0.22/pc (MOQ 100), Optical Coin Capsules with custom EVA rings add +$0.15–$0.35/pc (MOQ 100), and hinged Velvet / Leatherette Foil-Stamped Gift Boxes add +$0.85–$1.85/pc (MOQ 100).'
+    answer: 'Individual OPP polybagging is included free from 50 pcs. Custom 400gsm Pin Backing Cards add +$0.12–$0.22/pc (MOQ 300), Optical Coin Capsules with custom EVA rings add +$0.15–$0.35/pc (MOQ 100), and hinged Velvet / Leatherette Foil-Stamped Gift Boxes add +$0.85–$1.85/pc (MOQ 100).'
   },
   {
     question: 'Can you kit multiple metal items together into one executive welcome gift box?',
@@ -79,7 +79,7 @@ const packagingServiceSchema = {
     name: 'Wholesale Metal Craft Retail Packaging Tiers',
     itemListElement: [
       { '@type': 'Offer', name: 'Individual Sealed OPP Polybag Protection (Included, MOQ 50 pcs)', price: '0.00', priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Custom 400gsm CMYK Backing Card + Mounting (MOQ 100 pcs)', price: '0.12', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Custom 400gsm CMYK Pin Backing Card + Mounting (MOQ 300 pcs)', price: '0.12', priceCurrency: 'USD' },
       { '@type': 'Offer', name: 'Optical Acrylic Coin Capsule + Black EVA Ring (MOQ 100 pcs)', price: '0.15', priceCurrency: 'USD' },
       { '@type': 'Offer', name: 'Hinged Velvet / Leatherette Foil-Stamped Box (MOQ 100 pcs)', price: '0.85', priceCurrency: 'USD' }
     ]
@@ -87,17 +87,17 @@ const packagingServiceSchema = {
 };
 
 const PACKAGING_META_DESC_MAP: Record<string, string> = {
-  en: 'Custom metal craft packaging: free polybags, 400gsm CMYK backing cards (+$0.12+, MOQ 100), optical coin capsules (+$0.15+) & velvet foil boxes (+$0.85+).',
-  es: 'Empaque para pines y medallas: bolsas OPP gratis, tarjetas de cartón 400g (+$0.12+, MOQ 100), cápsulas acrílicas (+$0.15+) y estuches de terciopelo.',
-  de: 'Verkaufsverpackung für Pins & Coins: OPP-Beutel inkl., 400g Trägerkarten (+$0.12+, MOQ 100), Acryl-Münzkapseln (+$0.15+) & Samt-Präsentboxen (+$0.85+).',
-  fr: 'Packaging pins & médailles : sachets inclus, cartons imprimés 400g (+$0.12+, MOQ 100), capsules acryliques (+$0.15+) et écrins velours dorure (+$0.85+).',
-  ja: 'ピン・メダル・コイン梱包：個別OPP袋無料、400g台紙印刷（+$0.12〜・MOQ 100）、透明アクリルカプセル（+$0.15〜）、箔押しベルベット化粧箱（+$0.85〜）。',
-  ko: '핀·메달·코인 맞춤 패키징: 개별 OPP 포장 무료, 400g 백킹 카드(+$0.12+, MOQ 100), 아크릴 캡슐(+$0.15+), 금박 벨벳 선물 케이스(+$0.85+).',
-  ar: 'تغليف الدبابيس والعملات: أكياس فردية مجانية، بطاقات عرض 400 جم (+0.12$+، MOQ 100)، كبسولات أكريليك (+0.15$+) وعلب مخملية فاخرة (+0.85$+).',
-  pt: 'Embalagem para pins e moedas: saquinhos grátis, cartões 400g CMYK (+$0.12+, MOQ 100), cápsulas acrílicas (+$0.15+) e estojos de veludo (+$0.85+).',
-  ru: 'Упаковка значков и монет: OPP-пакеты бесплатно, картонная подложка 400г (+$0.12+, MOQ 100), капсулы для монет (+$0.15+) и бархатные футляры (+$0.85+).',
-  it: 'Packaging spille e monete: buste gratis, cartoncini 400g (+$0.12+, MOQ 100), capsule acriliche (+$0.15+) e cofanetti in velluto con stampa a caldo.',
-  nl: 'Verpakking voor pins & munten: gratis OPP-zakjes, 400g backing cards (+$0.12+, MOQ 100), acryl muntcapsules (+$0.15+) en fluwelen doosjes (+$0.85+).',
+  en: 'Custom metal craft packaging: free polybags, 400gsm CMYK backing cards (+$0.12+, MOQ 300), optical coin capsules (+$0.15+) & velvet foil boxes (+$0.85+).',
+  es: 'Empaque para pines y medallas: bolsas OPP gratis, tarjetas de cartón 400g (+$0.12+, MOQ 300), cápsulas acrílicas (+$0.15+) y estuches de terciopelo.',
+  de: 'Verkaufsverpackung für Pins & Coins: OPP-Beutel inkl., 400g Trägerkarten (+$0.12+, MOQ 300), Acryl-Münzkapseln (+$0.15+) & Samt-Präsentboxen (+$0.85+).',
+  fr: 'Packaging pins & médailles : sachets inclus, cartons imprimés 400g (+$0.12+, MOQ 300), capsules acryliques (+$0.15+) et écrins velours dorure (+$0.85+).',
+  ja: 'ピン・メダル・コイン梱包：個別OPP袋無料、400g台紙印刷（+$0.12〜・MOQ 300）、透明アクリルカプセル（+$0.15〜）、箔押しベルベット化粧箱（+$0.85〜）。',
+  ko: '핀·메달·코인 맞춤 패키징: 개별 OPP 포장 무료, 400g 백킹 카드(+$0.12+, MOQ 300), 아크릴 캡슐(+$0.15+), 금박 벨벳 선물 케이스(+$0.85+).',
+  ar: 'تغليف الدبابيس والعملات: أكياس فردية مجانية، بطاقات عرض 400 جم (+0.12$+، MOQ 300)، كبسولات أكريليك (+0.15$+) وعلب مخملية فاخرة (+0.85$+).',
+  pt: 'Embalagem para pins e moedas: saquinhos grátis, cartões 400g CMYK (+$0.12+, MOQ 300), cápsulas acrílicas (+$0.15+) e estojos de veludo (+$0.85+).',
+  ru: 'Упаковка значков и монет: OPP-пакеты бесплатно, картонная подложка 400г (+$0.12+, MOQ 300), капсулы для монет (+$0.15+) и бархатные футляры (+$0.85+).',
+  it: 'Packaging spille e monete: buste gratis, cartoncini 400g (+$0.12+, MOQ 300), capsule acriliche (+$0.15+) e cofanetti in velluto con stampa a caldo.',
+  nl: 'Verpakking voor pins & munten: gratis OPP-zakjes, 400g backing cards (+$0.12+, MOQ 300), acryl muntcapsules (+$0.15+) en fluwelen doosjes (+$0.85+).',
   pl: 'Opakowania do pinów i monet: woreczki OPP gratis, kartoniki 400g (+$0.12+, MOQ 100), kapsuły akrylowe (+$0.15+) i pudełka welurowe (+$0.85+).',
   id: 'Kemasan pin & koin: kantong OPP gratis, kartu backing 400gsm (+$0,12+, MOQ 100), kapsul akrilik (+$0,15+) & kotak beludru cetak foil (+$0,85+).',
   sv: 'Förpackning för pins & mynt: gratis OPP-påsar, 400g tryckta bakkort (+$0.12+, MOQ 100), akrylkapslar (+$0.15+) och sammetsaskar med folietryck.',

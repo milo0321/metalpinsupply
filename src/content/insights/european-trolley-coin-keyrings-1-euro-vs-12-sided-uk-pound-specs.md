@@ -2,7 +2,7 @@
 title: "European Trolley Coin Keyrings: Exact 23.25mm €1 Euro vs. 12-Sided 23.43mm UK £1 Specs & Tolerances"
 slug: "european-trolley-coin-keyrings-1-euro-vs-12-sided-uk-pound-specs"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Keychains & Trolley Coins"
 summary: "Precision dimensional standards for European €1 (23.25mm), 12-sided UK £1 (23.43mm), Canadian $1, and Australian $1 supermarket trolley coin keyrings."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-081","MPS-082","MPS-083","MPS-084","MPS-085","MPS-086","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

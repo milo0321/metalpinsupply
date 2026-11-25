@@ -60,7 +60,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'executive-cufflinks-tie-bars'],
     focusSkus: ['MPS-001', 'MPS-002', 'MPS-003', 'MPS-004', 'MPS-010', 'MPS-016', 'MPS-019', 'MPS-105'],
     tags: ['Hard Enamel', 'Soft Enamel', 'Lapel Pins', 'Manufacturing'],
-    angle: 'MedalPinSupply produces flush stone-polished cloisonne hard enamel pins ($0.58–$1.45/pc EXW) and recessed 180°C baked soft enamel pins ($0.42–$1.15/pc EXW) at 50 pcs MOQ, with 2D steel dies ($55–$65) waived automatically at 500+ pcs.'
+    angle: 'MedalPinSupply produces flush stone-polished cloisonne hard enamel pins ($0.58–$1.45/pc EXW) and recessed 180°C baked soft enamel pins ($0.42–$1.15/pc EXW) at 300 pcs MOQ, with 2D steel dies ($55–$65) waived automatically at 500+ pcs.'
   },
   {
     slug: 'zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost',
@@ -82,7 +82,7 @@ const GUIDES = [
     cols: ['custom-enamel-pins', 'metal-bookmarks-openers-souvenirs'],
     focusSkus: ['MPS-004', 'MPS-006', 'MPS-007', 'MPS-023', 'MPS-064', 'MPS-069', 'MPS-085', 'MPS-129'],
     tags: ['Photo-Etched Brass', 'Offset Printing', 'Silk-Screen', 'CMYK'],
-    angle: 'Acid photo-etched 0.8mm brass ($0.38–$1.05/pc) resolves intricate thin-line filigree without stamping burrs, whereas CMYK offset litho printing under clear epoxy domes reproduces photographic portraits and continuous gradients starting at 100 pcs MOQ.'
+    angle: 'Acid photo-etched 0.8mm brass ($0.38–$1.05/pc) resolves intricate thin-line filigree without stamping burrs, whereas CMYK offset litho printing under clear epoxy domes reproduces photographic portraits and continuous gradients starting at 300 pcs MOQ.'
   },
   {
     slug: 'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd',
@@ -138,7 +138,7 @@ const GUIDES = [
     focusSkus: ['MPS-010', 'MPS-011', 'MPS-015', 'MPS-155', 'MPS-158', 'MPS-031', 'MPS-032', 'MPS-057'],
     relatedGuides: ['museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer', 'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide', 'electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd'],
     tags: ['Glitter Enamel', 'Glow-in-the-Dark', 'Stained Glass', 'Specialty Pins'],
-    angle: 'Specialty collector pins, night-run medals, and tourist fridge magnets combine translucent stained-glass resin windows, metallic micro-glitter, and strontium aluminate night-glow pigments from 50–100 pcs MOQ.'
+    angle: 'Specialty collector pins and night-run medals (300 pcs MOQ) plus tourist fridge magnets (100 pcs MOQ) combine translucent stained-glass resin windows, metallic micro-glitter, and strontium aluminate night-glow pigments.'
   },
   {
     slug: 'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms',
@@ -150,7 +150,7 @@ const GUIDES = [
     focusSkus: ['MPS-012', 'MPS-013', 'MPS-014', 'MPS-154', 'MPS-027', 'MPS-040', 'MPS-053', 'MPS-065'],
     relatedGuides: ['museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer', '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering', 'custom-3d-zinc-alloy-vs-soft-enamel-and-spinning-metal-keychains'],
     tags: ['Spinner Medals', 'Slider Pins', 'Kinetic Fridge Magnets', 'Kinetic Hardware'],
-    angle: 'Kinetic spinner bearings, 0.25mm-clearance sliding tracks, and hinged clasp joints transform custom lapel pins, fridge magnets, and marathon medals into interactive merchandise starting at 100 pcs MOQ.'
+    angle: 'Kinetic spinner bearings, 0.25mm-clearance sliding tracks, and hinged clasp joints transform custom lapel pins and marathon medals (300 pcs MOQ) plus fridge magnets and keychains (100 pcs MOQ) into interactive merch.'
   },
   {
     slug: 'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale',
@@ -229,7 +229,7 @@ const GUIDES = [
     cols: ['police-badges-insignia', 'custom-medals'],
     focusSkus: ['MPS-103', 'MPS-033', 'MPS-036', 'MPS-037', 'MPS-041', 'MPS-147', 'MPS-150', 'MPS-020'],
     tags: ['Championship Rings', 'Tournament Awards', 'Trophy Medals', 'Sports'],
-    angle: 'Custom 3D tournament championship rings (US sizes 7–13, bezel cubic zirconia stones, 50 pcs MOQ) command trophy prestige from $2.85–$6.40/pc compared with oversized 4-inch heavyweight finisher medals.'
+    angle: 'Custom 3D tournament championship rings (US sizes 7–13, bezel cubic zirconia stones, 50 pcs MOQ) command trophy prestige from $3.45–$6.80/pc compared with oversized 4-inch heavyweight finisher medals (300 pcs MOQ).'
   },
   {
     slug: 'virtual-race-finisher-medals-lightweight-mailer-packaging-and-fulfillment',
@@ -683,7 +683,7 @@ let pLinkFn;
 function buildArticle(g, idx) {
   const isNewMagnetGuide = Array.isArray(g.cols) && g.cols[0] === 'custom-metal-fridge-magnets';
   const publishDate = isNewMagnetGuide ? '2026-11-24' : '2026-10-20';
-  const updatedDate = '2026-11-24';
+  const updatedDate = '2026-11-25';
   const col1 = g.cols[0];
   const col2 = g.cols[1] || 'custom-enamel-pins';
   const col3 = g.cols[2] || null;
@@ -777,7 +777,7 @@ relatedSkus: ${JSON.stringify(g.focusSkus.slice(0, 8))}
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

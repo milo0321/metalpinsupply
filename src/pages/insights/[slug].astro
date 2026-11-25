@@ -111,7 +111,7 @@ const firstProdLoc = firstProd ? localizeProduct(firstProd.data, currentLang) : 
 const firstProdMaterial = firstProdLoc?.material || firstProd?.data?.material || (currentLang === 'en' ? 'Zamak #3 zinc alloy, C26000 brass, or iron' : 'Zamak #3 / Brass / Iron');
 const execTakeawayAnswer =
   currentLang === 'en'
-    ? `(1) Factory Pricing & MOQ: Custom wholesale runs start at ${firstProd ? `${firstProd.data.moqNum} pcs ($${firstProd.data.tier2000}–$${firstProd.data.tier100}/pc EXW)` : '50–100 pcs ($0.14–$1.95/pc EXW)'} with free 12-hour 1:1 Pantone vector proofs. (2) Mold Waiver & Alloy Spec: Fabricated in ${firstProdMaterial} (${firstProd ? firstProd.data.toolingFee : '2D dies waived @ 500+ pcs; 3D molds waived @ 1,000+ pcs'}) with free 3-year die archiving. (3) Turnaround & Compliance: Pre-production samples ship in ${firstProd ? firstProd.data.sampleTime : '7–10 days'}, bulk runs complete in 7–15 business days, certified to US CPSIA (<90 ppm Pb), Prop 65, and EU REACH / EN71-3.`
+    ? `(1) Factory Pricing & MOQ: Custom wholesale runs start at ${firstProd ? `${firstProd.data.moqNum} pcs ($${firstProd.data.tier2000}–$${firstProd.data.tier100}/pc EXW)` : '50–300 pcs ($0.14–$1.95/pc EXW)'} with free 12-hour 1:1 Pantone vector proofs. (2) Mold Waiver & Alloy Spec: Fabricated in ${firstProdMaterial} (${firstProd ? firstProd.data.toolingFee : '2D dies waived @ 500+ pcs; 3D molds waived @ 1,000+ pcs'}) with free 3-year die archiving. (3) Turnaround & Compliance: Pre-production samples ship in ${firstProd ? firstProd.data.sampleTime : '7–10 days'}, bulk runs complete in 7–15 business days, certified to US CPSIA (<90 ppm Pb), Prop 65, and EU REACH / EN71-3.`
     : `(1) ${t('pdp.pricingTitle')}: MOQ ${firstProd ? firstProd.data.moqNum : 100} ${t('unit.pcs')} ($${firstProd ? firstProd.data.tier2000 : '0.42'}–$${firstProd ? firstProd.data.tier100 : '1.65'}/${t('unit.pc')} EXW) · ${microHooks.freeLogoProof}. (2) ${t('geo.metricTooling')}: ${t('geo.metricToolingVal')} · ${firstProdMaterial}. (3) ${t('geo.metricSafety')}: ${t('geo.metricSafetyVal')} · ${t('footer.trust4Sub')}.`;
 
 const articleSchema = {
@@ -263,6 +263,12 @@ const faqSchema = {
         <GeoDirectAnswer
           title={t('guide.execBriefTitle')}
           answer={execTakeawayAnswer}
+          metrics={[
+            { label: t('geo.metricTooling'), value: t('geo.metricToolingVal') },
+            { label: t('geo.metricBlankMoq'), value: firstProd ? `${firstProd.data.moqNum} ${t('unit.pcs')}` : t('geo.metricBlankMoqVal') },
+            { label: t('geo.metricLogoMoq'), value: t('geo.metricLogoMoqVal') },
+            { label: t('geo.metricSafety'), value: t('geo.metricSafetyVal') }
+          ]}
         />
 
         <!-- Mobile & Tablet Quick-Jump Table of Contents (Visible <= 1180px) -->

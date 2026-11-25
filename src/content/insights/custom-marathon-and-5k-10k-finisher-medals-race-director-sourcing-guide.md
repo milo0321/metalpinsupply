@@ -2,7 +2,7 @@
 title: "Custom Marathon & 5K/10K Finisher Medals: Sizing, Thickness, Weight & Lead Time Planning for Race Directors"
 slug: "custom-marathon-and-5k-10k-finisher-medals-race-director-sourcing-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Medals & Sports Events"
 summary: "Complete race director sourcing blueprint for custom 2.5 to 4.5-inch marathon finisher medals, weight specs (54g–178g), and race-day scheduling."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-025","MPS-026","MPS-028","MPS-033","MPS-034","MPS-037","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,42 +55,42 @@ relatedSkus: ["MPS-025","MPS-026","MPS-028","MPS-033","MPS-034","MPS-037","MPS-0
         <td><a href="/products/custom-3d-marathon-finisher-medals"><strong>Custom 3D Die-Cast Marathon Finisher Medals</strong></a></td>
         <td>Heavy Zamak #3 Zinc Alloy<br/><small>Deep 3D Sculpted CNC Relief + Soft Enamel</small></td>
         <td>Ø85×4.0mm (3.35") · 125g</td>
-        <td>100 pcs<br/><small>$120 3D Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$120 3D Mold (Waived @ 1,000+)</small></td>
         <td>$2.85 / $1.85 / <strong>$1.35</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-5k-10k-running-medals"><strong>Custom Soft Enamel 5K & 10K Running Medals</strong></a></td>
         <td>Zamak #3 Zinc Alloy<br/><small>2D Multi-Level Die-Casting + Pantone Soft Enamel</small></td>
         <td>Ø70×3.2mm (2.75") · 82g</td>
-        <td>100 pcs<br/><small>$95 Mold (Waived @ 1,000+ pcs)</small></td>
+        <td>300 pcs<br/><small>$95 Mold (Waived @ 1,000+ pcs)</small></td>
         <td>$2.25 / $1.45 / <strong>$1.05</strong></td>
       </tr>
       <tr>
         <td><a href="/products/cut-out-hollow-sports-medals"><strong>Custom Cut-Out Hollow Zinc Alloy Sports Medals</strong></a></td>
         <td>Die-Cast Zamak #3 Zinc Alloy<br/><small>Multi-Window Hollow Cut-Outs + 3D Relief</small></td>
         <td>Ø76×3.8mm (3.0") · 96g</td>
-        <td>100 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
         <td>$2.65 / $1.72 / <strong>$1.25</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-triathlon-cycling-medals"><strong>Custom Triathlon & Cycling Heavyweight Medals</strong></a></td>
         <td>Extra-Heavy Zinc Alloy<br/><small>Oversized 3.5"–4.5" 5mm Deep 3D Relief + Cut-Out</small></td>
         <td>Ø100×5.0mm (4.0") · 178g</td>
-        <td>100 pcs<br/><small>$145 Heavy Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$145 Heavy Mold (Waived @ 1,000+)</small></td>
         <td>$3.50 / $2.35 / <strong>$1.75</strong></td>
       </tr>
       <tr>
         <td><a href="/products/gold-silver-bronze-award-medals"><strong>Custom Gold Silver Bronze Antique Award Medals</strong></a></td>
         <td>Die-Cast Zinc Alloy<br/><small>Shared Mold 1st/2nd/3rd Place Plating Split</small></td>
         <td>Ø65×3.0mm (2.5") · 68g</td>
-        <td>100 pcs<br/><small>$95 Shared Mold (3 Finishes Included)</small></td>
+        <td>300 pcs<br/><small>$95 Shared Mold (3 Finishes Included)</small></td>
         <td>$2.15 / $1.38 / <strong>$0.98</strong></td>
       </tr>
       <tr>
         <td><a href="/products/youth-sports-tournament-medals"><strong>Custom Youth Soccer, Baseball & Basketball Medals</strong></a></td>
         <td>Die-Cast Zinc Alloy<br/><small>High-Volume 2"–2.5" Tournament Soft Enamel</small></td>
         <td>Ø55×2.8mm (2.2") · 54g</td>
-        <td>100 pcs<br/><small>$85 Mold (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$85 Mold (Waived @ 500+ pcs)</small></td>
         <td>$1.85 / $1.15 / <strong>$0.82</strong></td>
       </tr>
     </tbody>

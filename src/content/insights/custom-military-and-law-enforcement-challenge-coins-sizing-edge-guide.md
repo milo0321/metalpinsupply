@@ -2,7 +2,7 @@
 title: "Military & Law Enforcement Challenge Coins: Standard Diameters (1.75\"–2\"), Thickness & 6 Edge Cuts"
 slug: "custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Coins & Military Insignia"
 summary: "Specify authentic 1.75-inch and 2.0-inch die-struck brass military and police challenge coins with 3.5mm heft and 6 CNC diamond-cut edge profiles."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-045","MPS-046","MPS-047","MPS-052","MPS-051","MPS-054","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

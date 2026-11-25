@@ -1831,6 +1831,9 @@ function buildLocalizedEditorialHtml(
   const colName = t(`col.${p.primaryCollection}.name` as any);
   const toolingStr = applyPhraseTranslations(String(p.toolingFee || ''), lang);
   const kLabel = (k: string) => (lang === 'en' ? k : SPEC_KEY_MAP[k]?.[lang] || k);
+  const prodMoq = Number(p.moqNum || 100);
+  const tier1Start = Math.max(100, prodMoq);
+  const tier1Range = tier1Start >= 499 ? `${tier1Start}` : `${tier1Start}–499`;
 
   return `
     <div class="editorial-header-block">
@@ -1874,11 +1877,18 @@ function buildLocalizedEditorialHtml(
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong>100–499 ${t('unit.pcs')}</strong></td><td>${p.moq || '100 pcs'}</td><td>${toolingStr}</td><td><strong>$${p.tier100} / ${t('unit.pc')}</strong></td><td>${p.leadTime || '7–12d'}</td></tr>
+            <tr><td><strong>${tier1Range} ${t('unit.pcs')}</strong></td><td>${p.moq ? p.moq.replace(/\bpcs\b/i, t('unit.pcs')) : `${prodMoq} ${t('unit.pcs')}`}</td><td>${toolingStr}</td><td><strong>$${p.tier100} / ${t('unit.pc')}</strong></td><td>${p.leadTime || '7–12d'}</td></tr>
             <tr><td><strong>500–1,999 ${t('unit.pcs')}</strong></td><td>500 ${t('unit.pcs')}</td><td>${t('geo.metricToolingVal')}</td><td><strong>$${p.tier500} / ${t('unit.pc')}</strong></td><td>${p.leadTime || '7–12d'}</td></tr>
             <tr><td><strong>2,000+ ${t('unit.pcs')}</strong></td><td>2,000 ${t('unit.pcs')}</td><td>$0.00 (Waived)</td><td><strong>$${p.tier2000} / ${t('unit.pc')}</strong></td><td>${p.leadTime || '10–15d'}</td></tr>
           </tbody>
         </table>
+      </div>
+      <div class="pricing-ref-notice" role="note">
+        <span class="pricing-ref-notice-icon" aria-hidden="true">💡</span>
+        <div class="pricing-ref-notice-body">
+          <strong>${t('pdp.pricingRefBadge')}:</strong>
+          <span>${t('pdp.pricingRefNote')}</span>
+        </div>
       </div>
     </div>
 
@@ -1905,7 +1915,7 @@ export function localizeProduct(p: any, lang: SupportedLanguage): LocalizedProdu
   const overview =
     lang === 'en'
       ? p.overview
-      : `${locTitle}: ${locMat} (${p.size}, ${p.weight}). ${locProc}. ${t('pdp.readyMold')} · ${t('geo.metricBlankMoqVal')}; $${p.tier2000}–$${p.tier100}/${t('unit.pc')}.`;
+      : `${locTitle}: ${locMat} (${p.size}, ${p.weight}). ${locProc}. ${t('pdp.readyMold')} · MOQ ${p.moqNum || 100} ${t('unit.pcs')}; $${p.tier2000}–$${p.tier100}/${t('unit.pc')}.`;
 
   const rawSpecs: Array<[string, string]> = [
     ['Custom Tooling Mode', t('pdp.readyMold')],
@@ -1947,6 +1957,8 @@ export function localizeProduct(p: any, lang: SupportedLanguage): LocalizedProdu
 
   const pcs = t('unit.pcs');
   const pc = t('unit.pc');
+  const faqTier1Start = Math.max(100, Number(p.moqNum || 100));
+  const faqTier1Range = faqTier1Start >= 499 ? `${faqTier1Start}` : `${faqTier1Start}–499`;
   const faqs =
     lang === 'en'
       ? p.faqs
@@ -1956,8 +1968,8 @@ export function localizeProduct(p: any, lang: SupportedLanguage): LocalizedProdu
             answer: `MOQ: ${p.moqNum || 100} ${pcs}. ${p.toolingFee}. ${t('pdp.declQuote')}`
           },
           {
-            question: `2. ${locTitle} — ${t('pdp.pricingTitle')} (100 / 500 / 2,000+ ${pcs})?`,
-            answer: `100–499: $${p.tier100}/${pc} · 500–1,999: $${p.tier500}/${pc} · 2,000+: $${p.tier2000}/${pc}.`
+            question: `2. ${locTitle} — ${t('pdp.pricingTitle')} (${faqTier1Start} / 500 / 2,000+ ${pcs})?`,
+            answer: `${faqTier1Range}: $${p.tier100}/${pc} · 500–1,999: $${p.tier500}/${pc} · 2,000+: $${p.tier2000}/${pc}.`
           },
           {
             question: `3. ${locTitle} — ${SPEC_KEY_MAP['Base Material'][lang]} & ${SPEC_KEY_MAP['Electroplating & Finishes'][lang]}?`,

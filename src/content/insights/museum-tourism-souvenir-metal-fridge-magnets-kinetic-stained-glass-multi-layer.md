@@ -2,7 +2,7 @@
 title: "Museum & Tourism Collectible Metal Fridge Magnets: Spinners, Sliding Tracks, Stained Glass & 3D Layers"
 slug: "museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer"
 publishDate: "2026-11-24"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Executive, Golf & Souvenirs"
 summary: "Design high-margin museum and city souvenir fridge magnets with 360° spinners, sliding tracks, stained-glass cut-outs, and multi-layer 3D zinc relief."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-154","MPS-155","MPS-156","MPS-136","MPS-157","MPS-158","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

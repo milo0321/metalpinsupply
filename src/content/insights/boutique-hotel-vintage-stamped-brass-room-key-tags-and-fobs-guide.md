@@ -2,7 +2,7 @@
 title: "Boutique Hotel Vintage Stamped Brass Room Key Tags: Patina Aging, Room Numbering & Ring Hardware"
 slug: "boutique-hotel-vintage-stamped-brass-room-key-tags-and-fobs-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Keychains & Trolley Coins"
 summary: "Specify 2.0mm solid C26000 brass diamond and oval hotel room key fobs with antique brass patina, deep laser room numbers, and solid brass split rings."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-078","MPS-068","MPS-070","MPS-077","MPS-074","MPS-080","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

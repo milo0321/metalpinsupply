@@ -12,7 +12,7 @@ const turnstileSiteKey = (
   import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ||
   import.meta.env.TURNSTILE_SITE_KEY ||
   (typeof process !== 'undefined' ? process.env?.PUBLIC_TURNSTILE_SITE_KEY || process.env?.TURNSTILE_SITE_KEY : '') ||
-  '0x4AAAAAAF1GTaPVmYSNUcHS'
+  '0x4AAAAAAGQ7Ymi90f_zxDHO'
 ).trim();
 
 const waNumber = '+86 187 5012 6315';
@@ -23,7 +23,7 @@ const waBaseUrl =
 const contactFaqs = [
   {
     question: 'What is your Minimum Order Quantity (MOQ)?',
-    answer: 'Custom Hard Enamel pins, Soft Enamel pins, Marathon Medals, Challenge Coins, and Cufflinks start at just <strong>50–100 pieces per design</strong>. Promotional items such as Trolley Coins, Stainless Dog Tags, and Button Badges start at <strong>100–200 pieces with 500+ pc custom die waivers</strong>.'
+    answer: 'Custom Hard Enamel pins, Soft Enamel pins, and Marathon Medals start at <strong>300 pieces per design</strong> so press, plating rack, and ink setups remain economical. Challenge Coins, Police Shields, and Cufflinks start at <strong>50–100 pieces</strong>, while Keychains, Fridge Magnets, and Trolley Coins start at <strong>100–200 pieces</strong>.'
   },
   {
     question: 'How fast will we receive an itemized wholesale quote and free vector artwork proof?',
@@ -31,7 +31,7 @@ const contactFaqs = [
   },
   {
     question: 'Do you sell off-the-shelf stock items, or is every order custom-molded to our logo?',
-    answer: 'Every pin, race medal, challenge coin, badge, and keychain is <strong>100% custom-tooled from your own artwork</strong>—we do not sell stock retail items or pre-made templates. Referencing one of our 158 craft specifications (material, stamping/3D casting process, thickness, and attachment hardware) helps us calculate exact 100 / 500 / 2,000+ EXW and landed DDP shipping quotes on the first reply.'
+    answer: 'Every pin, race medal, challenge coin, badge, and keychain is <strong>100% custom-tooled from your own artwork</strong>—we do not sell stock retail items or pre-made templates. Referencing one of our 158 craft specifications (material, stamping/3D casting process, thickness, and attachment hardware) helps us calculate exact MOQ (300 for Pins & Medals, 50–200 for Coins/Keychains) / 500 / 2,000+ EXW and landed DDP shipping quotes on the first reply.'
   },
   {
     question: 'How do 2D and 3D custom mold & die fee waivers work?',
@@ -86,24 +86,24 @@ const contactPageSchema = {
 };
 
 const CONTACT_META_DESC_MAP: Record<string, string> = {
-  en: 'Request a 12h wholesale quote & free 1:1 vector proof across 158 pin, medal, coin & keychain specs ($0.11–$4.20 EXW, MOQ 50 pcs, 500+ die waiver).',
-  de: '12h-Großhandelsangebot & kostenloser 1:1-Korrekturabzug für 158 Pin-, Medaillen-, Coin- & Schlüsselanhänger-Specs ($0.11–$4.20 EXW, MOQ 50 Stk.).',
-  fr: 'Devis grossiste sous 12h et BAT 1:1 gratuit sur 158 spécifications de pins, médailles, pièces et porte-clés ($0.11–$4.20 EXW, MOQ 50 pcs, moules offerts).',
-  nl: 'Ontvang binnen 12u een groothandelsofferte & gratis 1:1 drukproef voor 158 pin-, medaille-, munt- & sleutelhangerspecs ($0.11–$4.20 EXW, MOQ 50 st.).',
-  es: 'Cotización mayorista en 12h y prueba digital 1:1 gratis para 158 estilos de pines, medallas, monedas y llaveros ($0.11–$4.20 EXW, MOQ 50 uds.).',
-  it: 'Richiedi preventivo ingrosso in 12h e bozza 1:1 gratis su 158 stili di spille, medaglie, monete e portachiavi ($0.11–$4.20 EXW, MOQ 50 pz.).',
-  pt: 'Peça orçamento em 12h e prova 1:1 grátis para 158 especificações de pins, medalhas, moedas e chaveiros ($0.11–$4.20 EXW, MOQ 50 un.).',
-  sv: 'Begär fabrikspris inom 12 timmar & gratis 1:1-korrektur för 158 pin-, medalj-, coin- & nyckelringsspecar ($0.11–$4.20 EXW, MOQ 50 st).',
-  da: 'Få et fabrikstilbud på 12 timer & gratis 1:1-korrektur på 158 pins-, medalje-, mønt- & nøgleringsspecs ($0.11–$4.20 EXW, MOQ 50 stk.).',
-  no: 'Be om fabrikktilbud innen 12 timer & gratis 1:1-korrektur for 158 pins-, medalje-, mynt- & nøkkelringspesifikasjoner ($0.11–$4.20 EXW, MOQ 50 stk.).',
-  fi: 'Pyydä tehdastarjous 12h:ssa ja ilmainen 1:1-vedos 158 pinssi-, mitali-, kolikko- & avaimenperätyylille ($0.11–$4.20 EXW, MOQ 50 kpl).',
-  pl: 'Uzyskaj wycenę hurtową w 12h i darmowy projekt 1:1 dla 158 stylów pinów, medali, monet i breloków ($0.11–$4.20 EXW, MOQ 50 szt.).',
-  cs: 'Vyžádejte si velkoobchodní nabídku do 12h a 1:1 náhled zdarma pro 158 stylů odznaků, medailí, mincí a klíčenek ($0.11–$4.20 EXW, MOQ 50 ks).',
-  ru: 'Оптовый расчёт за 12 часов и бесплатный макет 1:1 для 158 форматов значков, медалей, монет и брелоков ($0.11–$4.20 EXW, от 50 шт.).',
-  ja: 'カスタムピン・メダル・コイン・キーホルダー全158仕様（工場価格$0.11〜$4.20・MOQ 50個）の12時間以内お見積り＆無料1:1校正データ作成。',
-  ko: '맞춤 핀·메달·코인·키링 158종 전 품목($0.11–$4.20 EXW, MOQ 50개, 금형비 면제) 12시간 내 도매 견적 및 무료 1:1 도안 시안 요청.',
-  id: 'Minta penawaran grosir 12 jam & desain 1:1 gratis untuk 158 spesifikasi pin, medali, koin & gantungan kunci ($0.11–$4.20 EXW, MOQ 50 pcs).',
-  ar: 'اطلب عرض أسعار خلال 12 ساعة وبروفة مجانية لـ 158 مواصفة من الدبابيس والميداليات والعملات ($0.11–$4.20 EXW، الحد الأدنى 50 قطعة).'
+  en: 'Request a 12h wholesale quote & free 1:1 vector proof across 158 pin, medal, coin & keychain specs ($0.11–$4.20 EXW, MOQ 50–300 pcs, 500+ die waiver).',
+  de: '12h-Großhandelsangebot & kostenloser 1:1-Korrekturabzug für 158 Pin-, Medaillen-, Coin- & Schlüsselanhänger-Specs ($0.11–$4.20 EXW, MOQ 50–300 Stk.).',
+  fr: 'Devis grossiste sous 12h et BAT 1:1 gratuit sur 158 spécifications de pins, médailles, pièces et porte-clés ($0.11–$4.20 EXW, MOQ 50–300 pcs).',
+  nl: 'Ontvang binnen 12u offerte & gratis 1:1 proef voor 158 pin-, medaille-, munt- & sleutelhangerspecs ($0.11–$4.20 EXW, MOQ 50–300 st.).',
+  es: 'Cotización mayorista en 12h y prueba digital 1:1 gratis para 158 estilos de pines, medallas, monedas y llaveros ($0.11–$4.20 EXW, MOQ 50–300 uds.).',
+  it: 'Richiedi preventivo ingrosso in 12h e bozza 1:1 gratis su 158 stili di spille, medaglie, monete e portachiavi ($0.11–$4.20 EXW, MOQ 50–300 pz.).',
+  pt: 'Peça orçamento em 12h e prova 1:1 grátis para 158 especificações de pins, medalhas, moedas e chaveiros ($0.11–$4.20 EXW, MOQ 50–300 un.).',
+  sv: 'Begär fabrikspris inom 12 timmar & gratis 1:1-korrektur för 158 pin-, medalj-, coin- & nyckelringsspecar ($0.11–$4.20 EXW, MOQ 50–300 st).',
+  da: 'Få et fabrikstilbud på 12 timer & gratis 1:1-korrektur på 158 pins-, medalje-, mønt- & nøgleringsspecs ($0.11–$4.20 EXW, MOQ 50–300 stk.).',
+  no: 'Be om fabrikktilbud innen 12 timer & gratis 1:1-korrektur for 158 pins-, medalje-, mynt- & nøkkelringspesifikasjoner ($0.11–$4.20 EXW, MOQ 50–300 stk.).',
+  fi: 'Pyydä tehdastarjous 12h:ssa ja ilmainen 1:1-vedos 158 pinssi-, mitali-, kolikko- & avaimenperätyylille ($0.11–$4.20 EXW, MOQ 50–300 kpl).',
+  pl: 'Uzyskaj wycenę hurtową w 12h i darmowy projekt 1:1 dla 158 stylów pinów, medali, monet i breloków ($0.11–$4.20 EXW, MOQ 50–300 szt.).',
+  cs: 'Vyžádejte si velkoobchodní nabídku do 12h a 1:1 náhled zdarma pro 158 stylů odznaků, medailí, mincí a klíčenek ($0.11–$4.20 EXW, MOQ 50–300 ks).',
+  ru: 'Оптовый расчёт за 12 ч и бесплатный макет 1:1 для 158 форматов значков, медалей, монет и брелоков ($0.11–$4.20 EXW, от 50–300 шт.).',
+  ja: 'カスタムピン・メダル・コイン・キーホルダー全158仕様（工場価格$0.11〜$4.20・MOQ 50〜300個）の12時間以内お見積り＆無料1:1校正データ作成。',
+  ko: '맞춤 핀·메달·코인·키링 158종 전 품목($0.11–$4.20 EXW, MOQ 50~300개, 금형비 면제) 12시간 내 도매 견적 및 무료 1:1 도안 시안 요청.',
+  id: 'Minta penawaran grosir 12 jam & desain 1:1 gratis untuk 158 spesifikasi pin, medali, koin & gantungan kunci ($0.11–$4.20 EXW, MOQ 50–300 pcs).',
+  ar: 'اطلب عرض أسعار خلال 12 ساعة وبروفة مجانية لـ 158 مواصفة من الدبابيس والميداليات والعملات ($0.11–$4.20 EXW، الحد الأدنى 50–300 قطعة).'
 };
 ---
 
@@ -138,7 +138,7 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
         </div>
         <div class="glass-kpi-card">
           <span class="glass-kpi-label">{t('contact.stat2')}</span>
-          <strong class="glass-kpi-val">50 / 100 {t('unit.pcs')}</strong>
+          <strong class="glass-kpi-val">50–300 {t('unit.pcs')}</strong>
         </div>
         <div class="glass-kpi-card">
           <span class="glass-kpi-label">{t('contact.stat3')}</span>
@@ -214,7 +214,7 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
               <span class="stat-text">{t('contact.stat1')}</span>
             </div>
             <div class="trust-stat">
-              <span class="stat-num">50 / 100</span>
+              <span class="stat-num">50–300</span>
               <span class="stat-text">{t('contact.stat2')}</span>
             </div>
             <div class="trust-stat">
@@ -246,7 +246,7 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
                   class="express-preset-trigger prod-pill rfq-preset-btn"
                   data-qty="500 - 1,999 pcs"
                   data-mode="Soft / Hard Enamel Custom Craft"
-                  data-note="Please send the complete Custom Craft Wholesale Price Guide (PDF/Excel) with 100/500/2,000+ tier pricing and mold waiver rules."
+                  data-note="Please send the complete Custom Craft Wholesale Price Guide (PDF/Excel) with 300/500/2,000+ tier pricing (Pins & Medals MOQ 300; Coins & Badges 50–100) and mold waiver rules."
                 >
                   📊 Prefill Price Guide Request
                 </button>
@@ -375,10 +375,10 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
                   </div>
                   <select id="estimatedQuantity" name="estimatedQuantity" class="form-input form-select" required>
                     <option value="Sample / Prototype Evaluation">{t('pdp.orderSample')}</option>
-                    <option value="50 - 99 pcs">{`50 – 99 ${t('unit.pcs')} (${t('pdp.blankMoq')})`}</option>
-                    <option value="100 - 199 pcs" selected>{`100 – 199 ${t('unit.pcs')} (${t('pdp.logoMoq')})`}</option>
-                    <option value="200 - 499 pcs">200 – 499 {t('unit.pcs')}</option>
-                    <option value="500 - 1,999 pcs">500 – 1,999 {t('unit.pcs')}</option>
+                    <option value="50 - 99 pcs">{`50 – 99 ${t('unit.pcs')} (${t('col.custom-challenge-coins.short')})`}</option>
+                    <option value="100 - 299 pcs">{`100 – 299 ${t('unit.pcs')} (${t('col.custom-metal-keychains.short')})`}</option>
+                    <option value="300 - 499 pcs" selected>{`300 – 499 ${t('unit.pcs')} (${t('col.custom-enamel-pins.short')} / ${t('col.custom-medals.short')} MOQ)`}</option>
+                    <option value="500 - 1,999 pcs">{`500 – 1,999 ${t('unit.pcs')} (${t('pdp.logoMoq')})`}</option>
                     <option value="2,000+ pcs">2,000+ {t('unit.pcs')}</option>
                   </select>
                 </div>
@@ -400,10 +400,10 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
                   {t('contact.notes')} <span class="optional-badge">{t('contact.optional')}</span>
                 </label>
                 <div class="quick-product-pills" role="group" aria-label="Quick inquiry templates" style="margin-bottom: 0.5rem;">
-                  <button type="button" class="prod-pill rfq-preset-btn" data-qty="100 - 199 pcs" data-mode="Standard Production & Electroplating" data-note="Please quote 100 pcs trial custom run (e.g. Trolley Coins / Lapel Pins / Keychains) with DDP shipping and 12h vector proof.">100 {t('unit.pcs')} · Trial Custom Batch</button>
+                  <button type="button" class="prod-pill rfq-preset-btn" data-qty="300 - 499 pcs" data-mode="Standard Production & Electroplating" data-note="Please quote 300 pcs custom Pins or Race Medals (MOQ 300) with DDP shipping and 12h vector proof.">300 {t('unit.pcs')} · Pins &amp; Medals MOQ</button>
                   <button type="button" class="prod-pill rfq-preset-btn" data-qty="500 - 1,999 pcs" data-mode="Soft / Hard Enamel Custom Craft" data-note="We want to quote 500 pcs of custom Hard/Soft Enamel Pins with waived 2D stamping die ($0 mold fee) and free 12h vector proof.">500 {t('unit.pcs')} · Waived 2D Pin Die</button>
                   <button type="button" class="prod-pill rfq-preset-btn" data-qty="500 - 1,999 pcs" data-mode="3D Sculpted Zinc Die-Casting" data-note="We want to quote 500–1,000+ pcs of custom 3D Zinc Medals or Challenge Coins with custom plating and ribbons.">500–1,000+ · 3D Medal / Coin</button>
-                  <button type="button" class="prod-pill rfq-preset-btn" data-qty="100 - 199 pcs" data-mode="Custom Card, Capsule & Velvet Box" data-note="We need custom retail 400gsm backing cards, acrylic coin capsules, or foil-stamped velvet gift boxes alongside our metal order.">+ Velvet Box / Card</button>
+                  <button type="button" class="prod-pill rfq-preset-btn" data-qty="300 - 499 pcs" data-mode="Custom Card, Capsule & Velvet Box" data-note="We need custom retail 400gsm backing cards, acrylic coin capsules, or foil-stamped velvet gift boxes alongside our metal order.">+ Velvet Box / Card</button>
                 </div>
                 <textarea
                   id="inquiryDetails"
@@ -618,10 +618,13 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
     // Turnstile state & global callbacks
     var turnstileToken = null;
     var isWaitingForTurnstile = false;
+    var turnstileHasError = false;
     var turnstileTimer = null;
 
     window.onTurnstileSuccess = function (token) {
+      turnstileHasError = false;
       turnstileToken = token;
+      if (statusMsg) statusMsg.classList.add('hidden');
       if (isWaitingForTurnstile) {
         if (turnstileTimer) clearTimeout(turnstileTimer);
         isWaitingForTurnstile = false;
@@ -634,10 +637,19 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
     };
 
     window.onTurnstileError = function () {
+      turnstileToken = null;
+      turnstileHasError = true;
       if (isWaitingForTurnstile) {
         if (turnstileTimer) clearTimeout(turnstileTimer);
         isWaitingForTurnstile = false;
-        executeSubmit(null);
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = submitBtn.getAttribute('data-submit-text') || submitBtn.innerHTML;
+        }
+        if (statusMsg) {
+          statusMsg.textContent = '⚠️ Cloudflare security check failed to load. Please refresh the page and try again, or contact us via WhatsApp.';
+          statusMsg.classList.remove('hidden');
+        }
       }
     };
 
@@ -651,6 +663,7 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
             var widgetDiv = document.createElement('div');
             widgetDiv.className = 'cf-turnstile';
             widgetDiv.setAttribute('data-sitekey', info.turnstileSiteKey);
+            widgetDiv.setAttribute('data-action', 'contact');
             widgetDiv.setAttribute('data-theme', 'light');
             turnstileContainer.appendChild(widgetDiv);
             var tryRender = function (attempts) {
@@ -658,6 +671,7 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
                 try {
                   window.turnstile.render(widgetDiv, {
                     sitekey: info.turnstileSiteKey,
+                    action: 'contact',
                     theme: 'light',
                     callback: window.onTurnstileSuccess,
                     'expired-callback': window.onTurnstileExpired,
@@ -777,7 +791,11 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
         window.history.replaceState(null, '', window.location.pathname);
       }
       if (!skuParam && !modeParam && !qtyParam) {
-        var rawPrefill = sessionStorage.getItem('fs_rfq_prefill') || localStorage.getItem('fs_rfq_prefill');
+        var rawPrefill =
+          sessionStorage.getItem('mps_rfq_prefill') ||
+          localStorage.getItem('mps_rfq_prefill') ||
+          sessionStorage.getItem('fs_rfq_prefill') ||
+          localStorage.getItem('fs_rfq_prefill');
         if (rawPrefill) {
           var parsedPrefill = JSON.parse(rawPrefill);
           if (parsedPrefill && (!parsedPrefill.ts || Date.now() - parsedPrefill.ts < 300000)) {
@@ -785,6 +803,8 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
             modeParam = parsedPrefill.mode || '';
             qtyParam = parsedPrefill.qty || '';
           }
+          sessionStorage.removeItem('mps_rfq_prefill');
+          localStorage.removeItem('mps_rfq_prefill');
           sessionStorage.removeItem('fs_rfq_prefill');
           localStorage.removeItem('fs_rfq_prefill');
         }
@@ -805,7 +825,7 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
         var qNum = parseInt(qtyParam, 10);
         var targetVal = (qNum === 1 || String(qtyParam).toLowerCase().indexOf('sample') !== -1)
           ? 'Sample / Prototype'
-          : qNum >= 2000 ? '2,000+' : qNum >= 500 ? '500 - 1,999' : qNum >= 200 ? '200 - 499' : qNum >= 100 ? '100 - 199' : '50 - 99';
+          : qNum >= 2000 ? '2,000+' : qNum >= 500 ? '500 - 1,999' : qNum >= 300 ? '300 - 499' : qNum >= 100 ? '100 - 299' : '50 - 99';
         for (var j = 0; j < qtySelect.options.length; j++) {
           if (qtySelect.options[j].value.indexOf(targetVal) !== -1) {
             qtySelect.selectedIndex = j;
@@ -889,7 +909,7 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
         'Hello MedalPinSupply Sourcing Desk,',
         '',
         '• Target Custom Product(s): ' + (products || 'Custom Enamel Pins, Medals & Coins'),
-        '• Estimated Quantity: ' + (qty || '100 - 199 pcs'),
+        '• Estimated Quantity: ' + (qty || '300 - 499 pcs'),
         '• Customization Mode: ' + (mode || 'Custom Logo'),
         '• Contact Name: ' + (name || 'Buyer') + (company ? ' (' + company + ')' : ''),
         '• Email: ' + (email || 'Not provided'),
@@ -1083,6 +1103,20 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
         var currentToken = turnstileToken || (existingTurnstileInput ? existingTurnstileInput.value : null);
 
         if (turnstileWidget && !currentToken) {
+          if (turnstileHasError) {
+            turnstileHasError = false;
+            if (window.turnstile && typeof window.turnstile.reset === 'function') {
+              try { window.turnstile.reset(); } catch (_) {}
+            }
+            if (statusMsg) {
+              statusMsg.textContent = '⚠️ Please complete the Cloudflare security verification above before submitting.';
+              statusMsg.classList.remove('hidden');
+            }
+            if (turnstileContainer && typeof turnstileContainer.scrollIntoView === 'function') {
+              turnstileContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return;
+          }
           isWaitingForTurnstile = true;
           if (submitBtn) {
             submitBtn.disabled = true;
@@ -1092,9 +1126,19 @@ const CONTACT_META_DESC_MAP: Record<string, string> = {
           turnstileTimer = setTimeout(function () {
             if (isWaitingForTurnstile) {
               isWaitingForTurnstile = false;
-              executeSubmit(null);
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = submitBtn.getAttribute('data-submit-text') || submitBtn.innerHTML;
+              }
+              if (turnstileContainer && typeof turnstileContainer.scrollIntoView === 'function') {
+                turnstileContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+              if (statusMsg) {
+                statusMsg.textContent = '⚠️ Please complete the Cloudflare security verification above before submitting.';
+                statusMsg.classList.remove('hidden');
+              }
             }
-          }, 2000);
+          }, 6000);
           return;
         }
 

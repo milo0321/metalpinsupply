@@ -2,7 +2,7 @@
 title: "Virtual Race Finisher Medals: Weight Optimization, Flat Mailer Envelopes & 3PL Fulfillment Prep"
 slug: "virtual-race-finisher-medals-lightweight-mailer-packaging-and-fulfillment"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Medals & Sports Events"
 summary: "Cut domestic postage costs by 35% on virtual runs using weight-optimized 2.8mm finisher medals, flat-fold ribbons, and FNSKU/barcode pre-pack kits."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-042","MPS-026","MPS-028","MPS-044","MPS-149","MPS-002","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,42 +55,42 @@ relatedSkus: ["MPS-042","MPS-026","MPS-028","MPS-044","MPS-149","MPS-002","MPS-0
         <td><a href="/products/virtual-race-mail-ready-medals"><strong>Custom Virtual Race Mail-Ready Medals</strong></a></td>
         <td>Lightweight 2.8mm Zinc Alloy<br/><small>Weight-Optimized 3.0" Profile for Flat Mailers</small></td>
         <td>Ø75×2.8mm (3.0") · 72g</td>
-        <td>100 pcs<br/><small>$95 Mold (Waived @ 1,000+ pcs)</small></td>
+        <td>300 pcs<br/><small>$95 Mold (Waived @ 1,000+ pcs)</small></td>
         <td>$2.10 / $1.35 / <strong>$0.95</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-5k-10k-running-medals"><strong>Custom Soft Enamel 5K & 10K Running Medals</strong></a></td>
         <td>Zamak #3 Zinc Alloy<br/><small>2D Multi-Level Die-Casting + Pantone Soft Enamel</small></td>
         <td>Ø70×3.2mm (2.75") · 82g</td>
-        <td>100 pcs<br/><small>$95 Mold (Waived @ 1,000+ pcs)</small></td>
+        <td>300 pcs<br/><small>$95 Mold (Waived @ 1,000+ pcs)</small></td>
         <td>$2.25 / $1.45 / <strong>$1.05</strong></td>
       </tr>
       <tr>
         <td><a href="/products/cut-out-hollow-sports-medals"><strong>Custom Cut-Out Hollow Zinc Alloy Sports Medals</strong></a></td>
         <td>Die-Cast Zamak #3 Zinc Alloy<br/><small>Multi-Window Hollow Cut-Outs + 3D Relief</small></td>
         <td>Ø76×3.8mm (3.0") · 96g</td>
-        <td>100 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
         <td>$2.65 / $1.72 / <strong>$1.25</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-sublimated-medal-ribbons"><strong>Custom Full-Color Dye-Sublimated Medal Ribbons</strong></a></td>
         <td>100% High-Density Polyester Satin<br/><small>Double-Sided Edge-to-Edge CMYK Sublimation</small></td>
         <td>25mm / 38mm × 850mm · 18g</td>
-        <td>100 pcs<br/><small>$35 Sublimation Setup (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$35 Sublimation Setup (Waived @ 500+)</small></td>
         <td>$0.65 / $0.38 / <strong>$0.24</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-pin-backing-cards"><strong>Custom Printed Retail Backing Cards for Enamel Pins</strong></a></td>
         <td>350gsm–400gsm Art Cardstock<br/><small>CMYK Offset Card Print + Euro-Slot Polybag + Pre-Mount</small></td>
         <td>85×55mm / 100×70mm · 6g</td>
-        <td>200 pcs<br/><small>$35 Die-Cut & Proof Plate (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$35 Die-Cut & Proof Plate (Waived @ 500+)</small></td>
         <td>$0.35 / $0.18 / <strong>$0.11</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-soft-enamel-lapel-pins"><strong>Custom Die-Struck Soft Enamel Lapel Pins</strong></a></td>
         <td>Die-Struck Iron / Brass<br/><small>Recessed 180°C Baked Pantone Soft Enamel</small></td>
         <td>25×25×1.2mm · 8g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.15 / $0.65 / <strong>$0.42</strong></td>
       </tr>
     </tbody>

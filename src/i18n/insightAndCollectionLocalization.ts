@@ -3339,7 +3339,7 @@ export function localizeCollectionContent(col: any, lang: SupportedLanguage) {
   const shortName = t(`col.${col.slug}.short` as any);
   const pcs = t('unit.pcs');
   const pc = t('unit.pc');
-  const moq = `50–200 ${pcs}`;
+  const moq = String(col.moq || '50–300 pcs').replace(/\bpcs\b/gi, pcs);
   const leadTime = '7–15d';
 
   const heroSubtitle = `${name} (${col.skuCount} ${t('nav.modelsCount')} · ${col.priceRangeUsd}). ${t('pdp.declQuote')}`;
@@ -3550,7 +3550,7 @@ ${fig1}
     <tbody>
       <tr>
         <td><strong>${t('pdp.opt1Title')}</strong></td>
-        <td>50–200 ${t('unit.pcs')}</td>
+        <td>${(guideData.cols && (guideData.cols[0] === 'custom-enamel-pins' || guideData.cols[0] === 'custom-medals')) ? '300' : '50–300'} ${t('unit.pcs')}</td>
         <td>${t('pdp.opt1Desc')}</td>
       </tr>
       <tr>
@@ -3628,7 +3628,7 @@ ${meshLinksHtml}
 <div class="sourcing-cta-box">
   <h3>${t('home.cta.title')}</h3>
   <p>${t('home.cta.desc')}</p>
-  <a href="${contactUrl}" data-rfq-sku="${meta.title}" data-rfq-qty="100" class="btn btn-primary">${t('nav.requestQuote')} →</a>
+  <a href="${contactUrl}" data-rfq-sku="${meta.title}" data-rfq-qty="${(guideData.cols && (guideData.cols[0] === 'custom-enamel-pins' || guideData.cols[0] === 'custom-medals')) ? '300' : '100'}" class="btn btn-primary">${t('nav.requestQuote')} →</a>
 </div>
 `;
 }

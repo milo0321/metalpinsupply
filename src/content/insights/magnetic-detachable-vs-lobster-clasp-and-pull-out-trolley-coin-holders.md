@@ -2,7 +2,7 @@
 title: "Supermarket Trolley Coin Holders Compared: Magnetic Snap Frames, Lobster Clasps & Pull-Out Keys"
 slug: "magnetic-detachable-vs-lobster-clasp-and-pull-out-trolley-coin-holders"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Keychains & Trolley Coins"
 summary: "Compare 4 promotional trolley token hardware styles: quick-snap magnetic zinc holders, classic lobster clips, front-pull key unlockers, and leather loops."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-084","MPS-081","MPS-087","MPS-089","MPS-090","MPS-085","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

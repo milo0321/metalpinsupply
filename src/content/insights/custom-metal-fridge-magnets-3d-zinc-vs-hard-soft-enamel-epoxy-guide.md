@@ -2,7 +2,7 @@
 title: "Custom Metal Fridge Magnets: 3D Zinc Die-Cast vs. Cloisonne Hard Enamel, Soft Enamel & CMYK Epoxy"
 slug: "custom-metal-fridge-magnets-3d-zinc-vs-hard-soft-enamel-epoxy-guide"
 publishDate: "2026-11-24"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Compare 3D zinc die-cast, hard enamel, soft enamel & CMYK epoxy metal fridge magnets across mold waivers, unit cost ($0.48–$1.95), and finish."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-136","MPS-151","MPS-152","MPS-153","MPS-157","MPS-158","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

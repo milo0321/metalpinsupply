@@ -2,7 +2,7 @@
 title: "Low-Cost Trade Show Keychains: Anodized Aluminum Carabiners vs. Laser-Engraved 304 Stainless Rings"
 slug: "anodized-aluminum-carabiner-climb-loops-vs-laser-stainless-keyrings"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Keychains & Trolley Coins"
 summary: "Compare $0.29–$0.85 anodized aluminum carabiner climb-loops vs brushed 304 stainless laser tags and custom flat split rings for massive event giveaways."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-075","MPS-076","MPS-074","MPS-077","MPS-071","MPS-087","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

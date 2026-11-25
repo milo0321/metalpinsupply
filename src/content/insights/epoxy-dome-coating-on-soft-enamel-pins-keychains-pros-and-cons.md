@@ -2,7 +2,7 @@
 title: "Epoxy Dome Coatings on Soft Enamel Pins & Keychains: Optical Depth, UV Yellowing & Cost Analysis"
 slug: "epoxy-dome-coating-on-soft-enamel-pins-keychains-pros-and-cons"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Should you add clear optical epoxy domes to soft enamel pins, keychains, and trolley coins? Compare scratch protection, lens gloss, and unit cost."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-003","MPS-006","MPS-021","MPS-022","MPS-064","MPS-069","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,28 +55,28 @@ relatedSkus: ["MPS-003","MPS-006","MPS-021","MPS-022","MPS-064","MPS-069","MPS-0
         <td><a href="/products/soft-enamel-pins-epoxy-dome"><strong>Custom Soft Enamel Pins with Clear Epoxy Dome</strong></a></td>
         <td>Die-Struck Iron / Brass<br/><small>Soft Enamel Fill + Clear Optical Epoxy Lens Dome</small></td>
         <td>28×28×1.8mm · 10g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.25 / $0.72 / <strong>$0.48</strong></td>
       </tr>
       <tr>
         <td><a href="/products/offset-printed-photo-lapel-pins"><strong>Custom Offset Printed Lapel Pins (Full-Color Photo)</strong></a></td>
         <td>0.8mm Stainless Steel / Brass<br/><small>4-Color CMYK Litho Offset Printing + Epoxy Dome</small></td>
         <td>30×25×1.5mm · 7g</td>
-        <td>100 pcs<br/><small>$45 Custom Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$45 Custom Die (Waived @ 500+ pcs)</small></td>
         <td>$0.95 / $0.52 / <strong>$0.34</strong></td>
       </tr>
       <tr>
         <td><a href="/products/crossed-friendship-flag-pins"><strong>Custom Crossed Friendship Flag Lapel Pins</strong></a></td>
         <td>Die-Struck Brass / Iron<br/><small>Dual Crossed National/State Flags + Epoxy Dome</small></td>
         <td>25×19×1.2mm · 7g</td>
-        <td>100 pcs<br/><small>$55 Custom Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Custom Die (Waived @ 500+ pcs)</small></td>
         <td>$0.95 / $0.52 / <strong>$0.35</strong></td>
       </tr>
       <tr>
         <td><a href="/products/waving-national-flag-pins"><strong>Custom Waving National & State Flag Pins</strong></a></td>
         <td>Die-Struck Brass / Iron<br/><small>3D Waving Flag Silhouette + Enamel + Clear Epoxy</small></td>
         <td>22×16×1.2mm · 6g</td>
-        <td>100 pcs<br/><small>$55 Custom Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Custom Die (Waived @ 500+ pcs)</small></td>
         <td>$0.85 / $0.45 / <strong>$0.30</strong></td>
       </tr>
       <tr>

@@ -38,7 +38,7 @@ export function getLocalizedPageFaqs(
     },
     {
       question: `7. ${t('pkg.heroTitle')}?`,
-      answer: `${t('pkg.card1Title')} (+$0.12–$0.22/${pc}, MOQ 100 ${pcs}) · ${t('pkg.card2Title')} (+$0.15–$0.35/${pc}) · ${t('pkg.card3Title')} (+$0.85–$1.85/${pc}, MOQ 100 ${pcs}).`
+      answer: `${t('pkg.card1Title')} (+$0.12–$0.22/${pc}, MOQ 300 ${pcs}) · ${t('pkg.card2Title')} (+$0.15–$0.35/${pc}) · ${t('pkg.card3Title')} (+$0.85–$1.85/${pc}, MOQ 100 ${pcs}).`
     },
     {
       question: `8. ${t('home.section4.title')} & ${t('home.section5.title')}?`,
@@ -92,10 +92,10 @@ export function getBrandingTableData(lang: SupportedLanguage) {
         ],
         [
           'Minimum Order Quantity (MOQ)',
-          '50 pcs per design',
-          '50 – 100 pcs per design',
-          '50 – 100 pcs per design',
-          '100 pcs per design'
+          '300 pcs (Pins & Medals) · 50 pcs (Coins/Cufflinks)',
+          '300 pcs (Pins & Medals) · 50–100 pcs (Coins)',
+          '300 pcs (Medals & Pins) · 50–100 pcs (Coins/Buckles)',
+          '300 pcs (Pins) · 100 pcs (Magnets/Bookmarks)'
         ],
         [
           'Custom Die / Mold Tooling Fee',
@@ -131,7 +131,7 @@ export function getBrandingTableData(lang: SupportedLanguage) {
     ],
     rows: [
       [t('col.thMaterial'), `${t('catalog.matStainless')}`, `${t('catalog.matStainless')} / ${t('catalog.matAluminum')}`, `${t('catalog.matZinc')}`, `${t('catalog.matStainless')} / ${t('catalog.matAluminum')}`],
-      [t('pdp.blankMoq'), `50 ${pcs}`, `50 – 100 ${pcs}`, `50 – 100 ${pcs}`, `100 ${pcs}`],
+      [t('pdp.blankMoq'), `300 ${pcs} (Pins) · 50 ${pcs}`, `300 ${pcs} (Pins) · 50–100 ${pcs}`, `300 ${pcs} (Medals) · 50–100 ${pcs}`, `300 ${pcs} (Pins) · 100 ${pcs}`],
       [t('col.thLogo'), `$55–$85 (Free ≥ 500 ${pcs})`, `$55–$85 (Free ≥ 500 ${pcs})`, `$95–$150 (Free ≥ 1,000 ${pcs})`, `$45–$65`],
       [t('pdp.trialBatch'), `$0.42–$1.85 / ${pc}`, `$0.22–$1.25 / ${pc}`, `$0.65–$3.85 / ${pc}`, `$0.18–$0.95 / ${pc}`],
       [t('col.stat4Label'), '12h Proof · 9–12d', '12h Proof · 7–10d', '12h Proof · 10–15d', '12h Proof · 7–10d']
@@ -145,7 +145,7 @@ export function getPackagingBullets(lang: SupportedLanguage) {
   const pcs = t('unit.pcs');
   if (lang === 'en') {
     return {
-      price1: '+$0.12–$0.22 / pc · MOQ 100',
+      price1: '+$0.12–$0.22 / pc · MOQ 300',
       bullets1: [
         '✓ Heavy 400gsm Matte or Gloss Paper Card',
         '✓ Double-Sided CMYK Print + Optional Gold Foil',
@@ -166,7 +166,7 @@ export function getPackagingBullets(lang: SupportedLanguage) {
     };
   }
   return {
-    price1: `+$0.12–$0.22 / ${pc} · MOQ 100 ${pcs}`,
+    price1: `+$0.12–$0.22 / ${pc} · MOQ 300 ${pcs}`,
     bullets1: [`✓ ${t('pkg.card1Title')}`, `✓ ${t('pdp.trust3')}`, `✓ Euro-Slot OPP Bag`],
     price2: `+$0.15–$0.35 / ${pc} · 38–60mm`,
     bullets2: [`✓ ${t('pkg.card2Title')}`, `✓ 38mm–60mm EVA Ring`, `✓ ${t('pdp.trust1')}`],

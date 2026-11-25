@@ -70,8 +70,8 @@ const catalogFaqs = [
     answer: 'Every product is custom-molded to client artwork. Across 158 craft specs, 2,000-piece bulk EXW prices start at $0.11/pc for printed backing cards and $0.14/pc for tinplate button badges, running through $0.49–$1.85/pc for core enamel pins, ribbons, and trolley coins, up to $2.95–$4.20/pc for heavy police badges, trophy belt buckles, and deluxe boxed cufflink sets.'
   },
   {
-    question: 'How are volume price tiers structured (100 pcs vs. 500 pcs vs. 2,000+ pcs)?',
-    answer: 'Every custom craft spec displays transparent 3-tier factory pricing: Tier 1 (100 pcs), Tier 2 (500 pcs), and Tier 3 (2,000+ pcs). Moving from 100 pcs to 2,000+ pcs distributes stamping/die-cast machine setup and electroplating rack overhead, dropping unit cost by 45%–65%.'
+    question: 'How are volume price tiers structured (Starter MOQ vs. 500 pcs vs. 2,000+ pcs)?',
+    answer: 'Every custom craft spec displays transparent 3-tier factory pricing: Tier 1 (Starter MOQ: 300–499 pcs for pins & medals; 100–499 pcs for coins, keychains & magnets), Tier 2 (500–1,999 pcs), and Tier 3 (2,000+ pcs). Moving from starter batches to 2,000+ pcs distributes machine setup and electroplating rack overhead, dropping unit cost by 45%–65%.'
   },
   {
     question: 'How do 500+ and 1,000+ custom die waivers lower startup tooling costs?',
@@ -79,7 +79,7 @@ const catalogFaqs = [
   },
   {
     question: 'What is the Minimum Order Quantity (MOQ) across lapel pins, medals, challenge coins, and packaging?',
-    answer: 'Standard minimum orders start at 50–100 pcs per artwork for custom enamel pins, marathon medals, challenge coins, keychains, and cufflinks, and 100 pcs for trolley coins, backing cards, and hinged velvet presentation boxes.'
+    answer: 'Custom enamel lapel pins, marathon medals, PVC pins, and pin backing cards require 300 pcs MOQ per design to ensure economical factory unit pricing. Heavy challenge coins, police badges, and cufflinks start at 50–100 pcs MOQ, keychains and metal fridge magnets at 100–200 pcs, and €1/£1 trolley tokens at 200 pcs.'
   },
   {
     question: 'What is the unit cost difference between Die-Struck Iron, Brass Cloisonne, and Zamak #3 Zinc Die-Casting?',
@@ -198,7 +198,7 @@ const catalogSchema = {
           />
         </div>
         <div class="hero-showcase-meta">
-          <span>100 / 500 / 2,000+ Tiers</span>
+          <span>MOQ / 500 / 2,000+ Tiers</span>
           <span>500+ 2D Die Waiver</span>
           <span>12h Free Vector Proof</span>
         </div>
@@ -212,7 +212,7 @@ const catalogSchema = {
       answer="MedalPinSupply's wholesale pricing matrix spans 158 custom metal craft specifications (all custom-molded to client artwork—never stock items), grouped into four EXW price bands at 2,000+ volume: Budget & Packaging ($0.11–$0.75), Core Enamel Pins & Keychains ($0.76–$1.50), 3D Medals, Coins & Golf Gear ($1.51–$3.00), and Heavy Badges & Velvet Gift Sets ($3.01–$4.20). Custom 2D dies ($45–$85) waive at 500+ pcs, 3D molds ($95–$150) waive at 1,000+ pcs, and paid dies store free for 3 years."
     />
 
-    <form class="inline-quick-sheet-form" data-inline-sku="Full Wholesale Custom Price Guide (Excel/PDF · 100/500/2000 Tiers)" novalidate>
+    <form class="inline-quick-sheet-form" data-inline-sku="Full Wholesale Custom Price Guide (Excel/PDF · MOQ/500/2000 Tiers)" novalidate>
       <div class="inline-qrfq-text">
         <strong>{microHooks.getFullSheetPdf}</strong>
         <span>{microHooks.mixMoqBadge}</span>
@@ -279,6 +279,13 @@ const catalogSchema = {
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="pricing-ref-notice" role="note">
+        <span class="pricing-ref-notice-icon" aria-hidden="true">💡</span>
+        <div class="pricing-ref-notice-body">
+          <strong>{t('pdp.pricingRefBadge')}:</strong>
+          <span>{t('pdp.pricingRefNote')}</span>
+        </div>
       </div>
     </section>
 

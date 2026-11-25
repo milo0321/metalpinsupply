@@ -1123,5 +1123,39 @@ img {
   }
 }
 
+/* Prominent Reference Pricing Notice Box */
+.pricing-ref-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-left: 4px solid #d97706;
+  border-radius: 0.65rem;
+  padding: 0.8rem 1rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+  color: #78350f;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.pricing-ref-notice-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.pricing-ref-notice-body {
+  min-width: 0;
+  flex: 1;
+}
+.pricing-ref-notice strong {
+  color: #92400e;
+  font-weight: 800;
+  margin-right: 0.35rem;
+}
 
 

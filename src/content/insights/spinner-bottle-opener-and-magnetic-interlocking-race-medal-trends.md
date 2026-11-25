@@ -2,7 +2,7 @@
 title: "2026–2027 Race Medal Trends: 360° Spinners, Bottle Openers & Magnetic Interlocking Series Medals"
 slug: "spinner-bottle-opener-and-magnetic-interlocking-race-medal-trends"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Medals & Sports Events"
 summary: "Boost race registrations with 360° spinning center medallions, integrated brewery bottle openers, and 2-to-4 piece magnetic interlocking medal series."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-027","MPS-029","MPS-030","MPS-031","MPS-032","MPS-040","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,42 +55,42 @@ relatedSkus: ["MPS-027","MPS-029","MPS-030","MPS-031","MPS-032","MPS-040","MPS-0
         <td><a href="/products/custom-spinner-race-medals"><strong>Custom Rotating Spinner Race Medals</strong></a></td>
         <td>2-Piece Zamak #3 Zinc Alloy<br/><small>360° Bearing/Pin Spinning Center Medallion</small></td>
         <td>Ø80×4.5mm (3.15") · 132g</td>
-        <td>100 pcs<br/><small>$140 Spinner Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$140 Spinner Mold (Waived @ 1k)</small></td>
         <td>$3.40 / $2.25 / <strong>$1.65</strong></td>
       </tr>
       <tr>
         <td><a href="/products/bottle-opener-finisher-medals"><strong>Custom Bottle Opener Finisher Medals</strong></a></td>
         <td>Reinforced 4mm Zinc Alloy<br/><small>High-Strength Cast Pry Tab + Soft Enamel Logo</small></td>
         <td>Ø80×4.0mm (3.15") · 115g</td>
-        <td>100 pcs<br/><small>$110 Mold (Waived @ 1,000+ pcs)</small></td>
+        <td>300 pcs<br/><small>$110 Mold (Waived @ 1,000+ pcs)</small></td>
         <td>$2.95 / $1.92 / <strong>$1.38</strong></td>
       </tr>
       <tr>
         <td><a href="/products/magnetic-interlocking-race-medals"><strong>Custom Magnetic Interlocking Race Series Medals</strong></a></td>
         <td>Zinc Alloy + N45 NdFeB Magnets<br/><small>2-to-4 Piece Puzzle Series with Alignment Magnets</small></td>
         <td>Ø75×4.0mm per piece · 105g</td>
-        <td>100 pcs<br/><small>$135 Series Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$135 Series Mold (Waived @ 1k)</small></td>
         <td>$3.20 / $2.15 / <strong>$1.58</strong></td>
       </tr>
       <tr>
         <td><a href="/products/stained-glass-enamel-medals"><strong>Custom Translucent Stained-Glass Enamel Medals</strong></a></td>
         <td>Cut-Out Zinc Alloy + Resin<br/><small>Open-Back Translucent Stained-Glass Enamel Fill</small></td>
         <td>Ø76×3.8mm (3.0") · 98g</td>
-        <td>100 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$120 Cut-Out Mold (Waived @ 1k)</small></td>
         <td>$3.10 / $2.05 / <strong>$1.48</strong></td>
       </tr>
       <tr>
         <td><a href="/products/glow-in-the-dark-night-run-medals"><strong>Custom Glow-in-the-Dark Night Run Medals</strong></a></td>
         <td>Die-Cast Zinc Alloy<br/><small>Long-Afterglow Luminous Phosphorescent Enamel</small></td>
         <td>Ø75×3.5mm (3.0") · 95g</td>
-        <td>100 pcs<br/><small>$105 Mold (Waived @ 1,000+ pcs)</small></td>
+        <td>300 pcs<br/><small>$105 Mold (Waived @ 1,000+ pcs)</small></td>
         <td>$2.60 / $1.68 / <strong>$1.22</strong></td>
       </tr>
       <tr>
         <td><a href="/products/sliding-charm-race-medals"><strong>Custom Sliding-Charm Interactive Race Medals</strong></a></td>
         <td>2-Piece Zinc Alloy<br/><small>Milled Curved Rail Track + Sliding Runner/Bike</small></td>
         <td>Ø85×4.5mm (3.35") · 138g</td>
-        <td>100 pcs<br/><small>$145 Track Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$145 Track Mold (Waived @ 1,000+)</small></td>
         <td>$3.65 / $2.45 / <strong>$1.82</strong></td>
       </tr>
     </tbody>

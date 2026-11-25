@@ -2,7 +2,7 @@
 title: "Magnetic vs. Pin-Back Metal Employee Name Plates for Hospitality, Airlines & Corporate Uniforms"
 slug: "magnetic-vs-pin-back-metal-employee-name-plates-for-hotels-airlines"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Coins & Military Insignia"
 summary: "Protect expensive blazers and airline uniforms with 3-magnet neodymium name badge bars, reusable name-window frames, and beveled engraved brass bars."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-100","MPS-101","MPS-102","MPS-018","MPS-007","MPS-019","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -76,21 +76,21 @@ relatedSkus: ["MPS-100","MPS-101","MPS-102","MPS-018","MPS-007","MPS-019","MPS-0
         <td><a href="/products/magnetic-back-lapel-pins"><strong>Custom Magnetic-Back Lapel Pins (No-Hole Clothing Safe)</strong></a></td>
         <td>Stamped Iron / Brass + NdFeB Magnet<br/><small>Hard/Soft Enamel + Dual-Magnet Clothing-Safe Clasp</small></td>
         <td>25×20×1.5mm · 14g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.60 / $0.95 / <strong>$0.65</strong></td>
       </tr>
       <tr>
         <td><a href="/products/silk-screen-printed-metal-pins"><strong>Custom Silk-Screen Printed Metal Lapel Pins</strong></a></td>
         <td>Stamped Brass / Stainless Steel<br/><small>Spot Pantone Silk-Screen Printing + Clear Lacquer</small></td>
         <td>28×20×1.2mm · 7g</td>
-        <td>100 pcs<br/><small>$55 Setup (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Setup (Waived @ 500+ pcs)</small></td>
         <td>$1.10 / $0.62 / <strong>$0.40</strong></td>
       </tr>
       <tr>
         <td><a href="/products/years-of-service-award-pins"><strong>Custom Corporate Years-of-Service Award Pins</strong></a></td>
         <td>Solid Die-Struck Brass + Zirconia<br/><small>Flush Hard Enamel + Hand-Set Genuine/CZ Stone</small></td>
         <td>22×18×1.6mm · 8g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.50 / $0.88 / <strong>$0.58</strong></td>
       </tr>
     </tbody>

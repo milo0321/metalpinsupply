@@ -4,9 +4,9 @@
  * Builds 100% unique, 100% uncropped, category-accurate, <150KB WebP images for MedalPinSupply.com:
  *  - 1 Hero Showcase (800x600)
  *  - 4 Factory Workshop Showcases (800x600)
- *  - 150 Product Featured Images mps-001.webp..mps-150.webp (800x600)
- *  - 40 Insight Hero Images (800x600 full-bleed editorial photography, zero text overlays)
- *  - 80 Insight Composite Figures: -fig1.webp (800x310) & -fig2.webp (1170x305)
+ *  - 158 Product Featured Images mps-001.webp..mps-158.webp (800x600)
+ *  - 43 Insight Hero Images (800x600 full-bleed editorial photography, zero text overlays)
+ *  - 86 Insight Composite Figures: -fig1.webp (800x310) & -fig2.webp (1170x305)
  */
 const fs = require('fs');
 const path = require('path');
@@ -30,10 +30,10 @@ fs.mkdirSync(OUT_FAC, { recursive: true });
 
 const GEN = {
   hero1: path.join(BRAIN_DIR, 'hero_showcase_1795427052676.jpg'),
-  fac1: path.join(BRAIN_DIR, 'factory_cnc_1795427003331.jpg'),
-  fac2: path.join(BRAIN_DIR, 'factory_stamping_1795427083592.jpg'),
-  fac3: path.join(BRAIN_DIR, 'factory_enamel_1795427094907.jpg'),
-  fac4: path.join(BRAIN_DIR, 'factory_plating_1795427014745.jpg'),
+  fac1: path.join(BRAIN_DIR, 'fac1_cnc_mold_macro_1795565825604.jpg'),
+  fac2: path.join(BRAIN_DIR, 'fac2_hydraulic_stamping_macro_1795565902751.jpg'),
+  fac3: path.join(BRAIN_DIR, 'fac3_enamel_dispensing_macro_1795565910313.jpg'),
+  fac4: path.join(BRAIN_DIR, 'fac4_qc_caliper_macro_1795565960159.jpg'),
 
   // Studio grid batches (2x2 pure white gutters)
   pins1: path.join(BRAIN_DIR, 'pins_grid_1_clean_1795437679096.jpg'),
@@ -42,14 +42,27 @@ const GEN = {
   pins4: path.join(BRAIN_DIR, 'pins_grid_4_clean_1795437662991.jpg'),
   pins5: path.join(BRAIN_DIR, 'pins_grid_5_clean_1795437672177.jpg'),
 
+  // Individual DSLR macro studio photos (replacing conceptual / mismatched SKUs)
+  pin005: path.join(BRAIN_DIR, 'mps_005_antique_brass_pin_1795565806672.jpg'),
+  pin006: path.join(BRAIN_DIR, 'mps_006_offset_printed_pin_1795565816563.jpg'),
+  pin007: path.join(BRAIN_DIR, 'mps_007_silk_screen_pin_1795565908685.jpg'),
+  pin008: path.join(BRAIN_DIR, 'mps_008_3d_zinc_eagle_pin_1795565918252.jpg'),
+  pin011: path.join(BRAIN_DIR, 'mps_011_glow_enamel_pin_1795565879368.jpg'),
+  pin017: path.join(BRAIN_DIR, 'mps_017_rainbow_pvd_pin_1795565927758.jpg'),
+  pin023: path.join(BRAIN_DIR, 'mps_023_tinplate_button_badges_1795565849196.jpg'),
+
   medals1: path.join(BRAIN_DIR, 'medals_grid_1_v3_1795437758774.jpg'),
   medals2: path.join(BRAIN_DIR, 'medals_grid_2_v3_1795437767670.jpg'),
   medals3: path.join(BRAIN_DIR, 'medals_grid_3_v3_1795437776217.jpg'),
   medalsFlagship: path.join(BRAIN_DIR, 'medals_flagship_1795427009529.jpg'),
+  medal031: path.join(BRAIN_DIR, 'mps_031_stained_glass_medal_1795565811666.jpg'),
+  medal032: path.join(BRAIN_DIR, 'mps_032_glow_night_run_medal_1795565822674.jpg'),
+  medal043: path.join(BRAIN_DIR, 'mps_043_acrylic_led_medal_1795565828906.jpg'),
 
   coins1: path.join(BRAIN_DIR, 'challenge_coins_1795427054553.jpg'),
   coinsGrid1: path.join(BRAIN_DIR, 'coins_grid_1_clean_1795437685430.jpg'),
   coinsPackGrid2: path.join(BRAIN_DIR, 'coins_packaging_grid_2_clean_1795437696988.jpg'),
+  coin057: path.join(BRAIN_DIR, 'mps_057_glow_translucent_coin_1795565837974.jpg'),
 
   trolley1: path.join(BRAIN_DIR, 'trolley_coins_1795427061685.jpg'),
   trolley2: path.join(BRAIN_DIR, 'trolley_coins_1795427029130.jpg'),
@@ -58,18 +71,27 @@ const GEN = {
   patches: path.join(BRAIN_DIR, 'patches_pvc_1795427091108.jpg'),
   bookmarks: path.join(BRAIN_DIR, 'bookmarks_openers_1795427101243.jpg'),
   golf: path.join(BRAIN_DIR, 'golf_accessories_1795427105134.jpg'),
+  golf122: path.join(BRAIN_DIR, 'mps_122_brass_golf_markers_1795565970756.jpg'),
+  golf125: path.join(BRAIN_DIR, 'mps_125_golf_tin_gift_set_1795565979166.jpg'),
+  golf128: path.join(BRAIN_DIR, 'mps_128_alignment_divot_tool_1795565988844.jpg'),
   buckles: path.join(BRAIN_DIR, 'belt_buckles_1795427130952.jpg'),
   police1: path.join(BRAIN_DIR, 'police_badges_1795427110649.jpg'),
   police3: path.join(BRAIN_DIR, 'police_badges_v3_1795427156593.jpg'),
   police2: path.join(BRAIN_DIR, 'police_badges_v2_1795427141189.jpg'),
+  badge093: path.join(BRAIN_DIR, 'mps_093_fire_maltese_badge_1795565818383.jpg'),
+  badge095: path.join(BRAIN_DIR, 'mps_095_police_leather_holster_badge_1795565828750.jpg'),
+  badge096: path.join(BRAIN_DIR, 'mps_096_miniature_collar_badges_1795566006909.jpg'),
+  dogtag098: path.join(BRAIN_DIR, 'mps_098_3d_cutout_dog_tag_1795565861872.jpg'),
+  opener134: path.join(BRAIN_DIR, 'mps_134_magnetic_bottle_opener_1795565820300.jpg'),
+  mag136: path.join(BRAIN_DIR, 'mps_136_3d_souvenir_magnet_1795565835347.jpg'),
   mag151: path.join(BRAIN_DIR, 'mps_151_hard_enamel_magnet_1795516815183.jpg'),
   mag152: path.join(BRAIN_DIR, 'mps_152_soft_enamel_magnet_1795516826045.jpg'),
-  mag153: path.join(BRAIN_DIR, 'mps_153_epoxy_dome_magnet_1795516846892.jpg'),
-  mag154: path.join(BRAIN_DIR, 'mps_154_kinetic_spinner_magnet_1795516857059.jpg'),
-  mag155: path.join(BRAIN_DIR, 'mps_155_1795516815167.jpg'),
+  mag153: path.join(BRAIN_DIR, 'mps_153_epoxy_epoxy_magnet_clean_1795565844642.jpg'),
+  mag154: path.join(BRAIN_DIR, 'mps_154_spinner_ferris_magnet_1795565857735.jpg'),
+  mag155: path.join(BRAIN_DIR, 'mps_155_stained_glass_magnet_1795565865759.jpg'),
   mag156: path.join(BRAIN_DIR, 'mps_156_1795516825727.jpg'),
   mag157: path.join(BRAIN_DIR, 'mps_157_1795516852302.jpg'),
-  mag158: path.join(BRAIN_DIR, 'mps_158_1795516867592.jpg')
+  mag158: path.join(BRAIN_DIR, 'mps_158_glow_glitter_magnet_1795565875667.jpg')
 };
 
 const usedMd5s = new Set();
@@ -207,32 +229,83 @@ async function extractAndFrameWhiteStudio(inputPath, outPath, opts = {}) {
 }
 
 /**
- * Frames real factory macro photos cleanly on an 800x600 pure white canvas using fit: 'contain'
- * so zero corners or object rims are ever cropped.
+ * Applies studio white-balance & brightness lift to real factory macro photos based on
+ * sampled 6px outer border RGB, then outputs a seamless full-bleed 800x600 image without
+ * any grey-box-inside-white-border step and without cropping product rims.
  */
-async function frameRealPhoto800x600(inputPath, outPath, opts = {}) {
-  const { pad = 34, flushTop = false } = opts;
-  const maxW = 800 - pad * 2;
-  const maxH = flushTop ? (600 - pad) : (600 - pad * 2);
+async function frameRealPhoto800x600(inputPath, outPath) {
+  const { data, info } = await sharp(inputPath)
+    .removeAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
 
-  const innerBuf = await sharp(inputPath)
-    .resize(maxW, maxH, {
-      fit: 'contain',
-      kernel: sharp.kernel.lanczos3,
-      background: { r: 255, g: 255, b: 255, alpha: 1 }
-    })
-    .flatten({ background: { r: 255, g: 255, b: 255 } })
-    .sharpen({ sigma: 0.8, m1: 0.65, m2: 1.4 })
-    .png()
-    .toBuffer();
+  const W = info.width;
+  const H = info.height;
+  const ch = info.channels;
+  const margin = Math.min(6, Math.floor(Math.min(W, H) / 4));
 
-  const composed = sharp({
-    create: { width: 800, height: 600, channels: 3, background: { r: 255, g: 255, b: 255 } }
-  }).composite([
-    { input: innerBuf, left: pad, top: flushTop ? 0 : pad }
-  ]);
+  let sumR = 0, sumG = 0, sumB = 0, cnt = 0;
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
+      if (y < margin || y >= H - margin || x < margin || x >= W - margin) {
+        const idx = (y * W + x) * ch;
+        sumR += data[idx];
+        sumG += data[idx + 1];
+        sumB += data[idx + 2];
+        cnt++;
+      }
+    }
+  }
+  const bgR = sumR / cnt;
+  const bgG = sumG / cnt;
+  const bgB = sumB / cnt;
+  const minBg = Math.min(bgR, bgG, bgB);
+  const maxBg = Math.max(bgR, bgG, bgB);
 
-  return encodeWebpUnder150(composed, outPath);
+  let img = sharp(inputPath);
+  let outBgR = bgR, outBgG = bgG, outBgB = bgB;
+  if (minBg >= 120 && maxBg < 248 && (maxBg - minBg) <= 55) {
+    const gain = (c) => Math.min(1.26, 244 / Math.max(c, 168));
+    const gR = gain(bgR), gG = gain(bgG), gB = gain(bgB);
+    img = img.linear([gR, gG, gB], [0, 0, 0]);
+    outBgR = Math.min(255, Math.round(bgR * gR));
+    outBgG = Math.min(255, Math.round(bgG * gG));
+    outBgB = Math.min(255, Math.round(bgB * gB));
+  } else {
+    outBgR = Math.round(bgR);
+    outBgG = Math.round(bgG);
+    outBgB = Math.round(bgB);
+  }
+
+  const ar = W / H;
+  let pipeline;
+  if (Math.abs(ar - 4 / 3) <= 0.08) {
+    pipeline = img
+      .resize(800, 600, { fit: 'cover', position: 'centre', kernel: sharp.kernel.lanczos3 })
+      .sharpen({ sigma: 0.75, m1: 0.6, m2: 1.3 });
+  } else {
+    const fittedBuf = await img
+      .resize(800, 600, { fit: 'inside', kernel: sharp.kernel.lanczos3 })
+      .png()
+      .toBuffer();
+    const fm = await sharp(fittedBuf).metadata();
+    const left = Math.floor((800 - fm.width) / 2);
+    const right = 800 - fm.width - left;
+    const top = Math.floor((600 - fm.height) / 2);
+    const bottom = 600 - fm.height - top;
+    pipeline = sharp(fittedBuf)
+      .extend({
+        top,
+        bottom,
+        left,
+        right,
+        extendWith: 'background',
+        background: { r: outBgR, g: outBgG, b: outBgB }
+      })
+      .sharpen({ sigma: 0.75, m1: 0.6, m2: 1.3 });
+  }
+
+  return encodeWebpUnder150(pipeline, outPath);
 }
 
 /**
@@ -263,25 +336,25 @@ async function buildProductImage(prod) {
     case 2:  return extractAndFrameWhiteStudio(GEN.pins1, outPath, { quadrant: 'TR' });
     case 3:  return extractAndFrameWhiteStudio(GEN.pins1, outPath, { quadrant: 'BL' });
     case 4:  return extractAndFrameWhiteStudio(GEN.pins1, outPath, { quadrant: 'BR' });
-    case 5:  return extractAndFrameWhiteStudio(GEN.pins2, outPath, { quadrant: 'TL' }); // Antique Brass Die-Struck (No Paint)
-    case 6:  return extractAndFrameWhiteStudio(GEN.pins2, outPath, { quadrant: 'TR' });
-    case 7:  return extractAndFrameWhiteStudio(GEN.pins2, outPath, { quadrant: 'BL' });
-    case 8:  return extractAndFrameWhiteStudio(GEN.pins2, outPath, { quadrant: 'BR' });
+    case 5:  return extractAndFrameWhiteStudio(GEN.pin005, outPath, { whitePoint: 240 }); // Antique Brass Die-Struck (No Paint)
+    case 6:  return extractAndFrameWhiteStudio(GEN.pin006, outPath, { whitePoint: 240 }); // Full-Color Offset Printed Epoxy Pin
+    case 7:  return extractAndFrameWhiteStudio(GEN.pin007, outPath, { whitePoint: 240 }); // Silk-Screen Printed Metal Pin
+    case 8:  return extractAndFrameWhiteStudio(GEN.pin008, outPath, { whitePoint: 240 }); // 3D Zinc Alloy Die-Cast Eagle Pin
     case 9:  return extractAndFrameWhiteStudio(GEN.pins3, outPath, { quadrant: 'TL' });
     case 10: return extractAndFrameWhiteStudio(GEN.pins3, outPath, { quadrant: 'TR' });
-    case 11: return extractAndFrameWhiteStudio(GEN.pins3, outPath, { quadrant: 'BL' });
+    case 11: return extractAndFrameWhiteStudio(GEN.pin011, outPath, { whitePoint: 240 }); // Glow-in-the-Dark Enamel Pin (Daylight)
     case 12: return extractAndFrameWhiteStudio(GEN.pins3, outPath, { quadrant: 'BR' });
     case 13: return extractAndFrameWhiteStudio(GEN.pins4, outPath, { quadrant: 'TL' });
     case 14: return extractAndFrameWhiteStudio(GEN.pins4, outPath, { quadrant: 'TR' });
     case 15: return extractAndFrameWhiteStudio(GEN.pins4, outPath, { quadrant: 'BL' });
     case 16: return extractAndFrameWhiteStudio(GEN.pins4, outPath, { quadrant: 'BR' });
-    case 17: return extractAndFrameWhiteStudio(GEN.pins5, outPath, { quadrant: 'TL' });
+    case 17: return extractAndFrameWhiteStudio(GEN.pin017, outPath, { whitePoint: 240 }); // Rainbow Anodized PVD Pin
     case 18: return extractAndFrameWhiteStudio(GEN.pins5, outPath, { quadrant: 'TR' });
     case 19: return extractAndFrameWhiteStudio(GEN.pins5, outPath, { quadrant: 'BL' });
     case 20: return extractAndFrameWhiteStudio(GEN.pins5, outPath, { quadrant: 'BR' });
     case 21: return frameRealPhoto800x600(tb('L3_20061347751157.JPG'), outPath); // Crossed friendship flag pins
     case 22: return frameRealPhoto800x600(tb('L3_20061347957721.JPG'), outPath); // Waving national flag pin
-    case 23: return frameRealPhoto800x600(tb('L28_20061565788081.JPG'), outPath); // Metallic embossed coat of arms pinback badge
+    case 23: return extractAndFrameWhiteStudio(GEN.pin023, outPath, { trimThreshold: 0, pad: 0 }); // Tinplate button pinback badges
     case 24: return frameRealPhoto800x600(tb('L28_20061565837861.JPG'), outPath); // Tri-size collar/blazer button pin set
 
     // ================= C2: Custom Medals (025-044) =================
@@ -291,8 +364,8 @@ async function buildProductImage(prod) {
     case 28: return extractAndFrameWhiteStudio(GEN.medals1, outPath, { quadrant: 'BL', flushTop: true });
     case 29: return extractAndFrameWhiteStudio(GEN.medals1, outPath, { quadrant: 'BR', flushTop: true });
     case 30: return extractAndFrameWhiteStudio(GEN.medals2, outPath, { quadrant: 'TL', flushTop: true });
-    case 31: return extractAndFrameWhiteStudio(GEN.medals2, outPath, { quadrant: 'TR', flushTop: true });
-    case 32: return extractAndFrameWhiteStudio(GEN.medals2, outPath, { quadrant: 'BL', flushTop: true });
+    case 31: return extractAndFrameWhiteStudio(GEN.medal031, outPath, { flushTop: true, whitePoint: 240 }); // Translucent Stained-Glass Medal
+    case 32: return extractAndFrameWhiteStudio(GEN.medal032, outPath, { flushTop: true, whitePoint: 240 }); // Glow Night-Run Medal
     case 33: return extractAndFrameWhiteStudio(GEN.medals2, outPath, { quadrant: 'BR', flushTop: true });
     case 34: return extractAndFrameWhiteStudio(GEN.medals3, outPath, { quadrant: 'TL', flushTop: false });
     case 35: return extractAndFrameWhiteStudio(GEN.medals3, outPath, { quadrant: 'TR', flushTop: false });
@@ -303,7 +376,7 @@ async function buildProductImage(prod) {
     case 40: return frameRealPhoto800x600(tb('L2_20061347165125.JPG'), outPath); // Sliding bottom bar medallion
     case 41: return extractAndFrameWhiteStudio(GEN.medals3, outPath, { quadrant: 'BR', flushTop: true });
     case 42: return frameRealPhoto800x600(tb('L2_20061347239453.JPG'), outPath); // Lightweight copper starburst medallion
-    case 43: return frameRealPhoto800x600(tb('L2_20061347363861.JPG'), outPath); // High-relief gold commemorative medallion
+    case 43: return extractAndFrameWhiteStudio(GEN.medal043, outPath, { flushTop: true, whitePoint: 240 }); // Acrylic-Insert & LED Medal
     case 44: return frameRealPhoto800x600(tb('L2_20061346456393.JPG'), outPath); // Wide woven/satin neck ribbon + medal
 
     // ================= C3: Custom Challenge Coins (045-060) =================
@@ -319,7 +392,7 @@ async function buildProductImage(prod) {
     case 54: return frameRealPhoto800x600(tb('L14_20061365006909.JPG'), outPath); // Navy + Iraq relief coin pair
     case 55: return frameRealPhoto800x600(tb('L14_20061365019361.JPG'), outPath); // Cobalt blue + gold corporate anniversary coin pair
     case 56: return frameRealPhoto800x600(tb('L14_20061364988329.JPG'), outPath); // Scenic blue/silver full-color shield coin
-    case 57: return frameRealPhoto800x600(tb('L28_20061565873109.JPG'), outPath); // Neon mint translucent-tone relief medallion
+    case 57: return extractAndFrameWhiteStudio(GEN.coin057, outPath, { whitePoint: 240 }); // Glow-in-dark & translucent enamel coin
     case 58: return frameRealPhoto800x600(tb('L14_20061364939377.JPG'), outPath); // 24K gold proof coin in dark velvet presentation case
     case 59: return extractAndFrameWhiteStudio(GEN.coinsPackGrid2, outPath, { quadrant: 'TR' }); // Matte black & antique brass recovery medallion
     case 60: return frameRealPhoto800x600(tb('L14_200961962743345.jpg'), outPath); // Two-tone gold & silver embossed medallion
@@ -361,12 +434,12 @@ async function buildProductImage(prod) {
     // ================= C6: Police Badges, Dog Tags & Name Plates (091-104) =================
     case 91: return extractAndFrameWhiteStudio(GEN.police3, outPath, { xRange: [0.0, 0.259] }); // Security officer shield badge
     case 92: return extractAndFrameWhiteStudio(GEN.police3, outPath, { xRange: [0.259, 0.517] }); // Sheriff 6-point star badge
-    case 93: return frameRealPhoto800x600(tb('L4_20061348304237.JPG'), outPath); // Uniform enamel crest badge
+    case 93: return extractAndFrameWhiteStudio(GEN.badge093, outPath, { whitePoint: 240 }); // Fire Department Maltese Cross badge
     case 94: return frameRealPhoto800x600(tb('L4_20061348330421.JPG'), outPath); // Security Guard chest plaque badge
-    case 95: return extractAndFrameWhiteStudio(GEN.police2, outPath, { xRange: [0.259, 0.517] }); // California county seal star badge
-    case 96: return frameRealPhoto800x600(tb('L4_20061348349829.JPG'), outPath); // Miniature twin-clutch uniform collar insignia
+    case 95: return extractAndFrameWhiteStudio(GEN.badge095, outPath, { whitePoint: 240 }); // Police badge recessed in black leather belt-clip holder
+    case 96: return extractAndFrameWhiteStudio(GEN.badge096, outPath, { whitePoint: 240 }); // Miniature twin-clutch uniform collar insignia
     case 97: return extractAndFrameWhiteStudio(GEN.police3, outPath, { xRange: [0.517, 0.688], flushTop: true }); // Military stainless dog tag w/ silencer & ball chain
-    case 98: return frameRealPhoto800x600(tb('L16_20061466303265.JPG'), outPath); // Embossed tactical soldier silhouette metal tag
+    case 98: return extractAndFrameWhiteStudio(GEN.dogtag098, outPath, { flushTop: true, whitePoint: 240 }); // 3D zinc alloy cut-out dog tag pendant
     case 99: return frameRealPhoto800x600(tb('L16_20061466357173.JPG'), outPath); // Enamel color medallion tag
     case 100: return extractAndFrameWhiteStudio(GEN.police1, outPath, { boxFrac: [0.688, 0.38, 0.975, 0.62], trimThreshold: 26 }); // JONATHAN DOE brushed magnetic nameplate
     case 101: return frameRealPhoto800x600(tb('L23_20061564138313.JPG'), outPath); // Reusable engraved metal name bar
@@ -394,13 +467,13 @@ async function buildProductImage(prod) {
     case 119: return extractAndFrameWhiteStudio(GEN.golf, outPath, { boxFrac: [0.0, 0.0, 0.47, 0.53], maskPolygons: [[[0.38, 0.39], [0.48, 0.39], [0.48, 0.54], [0.38, 0.54]]] }); // Antique brass magnetic divot repair tool
     case 120: return extractAndFrameWhiteStudio(GEN.golf, outPath, { boxFrac: [0.38, 0.0, 1.0, 0.53], maskPolygons: [[[0.38, 0.0], [0.50, 0.0], [0.43, 0.45], [0.38, 0.45]], [[0.60, 0.49], [1.0, 0.49], [1.0, 0.54], [0.60, 0.54]]] }); // Switchblade folding divot tool
     case 121: return extractAndFrameWhiteStudio(GEN.golf, outPath, { boxFrac: [0.0, 0.54, 0.50, 1.0] }); // Golf hat clip + magnetic crest ball marker
-    case 122: return frameRealPhoto800x600(tb('L18_20061467417249.JPG'), outPath); // Die-struck brushed brass club tool
+    case 122: return extractAndFrameWhiteStudio(GEN.golf122, outPath, { whitePoint: 240 }); // Die-struck antique brass round golf ball markers
     case 123: return extractAndFrameWhiteStudio(GEN.golf, outPath, { boxFrac: [0.49, 0.50, 1.0, 1.0], maskPolygons: [[[0.49, 0.50], [0.57, 0.50], [0.57, 0.54], [0.49, 0.54]]] }); // Heavy metal poker-chip ball markers
     case 124: return frameRealPhoto800x600(tb('L18_200611250556409.jpg'), outPath); // Brass multifunction divot tool
-    case 125: return frameRealPhoto800x600(tb('L18_200611341776501.JPG'), outPath); // Golf tournament twin-marker & fork keyring
+    case 125: return extractAndFrameWhiteStudio(GEN.golf125, outPath, { whitePoint: 240 }); // Golf tournament hinged tin gift set
     case 126: return frameRealPhoto800x600(tb('L18_200611341764969.JPG'), outPath); // Metal golf bag keyring & divot hanger
     case 127: return frameRealPhoto800x600(tb('L18_200611341797861.JPG'), outPath); // Double-sided enamel club golf hat clip + marker
-    case 128: return frameRealPhoto800x600(tb('L18_20095864980753.jpg'), outPath); // Enamel & crystal magnetic hat clip marker
+    case 128: return extractAndFrameWhiteStudio(GEN.golf128, outPath, { whitePoint: 240 }); // Ball-marker alignment stencil divot tool
 
     // ================= C9: Bookmarks, Openers & Souvenirs (129-140) =================
     case 129: return extractAndFrameWhiteStudio(GEN.bookmarks, outPath, { maskPolygons: [MASK_RIGHT_OF_BOOKMARK] }); // Photo-etched brass bookmark + navy tassel
@@ -408,9 +481,9 @@ async function buildProductImage(prod) {
     case 131: return frameRealPhoto800x600(tb('L13_200611250591329.jpg'), outPath); // Enamel charm paperclip bookmarks
     case 132: return extractAndFrameWhiteStudio(GEN.bookmarks, outPath, { maskPolygons: [MASK_LEFT_OF_OPENER] }); // Antique bronze Brewery heavy bottle opener
     case 133: return frameRealPhoto800x600(tb('L25_20061565043001.JPG'), outPath); // Stainless steel credit-card bottle opener
-    case 134: return frameRealPhoto800x600(tb('L25_20061564898093.JPG'), outPath); // Round antique brass medallion opener
+    case 134: return extractAndFrameWhiteStudio(GEN.opener134, outPath, { whitePoint: 240 }); // Round magnetic fridge-back antique bronze bottle opener
     case 135: return frameRealPhoto800x600(tb('L25_20061564838953.JPG'), outPath); // Brushed stainless speed bar opener
-    case 136: return frameRealPhoto800x600(tb('L28_20061565851813.JPG'), outPath); // 3D antique bronze lion relief emblem
+    case 136: return extractAndFrameWhiteStudio(GEN.mag136, outPath, { whitePoint: 240 }); // 3D metal souvenir fridge magnet plaque
     case 137: return frameRealPhoto800x600(tb('L17_20061466671237.JPG'), outPath); // Ornate enameled souvenir collector tea spoon
     case 138: return frameRealPhoto800x600(tb('L27_20061565608581.JPG'), outPath); // Assorted metal zipper pulls
     case 139: return frameRealPhoto800x600(tb('L27_20061565529017.JPG'), outPath); // Enamel dolphin bag charms
@@ -429,9 +502,9 @@ async function buildProductImage(prod) {
     case 150: return extractAndFrameWhiteStudio(GEN.coinsPackGrid2, outPath, { quadrant: 'BR' }); // Deluxe mahogany & stitched leatherette award case
     case 151: return extractAndFrameWhiteStudio(GEN.mag151, outPath, {}); // Hard enamel cloisonne brass fridge magnet
     case 152: return extractAndFrameWhiteStudio(GEN.mag152, outPath, {}); // Recessed soft enamel zinc fridge magnet
-    case 153: return extractAndFrameWhiteStudio(GEN.mag153, outPath, { whitePoint: 245 }); // Epoxy dome offset printed metal fridge magnet
-    case 154: return extractAndFrameWhiteStudio(GEN.mag154, outPath, { whitePoint: 243 }); // Interactive spinner & slider kinetic fridge magnet
-    case 155: return extractAndFrameWhiteStudio(GEN.mag155, outPath, { whitePoint: 242 }); // Stained-glass translucent enamel filigree fridge magnet
+    case 153: return extractAndFrameWhiteStudio(GEN.mag153, outPath, { whitePoint: 240 }); // Epoxy dome offset printed metal fridge magnet
+    case 154: return extractAndFrameWhiteStudio(GEN.mag154, outPath, { whitePoint: 240 }); // Interactive spinning Ferris wheel fridge magnet
+    case 155: return extractAndFrameWhiteStudio(GEN.mag155, outPath, { whitePoint: 240 }); // Stained-glass translucent enamel filigree fridge magnet
     case 156: return extractAndFrameWhiteStudio(GEN.mag156, outPath, {}); // Multi-layer 3D stacked architectural fridge magnet
     case 157: return extractAndFrameWhiteStudio(GEN.mag157, outPath, {}); // Antique brass & bronze relief museum fridge magnet
     case 158: return extractAndFrameWhiteStudio(GEN.mag158, outPath, { whitePoint: 240 }); // Glow-in-dark & glitter metal fridge magnet
@@ -479,13 +552,13 @@ async function buildCompositeFigure(skuPaths, outPath, count) {
 }
 
 const GUIDE_HERO_SOURCES = {
-  '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering': path.join(BRAIN_DIR, '3d_relief_sculpting_vs_2d_multi_level_die_casting_mold_engineering_1795507631680.jpg'),
+  '3d-relief-sculpting-vs-2d-multi-level-die-casting-mold-engineering': path.join(BRAIN_DIR, 'hero_3d_relief_mold_jpg_1795565827062.jpg'),
   'academic-graduation-medallions-and-military-drape-ribbon-medals-guide': path.join(BRAIN_DIR, 'academic_graduation_medallions_and_military_drape_ribbon_medals_guide_1795507600028.jpg'),
   'anodized-aluminum-carabiner-climb-loops-vs-laser-stainless-keyrings': path.join(BRAIN_DIR, 'anodized_aluminum_carabiner_climb_loops_vs_laser_stainless_keyrings_1795507650509.jpg'),
   'boutique-hotel-vintage-stamped-brass-room-key-tags-and-fobs-guide': path.join(BRAIN_DIR, 'boutique_hotel_vintage_stamped_brass_room_key_tags_and_fobs_guide_1795508281721.jpg'),
   'china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping': path.join(BRAIN_DIR, 'china_direct_custom_pins_and_medals_manufacturing_lead_times_ddp_air_shipping_1795507649100.jpg'),
   'corporate-years-of-service-award-pins-and-anniversary-commemorative-coins': path.join(BRAIN_DIR, 'corporate_years_of_service_award_pins_and_anniversary_commemorative_coins_1795508291023.jpg'),
-  'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance': path.join(BRAIN_DIR, 'cpsia_lead_free_en71_reach_nickel_free_electroplating_metal_craft_compliance_1795508282739.jpg'),
+  'cpsia-lead-free-en71-reach-nickel-free-electroplating-metal-craft-compliance': path.join(BRAIN_DIR, 'hero_cpsia_xrf_compliance_jpg_1795565835418.jpg'),
   'craft-brewery-heavy-zinc-bottle-openers-and-3d-souvenir-fridge-magnets': path.join(BRAIN_DIR, 'craft_brewery_heavy_zinc_bottle_openers_and_3d_souvenir_fridge_magnets_1795508610720.jpg'),
   'custom-3d-curved-police-security-and-fire-department-badges-guide': path.join(BRAIN_DIR, 'custom_3d_curved_police_security_and_fire_department_badges_guide_1795508334467.jpg'),
   'custom-3d-western-rodeo-and-motorcycle-club-heavy-zinc-belt-buckles': path.join(BRAIN_DIR, 'custom_3d_western_rodeo_and_motorcycle_club_heavy_zinc_belt_buckles_1795508649421.jpg'),
@@ -496,7 +569,7 @@ const GUIDE_HERO_SOURCES = {
   'custom-golf-divot-repair-tools-and-magnetic-hat-clip-ball-markers-guide': path.join(BRAIN_DIR, 'custom_golf_divot_repair_tools_and_magnetic_hat_clip_ball_markers_guide_1795508784681.jpg'),
   'custom-marathon-and-5k-10k-finisher-medals-race-director-sourcing-guide': path.join(BRAIN_DIR, 'custom_marathon_and_5k_10k_finisher_medals_race_director_sourcing_guide_1795509067303.jpg'),
   'custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide': path.join(BRAIN_DIR, 'custom_military_and_law_enforcement_challenge_coins_sizing_edge_guide_1795508365888.jpg'),
-  'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale': path.join(BRAIN_DIR, 'custom_mold_tooling_fees_explained_how_to_get_zero_mold_fee_wholesale_1795508278134.jpg'),
+  'custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale': path.join(BRAIN_DIR, 'hero_mold_tooling_shelf_jpg_1795565842525.jpg'),
   'custom-retail-backing-cards-velvet-boxes-and-acrylic-display-packaging': path.join(BRAIN_DIR, 'custom_retail_backing_cards_velvet_boxes_and_acrylic_display_packaging_1795508399436.jpg'),
   'cut-out-hollow-design-and-inner-cut-mold-fees-for-medals-and-coins': path.join(BRAIN_DIR, 'cut_out_hollow_design_and_inner_cut_mold_fees_for_medals_and_coins_1795508307717.jpg'),
   'dual-plated-two-tone-gold-silver-challenge-coins-masking-process': path.join(BRAIN_DIR, 'dual_plated_two_tone_gold_silver_challenge_coins_masking_process_1795508271600.jpg'),
@@ -506,21 +579,21 @@ const GUIDE_HERO_SOURCES = {
   'european-trolley-coin-keyrings-1-euro-vs-12-sided-uk-pound-specs': path.join(BRAIN_DIR, 'european_trolley_coin_keyrings_1_euro_vs_12_sided_uk_pound_specs_1795508729884.jpg'),
   'genuine-leather-metal-emblem-keychains-for-auto-dealerships-real-estate': path.join(BRAIN_DIR, 'genuine_leather_metal_emblem_keychains_for_auto_dealerships_real_estate_1795508368197.jpg'),
   'hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide': path.join(BRAIN_DIR, 'hard_enamel_vs_soft_enamel_pins_wholesale_cost_durability_guide_1795507605979.jpg'),
-  'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms': path.join(BRAIN_DIR, 'interactive_kinetic_pins_and_medals_spinner_slider_hinged_mechanisms_1795507654857.jpg'),
+  'interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms': path.join(BRAIN_DIR, 'hero_kinetic_pins_1795565872834.jpg'),
   'lapel-pin-backs-and-attachments-butterfly-clutch-rubber-magnet-locking': path.join(BRAIN_DIR, 'lapel_pin_backs_and_attachments_butterfly_clutch_rubber_magnet_locking_v3_1795509084237.jpg'),
-  'magnetic-detachable-vs-lobster-clasp-and-pull-out-trolley-coin-holders': path.join(BRAIN_DIR, 'magnetic_detachable_vs_lobster_clasp_and_pull_out_trolley_coin_holders_1795508399418.jpg'),
+  'magnetic-detachable-vs-lobster-clasp-and-pull-out-trolley-coin-holders': path.join(BRAIN_DIR, 'hero_trolley_holders_1795565840897.jpg'),
   'magnetic-vs-pin-back-metal-employee-name-plates-for-hotels-airlines': path.join(BRAIN_DIR, 'magnetic_vs_pin_back_metal_employee_name_plates_for_hotels_airlines_1795508361380.jpg'),
   'military-stainless-steel-dog-tags-vs-3d-zinc-alloy-pendant-tags': path.join(BRAIN_DIR, 'military_stainless_steel_dog_tags_vs_3d_zinc_alloy_pendant_tags_1795508383478.jpg'),
   'photo-etched-brass-vs-offset-printed-silk-screen-lapel-pins': path.join(BRAIN_DIR, 'photo_etched_brass_vs_offset_printed_silk_screen_lapel_pins_1795508279254.jpg'),
   'photo-etched-hollow-brass-bookmarks-for-museums-universities-publishers': path.join(BRAIN_DIR, 'photo_etched_hollow_brass_bookmarks_for_museums_universities_publishers_1795508905454.jpg'),
   'sequential-laser-numbering-and-acrylic-capsule-packaging-for-coins': path.join(BRAIN_DIR, 'sequential_laser_numbering_and_acrylic_capsule_packaging_for_coins_1795508404809.jpg'),
-  'specialty-enamel-effects-glitter-glow-in-the-dark-stained-glass-translucent': path.join(BRAIN_DIR, 'specialty_enamel_effects_glitter_glow_in_the_dark_stained_glass_translucent_1795508316451.jpg'),
+  'specialty-enamel-effects-glitter-glow-in-the-dark-stained-glass-translucent': path.join(BRAIN_DIR, 'hero_specialty_enamel_1795565828260.jpg'),
   'spinner-bottle-opener-and-magnetic-interlocking-race-medal-trends': path.join(BRAIN_DIR, 'spinner_bottle_opener_and_magnetic_interlocking_race_medal_trends_1795509204051.jpg'),
   'virtual-race-finisher-medals-lightweight-mailer-packaging-and-fulfillment': path.join(BRAIN_DIR, 'virtual_race_finisher_medals_lightweight_mailer_packaging_and_fulfillment_1795507643523.jpg'),
   'youth-sports-tournament-medals-and-baseball-trading-pins-bulk-guide': path.join(BRAIN_DIR, 'youth_sports_tournament_medals_and_baseball_trading_pins_bulk_guide_1795508275373.jpg'),
-  'zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost': path.join(BRAIN_DIR, 'zinc_alloy_die_casting_vs_die_struck_brass_iron_medals_pins_cost_1795509986425.jpg'),
+  'zinc-alloy-die-casting-vs-die-struck-brass-iron-medals-pins-cost': path.join(BRAIN_DIR, 'hero_zinc_casting_vs_struck_jpg_1795565878225.jpg'),
   'custom-metal-fridge-magnets-3d-zinc-vs-hard-soft-enamel-epoxy-guide': path.join(BRAIN_DIR, 'custom_metal_fridge_magnets_3d_zinc_vs_hard_soft_enamel_epoxy_guide_1795516815661.jpg'),
-  'museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer': path.join(BRAIN_DIR, 'museum_tourism_souvenir_metal_fridge_magnets_kinetic_stained_glass_multi_layer_1795516838582.jpg'),
+  'museum-tourism-souvenir-metal-fridge-magnets-kinetic-stained-glass-multi-layer': path.join(BRAIN_DIR, 'hero_museum_magnets_1795565851924.jpg'),
   'fridge-magnet-pull-force-neodymium-vs-ferrite-rubber-backing-and-retail-cards': path.join(BRAIN_DIR, 'fridge_magnet_pull_force_neodymium_vs_ferrite_rubber_backing_and_retail_cards_1795516858355.jpg')
 };
 
@@ -639,7 +712,7 @@ async function main() {
   await buildFullScene800x600(GEN.fac3, path.join(OUT_FAC, 'showcase-3.webp'));
   await buildFullScene800x600(GEN.fac4, path.join(OUT_FAC, 'showcase-4.webp'));
 
-  console.log('2. Building 150 Distinct, Uncropped Product WebP images (800x600)...');
+  console.log('2. Building 158 Distinct, Uncropped Product WebP images (800x600)...');
   const prods = fs.readdirSync(PROD_DIR)
     .filter((f) => f.endsWith('.json'))
     .map((f) => JSON.parse(fs.readFileSync(path.join(PROD_DIR, f), 'utf8')))
@@ -649,7 +722,7 @@ async function main() {
     await buildProductImage(prod);
   }
 
-  console.log('3. Building 40 Pure Editorial Insight Hero images + 80 Composite Inline Figures...');
+  console.log('3. Building 43 Pure Editorial Insight Hero images + 86 Composite Inline Figures...');
   const guideFiles = fs.readdirSync(GUIDE_DIR).filter((f) => f.endsWith('.md')).sort();
   for (let i = 0; i < guideFiles.length; i++) {
     const raw = fs.readFileSync(path.join(GUIDE_DIR, guideFiles[i]), 'utf8');

@@ -2,7 +2,7 @@
 title: "Solid Brass Academic Graduation Medallions & Military Drape Ribbon Medals: Stamping & Presentation"
 slug: "academic-graduation-medallions-and-military-drape-ribbon-medals-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Medals & Sports Events"
 summary: "Specify heirloom die-struck solid C26000 brass academic medallions, university crests, and striped grosgrain top-bar military drape medals."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-035","MPS-038","MPS-041","MPS-044","MPS-045","MPS-147","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,28 +55,28 @@ relatedSkus: ["MPS-035","MPS-038","MPS-041","MPS-044","MPS-045","MPS-147","MPS-1
         <td><a href="/products/die-struck-brass-academic-medals"><strong>Custom Die-Struck Brass Academic & Graduation Medals</strong></a></td>
         <td>Solid C26000 Brass<br/><small>Hydraulic High-Tonnage 2D/3D Coin Stamping</small></td>
         <td>Ø57×3.2mm (2.25") · 78g</td>
-        <td>100 pcs<br/><small>$110 Brass Die (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$110 Brass Die (Waived @ 1,000+)</small></td>
         <td>$2.90 / $1.95 / <strong>$1.42</strong></td>
       </tr>
       <tr>
         <td><a href="/products/military-drape-ribbon-medals"><strong>Custom Military & Veteran Drape Ribbon Medals</strong></a></td>
         <td>Die-Struck Solid Brass<br/><small>Two-Sided Coin Strike + Top Pin-Bar Drape Ribbon</small></td>
         <td>Ø45×3.2mm (1.75") · 52g</td>
-        <td>100 pcs<br/><small>$115 Brass Die (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$115 Brass Die (Waived @ 1,000+)</small></td>
         <td>$3.25 / $2.15 / <strong>$1.55</strong></td>
       </tr>
       <tr>
         <td><a href="/products/dual-plated-luxury-medallions"><strong>Custom Dual-Plated Two-Tone Luxury Medallions</strong></a></td>
         <td>Heavy Zinc Alloy / Brass<br/><small>Hand-Masked Dual Electroplating (Gold + Black/Silver)</small></td>
         <td>Ø80×4.0mm (3.15") · 128g</td>
-        <td>100 pcs<br/><small>$125 Dual-Tone Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$125 Dual-Tone Mold (Waived @ 1k)</small></td>
         <td>$3.35 / $2.20 / <strong>$1.62</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-sublimated-medal-ribbons"><strong>Custom Full-Color Dye-Sublimated Medal Ribbons</strong></a></td>
         <td>100% High-Density Polyester Satin<br/><small>Double-Sided Edge-to-Edge CMYK Sublimation</small></td>
         <td>25mm / 38mm × 850mm · 18g</td>
-        <td>100 pcs<br/><small>$35 Sublimation Setup (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$35 Sublimation Setup (Waived @ 500+)</small></td>
         <td>$0.65 / $0.38 / <strong>$0.24</strong></td>
       </tr>
       <tr>

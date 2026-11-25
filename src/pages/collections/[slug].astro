@@ -210,8 +210,8 @@ const COLLECTION_SEO_TITLES: Record<string, string> = {
   'custom-metal-fridge-magnets': `Custom Metal Fridge Magnets ($${minColPrice}+ · 10 Styles)`
 };
 const COLLECTION_SEO_DESCS: Record<string, string> = {
-  'custom-enamel-pins': `Custom-molded Cloisonne hard & soft enamel pins, photo-etched brass, 3D zinc & flag pins: ${products.length} styles ($${minColPrice}–$${maxColPrice}, MOQ 50).`,
-  'custom-medals': `Custom-tooled 3D marathon finisher medals, spinner medals, puzzle medals & sublimated neck ribbons: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}).`,
+  'custom-enamel-pins': `Custom-molded Cloisonne hard & soft enamel pins, photo-etched brass, 3D zinc & flag pins: ${products.length} styles ($${minColPrice}–$${maxColPrice}, MOQ 300).`,
+  'custom-medals': `Custom-tooled 3D marathon, spinner & magnetic finisher medals + ribbons: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}, MOQ 300).`,
   'custom-challenge-coins': `Custom die-struck military, corporate & commemorative challenge coins ($${minColPrice}–$${maxColPrice}): 1.75"–2.5", 6 edges & laser numbering.`,
   'custom-metal-keychains': `Custom 3D zinc, soft enamel, leather, carabiner & spinning keychains: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}) with 12h free proof.`,
   'trolley-coin-keyrings': `Custom-struck €1 Euro (23.25mm) & 12-sided UK £1 (23.43mm) supermarket trolley token keyrings: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}).`,
@@ -226,8 +226,11 @@ const cleanShortName = collection.shortName.replace(/^[^\w]+/, '').trim();
 const rawEnTitle = `${collection.name} (${products.length} Styles) | MedalPinSupply`;
 const medEnTitle = `${collection.name} | MedalPinSupply`;
 const shortEnTitle = `${cleanShortName} Factory | MedalPinSupply`;
+const defaultColQty = parseInt(collection.moq, 10) || 100;
+const shortMoq = collection.moq.replace(/\s*pcs.*$/i, '').replace(/\s+/g, '');
+const jaShortMoq = shortMoq.replace(/[–-]/g, '〜');
 const enTitle = COLLECTION_SEO_TITLES[collection.slug] || (rawEnTitle.length <= 60 ? rawEnTitle : medEnTitle.length <= 60 ? medEnTitle : shortEnTitle);
-const enDesc = COLLECTION_SEO_DESCS[collection.slug] || `${cleanShortName}: ${products.length} custom craft styles (${collection.priceRangeUsd}). MOQ 50–200 pcs, free 12h vector proof, custom die waived at 500–1,000+ pcs.`;
+const enDesc = COLLECTION_SEO_DESCS[collection.slug] || `${cleanShortName}: ${products.length} custom craft styles (${collection.priceRangeUsd}). MOQ ${shortMoq} pcs, free 12h vector proof, custom die waived at 500–1,000+ pcs.`;
 const locColName = t(`col.${collection.slug}.name` as any);
 const locColShort = t(`col.${collection.slug}.short` as any);
 const locFullTitle = `${locColName} (${products.length} ${t('nav.modelsCount')} · $${minColPrice}+) | MedalPinSupply`;
@@ -242,23 +245,23 @@ const COL_LOCALE_FOCUS: Record<string, Partial<Record<string, string>>> = {
 const focusTag = (lang: string) => COL_LOCALE_FOCUS[collection.slug]?.[lang] || '';
 const COLLECTION_META_DESC_MAP: Record<string, string> = {
   en: enDesc,
-  de: `${locColName}${focusTag('de')}: ${products.length} Fertigungsarten ($${minColPrice}–$${maxColPrice}, MOQ 50–200). 12h Gratis-Entwurf.`,
-  fr: `${locColName}${focusTag('fr')} : ${products.length} techniques sur mesure ($${minColPrice}–$${maxColPrice}, MOQ 50–200). BAT 12h gratuit.`,
-  nl: `${locColName}: ${products.length} maatwerkopties ($${minColPrice}–$${maxColPrice}, MOQ 50–200 st.). Gratis 12u proefdruk en stempelvrijstelling.`,
-  es: `${locColName}: ${products.length} estilos a medida ($${minColPrice}–$${maxColPrice}, MOQ 50–200). Boceto gratis en 12h.`,
-  it: `${locColName}: ${products.length} stili su misura ($${minColPrice}–$${maxColPrice}, MOQ 50–200). Bozza gratuita in 12h.`,
-  pt: `${locColName}: ${products.length} estilos sob medida ($${minColPrice}–$${maxColPrice}, MOQ 50–200). Arte digital grátis 12h.`,
-  sv: `${locColName}: ${products.length} specialutföranden ($${minColPrice}–$${maxColPrice}, MOQ 50–200 st). Fri skiss inom 12h.`,
-  da: `${locColName}: ${products.length} specialdesigns ($${minColPrice}–$${maxColPrice}, MOQ 50–200 stk.). Gratis 12t udkast.`,
-  no: `${locColName}: ${products.length} spesialstiler ($${minColPrice}–$${maxColPrice}, MOQ 50–200 stk.). Gratis 12t skisse.`,
-  fi: `${locColName}: ${products.length} räätälöityä tyyliä ($${minColPrice}–$${maxColPrice}, MOQ 50–200 kpl). Ilmainen 12h vedos.`,
-  pl: `${locColName}: ${products.length} stylów na zamówienie ($${minColPrice}–$${maxColPrice}, MOQ 50–200 szt.). Darmowy projekt 12h.`,
-  cs: `${locColName}: ${products.length} zakázkových stylů ($${minColPrice}–$${maxColPrice}, MOQ 50–200 ks). 12h náhled zdarma.`,
-  ru: `${locColName}: ${products.length} форматов изготовления ($${minColPrice}–$${maxColPrice}, MOQ 50–200 шт.). Макет 12 ч бесплатно.`,
-  ja: `${locColName}${focusTag('ja')}：${products.length}種類の特注仕様（$${minColPrice}〜$${maxColPrice}、MOQ 50〜200個）。12h無料校正。`,
-  ko: `${locColName}${focusTag('ko')}: ${products.length}종 맞춤 사양 ($${minColPrice}–$${maxColPrice}, MOQ 50–200개). 12시간 무료 시안.`,
-  id: `${locColName}: ${products.length} opsi kustom ($${minColPrice}–$${maxColPrice}, MOQ 50–200 pcs). Desain gratis 12 jam.`,
-  ar: `${locColName}: ${products.length} نمطاً مخصصاً ($${minColPrice}–$${maxColPrice}، الحد الأدنى 50–200 قطعة). تصميم مجاني خلال 12 ساعة.`
+  de: `${locColName}${focusTag('de')}: ${products.length} Fertigungsarten ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq}). 12h Gratis-Entwurf.`,
+  fr: `${locColName}${focusTag('fr')} : ${products.length} techniques sur mesure ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq}). BAT 12h gratuit.`,
+  nl: `${locColName}: ${products.length} maatwerkopties ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} st.). Gratis 12u proefdruk en stempelvrijstelling.`,
+  es: `${locColName}: ${products.length} estilos a medida ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq}). Boceto gratis en 12h.`,
+  it: `${locColName}: ${products.length} stili su misura ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq}). Bozza gratuita in 12h.`,
+  pt: `${locColName}: ${products.length} estilos sob medida ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq}). Arte digital grátis 12h.`,
+  sv: `${locColName}: ${products.length} specialutföranden ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} st). Fri skiss inom 12h.`,
+  da: `${locColName}: ${products.length} specialdesigns ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} stk.). Gratis 12t udkast.`,
+  no: `${locColName}: ${products.length} spesialstiler ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} stk.). Gratis 12t skisse.`,
+  fi: `${locColName}: ${products.length} räätälöityä tyyliä ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} kpl). Ilmainen 12h vedos.`,
+  pl: `${locColName}: ${products.length} stylów na zamówienie ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} szt.). Darmowy projekt 12h.`,
+  cs: `${locColName}: ${products.length} zakázkových stylů ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} ks). 12h náhled zdarma.`,
+  ru: `${locColName}: ${products.length} форматов изготовления ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} шт.). Макет 12 ч бесплатно.`,
+  ja: `${locColName}${focusTag('ja')}：${products.length}種類の特注仕様（$${minColPrice}〜$${maxColPrice}、MOQ ${jaShortMoq}個）。12h無料校正。`,
+  ko: `${locColName}${focusTag('ko')}: ${products.length}종 맞춤 사양 ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq}개). 12시간 무료 시안.`,
+  id: `${locColName}: ${products.length} opsi kustom ($${minColPrice}–$${maxColPrice}, MOQ ${shortMoq} pcs). Desain gratis 12 jam.`,
+  ar: `${locColName}: ${products.length} نمطاً مخصصاً ($${minColPrice}–$${maxColPrice}، الحد الأدنى ${shortMoq} قطعة). تصميم مجاني خلال 12 ساعة.`
 };
 ---
 
@@ -311,8 +314,8 @@ const COLLECTION_META_DESC_MAP: Record<string, string> = {
           <a
             href={getLocalizedPath('/contact', currentLang)}
             data-rfq-sku={`Custom Order in ${cleanShortName} ($${minColPrice}–$${maxColPrice})`}
-            data-rfq-mode="Custom Die-Struck / 3D Cast (MOQ 50 pcs)"
-            data-rfq-qty="50"
+            data-rfq-mode={`Custom Die-Struck / 3D Cast (MOQ ${defaultColQty} pcs)`}
+            data-rfq-qty={String(defaultColQty)}
             class="btn btn-accent btn-hero"
           >
             ⚡ {t('nav.requestQuote')}
@@ -342,7 +345,7 @@ const COLLECTION_META_DESC_MAP: Record<string, string> = {
             class="hero-sku-chip"
             data-rfq-sku={products.slice(0, 3).map((fp) => localizeTitle(fp.data.title, currentLang)).join(', ')}
             data-rfq-mode="Free 12h Digital Artwork Proof"
-            data-rfq-qty="100"
+            data-rfq-qty={String(defaultColQty)}
           >
             <strong>{microHooks.sample1Pc}</strong>
             <span>{microHooks.freeLogoProof}</span>
@@ -401,7 +404,7 @@ const COLLECTION_META_DESC_MAP: Record<string, string> = {
           href={getLocalizedPath('/contact', currentLang)}
           data-rfq-sku={`Custom Order in ${cleanShortName} ($${minColPrice}–$${maxColPrice})`}
           data-rfq-mode="Custom Enamel / Cast Production"
-          data-rfq-qty="100"
+          data-rfq-qty={String(defaultColQty)}
           class="btn btn-primary"
         >
           ⚡ {t('nav.requestQuote')}
@@ -438,6 +441,12 @@ const COLLECTION_META_DESC_MAP: Record<string, string> = {
     <GeoDirectAnswer
       title={`${t(`col.${collection.slug}.short` as any)} — ${t('geo.defaultTitle')}`}
       answer={locCol.geoDirectAnswer}
+      metrics={[
+        { label: t('geo.metricTooling'), value: t('geo.metricToolingVal') },
+        { label: t('geo.metricBlankMoq'), value: locCol.moq },
+        { label: t('geo.metricLogoMoq'), value: t('geo.metricLogoMoqVal') },
+        { label: t('geo.metricSafety'), value: t('geo.metricSafetyVal') }
+      ]}
     />
 
     <!-- Engineering Highlights Bar -->

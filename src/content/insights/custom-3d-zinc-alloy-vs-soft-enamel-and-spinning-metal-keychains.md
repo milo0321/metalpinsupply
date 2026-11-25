@@ -2,7 +2,7 @@
 title: "Custom Metal Keychains Selection Matrix: 3D Zinc Alloy vs. Soft Enamel, Spinner & Nail-Clipper Fobs"
 slug: "custom-3d-zinc-alloy-vs-soft-enamel-and-spinning-metal-keychains"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Keychains & Trolley Coins"
 summary: "Compare 3D die-cast zinc, hard/soft enamel, rotating 360-degree spinner keychains, nail clippers, and bottle-opener keyrings across cost and longevity."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-061","MPS-062","MPS-063","MPS-065","MPS-067","MPS-068","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

@@ -97,8 +97,8 @@ function main() {
       name: 'Custom Enamel Pins & Die-Struck Lapel Badges',
       skuCount: 24,
       priceRange: '$0.14 – $2.35',
-      moq: '50 – 200 pcs',
-      summary: '24 specialized lapel pin configurations covering Cloisonne hard enamel, die-struck soft enamel, clear epoxy domes, photo-etched brass, 3D die-cast zinc/pewter, glitter, glow-in-the-dark, interactive spinners, crossed flag pins, and tinplate buttons ($0.14–$2.35/pc, 2D dies waived @ 500+ pcs).'
+      moq: '300 pcs',
+      summary: '24 specialized lapel pin configurations covering Cloisonne hard enamel, die-struck soft enamel, clear epoxy domes, photo-etched brass, 3D die-cast zinc/pewter, glitter, glow-in-the-dark, interactive spinners, crossed flag pins, and tinplate buttons (300 pcs MOQ, $0.14–$2.35/pc, 2D dies waived @ 500+ pcs).'
     },
     {
       num: 2,
@@ -106,8 +106,8 @@ function main() {
       name: 'Custom Race Medals & Sports Medallions',
       skuCount: 20,
       priceRange: '$0.24 – $3.85',
-      moq: '100 – 200 pcs',
-      summary: '20 heavyweight custom race and award medal styles in 3mm–5mm die-cast zinc alloy and die-struck brass from 2.0" tournament medallions to 4.5" 3D marathon medals with custom dye-sublimated satin neck ribbons (3D molds waived @ 1,000+ pcs).'
+      moq: '300 pcs',
+      summary: '20 heavyweight custom race and award medal styles (300 pcs MOQ) in 3mm–5mm die-cast zinc alloy and die-struck brass from 2.0" tournament medallions to 4.5" 3D marathon medals with custom dye-sublimated satin neck ribbons (3D molds waived @ 1,000+ pcs).'
     },
     {
       num: 3,
@@ -178,7 +178,7 @@ function main() {
       name: 'Custom Patches, Soft PVC & Presentation Packaging',
       skuCount: 10,
       priceRange: '$0.11 – $4.50',
-      moq: '50 – 200 pcs',
+      moq: '50 – 300 pcs',
       summary: '10 uniform patch, non-phthalate soft PVC, and retail presentation packaging options—spanning embroidered/woven/bullion crests, 3D PVC patches, 400gsm backing cards ($0.11+), acrylic coin capsules ($0.16+), and velvet gift boxes.'
     },
     {
@@ -245,7 +245,7 @@ function main() {
     `## 5. Complete ${products.length} Custom Metal Craft Specifications Index`,
     ...products.map(
       (p) =>
-        `- **[${p.title}](https://medalpinsupply.com/products/${p.slug})** | Category: \`${p.primaryCollection}\` | Material: ${p.material} | Process: ${p.process} | Size: ${p.size} | Weight: ${p.weight} | Attachment: ${p.attachmentEn} | EXW USD Tiers: **$${p.tier100}** (100 pcs) / **$${p.tier500}** (500 pcs) / **$${p.tier2000}** (2,000+ pcs) | Tooling: ${p.toolingFee}`
+        `- **[${p.title}](https://medalpinsupply.com/products/${p.slug})** | Category: \`${p.primaryCollection}\` | Material: ${p.material} | Process: ${p.process} | Size: ${p.size} | Weight: ${p.weight} | Attachment: ${p.attachmentEn} | MOQ: ${p.moq} | EXW USD Tiers: **$${p.tier100}** (${p.moqNum || 100} pcs) / **$${p.tier500}** (500 pcs) / **$${p.tier2000}** (2,000+ pcs) | Tooling: ${p.toolingFee}`
     ),
     ''
   ];
@@ -270,7 +270,7 @@ function main() {
     '================================================================================',
     '',
     '### 1.1 Transparent Custom Tooling & Mold Waiver Policy',
-    'MedalPinSupply.com custom-manufactures **158 core metal craft specifications** strictly to each buyer’s logo artwork (no pre-made off-the-shelf models or stock inventory) in Zhongshan Xiaolan, combining rapid pre-press vector proofing (`12 hours`), flexible low MOQs (`50–200 pcs`), and clear tooling fee waiver structures:',
+    'MedalPinSupply.com custom-manufactures **158 core metal craft specifications** strictly to each buyer’s logo artwork (no pre-made off-the-shelf models or stock inventory) in Zhongshan Xiaolan, combining rapid pre-press vector proofing (`12 hours`), clear MOQ minimums (`300 pcs` for custom pins & race medals; `50–200 pcs` for challenge coins, keychains, magnets & hardware), and automatic tooling fee waivers:',
     '- **Custom Tooling Fees & Bulk Threshold Waivers**: Custom 2D stamping dies (`$45 – $85 USD`) and plate setups (`$35`) are automatically **waived 100% at 500+ pcs** on lapel pins, trolley coins, cufflinks, dog tags, and keychains (`300+ pcs` on embroidered patches).',
     '- **3D Sculpted Zinc Die-Casting Molds (`$95 – $150 USD`)**: Automatically **waived 100%** at **1,000+ pcs** for 3D marathon medals, military challenge coins, police shields, and trophy belt buckles.',
     '- **3-Year Free Reorder Die Storage (`$0 Reorder Tooling`)**: All paid custom client dies are archived cleanly in our Zhongshan vault for **3 years**, so annual race or corporate reorders cost `$0.00` in setup fees.',
@@ -319,7 +319,7 @@ function main() {
     fullLines.push(`- **Standard Attachment & Hardware**: ${p.attachmentEn}`);
     fullLines.push(`- **Available Plating Finishes**: ${p.platingEn}`);
     fullLines.push(
-      `- **Factory-Direct USD EXW Pricing**: 100 pcs: **$${p.tier100}/pc** | 500 pcs: **$${p.tier500}/pc** | 2,000+ pcs: **$${p.tier2000}/pc**`
+      `- **Factory-Direct USD EXW Pricing**: ${p.moqNum || 100} pcs: **$${p.tier100}/pc** | 500 pcs: **$${p.tier500}/pc** | 2,000+ pcs: **$${p.tier2000}/pc**`
     );
     fullLines.push(`- **Tooling Policy**: ${p.toolingFee} | **MOQ**: ${p.moq} | **Lead Time**: ${p.leadTime}`);
     fullLines.push(`- **Engineering Overview**: ${p.overview}`);
@@ -327,7 +327,7 @@ function main() {
       fullLines.push(`- **Available Size / Material / Craft Configurations**:`);
       for (const v of p.variants) {
         fullLines.push(
-          `  - ${v.materialEn} (${v.size}, ${v.weight}) — 100 pcs: $${v.tier100} | 500 pcs: $${v.tier500} | 2,000+ pcs: $${v.tier2000} (${v.finishesEn})`
+          `  - ${v.materialEn} (${v.size}, ${v.weight}) — ${p.moqNum || 100} pcs: $${v.tier100} | 500 pcs: $${v.tier500} | 2,000+ pcs: $${v.tier2000} (${v.finishesEn})`
         );
       }
     }

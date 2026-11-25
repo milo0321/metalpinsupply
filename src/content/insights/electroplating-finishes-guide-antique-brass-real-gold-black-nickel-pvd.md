@@ -2,7 +2,7 @@
 title: "12 Electroplating & PVD Finishes for Custom Pins, Medals & Coins: Tarnish Resistance & Cost Matrix"
 slug: "electroplating-finishes-guide-antique-brass-real-gold-black-nickel-pvd"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Compare 18K shiny gold, rhodium silver, black nickel, antique bronze, dyed matte black, and rainbow PVD finishes for pins, medals, and coins."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-016","MPS-017","MPS-048","MPS-049","MPS-058","MPS-070","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,14 +55,14 @@ relatedSkus: ["MPS-016","MPS-017","MPS-048","MPS-049","MPS-058","MPS-070","MPS-0
         <td><a href="/products/black-nickel-enamel-lapel-pins"><strong>Custom Black-Nickel Dyed Metal Enamel Pins</strong></a></td>
         <td>Die-Struck Iron / Brass<br/><small>Black Nickel Electroplating or Black-Dyed Finish</small></td>
         <td>30×30×1.5mm · 11g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.30 / $0.75 / <strong>$0.49</strong></td>
       </tr>
       <tr>
         <td><a href="/products/rainbow-plated-enamel-pins"><strong>Custom Rainbow Anodized Plating Enamel Pins</strong></a></td>
         <td>Stamped Brass / Zinc Alloy<br/><small>Vacuum PVD Iridescent Rainbow Plating + Hard Enamel</small></td>
         <td>32×30×1.6mm · 12g</td>
-        <td>100 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.65 / $0.98 / <strong>$0.66</strong></td>
       </tr>
       <tr>

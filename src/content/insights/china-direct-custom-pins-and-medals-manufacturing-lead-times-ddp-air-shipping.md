@@ -2,7 +2,7 @@
 title: "China Direct Custom Pins & Medals Sourcing: Zhongshan Foundry Lead Times, HS Codes & DDP Air Freight"
 slug: "china-direct-custom-pins-and-medals-manufacturing-lead-times-ddp-air-shipping"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Sourcing, Packaging & Compliance"
 summary: "Plan production from Zhongshan Xiaolan hardware hub: 12-hour proofs, 7–15 day fabrication, export HS codes (7117/8308), and DHL/FedEx DDP air freight."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-025","MPS-001","MPS-045","MPS-061","MPS-081","MPS-091","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,14 +55,14 @@ relatedSkus: ["MPS-025","MPS-001","MPS-045","MPS-061","MPS-081","MPS-091","MPS-1
         <td><a href="/products/custom-3d-marathon-finisher-medals"><strong>Custom 3D Die-Cast Marathon Finisher Medals</strong></a></td>
         <td>Heavy Zamak #3 Zinc Alloy<br/><small>Deep 3D Sculpted CNC Relief + Soft Enamel</small></td>
         <td>Ø85×4.0mm (3.35") · 125g</td>
-        <td>100 pcs<br/><small>$120 3D Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$120 3D Mold (Waived @ 1,000+)</small></td>
         <td>$2.85 / $1.85 / <strong>$1.35</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-hard-enamel-lapel-pins"><strong>Custom Hard Enamel Lapel Pins (Cloisonne Finish)</strong></a></td>
         <td>Stamped Brass / Iron<br/><small>Kiln-Cured & Flush Stone-Polished Cloisonne Hard Enamel</small></td>
         <td>25.4×25.4×1.5mm · 10g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.45 / $0.85 / <strong>$0.58</strong></td>
       </tr>
       <tr>

@@ -2,7 +2,7 @@
 title: "Photo-Etched Hollow Brass Bookmarks for Museums, Publishers & Universities: Filigree & Packaging"
 slug: "photo-etched-hollow-brass-bookmarks-for-museums-universities-publishers"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Executive, Golf & Souvenirs"
 summary: "Engineer delicate 0.4mm photo-etched solid brass filigree bookmarks with pantone tassels, enamel accents, and 350gsm retail cards at 100 pcs MOQ."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-129","MPS-130","MPS-131","MPS-004","MPS-139","MPS-149","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -69,14 +69,14 @@ relatedSkus: ["MPS-129","MPS-130","MPS-131","MPS-004","MPS-139","MPS-149","MPS-1
         <td><a href="/products/paperclip-enamel-charm-bookmarks"><strong>Custom Metal Paperclip Bookmarks with Enamel Charm</strong></a></td>
         <td>Brass Clip + Enamel Pin Charm<br/><small>Spring Brass Page Clip + Dangling Enamel Crest Charm</small></td>
         <td>65×22×1.5mm · 14g</td>
-        <td>100 pcs<br/><small>$55 Charm Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Charm Die (Waived @ 500+ pcs)</small></td>
         <td>$1.45 / $0.85 / <strong>$0.56</strong></td>
       </tr>
       <tr>
         <td><a href="/products/photo-etched-brass-enamel-pins"><strong>Custom Photo-Etched Brass Enamel Pins</strong></a></td>
         <td>0.8mm Solid C26000 Brass<br/><small>Acid Photo-Etching + Soft Enamel + Epoxy Option</small></td>
         <td>30×22×0.8mm · 6g</td>
-        <td>100 pcs<br/><small>$55 Film/Etch (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$55 Film/Etch (Waived @ 500+)</small></td>
         <td>$1.05 / $0.58 / <strong>$0.38</strong></td>
       </tr>
       <tr>
@@ -90,7 +90,7 @@ relatedSkus: ["MPS-129","MPS-130","MPS-131","MPS-004","MPS-139","MPS-149","MPS-1
         <td><a href="/products/custom-pin-backing-cards"><strong>Custom Printed Retail Backing Cards for Enamel Pins</strong></a></td>
         <td>350gsm–400gsm Art Cardstock<br/><small>CMYK Offset Card Print + Euro-Slot Polybag + Pre-Mount</small></td>
         <td>85×55mm / 100×70mm · 6g</td>
-        <td>200 pcs<br/><small>$35 Die-Cut & Proof Plate (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$35 Die-Cut & Proof Plate (Waived @ 500+)</small></td>
         <td>$0.35 / $0.18 / <strong>$0.11</strong></td>
       </tr>
     </tbody>

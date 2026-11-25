@@ -77,7 +77,7 @@ const homeFaqs = [
   },
   {
     question: 'What is the Minimum Order Quantity (MOQ) per custom design?',
-    answer: 'Most lapel pins, keychains, challenge coins, cufflinks, and badges start at just 50–100 pcs MOQ per design, while custom race medals, golf divot tools, and European €1/£1 trolley coins start at 100–200 pcs MOQ with tiered wholesale price breaks at 500 and 2,000+ pcs.'
+    answer: 'Custom enamel pins and race medals require 300 pcs MOQ per design to amortize press, electroplating rack, and Pantone ink setup economically. Challenge coins, police shields, and cufflinks start at 50–100 pcs MOQ, while keychains, fridge magnets, and €1/£1 trolley coins start at 100–200 pcs MOQ with volume breaks at 500 and 2,000+ pcs.'
   },
   {
     question: 'Do your European Trolley Coin Keyrings fit both €1 Euro and UK 12-sided £1 supermarket locks?',
@@ -127,24 +127,24 @@ const homeItemListSchema = {
 };
 
 const HOME_META_DESC_MAP: Record<string, string> = {
-  en: 'Factory-direct custom enamel pins, 3D marathon medals, challenge coins & €1 trolley coins: 158 craft styles ($0.14–$6.95, MOQ 50). 12h free proof.',
-  de: 'Pins, 3D-Laufmedaillen, Challenge Coins & Einkaufswagenchips ab Werk: 158 Stile ($0,14–$6,95, MOQ 50–200). 12h Gratis-Entwurf & Formkosten-Erlass.',
-  fr: 'Pins émaillés, médailles 3D, pièces Challenge & jetons caddie 1€ : 158 styles sur mesure ($0,14–$6,95, MOQ 50–200). BAT gratuit 12h.',
-  nl: 'Maatwerk emaille pins, 3D marathonmedailles, challenge coins & €1 munten: 158 stijlen ($0,14–$6,95, MOQ 50–200). Gratis 12u proef.',
-  es: 'Fábrica de pines esmaltados, medallas 3D, monedas Challenge y fichas €1: 158 estilos a medida ($0.14–$6.95, MOQ 50–200). Prueba gratis 12h.',
-  it: 'Fabbrica spille smaltate, medaglie 3D, monete Challenge e gettoni €1: 158 stili su misura ($0,14–$6,95, MOQ 50–200). Bozza gratuita 12h.',
-  pt: 'Fábrica de broches esmaltados, medalhas 3D, moedas Challenge e fichas €1: 158 estilos sob medida ($0.14–$6.95, MOQ 50–200). Prova grátis 12h.',
-  sv: 'Emaljpins, 3D-maratonmedaljer, challenge coins & €1 polletter direkt från fabrik: 158 stilar ($0.14–$6.95, MOQ 50–200). Fri skiss 12h.',
-  da: 'Emaljepins, 3D-maratonmedaljer, challenge coins & €1 poletter fra fabrik: 158 stilarter ($0.14–$6.95, MOQ 50–200). Gratis udkast på 12t.',
-  no: 'Emaljepins, 3D-maratonmedaljer, challenge coins & handlevognmynter: 158 stiler ($0.14–$6.95, MOQ 50–200). Gratis skisse på 12t.',
-  fi: 'Emalipinssit, 3D-maratonmitalit, challenge-kolikot & ostospoletit tehtaalta: 158 tyyliä ($0.14–$6.95, MOQ 50–200). Ilmainen vedos 12h.',
-  pl: 'Przypinki emaliowane, medale 3D, monety Challenge i żetony €1 prosto z fabryki: 158 stylów ($0.14–$6.95, MOQ 50–200). Projekt 12h gratis.',
-  cs: 'Smaltované odznaky, 3D maratonské medaile, challenge mince a žetony €1 z továrny: 158 stylů ($0.14–$6.95, MOQ 50–200). Náhled 12h zdarma.',
-  ru: 'Значки с эмалью, 3D-медали, монеты Challenge Coins и жетоны €1 с завода: 158 форматов ($0.14–$6.95, MOQ 50–200). Бесплатный макет 12 ч.',
-  ja: 'カスタムピンバッジ・3Dマラソンメダル・チャレンジコイン・€1カートコイン直営工場：全158仕様($0.14〜$6.95、MOQ 50個〜、12h無料校正)。',
-  ko: '커스텀 에나멜 핀, 3D 마라톤 메달, 챌린지 코인 & €1 트롤리 코인 직영 공장: 전 158종 ($0.14–$6.95, MOQ 50개~). 12시간 무료 시안.',
-  id: 'Pabrik pin enamel, medali maraton 3D, koin challenge & koin troli €1: 158 gaya kustom ($0,14–$6,95, MOQ 50–200). Desain gratis 12 jam.',
-  ar: 'مصنع دبابيس المينا والميداليات ثلاثية الأبعاد وعملات التحدي وعملات التسوق: 158 نمطاً مخصصاً ($0.14–$6.95، الحد الأدنى 50–200). تصميم مجاني.'
+  en: 'Factory-direct custom enamel pins, 3D marathon medals, challenge coins & €1 trolley coins: 158 styles ($0.14–$6.95, MOQ 50–300). 12h free proof.',
+  de: 'Pins, 3D-Laufmedaillen, Challenge Coins & Einkaufswagenchips ab Werk: 158 Stile ($0,14–$6,95, MOQ 50–300). 12h Gratis-Entwurf & Formkosten-Erlass.',
+  fr: 'Pins émaillés, médailles 3D, pièces Challenge & jetons caddie 1€ : 158 styles sur mesure ($0,14–$6,95, MOQ 50–300). BAT gratuit 12h.',
+  nl: 'Maatwerk emaille pins, 3D marathonmedailles, challenge coins & €1 munten: 158 stijlen ($0,14–$6,95, MOQ 50–300). Gratis 12u proef.',
+  es: 'Fábrica de pines esmaltados, medallas 3D, monedas Challenge y fichas €1: 158 estilos a medida ($0.14–$6.95, MOQ 50–300). Prueba gratis 12h.',
+  it: 'Fabbrica spille smaltate, medaglie 3D, monete Challenge e gettoni €1: 158 stili su misura ($0,14–$6,95, MOQ 50–300). Bozza gratuita 12h.',
+  pt: 'Fábrica de broches esmaltados, medalhas 3D, moedas Challenge e fichas €1: 158 estilos sob medida ($0.14–$6.95, MOQ 50–300). Prova grátis 12h.',
+  sv: 'Emaljpins, 3D-maratonmedaljer, challenge coins & €1 polletter direkt från fabrik: 158 stilar ($0.14–$6.95, MOQ 50–300). Fri skiss 12h.',
+  da: 'Emaljepins, 3D-maratonmedaljer, challenge coins & €1 poletter fra fabrik: 158 stilarter ($0.14–$6.95, MOQ 50–300). Gratis udkast på 12t.',
+  no: 'Emaljepins, 3D-maratonmedaljer, challenge coins & handlevognmynter: 158 stiler ($0.14–$6.95, MOQ 50–300). Gratis skisse på 12t.',
+  fi: 'Emalipinssit, 3D-maratonmitalit, challenge-kolikot & ostospoletit tehtaalta: 158 tyyliä ($0.14–$6.95, MOQ 50–300). Ilmainen vedos 12h.',
+  pl: 'Przypinki emaliowane, medale 3D, monety Challenge i żetony €1 prosto z fabryki: 158 stylów ($0.14–$6.95, MOQ 50–300). Projekt 12h gratis.',
+  cs: 'Smaltované odznaky, 3D maratonské medaile, challenge mince a žetony €1 z továrny: 158 stylů ($0.14–$6.95, MOQ 50–300). Náhled 12h zdarma.',
+  ru: 'Значки с эмалью, 3D-медали, монеты Challenge Coins и жетоны €1 с завода: 158 форматов ($0.14–$6.95, MOQ 50–300). Бесплатный макет 12 ч.',
+  ja: 'カスタムピンバッジ・3Dマラソンメダル・チャレンジコイン・€1カートコイン直営工場：全158仕様($0.14〜$6.95、MOQ 50〜300個、12h無料校正)。',
+  ko: '커스텀 에나멜 핀, 3D 마라톤 메달, 챌린지 코인 & €1 트롤리 코인 직영 공장: 전 158종 ($0.14–$6.95, MOQ 50~300개). 12시간 무료 시안.',
+  id: 'Pabrik pin enamel, medali maraton 3D, koin challenge & koin troli €1: 158 gaya kustom ($0,14–$6,95, MOQ 50–300). Desain gratis 12 jam.',
+  ar: 'مصنع دبابيس المينا والميداليات ثلاثية الأبعاد وعملات التحدي وعملات التسوق: 158 نمطاً مخصصاً ($0.14–$6.95، الحد الأدنى 50–300). تصميم مجاني.'
 };
 ---
 

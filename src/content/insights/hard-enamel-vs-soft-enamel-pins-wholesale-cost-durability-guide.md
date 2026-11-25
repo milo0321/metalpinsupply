@@ -2,7 +2,7 @@
 title: "Hard Enamel vs. Soft Enamel Pins: Process, Tactile Feel, Cost & Scratch Resistance Guide"
 slug: "hard-enamel-vs-soft-enamel-pins-wholesale-cost-durability-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Compare cloisonne hard enamel vs soft enamel lapel pins across kiln curing, flush stone polishing, unit cost ($0.42–$1.45), and durability."
@@ -16,7 +16,7 @@ relatedSkus: ["MPS-001","MPS-002","MPS-003","MPS-004","MPS-010","MPS-016","MPS-0
 
 <h2 id="engineering-overview-1">1. Engineering Overview: Hard vs Soft Enamel Pins — Cost & Finish</h2>
 
-<p><strong>Direct Answer:</strong> MedalPinSupply produces flush stone-polished cloisonne hard enamel pins ($0.58–$1.45/pc EXW) and recessed 180°C baked soft enamel pins ($0.42–$1.15/pc EXW) at 50 pcs MOQ, with 2D steel dies ($55–$65) waived automatically at 500+ pcs.</p>
+<p><strong>Direct Answer:</strong> MedalPinSupply produces flush stone-polished cloisonne hard enamel pins ($0.58–$1.45/pc EXW) and recessed 180°C baked soft enamel pins ($0.42–$1.15/pc EXW) at 300 pcs MOQ, with 2D steel dies ($55–$65) waived automatically at 500+ pcs.</p>
 
 <p>Wholesale buyers access factory-direct pricing from <strong>$0.58 to $1.45/pc</strong> on custom options like <a href="/products/custom-hard-enamel-lapel-pins">Custom Hard Enamel Lapel Pins (Cloisonne Finish)</a>. Every custom production run includes complimentary 12-hour vector proofs.</p>
 
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-001","MPS-002","MPS-003","MPS-004","MPS-010","MPS-016","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,42 +55,42 @@ relatedSkus: ["MPS-001","MPS-002","MPS-003","MPS-004","MPS-010","MPS-016","MPS-0
         <td><a href="/products/custom-hard-enamel-lapel-pins"><strong>Custom Hard Enamel Lapel Pins (Cloisonne Finish)</strong></a></td>
         <td>Stamped Brass / Iron<br/><small>Kiln-Cured & Flush Stone-Polished Cloisonne Hard Enamel</small></td>
         <td>25.4×25.4×1.5mm · 10g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.45 / $0.85 / <strong>$0.58</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-soft-enamel-lapel-pins"><strong>Custom Die-Struck Soft Enamel Lapel Pins</strong></a></td>
         <td>Die-Struck Iron / Brass<br/><small>Recessed 180°C Baked Pantone Soft Enamel</small></td>
         <td>25×25×1.2mm · 8g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.15 / $0.65 / <strong>$0.42</strong></td>
       </tr>
       <tr>
         <td><a href="/products/soft-enamel-pins-epoxy-dome"><strong>Custom Soft Enamel Pins with Clear Epoxy Dome</strong></a></td>
         <td>Die-Struck Iron / Brass<br/><small>Soft Enamel Fill + Clear Optical Epoxy Lens Dome</small></td>
         <td>28×28×1.8mm · 10g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.25 / $0.72 / <strong>$0.48</strong></td>
       </tr>
       <tr>
         <td><a href="/products/photo-etched-brass-enamel-pins"><strong>Custom Photo-Etched Brass Enamel Pins</strong></a></td>
         <td>0.8mm Solid C26000 Brass<br/><small>Acid Photo-Etching + Soft Enamel + Epoxy Option</small></td>
         <td>30×22×0.8mm · 6g</td>
-        <td>100 pcs<br/><small>$55 Film/Etch (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$55 Film/Etch (Waived @ 500+)</small></td>
         <td>$1.05 / $0.58 / <strong>$0.38</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-glitter-enamel-pins"><strong>Custom Glitter Enamel Lapel Pins</strong></a></td>
         <td>Die-Struck Iron / Zinc Alloy<br/><small>Recessed Soft Enamel Infused with Metallic Glitter</small></td>
         <td>35×35×1.6mm · 13g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.35 / $0.78 / <strong>$0.52</strong></td>
       </tr>
       <tr>
         <td><a href="/products/black-nickel-enamel-lapel-pins"><strong>Custom Black-Nickel Dyed Metal Enamel Pins</strong></a></td>
         <td>Die-Struck Iron / Brass<br/><small>Black Nickel Electroplating or Black-Dyed Finish</small></td>
         <td>30×30×1.5mm · 11g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.30 / $0.75 / <strong>$0.49</strong></td>
       </tr>
     </tbody>

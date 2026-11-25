@@ -2,7 +2,7 @@
 title: "Lapel Pin Backs & Hardware Attachments Guide: Butterfly Clutches, Rubber Caps, Locking Backs & Magnets"
 slug: "lapel-pin-backs-and-attachments-butterfly-clutch-rubber-magnet-locking"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Sourcing, Packaging & Compliance"
 summary: "Compare 6 pin backing options—military butterfly clutches, colored PVC rubber caps, spring locking pin backs, safety pins, and no-hole bar magnets."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-001","MPS-002","MPS-018","MPS-024","MPS-091","MPS-096","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,28 +55,28 @@ relatedSkus: ["MPS-001","MPS-002","MPS-018","MPS-024","MPS-091","MPS-096","MPS-1
         <td><a href="/products/custom-hard-enamel-lapel-pins"><strong>Custom Hard Enamel Lapel Pins (Cloisonne Finish)</strong></a></td>
         <td>Stamped Brass / Iron<br/><small>Kiln-Cured & Flush Stone-Polished Cloisonne Hard Enamel</small></td>
         <td>25.4×25.4×1.5mm · 10g</td>
-        <td>50 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$65 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.45 / $0.85 / <strong>$0.58</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-soft-enamel-lapel-pins"><strong>Custom Die-Struck Soft Enamel Lapel Pins</strong></a></td>
         <td>Die-Struck Iron / Brass<br/><small>Recessed 180°C Baked Pantone Soft Enamel</small></td>
         <td>25×25×1.2mm · 8g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.15 / $0.65 / <strong>$0.42</strong></td>
       </tr>
       <tr>
         <td><a href="/products/magnetic-back-lapel-pins"><strong>Custom Magnetic-Back Lapel Pins (No-Hole Clothing Safe)</strong></a></td>
         <td>Stamped Iron / Brass + NdFeB Magnet<br/><small>Hard/Soft Enamel + Dual-Magnet Clothing-Safe Clasp</small></td>
         <td>25×20×1.5mm · 14g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.60 / $0.95 / <strong>$0.65</strong></td>
       </tr>
       <tr>
         <td><a href="/products/enamel-collar-hat-pins"><strong>Custom Enamel Collar Pins & Hat Lapel Tacks</strong></a></td>
         <td>Stamped Brass / Iron<br/><small>Hard Enamel + Heavy-Duty Locking Pin Post</small></td>
         <td>20×20×1.5mm · 9g</td>
-        <td>50 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Die (Waived @ 500+ pcs)</small></td>
         <td>$1.40 / $0.82 / <strong>$0.54</strong></td>
       </tr>
       <tr>
@@ -90,7 +90,7 @@ relatedSkus: ["MPS-001","MPS-002","MPS-018","MPS-024","MPS-091","MPS-096","MPS-1
         <td><a href="/products/miniature-collar-hat-police-badges"><strong>Custom Miniature Collar & Hat Police Badges</strong></a></td>
         <td>Die-Struck Brass / Zinc<br/><small>1.0"–1.5" Scaled Cap/Collar Replica + Hard Enamel</small></td>
         <td>32×25×2.2mm · 16g</td>
-        <td>50 pcs<br/><small>$65 Mini Die (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$65 Mini Die (Waived @ 500+)</small></td>
         <td>$2.40 / $1.48 / <strong>$1.05</strong></td>
       </tr>
     </tbody>

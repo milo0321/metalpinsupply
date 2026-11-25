@@ -2,7 +2,7 @@
 title: "Custom Golf Divot Repair Tools & Magnetic Ball Markers: Charity Tournament & Pro-Shop Playbook"
 slug: "custom-golf-divot-repair-tools-and-magnetic-hat-clip-ball-markers-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Executive, Golf & Souvenirs"
 summary: "Specify magnetic 2-prong divot tools, folding switchblade forks, visor hat clips, antique brass/poker chip markers, and tournament window tin sets."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-119","MPS-120","MPS-121","MPS-122","MPS-123","MPS-124","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

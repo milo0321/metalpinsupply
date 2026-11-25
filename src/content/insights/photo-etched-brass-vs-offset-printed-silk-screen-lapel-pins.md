@@ -2,7 +2,7 @@
 title: "Photo-Etched Brass vs. Offset CMYK & Silk-Screen Printed Pins: Resolving Fine Lines & Gradients"
 slug: "photo-etched-brass-vs-offset-printed-silk-screen-lapel-pins"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Choose between 0.8mm photo-etched brass, CMYK offset litho epoxy domes, and spot silk-screen printing for intricate gradients and thin line art."
@@ -16,7 +16,7 @@ relatedSkus: ["MPS-004","MPS-006","MPS-007","MPS-023","MPS-064","MPS-069","MPS-0
 
 <h2 id="engineering-overview-3">1. Engineering Overview: Photo-Etched Brass vs Offset Printed Pins</h2>
 
-<p><strong>Direct Answer:</strong> Acid photo-etched 0.8mm brass ($0.38–$1.05/pc) resolves intricate thin-line filigree without stamping burrs, whereas CMYK offset litho printing under clear epoxy domes reproduces photographic portraits and continuous gradients starting at 100 pcs MOQ.</p>
+<p><strong>Direct Answer:</strong> Acid photo-etched 0.8mm brass ($0.38–$1.05/pc) resolves intricate thin-line filigree without stamping burrs, whereas CMYK offset litho printing under clear epoxy domes reproduces photographic portraits and continuous gradients starting at 300 pcs MOQ.</p>
 
 <p>Wholesale buyers access factory-direct pricing from <strong>$0.38 to $1.05/pc</strong> on custom options like <a href="/products/photo-etched-brass-enamel-pins">Custom Photo-Etched Brass Enamel Pins</a>. Every custom production run includes complimentary 12-hour vector proofs.</p>
 
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-004","MPS-006","MPS-007","MPS-023","MPS-064","MPS-069","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,28 +55,28 @@ relatedSkus: ["MPS-004","MPS-006","MPS-007","MPS-023","MPS-064","MPS-069","MPS-0
         <td><a href="/products/photo-etched-brass-enamel-pins"><strong>Custom Photo-Etched Brass Enamel Pins</strong></a></td>
         <td>0.8mm Solid C26000 Brass<br/><small>Acid Photo-Etching + Soft Enamel + Epoxy Option</small></td>
         <td>30×22×0.8mm · 6g</td>
-        <td>100 pcs<br/><small>$55 Film/Etch (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$55 Film/Etch (Waived @ 500+)</small></td>
         <td>$1.05 / $0.58 / <strong>$0.38</strong></td>
       </tr>
       <tr>
         <td><a href="/products/offset-printed-photo-lapel-pins"><strong>Custom Offset Printed Lapel Pins (Full-Color Photo)</strong></a></td>
         <td>0.8mm Stainless Steel / Brass<br/><small>4-Color CMYK Litho Offset Printing + Epoxy Dome</small></td>
         <td>30×25×1.5mm · 7g</td>
-        <td>100 pcs<br/><small>$45 Custom Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$45 Custom Die (Waived @ 500+ pcs)</small></td>
         <td>$0.95 / $0.52 / <strong>$0.34</strong></td>
       </tr>
       <tr>
         <td><a href="/products/silk-screen-printed-metal-pins"><strong>Custom Silk-Screen Printed Metal Lapel Pins</strong></a></td>
         <td>Stamped Brass / Stainless Steel<br/><small>Spot Pantone Silk-Screen Printing + Clear Lacquer</small></td>
         <td>28×20×1.2mm · 7g</td>
-        <td>100 pcs<br/><small>$55 Setup (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Setup (Waived @ 500+ pcs)</small></td>
         <td>$1.10 / $0.62 / <strong>$0.40</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-tinplate-button-badges"><strong>Custom Tinplate Button Badges (Pinback)</strong></a></td>
         <td>0.25mm Coated Tinplate Steel<br/><small>CMYK Digital/Offset Print + Glossy or Matte Mylar</small></td>
         <td>Ø32mm / Ø44mm / Ø58mm · 9g</td>
-        <td>200 pcs<br/><small>$35 Print Plate Setup (Waived @ 500+)</small></td>
+        <td>300 pcs<br/><small>$35 Print Plate Setup (Waived @ 500+)</small></td>
         <td>$0.45 / $0.22 / <strong>$0.14</strong></td>
       </tr>
       <tr>

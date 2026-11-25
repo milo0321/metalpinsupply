@@ -50,6 +50,16 @@ html[dir="rtl"],
   border-right: 5px solid #0284c7;
 }
 
+[dir="rtl"] .pricing-ref-notice {
+  border-left: 1px solid #fcd34d;
+  border-right: 4px solid #d97706;
+}
+
+[dir="rtl"] .pricing-ref-notice strong {
+  margin-right: 0;
+  margin-left: 0.35rem;
+}
+
 [dir="rtl"] .footer-heading::after {
   left: auto;
   right: 0;

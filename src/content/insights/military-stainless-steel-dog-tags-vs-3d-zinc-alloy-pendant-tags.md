@@ -2,7 +2,7 @@
 title: "Embossed 304 Stainless Steel Military Dog Tags vs. 3D Zinc Alloy Pendant Tags: Retail & Club Uses"
 slug: "military-stainless-steel-dog-tags-vs-3d-zinc-alloy-pendant-tags"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Coins & Military Insignia"
 summary: "Compare classic 0.4mm rolled-edge embossed 304 stainless steel military dog tags with rubber silencers against heavy 3D sculpted zinc alloy pendant tags."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-097","MPS-098","MPS-099","MPS-104","MPS-074","MPS-061","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>

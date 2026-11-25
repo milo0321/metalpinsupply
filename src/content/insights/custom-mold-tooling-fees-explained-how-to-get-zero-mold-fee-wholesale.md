@@ -2,7 +2,7 @@
 title: "Custom Mold & Tooling Fees Explained: 2D vs. 3D Die Costs, 500+ Bulk Waivers & 3-Year Storage"
 slug: "custom-mold-tooling-fees-explained-how-to-get-zero-mold-fee-wholesale"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Compare custom 2D stamping dies ($45–$85) and 3D zinc molds ($95–$150), bulk fee waivers at 500–1,000+ pcs, and free 3-year reorder storage."
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-006","MPS-021","MPS-066","MPS-074","MPS-081","MPS-097","MPS-1
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,14 +55,14 @@ relatedSkus: ["MPS-006","MPS-021","MPS-066","MPS-074","MPS-081","MPS-097","MPS-1
         <td><a href="/products/offset-printed-photo-lapel-pins"><strong>Custom Offset Printed Lapel Pins (Full-Color Photo)</strong></a></td>
         <td>0.8mm Stainless Steel / Brass<br/><small>4-Color CMYK Litho Offset Printing + Epoxy Dome</small></td>
         <td>30×25×1.5mm · 7g</td>
-        <td>100 pcs<br/><small>$45 Custom Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$45 Custom Die (Waived @ 500+ pcs)</small></td>
         <td>$0.95 / $0.52 / <strong>$0.34</strong></td>
       </tr>
       <tr>
         <td><a href="/products/crossed-friendship-flag-pins"><strong>Custom Crossed Friendship Flag Lapel Pins</strong></a></td>
         <td>Die-Struck Brass / Iron<br/><small>Dual Crossed National/State Flags + Epoxy Dome</small></td>
         <td>25×19×1.2mm · 7g</td>
-        <td>100 pcs<br/><small>$55 Custom Die (Waived @ 500+ pcs)</small></td>
+        <td>300 pcs<br/><small>$55 Custom Die (Waived @ 500+ pcs)</small></td>
         <td>$0.95 / $0.52 / <strong>$0.35</strong></td>
       </tr>
       <tr>

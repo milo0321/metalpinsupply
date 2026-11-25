@@ -85,8 +85,8 @@ const serviceSchema = {
     '@type': 'OfferCatalog',
     name: 'Custom Metal Craft Engineering Tiers',
     itemListElement: [
-      { '@type': 'Offer', name: 'Die-Struck Soft Enamel Lapel Pins (MOQ 50 pcs)', price: '0.28', priceCurrency: 'USD' },
-      { '@type': 'Offer', name: '3D Sculpted Zinc Marathon Medals & Challenge Coins (MOQ 50 pcs)', price: '0.78', priceCurrency: 'USD' }
+      { '@type': 'Offer', name: 'Die-Struck Soft Enamel Lapel Pins (MOQ 300 pcs)', price: '0.28', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: '3D Sculpted Zinc Marathon Medals (MOQ 300 pcs) & Challenge Coins (MOQ 50 pcs)', price: '0.78', priceCurrency: 'USD' }
     ]
   }
 };
@@ -260,7 +260,7 @@ const pageDescription = BRANDING_META_DESC_MAP[currentLang] || BRANDING_META_DES
         <div class="brand-tier-card">
           <div class="brand-tier-badge badge-slate">TIER 1 · {t('pdp.blankMoq')}</div>
           <h3>{t('pdp.opt1Title')}</h3>
-          <div class="brand-tier-price">$0.22–$0.68 <span>/ {t('unit.pc')} · MOQ 50–100 {t('unit.pcs')}</span></div>
+          <div class="brand-tier-price">$0.22–$0.68 <span>/ {t('unit.pc')} · Pins 300 / Badges 50 {t('unit.pcs')}</span></div>
           <p class="brand-tier-desc">{t('pdp.opt1Desc')}</p>
           <ul class="brand-tier-list">
             <li>✓ Raised Metal Borders + Tactile Recessed Enamel</li>
@@ -275,7 +275,7 @@ const pageDescription = BRANDING_META_DESC_MAP[currentLang] || BRANDING_META_DES
         <div class="brand-tier-card brand-tier-featured">
           <div class="brand-tier-badge badge-emerald">★ TIER 2 · JEWELRY HARD ENAMEL</div>
           <h3>{t('pdp.opt2Title')}</h3>
-          <div class="brand-tier-price">$0.42–$1.25 <span>/ {t('unit.pc')} · MOQ 50 {t('unit.pcs')}</span></div>
+          <div class="brand-tier-price">$0.42–$1.25 <span>/ {t('unit.pc')} · Pins 300 / Coins 50 {t('unit.pcs')}</span></div>
           <p class="brand-tier-desc">{t('pdp.opt2Desc')}</p>
           <ul class="brand-tier-list">
             <li>✓ Diamond-Stone Ground Glass-Smooth Flush Surface</li>
@@ -290,7 +290,7 @@ const pageDescription = BRANDING_META_DESC_MAP[currentLang] || BRANDING_META_DES
         <div class="brand-tier-card">
           <div class="brand-tier-badge badge-amber">★ TIER 3 · 3D ZINC DIE-CAST &amp; DUAL PLATING</div>
           <h3>{t('pdp.opt3Title')}</h3>
-          <div class="brand-tier-price">$0.78–$3.85 <span>/ {t('unit.pc')} · MOQ 50–100 {t('unit.pcs')}</span></div>
+          <div class="brand-tier-price">$0.78–$3.85 <span>/ {t('unit.pc')} · Medals 300 / Coins 50 {t('unit.pcs')}</span></div>
           <p class="brand-tier-desc">{t('pdp.opt3Desc')}</p>
           <ul class="brand-tier-list">
             <li>✓ Zamak #3 High-Pressure 3D Sculpted Contour Relief</li>
@@ -300,6 +300,14 @@ const pageDescription = BRANDING_META_DESC_MAP[currentLang] || BRANDING_META_DES
           <a href={getLocalizedPath('/contact', currentLang)} data-rfq-mode="3D Sculpted Zinc Die-Casting" data-rfq-qty="1000" class="btn btn-outline brand-tier-btn">
             {t('nav.requestQuote')} →
           </a>
+        </div>
+      </div>
+
+      <div class="pricing-ref-notice" role="note">
+        <span class="pricing-ref-notice-icon" aria-hidden="true">💡</span>
+        <div class="pricing-ref-notice-body">
+          <strong>{t('pdp.pricingRefBadge')}:</strong>
+          <span>{t('pdp.pricingRefNote')}</span>
         </div>
       </div>
 

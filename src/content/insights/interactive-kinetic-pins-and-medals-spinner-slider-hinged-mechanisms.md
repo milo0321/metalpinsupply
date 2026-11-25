@@ -2,7 +2,7 @@
 title: "Interactive Kinetic Pins, Medals & Keychains: Spinner Rivets, Linear Sliders & Hinged Mechanisms"
 slug: "interactive-kinetic-pins-and-medals-spinner-slider-hinged-mechanisms"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-24"
+updatedDate: "2026-11-25"
 author: "MedalPinSupply Engineering Team"
 category: "Materials & Manufacturing"
 summary: "Engineering breakdown of 360-degree spinning race medals, sliding track enamel pins, hinged danglers, and double-sided spinner keychains."
@@ -16,7 +16,7 @@ relatedSkus: ["MPS-012","MPS-013","MPS-014","MPS-154","MPS-027","MPS-040","MPS-0
 
 <h2 id="engineering-overview-9">1. Engineering Overview: Interactive Spinner, Slider & Hinged Pins</h2>
 
-<p><strong>Direct Answer:</strong> Kinetic spinner bearings, 0.25mm-clearance sliding tracks, and hinged clasp joints transform custom lapel pins, fridge magnets, and marathon medals into interactive merchandise starting at 100 pcs MOQ.</p>
+<p><strong>Direct Answer:</strong> Kinetic spinner bearings, 0.25mm-clearance sliding tracks, and hinged clasp joints transform custom lapel pins and marathon medals (300 pcs MOQ) plus fridge magnets and keychains (100 pcs MOQ) into interactive merch.</p>
 
 <p>Wholesale buyers access factory-direct pricing from <strong>$0.95 to $2.20/pc</strong> on custom options like <a href="/products/custom-spinner-enamel-pins">Custom Spinner Interactive Enamel Pins</a>. Every custom production run includes complimentary 12-hour vector proofs.</p>
 
@@ -47,7 +47,7 @@ relatedSkus: ["MPS-012","MPS-013","MPS-014","MPS-154","MPS-027","MPS-040","MPS-0
         <th>Base Alloy &amp; Craft</th>
         <th>Standard Size &amp; Weight</th>
         <th>MOQ &amp; Custom Tooling</th>
-        <th>Wholesale Tier (100 / 500 / 2k+ pcs)</th>
+        <th>Wholesale Tier (MOQ / 500 / 2k+ pcs)</th>
       </tr>
     </thead>
     <tbody>
@@ -55,21 +55,21 @@ relatedSkus: ["MPS-012","MPS-013","MPS-014","MPS-154","MPS-027","MPS-040","MPS-0
         <td><a href="/products/custom-spinner-enamel-pins"><strong>Custom Spinner Interactive Enamel Pins</strong></a></td>
         <td>2-Layer Zinc Alloy + Brass Rivet<br/><small>360° Riveted Spinning Center Wheel + Enamel</small></td>
         <td>45×45×3.5mm · 28g</td>
-        <td>100 pcs<br/><small>$125 Dual-Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$125 Dual-Mold (Waived @ 1,000+)</small></td>
         <td>$2.20 / $1.35 / <strong>$0.95</strong></td>
       </tr>
       <tr>
         <td><a href="/products/custom-slider-enamel-pins"><strong>Custom Sliding Mechanism Enamel Pins</strong></a></td>
         <td>2-Piece Track Zinc Alloy<br/><small>Linear Sliding Slot Track + Hard/Soft Enamel</small></td>
         <td>45×30×3.6mm · 26g</td>
-        <td>100 pcs<br/><small>$135 Track Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$135 Track Mold (Waived @ 1,000+)</small></td>
         <td>$2.35 / $1.45 / <strong>$1.02</strong></td>
       </tr>
       <tr>
         <td><a href="/products/hinged-dangle-enamel-pins"><strong>Custom Hinged & Dangle Chain Enamel Pins</strong></a></td>
         <td>Zinc Alloy / Brass + Jump Rings<br/><small>2-Part Hinged Window or Suspended Dangle Charm</small></td>
         <td>42×35×2.5mm · 21g</td>
-        <td>100 pcs<br/><small>$110 Dual-Die (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$110 Dual-Die (Waived @ 1,000+)</small></td>
         <td>$2.10 / $1.28 / <strong>$0.88</strong></td>
       </tr>
       <tr>
@@ -83,14 +83,14 @@ relatedSkus: ["MPS-012","MPS-013","MPS-014","MPS-154","MPS-027","MPS-040","MPS-0
         <td><a href="/products/custom-spinner-race-medals"><strong>Custom Rotating Spinner Race Medals</strong></a></td>
         <td>2-Piece Zamak #3 Zinc Alloy<br/><small>360° Bearing/Pin Spinning Center Medallion</small></td>
         <td>Ø80×4.5mm (3.15") · 132g</td>
-        <td>100 pcs<br/><small>$140 Spinner Mold (Waived @ 1k)</small></td>
+        <td>300 pcs<br/><small>$140 Spinner Mold (Waived @ 1k)</small></td>
         <td>$3.40 / $2.25 / <strong>$1.65</strong></td>
       </tr>
       <tr>
         <td><a href="/products/sliding-charm-race-medals"><strong>Custom Sliding-Charm Interactive Race Medals</strong></a></td>
         <td>2-Piece Zinc Alloy<br/><small>Milled Curved Rail Track + Sliding Runner/Bike</small></td>
         <td>Ø85×4.5mm (3.35") · 138g</td>
-        <td>100 pcs<br/><small>$145 Track Mold (Waived @ 1,000+)</small></td>
+        <td>300 pcs<br/><small>$145 Track Mold (Waived @ 1,000+)</small></td>
         <td>$3.65 / $2.45 / <strong>$1.82</strong></td>
       </tr>
     </tbody>
