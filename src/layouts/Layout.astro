@@ -213,7 +213,12 @@ const defaultSchemas = [
     url: 'https://medalpinsupply.com',
     name: 'MedalPinSupply.com — Factory-Direct Custom Enamel Pins, Race Medals & Challenge Coins',
     inLanguage: currentLang,
-    publisher: { '@id': 'https://medalpinsupply.com/#organization' }
+    publisher: { '@id': 'https://medalpinsupply.com/#organization' },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://medalpinsupply.com/products?q={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
   }
 ];
 

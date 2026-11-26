@@ -121,5 +121,20 @@
       "targetUrl": "/products/custom-baseball-trading-pins",
       "note": "Day-1 GSC query (Pos 67.0). Tightened SKU metaTitle to 'Custom Baseball Trading Pins | Bulk Soft Enamel ($0.65+)' and front-loaded metaDescription."
     }
+  },
+  "tenRoundExpansion": {
+    "completedAt": "2026-11-26T00:50:00Z",
+    "rounds": [
+      "R1: 19/24 Pin SKUs upgraded with Factory/Bulk + price anchor ($tier2000+) <= 58 chars",
+      "R2: 20/20 Medal SKUs upgraded with Supplier/Factory + price anchor; top 5 race medal metaDescriptions tightened",
+      "R3: 14/16 Coin SKUs upgraded (Pos 2.0 winner military-3d-brass-challenge-coins title preserved untouched)",
+      "R4: 38/44 Keychains, Trolley Coins & Police Badges titles upgraded with Bulk/Wholesale/Factory + price anchor",
+      "R5: 51/54 Buckles, Golf Markers, Bookmarks, Openers, Patches & Fridge Magnets titles upgraded (158/158 unique, 50-58 encoded chars)",
+      "R6: 12/12 short (<44 char) Insight metaTitles expanded to 52-58 encoded chars",
+      "R7: Home ($0.11+), Products ($0.11+), Custom Packaging ($0.12+) & Sample Kit static <title> aligned",
+      "R8: Expanded COL_LOCALE_FOCUS & COLLECTION_META_DESC_MAP across DE/ES/FR/NO/SV/JA/KO",
+      "R9: Edge caching (/images/* 7d, /favicon.ico 30d), nosniff/Referrer-Policy headers & WebSite SearchAction JSON-LD added",
+      "R10: Verified 11/11 rules, 4015-page title/meta bounds, auto commit+push, Cloudflare deploy & quota-safe Delta Indexing"
+    ]
   }
 }
