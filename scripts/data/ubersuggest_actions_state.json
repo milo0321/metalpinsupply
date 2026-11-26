@@ -1,7 +1,7 @@
 {
   "domain": "medalpinsupply.com",
   "projectId": "0b313e0a4c8185caaed40ab6e20421adb91e18f2a4ebe4580ba66c469cca724e",
-  "updatedAt": "2026-11-26T04:45:00Z",
+  "updatedAt": "2026-11-26T07:03:00Z",
   "siteAudit": {
     "title_short": {
       "status": "done",
@@ -128,6 +128,51 @@
       "status": "done",
       "targetUrl": "/products/custom-baseball-trading-pins",
       "note": "Day-1 GSC query (Pos 67.0). Tightened SKU metaTitle to 'Custom Baseball Trading Pins | Bulk Soft Enamel ($0.65+)' and front-loaded metaDescription."
+    },
+    "custom challenge coins cost": {
+      "status": "done",
+      "targetUrl": "/insights/custom-challenge-coins-cost-pricing-tooling-guide",
+      "note": "Authored 1,483-word 18-locale Skyscraper cost breakdown guide ($0.95-$4.50/pc EXW, 2D/3D dies, mold waivers at 1,000+ pcs, packaging tiers) with 3 unique WebP assets & bidirectional coin mesh."
+    },
+    "custom police badges": {
+      "status": "done",
+      "targetUrl": "/collections/police-badges-insignia",
+      "note": "Front-loaded 'Custom Police Badges & Fire Insignia ($0.42+)' in COLLECTION_SEO_TITLES (vol 2,400, SD 23)."
+    },
+    "custom challenge coins manufacturers": {
+      "status": "done",
+      "targetUrl": "/collections/custom-challenge-coins",
+      "note": "Explicitly front-loaded 'Custom challenge coins manufacturer and wholesale factory' in COLLECTION_SEO_DESCS and linked new cost guide as #1 insight."
+    },
+    "custom challenge coins wholesale": {
+      "status": "done",
+      "targetUrl": "/collections/custom-challenge-coins",
+      "note": "Targeted 'wholesale factory' in COLLECTION_SEO_DESCS and 50-100 / 500 / 2,000+ tier breakdowns."
+    },
+    "custom challenge coins military": {
+      "status": "done",
+      "targetUrl": "/products/military-3d-brass-challenge-coins",
+      "note": "Protected GSC Pos 1.5 title untouched; reinforced with cost guide mesh link and collection description 'military 3D brass'."
+    },
+    "custom cufflinks": {
+      "status": "done",
+      "targetUrl": "/products/custom-hard-enamel-cufflinks",
+      "note": "Front-loaded 'Custom cufflinks manufacturer' in flagship SKU metaDescription alongside collection/guide coverage (vol 4,400, SD 34)."
+    },
+    "custom marathon medals": {
+      "status": "done",
+      "targetUrl": "/products/custom-3d-marathon-finisher-medals",
+      "note": "Front-loaded 'Custom marathon medals' in SKU metaDescription (fixed $1.35-$2.85 price range) and expanded marathon guide metaTitle to 'Custom Marathon Medals & 5K Finisher Sourcing Guide'."
+    },
+    "custom enamel pins wholesale": {
+      "status": "done",
+      "targetUrl": "/collections/custom-enamel-pins",
+      "note": "Front-loaded 'Custom enamel pins wholesale and metal lapel pins factory' in COLLECTION_SEO_DESCS alongside 24 enamel pin SKUs."
+    },
+    "trolley coin keyrings": {
+      "status": "done",
+      "targetUrl": "/collections/trolley-coin-keyrings",
+      "note": "Verified exact URL & title match '€1 & £1 Trolley Coin Keyrings ($0.26+ · 10 Styles)' with 10 specialized European token SKUs."
     }
   },
   "tenRoundExpansion": {
@@ -157,6 +202,15 @@
       "custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide: Sniped US 3-imp 'challenge coin size' in metaTitle/metaDescription/Direct Answer",
       "collections/[slug].astro: Added 'bulk cufflinks and tie clips' + EU locale focus tags for it/nl/cs/fi/da",
       "worker.ts: Added /sitemap.xml -> /sitemap-index.xml 301 & X-Robots-Tag on GET /api/contact"
+    ]
+  },
+  "ubersuggestClosureWave": {
+    "completedAt": "2026-11-26T07:03:00Z",
+    "resolvedTotal": "25/25",
+    "summary": [
+      "New 18-locale Skyscraper guide: /insights/custom-challenge-coins-cost-pricing-tooling-guide + 3 unique WebP assets",
+      "Upgraded P0/P1/P2 collection, guide & SKU titles/descriptions for custom police badges, custom challenge coins manufacturer/wholesale/military, custom cufflinks, custom marathon medals, custom enamel pins wholesale, and trolley coin keyrings",
+      "Regenerated public/llms.txt (100.9 KB) and public/llms-full.txt (646.8 KB); verified 4,033 built pages and 11/11 rules with 0 errors"
     ]
   }
 }

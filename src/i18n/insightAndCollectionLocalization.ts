@@ -3306,6 +3306,80 @@ const INSIGHT_META_ALL: Record<string, Record<SupportedLanguage, { title: string
       "title": "قوة الجذب: النيوديميوم N45 مقابل الفريت",
       "summary": "مقارنة قوة تثبيت المغناطيس المعدني: نيوديميوم N45 الغائر مقابل الفريت والظهر المطاطي المقاوم للخدش مع بطاقات العرض 400 جرام."
     }
+  },
+  "custom-challenge-coins-cost-pricing-tooling-guide": {
+    "en": {
+      "title": "Custom Challenge Coins Cost Guide: 2026 Factory Pricing, Mold Fees & Volume Tiers",
+      "summary": "2026 custom challenge coins cost breakdown ($0.95–$4.50/pc): 2D vs 3D dies, mold waivers at 1,000+ pcs, dual plating and capsule packaging pricing."
+    },
+    "de": {
+      "title": "Challenge Coins Kosten: Preise 2026",
+      "summary": "Challenge Coins Kosten ab Werk ($0,95–$4,50/St.): 2D- vs. 3D-Prägeformen, Formenbefreiung ab 1.000 St., Bicolor-Plattierung und Kapseln."
+    },
+    "fr": {
+      "title": "Prix Pièces Challenge : Tarifs 2026",
+      "summary": "Coût des pièces challenge sur mesure ($0,95–$4,50/pc) : moules 2D/3D offerts dès 1 000 pcs, placage double ton et capsules acryliques."
+    },
+    "nl": {
+      "title": "Challenge Coins Kosten & Prijzen 2026",
+      "summary": "Fabriekskosten challenge coins ($0,95–$4,50/st.): 2D vs. 3D stempels, gratis matrijs vanaf 1.000 stuks, dual-plating en capsules."
+    },
+    "es": {
+      "title": "Costo de Monedas Challenge: Precios",
+      "summary": "Desglose de precios de monedas challenge ($0.95–$4.50/ud.): troqueles 2D/3D gratis desde 1,000 uds., baño bicolor y cápsulas."
+    },
+    "it": {
+      "title": "Costo Monete Challenge: Prezzi 2026",
+      "summary": "Costi di produzione monete challenge ($0,95–$4,50/pz): stampi 2D/3D azzerati da 1.000 pz, doppia placcatura e capsule protettive."
+    },
+    "pt": {
+      "title": "Custo Moedas Challenge: Preços 2026",
+      "summary": "Preços de fábrica para moedas challenge ($0,95–$4,50/un.): moldes 2D/3D isentos em 1.000+ un., banho duplo e cápsulas acrílicas."
+    },
+    "sv": {
+      "title": "Pris Challenge Coins: Kostnadsguide",
+      "summary": "Fabrikspriser för challenge coins ($0,95–$4,50/st): 2D/3D-verktyg, avgiftsfri form vid 1 000+ st, tvåtonsplätering och akrylkapslar."
+    },
+    "da": {
+      "title": "Challenge Coins Pris: Omkostninger",
+      "summary": "Fabrikspriser for challenge coins ($0,95–$4,50/stk.): 2D/3D-stempler frafaldes ved 1.000+ stk., to-tone belægning og kapsler."
+    },
+    "no": {
+      "title": "Pris på Challenge Coins: Prisguide",
+      "summary": "Fabrikkostnad for challenge coins ($0,95–$4,50/stk.): 2D/3D-verktøy uten avgift ved 1 000+ stk., to-farget plettering og kapsler."
+    },
+    "fi": {
+      "title": "Haastekolikkojen Hintaopas 2026",
+      "summary": "Haastekolikkojen tehdashinnat ($0,95–$4,50/kpl): 2D/3D-muotit ilmaiseksi 1 000+ kpl erissä, kaksiväripinnoitus ja akryylikapselit."
+    },
+    "pl": {
+      "title": "Koszt Monet Challenge: Cennik 2026",
+      "summary": "Cennik produkcji monet challenge ($0,95–$4,50/szt.): matryce 2D/3D gratis od 1 000 szt., podwójne galwanizowanie i kapsuły."
+    },
+    "cs": {
+      "title": "Cena Challenge Mincí: Ceník 2026",
+      "summary": "Výrobní ceny challenge mincí ($0,95–$4,50/ks): 2D a 3D formy zdarma od 1 000 ks, dvoubarevné pokovení a akrylové kapsle."
+    },
+    "ru": {
+      "title": "Стоимость монет Challenge: цены 2026",
+      "summary": "Калькуляция стоимости монет challenge ($0,95–$4,50/шт.): матрицы 2D/3D бесплатно от 1 000 шт., двойное покрытие и акриловые капсулы."
+    },
+    "ja": {
+      "title": "チャレンジコイン製造コスト・金型費ガイド",
+      "summary": "オリジナルチャレンジコイン工場直販価格（$0.95〜$4.50/個）：2D/3D金型費、1,000個以上での金型無料条件、二重メッキとカプセル単価。"
+    },
+    "ko": {
+      "title": "챌린지 코인 제작 비용·단가표 가이드",
+      "summary": "맞춤형 챌린지 코인 공장 직영 단가($0.95–$4.50/개): 2D·3D 금형 비용, 1,000개 이상 금형비 면제 및 투톤 도금·캡슐 가격 안내."
+    },
+    "id": {
+      "title": "Biaya Pembuatan Koin Challenge 2026",
+      "summary": "Rincian biaya pabrik koin challenge ($0,95–$4,50/pcs): cetakan 2D/3D gratis mulai 1.000 pcs, pelapisan ganda, dan kapsul akrilik."
+    },
+    "ar": {
+      "title": "تكلفة تصنيع عملات التحدي: أسعار 2026",
+      "summary": "دليل تكلفة عملات التحدي ($0.95–$4.50 للقطعة): إعفاء رسوم القالب عند طلب 1,000+ قطعة والطلاء المزدوج وكبسولات الحفظ."
+    }
   }
 };
 
