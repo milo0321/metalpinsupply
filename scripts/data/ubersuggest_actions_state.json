@@ -1,13 +1,32 @@
 {
   "domain": "medalpinsupply.com",
   "projectId": "0b313e0a4c8185caaed40ab6e20421adb91e18f2a4ebe4580ba66c469cca724e",
-  "updatedAt": "2026-11-25T10:56:00Z",
+  "updatedAt": "2026-11-26T00:00:00Z",
   "siteAudit": {
     "title_short": {
       "status": "done",
       "resolvedAt": "2026-11-25T10:56:00Z",
-      "affectedCount": 3,
-      "note": "Expanded metaTitle on custom-hard-enamel-lapel-pins (55 chars) and custom-tinplate-button-badges (53 chars), and expanded Japanese col.trolley-coin-keyrings.short so /ja/collections/trolley-coin-keyrings title reaches 39 chars."
+      "verifiedZeroAt": "2026-11-26T00:00:00Z",
+      "auditTaskId": "11251058-1221-0216-0000-1cb10bc5420b",
+      "affectedCount": 0,
+      "note": "Expanded metaTitle on custom-hard-enamel-lapel-pins (55 chars) and custom-tinplate-button-badges (53 chars), and expanded Japanese col.trolley-coin-keyrings.short. Confirmed title_short = 0 in 2026-11-26 Ubersuggest recrawl."
+    },
+    "time_load_high": {
+      "status": "resolved_transient",
+      "resolvedAt": "2026-11-26T00:00:00Z",
+      "affectedUrl": "/ja/products/offset-printed-photo-lapel-pins",
+      "note": "Transient 10,287ms crawl spike overlapped with 00:31 deploy. Verified live HTTP 200 in 1.48s via curl; triggered recrawl to confirm clearance."
+    },
+    "favicon_404": {
+      "status": "done",
+      "resolvedAt": "2026-11-26T00:00:00Z",
+      "note": "Generated 32x32 public/favicon.ico from public/favicon.svg to eliminate Cloudflare Observability /favicon.ico 404 errors."
+    },
+    "localized_collection_title_anchors": {
+      "status": "done",
+      "resolvedAt": "2026-11-26T00:00:00Z",
+      "affectedCount": 187,
+      "note": "Replaced parentheses with em-dash so Layout.astro calibrateSeoTitle preserves price anchor ($min+) and style count across all 17 non-English locales (boosting Day-2 GSC winners DE emaille pins Pos 16 and ES pins esmalte Pos 3)."
     },
     "seo_non_friendly_url": {
       "status": "ignored",

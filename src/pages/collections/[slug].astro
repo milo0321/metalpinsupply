@@ -210,7 +210,7 @@ const COLLECTION_SEO_TITLES: Record<string, string> = {
   'custom-metal-fridge-magnets': `Custom Fridge Magnets Bulk & Wholesale ($${minColPrice}+)`
 };
 const COLLECTION_SEO_DESCS: Record<string, string> = {
-  'custom-enamel-pins': `Custom-molded Cloisonne hard & soft enamel pins, photo-etched brass, 3D zinc & flag pins: ${products.length} styles ($${minColPrice}–$${maxColPrice}, MOQ 300).`,
+  'custom-enamel-pins': `Custom metal lapel pins & Cloisonne hard/soft enamel pins factory: ${products.length} styles ($${minColPrice}–$${maxColPrice}, MOQ 300, 12h free proof).`,
   'custom-medals': `Custom-tooled 3D marathon, spinner & magnetic finisher medals + ribbons: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}, MOQ 300).`,
   'custom-challenge-coins': `Custom die-struck military, corporate & commemorative challenge coins ($${minColPrice}–$${maxColPrice}): 1.75"–2.5", 6 edges & laser numbering.`,
   'custom-metal-keychains': `Custom 3D zinc, soft enamel, leather, carabiner & spinning keychains: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}) with 12h free proof.`,
@@ -233,9 +233,9 @@ const enTitle = COLLECTION_SEO_TITLES[collection.slug] || (rawEnTitle.length <= 
 const enDesc = COLLECTION_SEO_DESCS[collection.slug] || `${cleanShortName}: ${products.length} custom craft styles (${collection.priceRangeUsd}). MOQ ${shortMoq} pcs, free 12h vector proof, custom die waived at 500–1,000+ pcs.`;
 const locColName = t(`col.${collection.slug}.name` as any);
 const locColShort = t(`col.${collection.slug}.short` as any);
-const locFullTitle = `${locColName} (${products.length} ${t('nav.modelsCount')} · $${minColPrice}+) | MedalPinSupply`;
-const locShortTitle = `${locColShort} (${products.length} ${t('nav.modelsCount')} · $${minColPrice}+) | MedalPinSupply`;
-const localizedColTitle = locFullTitle.length <= 60 ? locFullTitle : locShortTitle;
+const locFullTitle = `${locColName} — $${minColPrice}+ · ${products.length} ${t('nav.modelsCount')}`;
+const locShortTitle = `${locColShort} — $${minColPrice}+ · ${products.length} ${t('nav.modelsCount')}`;
+const localizedColTitle = locFullTitle.length <= 54 ? locFullTitle : locShortTitle;
 const COL_LOCALE_FOCUS: Record<string, Partial<Record<string, string>>> = {
   'custom-enamel-pins': { de: ' (Hartemaille & Weichemaille)', fr: ' (Émail Dur & Doux)', ja: '（七宝・ソフトエナメル）', ko: ' (하드/소프트 에나멜)' },
   'custom-medals': { de: ' (3D Marathon-Medaillen)', fr: ' (Médailles Marathon 3D)', ja: '（3Dマラソン完走メダル）', ko: ' (3D 마라톤 완주 메달)' },
