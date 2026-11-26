@@ -2,12 +2,12 @@
 title: "Military & Law Enforcement Challenge Coins: Standard Diameters (1.75\"–2\"), Thickness & 6 Edge Cuts"
 slug: "custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-25"
+updatedDate: "2026-11-26"
 author: "MedalPinSupply Engineering Team"
 category: "Coins & Military Insignia"
 summary: "Specify authentic 1.75-inch and 2.0-inch die-struck brass military and police challenge coins with 3.5mm heft and 6 CNC diamond-cut edge profiles."
-metaTitle: "Challenge Coins: Sizing, Thickness & Edge Guide"
-metaDescription: "Specify authentic 1.75-inch and 2.0-inch die-struck brass military and police challenge coins with 3.5mm heft and 6 CNC diamond-cut edge profiles."
+metaTitle: "Challenge Coin Size Guide: 1.5–2.5 Inch, Thickness, Edges"
+metaDescription: "Complete challenge coin size chart (1.5, 1.75, 2.0, 2.5 inch), 3.0–4.0mm thickness specs, weight benchmarks and 6 CNC diamond-cut edge profiles."
 featuredImage: "/images/insights/custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide-hero.webp"
 readTime: "10 min read"
 tags: ["Challenge Coins","Diamond-Cut Edge","Military Coins","Brass"]
@@ -16,7 +16,7 @@ relatedSkus: ["MPS-045","MPS-046","MPS-047","MPS-052","MPS-051","MPS-054","MPS-0
 
 <h2 id="engineering-overview-18">1. Engineering Overview: Challenge Coins — Sizing, Thickness & Edge</h2>
 
-<p><strong>Direct Answer:</strong> Military and law enforcement challenge coins stamp from solid C26000 brass in 1.75-inch and 2.0-inch diameters at 3.5mm thickness with six CNC diamond-cut edges: oblique, rope, spur, wave, crosscut, and reeded.</p>
+<p><strong>Direct Answer:</strong> Standard challenge coin size ranges from 1.5" to 2.5" — military and law enforcement units most commonly specify 1.75-inch (44.5mm) or 2.0-inch (50.8mm) die-struck solid C26000 brass coins at 3.5mm thickness with six CNC diamond-cut edges: oblique, rope, spur, wave, crosscut, and reeded.</p>
 
 <p>Wholesale buyers access factory-direct pricing from <strong>$1.45 to $3.10/pc</strong> on custom options like <a href="/products/military-3d-brass-challenge-coins">Custom Military 3D Die-Struck Brass Challenge Coins</a>. Every custom production run includes complimentary 12-hour vector proofs.</p>
 

@@ -205,6 +205,11 @@ export default {
 
     // 3. Legacy Shopify / BigCartel / bare /collections route 301 redirects
     const lowerPath = path.toLowerCase();
+    if (lowerPath === '/sitemap.xml') {
+      url.pathname = '/sitemap-index.xml';
+      url.search = '';
+      return Response.redirect(url.toString(), 301);
+    }
     if (lowerPath === '/checkout' || lowerPath.startsWith('/checkout/') || lowerPath === '/cart' || lowerPath.startsWith('/cart/')) {
       url.pathname = '/contact';
       url.search = '';
@@ -266,7 +271,11 @@ export default {
           }),
           {
             status: 200,
-            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              'X-Robots-Tag': 'noindex, nofollow',
+            },
           }
         );
       }

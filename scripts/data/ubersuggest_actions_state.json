@@ -1,7 +1,7 @@
 {
   "domain": "medalpinsupply.com",
   "projectId": "0b313e0a4c8185caaed40ab6e20421adb91e18f2a4ebe4580ba66c469cca724e",
-  "updatedAt": "2026-11-26T00:00:00Z",
+  "updatedAt": "2026-11-26T04:45:00Z",
   "siteAudit": {
     "title_short": {
       "status": "done",
@@ -12,10 +12,18 @@
       "note": "Expanded metaTitle on custom-hard-enamel-lapel-pins (55 chars) and custom-tinplate-button-badges (53 chars), and expanded Japanese col.trolley-coin-keyrings.short. Confirmed title_short = 0 in 2026-11-26 Ubersuggest recrawl."
     },
     "time_load_high": {
-      "status": "resolved_transient",
+      "status": "done",
       "resolvedAt": "2026-11-26T00:00:00Z",
+      "verifiedZeroAt": "2026-11-26T04:40:00Z",
+      "auditTaskId": "11260000-1221-0216-0000-2da89285cbeb",
+      "affectedCount": 0,
       "affectedUrl": "/ja/products/offset-printed-photo-lapel-pins",
-      "note": "Transient 10,287ms crawl spike overlapped with 00:31 deploy. Verified live HTTP 200 in 1.48s via curl; triggered recrawl to confirm clearance."
+      "note": "Confirmed 0 errors and 0 recommendations across all 4,014 crawled pages (Overall Score 98/100) in 2026-11-26 Ubersuggest recrawl (task 11260000-1221-0216-0000-2da89285cbeb)."
+    },
+    "sitemap_xml_404": {
+      "status": "done",
+      "resolvedAt": "2026-11-26T04:45:00Z",
+      "note": "Added edge 301 redirect from /sitemap.xml to /sitemap-index.xml and X-Robots-Tag: noindex, nofollow on GET /api/contact in src/worker.ts based on Cloudflare 6h Observability."
     },
     "favicon_404": {
       "status": "done",
@@ -135,6 +143,20 @@
       "R8: Expanded COL_LOCALE_FOCUS & COLLECTION_META_DESC_MAP across DE/ES/FR/NO/SV/JA/KO",
       "R9: Edge caching (/images/* 7d, /favicon.ico 30d), nosniff/Referrer-Policy headers & WebSite SearchAction JSON-LD added",
       "R10: Verified 11/11 rules, 4015-page title/meta bounds, auto commit+push, Cloudflare deploy & quota-safe Delta Indexing"
+    ]
+  },
+  "middaySnipingWave": {
+    "completedAt": "2026-11-26T04:45:00Z",
+    "targets": [
+      "bottle-opener-challenge-coins: Sniped 7-impression US cluster (metaDescription, overview, nonprofit/charity/brewery FAQ)",
+      "cut-out-hollow-sports-medals: Sniped US Pos 8.0 'cut out medal oem'",
+      "corporate-anniversary-coins: Sniped US Pos 23.0 'custom corporate milestone coins'",
+      "custom-glitter-enamel-pins: Sniped US Pos 15.0 'glitter enamel'",
+      "3d-pewter-lapel-pins: Sniped US Pos 15.0 'pewter pins'",
+      "custom-baseball-trading-pins: Sniped US Pos 21.0 'cheap baseball pins' & Pos 25.0 'custom trading pins baseball'",
+      "custom-military-and-law-enforcement-challenge-coins-sizing-edge-guide: Sniped US 3-imp 'challenge coin size' in metaTitle/metaDescription/Direct Answer",
+      "collections/[slug].astro: Added 'bulk cufflinks and tie clips' + EU locale focus tags for it/nl/cs/fi/da",
+      "worker.ts: Added /sitemap.xml -> /sitemap-index.xml 301 & X-Robots-Tag on GET /api/contact"
     ]
   }
 }
