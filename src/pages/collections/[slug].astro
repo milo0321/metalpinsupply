@@ -198,8 +198,8 @@ const breadcrumbSchema = {
 };
 
 const COLLECTION_SEO_TITLES: Record<string, string> = {
-  'custom-enamel-pins': `Custom Enamel Pins Manufacturer ($${minColPrice}+ · 24 Styles)`,
-  'custom-medals': `Custom Medals for Races & Awards ($${minColPrice}+ · 20 Styles)`,
+  'custom-enamel-pins': `Custom Enamel Pins Manufacturer ($${minColPrice}+ · ${products.length} Styles)`,
+  'custom-medals': `Custom Medals for Races & Awards ($${minColPrice}+ · ${products.length} Styles)`,
   'custom-challenge-coins': `Custom Challenge Coins Maker & Factory ($${minColPrice}+)`,
   'custom-metal-keychains': `Custom Metal Keychains Bulk & Wholesale ($${minColPrice}+)`,
   'trolley-coin-keyrings': `€1 & £1 Trolley Coin Keyrings ($${minColPrice}+ · 10 Styles)`,
@@ -211,9 +211,9 @@ const COLLECTION_SEO_TITLES: Record<string, string> = {
   'custom-metal-fridge-magnets': `Custom Fridge Magnets Bulk & Wholesale ($${minColPrice}+)`
 };
 const COLLECTION_SEO_DESCS: Record<string, string> = {
-  'custom-enamel-pins': `Custom enamel pins wholesale and metal lapel pins factory: ${products.length} styles ($${minColPrice}–$${maxColPrice}, MOQ 300, 12h free proof).`,
+  'custom-enamel-pins': `Custom enamel pins, lapel pin badges & hard/soft enamel factory: ${products.length} styles ($${minColPrice}–$${maxColPrice}, MOQ 300, 12h free proof).`,
   'custom-medals': `Custom-tooled 3D marathon, spinner & magnetic finisher medals + ribbons: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}, MOQ 300).`,
-  'custom-challenge-coins': `Custom challenge coins manufacturer and wholesale factory ($${minColPrice}–$${maxColPrice}): military 3D brass, 1.75–2.5 in, 6 edges and 12h free proof.`,
+  'custom-challenge-coins': `Customizable challenge coins maker & factory ($${minColPrice}–$${maxColPrice}): military & retirement 3D brass, 1.75–2.5 in, MOQ 50 & 12h free proof.`,
   'custom-metal-keychains': `Custom stamped metal keychains, 3D zinc, soft enamel, offset printed and leather keyrings: ${products.length} styles ($${minColPrice}–$${maxColPrice}), 12h proof.`,
   'trolley-coin-keyrings': `Custom-struck €1 Euro (23.25mm) & 12-sided UK £1 (23.43mm) supermarket trolley token keyrings: ${products.length} craft styles ($${minColPrice}–$${maxColPrice}).`,
   'police-badges-insignia': `3D curved police shields, sheriff stars, firefighter badges, security nameplates & military dog tags ($${minColPrice}–$${maxColPrice}).`,
@@ -254,8 +254,9 @@ const COL_LOCALE_FOCUS: Record<string, Partial<Record<string, string>>> = {
     ko: ' (하드/소프트 에나멜 직영)'
   },
   'custom-medals': {
-    de: ' — 3D Marathon-Medaillen',
+    de: ' — Laufmedaillen 3D',
     fr: ' — Médailles Marathon 3D',
+    nl: ' — Medaille Laten Maken',
     es: ' — Medallas Deportivas 3D',
     it: ' — Medaglie Sportive',
     da: ' — Guld, Sølv & Bronzemedaljer',
@@ -278,6 +279,15 @@ const COL_LOCALE_FOCUS: Record<string, Partial<Record<string, string>>> = {
     de: ' — Polizei- & Sicherheitsabzeichen',
     nl: ' — Security Badges'
   },
+  'executive-cufflinks-tie-bars': {
+    it: ' — Cufflinks & Gemelli'
+  },
+  'custom-golf-accessories': {
+    nl: ' — Golf Accessoires'
+  },
+  'patches-pvc-packaging': {
+    it: ' — Patch Economiche'
+  },
   'trolley-coin-keyrings': {
     de: ' (€1 23,25mm & £1 Chips)',
     fr: ' (Jetons €1 & £1 exacts)',
@@ -294,7 +304,8 @@ const COL_LOCALE_FOCUS: Record<string, Partial<Record<string, string>>> = {
   'custom-metal-fridge-magnets': {
     de: ' — Souvenir-Magnete ab Werk',
     fr: ' — Aimants Métal 3D Grossiste',
-    es: ' — Imanes Metálicos 3D'
+    es: ' — Imanes Metálicos 3D',
+    pl: ' — Producent 3D'
   }
 };
 const focusTag = (lang: string) => COL_LOCALE_FOCUS[collection.slug]?.[lang] || '';

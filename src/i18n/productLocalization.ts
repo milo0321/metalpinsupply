@@ -1019,6 +1019,52 @@ const PHRASE_TRANSLATIONS: Array<[string, Record<SupportedLanguage, string>]> = 
     }
   ],
   [
+    "Silk-Screen Printed",
+    {
+      "en": "Silk-Screen Printed",
+      "de": "Siebdruck",
+      "fr": "Sérigraphié",
+      "nl": "Zeefdruk",
+      "es": "Serigrafiado",
+      "it": "Serigrafato",
+      "pt": "Serigrafado",
+      "sv": "Screentryckt",
+      "da": "Silketrykt",
+      "no": "Silketrykt",
+      "fi": "Silkkipainettu",
+      "pl": "Sitodruk",
+      "cs": "Sítotisk",
+      "ru": "Шелкография",
+      "ja": "シルクスクリーン印刷",
+      "ko": "실크스크린 인쇄",
+      "id": "Cetak Sablon",
+      "ar": "طباعة سلك سكرين"
+    }
+  ],
+  [
+    "Stamped",
+    {
+      "en": "Stamped",
+      "de": "Geprägt",
+      "fr": "Estampé",
+      "nl": "Gestanst",
+      "es": "Troquelado",
+      "it": "Coniato",
+      "pt": "Estampado",
+      "sv": "Stansad",
+      "da": "Præget",
+      "no": "Preget",
+      "fi": "Meistetty",
+      "pl": "Tłoczony",
+      "cs": "Ražený",
+      "ru": "Штампованный",
+      "ja": "プレス打抜",
+      "ko": "스탬핑",
+      "id": "Cetak Tekan",
+      "ar": "مختوم"
+    }
+  ],
+  [
     "Double-Sided",
     {
       "en": "Double-Sided",
