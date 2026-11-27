@@ -112,10 +112,10 @@ function calibrateSeoDescription(raw: string, langCode: SupportedLanguage): stri
   }
 
   clean = clean.replace(/\s&\s/g, ' + ');
-  const prefix = `[${langCode.toUpperCase()}] `;
-  let full = clean.startsWith('[') ? clean : `${prefix}${clean}`;
-  if (full.length < 80) {
-    full = `${full.replace(/[。.]+$/, '')} · 158 Custom Pin, Medal & Coin Styles | MedalPinSupply.com.`;
+  let full = clean.replace(/^\[[A-Z]{2}\]\s*/i, '').trim();
+  const minDescLen = langCode === 'ja' || langCode === 'ko' ? 40 : 65;
+  if (full.length < minDescLen) {
+    full = `${full.replace(/[。.]+$/, '')} · ${t('pdp.noMoldFee')}.`;
   }
   if (htmlEncodedLen(full) <= 154) {
     return full;

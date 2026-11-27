@@ -5799,7 +5799,7 @@ export const ui: Record<SupportedLanguage, Record<string, string>> = {
     "catalog.weightMedium": "標準重量 (15〜55g · コイン/キーホルダー)",
     "catalog.weightHeavy": "重量級 (> 55g · 大型メダル・バックル)",
     "catalog.faqTitle": "よくある質問 — 全158仕様カスタム製造カタログ",
-    "pdp.readyMold": "工場標準仕様Style",
+    "pdp.readyMold": "100%カスタム金型製造",
     "pdp.blankMoq": "最小ロット",
     "pdp.logoMoq": "金型免除ライン",
     "pdp.variantSelectTitle": "メッキ仕上げ・サイズ・製法バリエーション比較:",
