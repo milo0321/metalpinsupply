@@ -24,16 +24,52 @@ function loadInsightLastmodMap() {
   if (!fs.existsSync(insightsDir)) return map;
   for (const file of fs.readdirSync(insightsDir)) {
     if (!file.endsWith('.md')) continue;
-    const raw = fs.readFileSync(path.join(insightsDir, file), 'utf8');
+    const full = path.join(insightsDir, file);
+    const raw = fs.readFileSync(full, 'utf8');
     const slug = (raw.match(/slug:\s*["']([^"']+)["']/) || [])[1] || file.replace(/\.md$/, '');
     const upd = (raw.match(/updatedDate:\s*["']([^"']+)["']/) || [])[1];
     const pub = (raw.match(/publishDate:\s*["']([^"']+)["']/) || [])[1];
     const d = upd || pub;
-    if (d && /^\d{4}-\d{2}-\d{2}$/.test(d)) {
-      map.set(slug, `${d}T08:00:00.000Z`);
+    const fmIso = d && /^\d{4}-\d{2}-\d{2}$/.test(d) ? `${d}T08:00:00.000Z` : '';
+    const statIso = fs.statSync(full).mtime.toISOString();
+    const chosen = fmIso && fmIso > statIso ? fmIso : statIso;
+    map.set(slug, chosen);
+  }
+  return map;
+}
+
+function loadProductLastmodMap() {
+  const map = new Map();
+  const productsDir = fileURLToPath(new URL('./src/content/products', import.meta.url));
+  if (!fs.existsSync(productsDir)) return map;
+  for (const file of fs.readdirSync(productsDir)) {
+    if (!file.endsWith('.json')) continue;
+    const full = path.join(productsDir, file);
+    try {
+      const data = JSON.parse(fs.readFileSync(full, 'utf8'));
+      const slug = data.slug || file.replace(/\.json$/, '');
+      map.set(slug, fs.statSync(full).mtime.toISOString());
+    } catch {
+      map.set(file.replace(/\.json$/, ''), fs.statSync(full).mtime.toISOString());
     }
   }
   return map;
+}
+
+function getLatestMtimeIso(relPaths, fallbackIso = '2026-11-26T08:00:00.000Z') {
+  let latest = '';
+  for (const rp of relPaths) {
+    try {
+      const abs = fileURLToPath(new URL(rp, import.meta.url));
+      if (fs.existsSync(abs)) {
+        const iso = fs.statSync(abs).mtime.toISOString();
+        if (!latest || iso > latest) latest = iso;
+      }
+    } catch {
+      // ignore missing path
+    }
+  }
+  return latest || fallbackIso;
 }
 
 function walkHtmlFiles(dir, acc = []) {
@@ -57,6 +93,12 @@ function multilingualSitemapIntegration() {
         fs.rmSync(path.join(distDir, 'sitemap-0.xml'), { force: true });
 
         const insightLastmodMap = loadInsightLastmodMap();
+        const productLastmodMap = loadProductLastmodMap();
+        const collectionsLastmod = getLatestMtimeIso([
+          './src/pages/collections/[slug].astro',
+          './src/data/collections.ts'
+        ]);
+        const defaultSiteLastmod = getLatestMtimeIso(['./src/pages/index.astro']);
         const perLocale = Object.fromEntries(LOCALES.map((l) => [l, []]));
 
         for (const file of walkHtmlFiles(distDir)) {
@@ -78,17 +120,17 @@ function multilingualSitemapIntegration() {
 
           let priority = '0.85';
           let changefreq = 'weekly';
-          let lastmod = '2026-11-24T05:00:00.000Z';
+          let lastmod = defaultSiteLastmod;
 
           if (basePath === '/') {
             priority = '1.0';
             changefreq = 'daily';
-            lastmod = '2026-11-24T08:00:00.000Z';
+            lastmod = defaultSiteLastmod;
           } else if (basePath.startsWith('/insights/')) {
             const slug = basePath.slice('/insights/'.length);
             priority = '0.85';
             changefreq = 'weekly';
-            lastmod = insightLastmodMap.get(slug) || '2026-11-24T08:00:00.000Z';
+            lastmod = insightLastmodMap.get(slug) || defaultSiteLastmod;
           } else if (
             basePath.startsWith('/collections/') ||
             basePath === '/products' ||
@@ -96,11 +138,12 @@ function multilingualSitemapIntegration() {
           ) {
             priority = '0.95';
             changefreq = 'weekly';
-            lastmod = '2026-11-24T08:00:00.000Z';
+            lastmod = collectionsLastmod;
           } else if (basePath.startsWith('/products/')) {
+            const slug = basePath.slice('/products/'.length);
             priority = '0.9';
             changefreq = 'weekly';
-            lastmod = '2026-11-24T06:00:00.000Z';
+            lastmod = productLastmodMap.get(slug) || defaultSiteLastmod;
           }
 
           perLocale[lang].push({ loc, priority, changefreq, lastmod });

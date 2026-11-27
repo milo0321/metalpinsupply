@@ -1,5 +1,6 @@
 import type { SupportedLanguage } from './config';
 import { useTranslations, getLocalizedPath } from './utils';
+import { localizeTitle, localizeMaterial, localizeHardwareOrMagnets, localizeColors } from './productLocalization';
 
 const INSIGHT_CATEGORIES: Record<string, Record<SupportedLanguage, string>> = {
   "Materials & Manufacturing": {
@@ -3529,7 +3530,7 @@ export function localizeInsightFaqs(slug: string, defaultFaqs: { question: strin
   ];
 }
 
-export function localizeInsightHtml(rawHtml: string, guideData: any, lang: SupportedLanguage): string {
+export function localizeInsightHtml(rawHtml: string, guideData: any, lang: SupportedLanguage, relatedProducts: any[] = []): string {
   if (lang === 'en') return rawHtml;
   const t = useTranslations(lang);
   const meta = localizeInsightMeta(guideData, lang);
@@ -3563,18 +3564,44 @@ export function localizeInsightHtml(rawHtml: string, guideData: any, lang: Suppo
   const pinsGuideUrl = getLocalizedPath(`/insights/${pinsGuideSlug}`, lang);
   const medalsGuideUrl = getLocalizedPath(`/insights/${medalsGuideSlug}`, lang);
   const toolingGuideUrl = getLocalizedPath(`/insights/${toolingGuideSlug}`, lang);
-  const customScopeLabel = `${t(`col.${(guideData.cols && guideData.cols[0]) || 'custom-enamel-pins'}.short` as any)}`;
 
-  return `
-<h2 id="section-1">1. ${meta.title}</h2>
-<p>${meta.summary}</p>
-<p>${t('home.geo.answer')}</p>
+  const hasSkus = Array.isArray(relatedProducts) && relatedProducts.length > 0;
+  const pcs = t('unit.pcs');
+  const pc = t('unit.pc');
+  const skuMatrixRows = hasSkus
+    ? relatedProducts
+        .map((prod: any) => {
+          const p = prod.data || prod;
+          const pUrl = getLocalizedPath(`/products/${p.slug}`, lang);
+          const pTitle = localizeTitle(p.title, lang);
+          const pMat = localizeMaterial(p.material, lang);
+          return `<tr>
+        <td><a href="${pUrl}"><strong>${pTitle}</strong></a></td>
+        <td>${pMat} · ${p.size} (${p.weight})</td>
+        <td>${p.moqNum || 100} ${pcs} · ${p.toolingFee}</td>
+        <td>$${p.tier100} / $${p.tier500} / <strong>$${p.tier2000}</strong></td>
+      </tr>`;
+        })
+        .join('\n')
+    : '';
 
-<div class="exec-callout-box">
-  <strong>${t('geo.metricTooling')}:</strong> ${t('geo.metricToolingVal')} · ${t('pdp.declQuote')}
-</div>
-
-<div class="geo-table-wrap">
+  const section1TableHtml = hasSkus
+    ? `<div class="geo-table-wrap">
+  <table class="geo-table">
+    <thead>
+      <tr>
+        <th>${t('col.thName')}</th>
+        <th>${t('col.thMaterial')} · ${t('col.thSizeWeight')}</th>
+        <th>MOQ · ${t('col.thLogo')}</th>
+        <th>${t('pdp.pricingTitle')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${skuMatrixRows}
+    </tbody>
+  </table>
+</div>`
+    : `<div class="geo-table-wrap">
   <table class="geo-table">
     <thead>
       <tr>
@@ -3605,12 +3632,40 @@ export function localizeInsightHtml(rawHtml: string, guideData: any, lang: Suppo
       </tr>
     </tbody>
   </table>
+</div>`;
+
+  const skuCraftBulletsHtml = hasSkus
+    ? `<ul class="localized-sku-specs">
+  ${relatedProducts
+    .map((prod: any) => {
+      const p = prod.data || prod;
+      const pUrl = getLocalizedPath(`/products/${p.slug}`, lang);
+      const pTitle = localizeTitle(p.title, lang);
+      const pMat = localizeMaterial(p.material, lang);
+      const pAtt = localizeHardwareOrMagnets(p.attachmentEn, lang);
+      const pPlating = localizeColors(p.platingEn, lang);
+      return `<li><a href="${pUrl}"><strong>${pTitle}</strong></a> (${p.sku}): ${pMat}, ${p.size}, ${p.weight} · ${pPlating} · ${pAtt} · ${p.leadTime} ($${p.tier2000}–$${p.tier100}/${pc})</li>`;
+    })
+    .join('\n  ')}
+</ul>`
+    : '';
+
+  return `
+<h2 id="section-1">1. ${meta.title}</h2>
+<p>${meta.summary}</p>
+<p>${t('home.geo.answer')}</p>
+
+<div class="exec-callout-box">
+  <strong>${t('geo.metricTooling')}:</strong> ${t('geo.metricToolingVal')} · ${t('pdp.declQuote')}
 </div>
+
+${section1TableHtml}
 
 ${fig1}
 
 <h2 id="section-2">2. ${t('brand.compTitle')}</h2>
 <p>${t('brand.geoAnswer')}</p>
+${skuCraftBulletsHtml}
 
 <div class="geo-table-wrap">
   <table class="geo-table">

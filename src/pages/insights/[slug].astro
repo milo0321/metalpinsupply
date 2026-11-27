@@ -35,7 +35,7 @@ const rawGuideHtml = guide.rendered?.html || guide.body || '';
 const localizedGuideHtml =
   currentLang === 'en'
     ? rawGuideHtml
-    : localizeInsightHtml(rawGuideHtml, guide.data, currentLang).replace(
+    : localizeInsightHtml(rawGuideHtml, guide.data, currentLang, relatedProducts).replace(
         /href="(\/(?:products|collections|insights|custom-branding|custom-packaging|compliance-safety|about|contact)[^"]*)"/g,
         (_m: string, p1: string) => `href="${getLocalizedPath(p1, currentLang)}"`
       );
