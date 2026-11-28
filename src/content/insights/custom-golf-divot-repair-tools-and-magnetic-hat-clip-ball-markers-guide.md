@@ -2,7 +2,7 @@
 title: "Custom Golf Divot Repair Tools & Magnetic Ball Markers: Charity Tournament & Pro-Shop Playbook"
 slug: "custom-golf-divot-repair-tools-and-magnetic-hat-clip-ball-markers-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-25"
+updatedDate: "2026-11-28"
 author: "MedalPinSupply Engineering Team"
 category: "Executive, Golf & Souvenirs"
 summary: "Specify magnetic 2-prong divot tools, folding switchblade forks, visor hat clips, antique brass/poker chip markers, and tournament window tin sets."
@@ -136,6 +136,8 @@ relatedSkus: ["MPS-119","MPS-120","MPS-121","MPS-122","MPS-123","MPS-124","MPS-1
 <p>Mounting finished pieces on <a href="/products/custom-pin-backing-cards">Custom Printed Retail Backing Cards for Enamel Pins</a> prepares retail hooks cleanly before air courier dispatch.</p>
 
 <p>Commemorative editions paired with <a href="/products/acrylic-coin-capsules-stands">Clear Acrylic Challenge Coin Capsules & Display Stands</a>, <a href="/products/velvet-presentation-boxes">Custom Velvet Presentation Boxes (Medals, Coins & Cufflinks)</a>, or <a href="/products/deluxe-award-display-cases">Custom Leatherette & Wooden Deluxe Award Cases</a> prevent transit scuffing.</p>
+
+<p>For full-course charity outings and country club member-guest tee gifts, tournament organizers frequently bundle magnetic divot forks and metal bag tags with custom-embroidered waffle or magnetic putting-green <a href="https://towelsourcing.com/collections/golf-club-towels" target="_blank" rel="noopener">wholesale golf club towels from TowelSourcing</a> so every player receives a coordinated metal-and-textile kit at registration.</p>
 
 <div class="geo-table-wrap">
   <table class="geo-table">

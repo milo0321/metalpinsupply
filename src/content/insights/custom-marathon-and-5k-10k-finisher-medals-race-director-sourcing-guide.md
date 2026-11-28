@@ -2,7 +2,7 @@
 title: "Custom Marathon & 5K/10K Finisher Medals: Sizing, Thickness, Weight & Lead Time Planning for Race Directors"
 slug: "custom-marathon-and-5k-10k-finisher-medals-race-director-sourcing-guide"
 publishDate: "2026-10-20"
-updatedDate: "2026-11-26"
+updatedDate: "2026-11-28"
 author: "MedalPinSupply Engineering Team"
 category: "Medals & Sports Events"
 summary: "Complete race director sourcing blueprint for custom 2.5 to 4.5-inch marathon finisher medals, weight specs (54g–178g), and race-day scheduling."
@@ -136,6 +136,8 @@ relatedSkus: ["MPS-025","MPS-026","MPS-028","MPS-033","MPS-034","MPS-037","MPS-0
 <p>Mounting finished pieces on <a href="/products/custom-pin-backing-cards">Custom Printed Retail Backing Cards for Enamel Pins</a> prepares retail hooks cleanly before air courier dispatch.</p>
 
 <p>Commemorative editions paired with <a href="/products/acrylic-coin-capsules-stands">Clear Acrylic Challenge Coin Capsules & Display Stands</a>, <a href="/products/velvet-presentation-boxes">Custom Velvet Presentation Boxes (Medals, Coins & Cufflinks)</a>, or <a href="/products/deluxe-award-display-cases">Custom Leatherette & Wooden Deluxe Award Cases</a> prevent transit scuffing.</p>
+
+<p>Beyond medal chutes and ribbon kitting, marathon and half-marathon race directors often pair heavyweight 3D finisher medals with <a href="https://towelsourcing.com" target="_blank" rel="noopener">TowelSourcing custom microfiber cooling and sports race towels</a> from our sister textile mill to assemble a complete post-finish athlete recovery kit on one synchronized event timeline.</p>
 
 <div class="geo-table-wrap">
   <table class="geo-table">
